@@ -1,0 +1,3 @@
+ID,Name,IsHero,IsAOE,AttackRange,Damage,MaxHP,MoveSpeed,SpawnInterval,Cost,Hitback
+1001,Swordman,false,true,1.5,30,100,5,2,50,2,
+1002,Bowman,false,false,3.5,30,100,5,2,50,100,
