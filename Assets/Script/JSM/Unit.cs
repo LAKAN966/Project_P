@@ -45,10 +45,10 @@ public class Unit : MonoBehaviour
         switch (state)
         {
             case UnitState.Moving:
-                MoveForward();
                 TryDetectEnemy();
+                MoveForward();
                 break;
-            case UnitState.Fighting:
+            case UnitState.Idle:
                 TryAttack();
                 break;
         }
@@ -105,7 +105,6 @@ public class Unit : MonoBehaviour
 
     private void MoveForward()
     {
-        UpdateAnimation();
         float dir = isEnemy ? -1f : 1f;
         transform.position += new Vector3(dir * stats.MoveSpeed * Time.deltaTime, 0, 0);
 
@@ -127,7 +126,7 @@ public class Unit : MonoBehaviour
             if (enemy.state == UnitState.Hitback || enemy.state == UnitState.Dead)
                 return;
             target = enemy.transform;
-            SetState(UnitState.Fighting);
+            SetState(UnitState.Idle);
         }
     }
 
@@ -140,7 +139,6 @@ public class Unit : MonoBehaviour
             SetState(UnitState.Moving);
             return;
         }
-
         attackCoroutine = StartCoroutine(AttackRoutine());
     }
 
@@ -148,7 +146,6 @@ public class Unit : MonoBehaviour
     {
         isAttacking = true;
 
-        SetState(UnitState.Idle);
         yield return new WaitForSeconds(stats.PreDelay);
 
         SetState(UnitState.Fighting);
@@ -183,7 +180,6 @@ public class Unit : MonoBehaviour
         SetState(UnitState.Moving);
         isAttacking = false;
     }
-
 
     public void TakeDamage(float amount)
     {
@@ -276,7 +272,7 @@ public class Unit : MonoBehaviour
 
     private void SetState(UnitState newState)
     {
-        if (state == newState) return;
+        if (state == newState && currentAnimState != PlayerState.OTHER) return;
         state = newState;
         UpdateAnimation();
         Debug.Log(isEnemy+" : "+state);
@@ -291,7 +287,6 @@ public class Unit : MonoBehaviour
         {
             currentAnimState = newAnim;
             spumController.PlayAnimation(newAnim, 0);
-            Debug.Log(newAnim+"실행중!!!!!!!");
         }
     }
 
