@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,6 +23,16 @@ public class MyUnitList
     {
         return myList.Exists(unit => unit.ID == id);
 
+    }
+
+    public List<UnitStats> GetAllNormalUnit() // 현재 보유 유닛 리스트에서 일반 유닛만 리스트화 하기. UI 필터 적용. 추가 기능 더 필요함.
+    {
+        return myList.Where(unit => unit.IsHero == false ).ToList();
+    }
+
+    public List<UnitStats> GetAllLeaderUnit() // 현재 보유 유닛 리스트에서 리더 유닛만 리스트화 하기.
+    {
+        return myList.Where(unit => unit.IsHero).ToList();
     }
 
     /// <summary>
