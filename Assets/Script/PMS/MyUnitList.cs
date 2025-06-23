@@ -13,6 +13,7 @@ public class MyUnitList
     {
         if (myList.Exists(unit => unit.ID == id)) return false;
 
+        
         myList.Add(new UnitStats { ID = id });
         return true;
     }
@@ -24,13 +25,13 @@ public class MyUnitList
     }
 
 
-    public void SaveMyList()
+    public void SaveMyList() // 나의 보유 유닛 리스트 저장. 동일한 키값으로 이전의 값을 계속 덮어 씌우는 것이기 때문에, 뽑기 후에 진행.
     {
         string json = JsonUtility.ToJson(this);
         PlayerPrefs.SetString("MyUnitList", json);
     }
 
-    public static MyUnitList LoadMyList() // 리스트 불러오기? 있어야 할듯? 저장을 어떻게 하는지에 따라서 추가 될 내용있음.
+    public static MyUnitList LoadMyList() 
     {
         string json = PlayerPrefs.GetString("MyUnitList", "");
         if (string.IsNullOrEmpty(json)) return new MyUnitList();
