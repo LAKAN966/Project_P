@@ -40,7 +40,7 @@ public class DeckData
             return false;
         }
 
-        leaderUnit = new DeckList { myUnitID = myUnitID };
+        leaderUnit = new DeckList { myUnitID = myUnitID }; // 리더 유닛은 1개만 사용함.
         return true;
     }
 

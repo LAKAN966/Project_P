@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-
+// 내가 가지고 있는 유닛 리스트. 인벤토리와 같은 역할. 뽑기 진행시 유닛을 추가 시킬 곳.
 public class MyUnitList 
 {
     
@@ -24,7 +24,9 @@ public class MyUnitList
 
     }
 
-
+    /// <summary>
+    /// 현재 게임을 껐다가 켰을 때 이 전의 데이터를 저장해야 할 필요가 있을까? 굳이? 없어도 되는 함수긴 함.
+    /// </summary>
     public void SaveMyList() // 나의 보유 유닛 리스트 저장. 동일한 키값으로 이전의 값을 계속 덮어 씌우는 것이기 때문에, 뽑기 후에 진행.
     {
         string json = JsonUtility.ToJson(this);
