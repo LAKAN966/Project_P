@@ -17,9 +17,9 @@ public class MyUnitList
         return true;
     }
 
-    public bool HasUnit(int id)
+    public bool HasUnit(int id) // 보유중인지 체크
     {
-        return myList.Exists(unit => unit.ID == id); // 보유중인지 체크
+        return myList.Exists(unit => unit.ID == id);
 
     }
 
