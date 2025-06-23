@@ -27,12 +27,12 @@ public class MyUnitList
     public void SaveMyList()
     {
         string json = JsonUtility.ToJson(this);
-        PlayerPrefs.SetString("OwnedCats", json);
+        PlayerPrefs.SetString("MyUnitList", json);
     }
 
     public static MyUnitList LoadMyList() // 리스트 불러오기? 있어야 할듯? 저장을 어떻게 하는지에 따라서 추가 될 내용있음.
     {
-        string json = PlayerPrefs.GetString("OwnedCats", "");
+        string json = PlayerPrefs.GetString("MyUnitList", "");
         if (string.IsNullOrEmpty(json)) return new MyUnitList();
         return JsonUtility.FromJson<MyUnitList>(json);
     }
