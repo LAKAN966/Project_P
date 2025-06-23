@@ -10,17 +10,17 @@ public class DeckList
 }
 public class DeckData
 {
-    public List<DeckList> deckList = new(); // µ¶ ∏ÆΩ∫∆Æ ∏∏µÈ±‚. ¿œπ› ¿Ø¥÷.
-    public DeckList leaderUnit; // ∏Æ¥ı ¿Ø¥÷.
+    public List<DeckList> deckList = new(); // Îç± Î¶¨Ïä§Ìä∏ ÎßåÎì§Í∏∞. ÏùºÎ∞ò Ïú†Îãõ.
+    public DeckList leaderUnit; // Î¶¨Îçî Ïú†Îãõ.
 
-    public bool Contains(int myUnitID) // µ¶ ∏ÆΩ∫∆Æø°º≠ æ∆¿Ãµ ∞™¿∏∑Œ »Æ¿Œ «‘ºˆ.
+    public bool Contains(int myUnitID) // Îç± Î¶¨Ïä§Ìä∏ÏóêÏÑú ÏïÑÏù¥Îîî Í∞íÏúºÎ°ú ÌôïÏù∏ Ìï®Ïàò.
     {
         return deckList.Any(unit => unit.myUnitID == myUnitID) || (leaderUnit != null && leaderUnit.myUnitID == myUnitID);
     }
 
-    public bool AddNormalUnit(int myUnitID) // ¿œπ› µ¶ ±∏º∫ «‘ºˆ.
+    public bool AddNormalUnit(int myUnitID) // ÏùºÎ∞ò Îç± Íµ¨ÏÑ± Ìï®Ïàò.
     {
-        if(deckList.Count >= 6 || Contains(myUnitID)) // ¿œπ› µ¶ ±∏º∫¿Œø¯ √÷¥Î 6∏Ì.
+        if(deckList.Count >= 6 || Contains(myUnitID)) // ÏùºÎ∞ò Îç± Íµ¨ÏÑ±Ïù∏Ïõê ÏµúÎåÄ 6Î™Ö.
         {
             return false;
         }
@@ -29,14 +29,14 @@ public class DeckData
         return true;
     }
 
-    public bool SetLeaderUnit(int myUnitID) // ∏Æ¥ı ¿Ø¥÷ ºº∆√ «‘ºˆ.
+    public bool SetLeaderUnit(int myUnitID) // Î¶¨Îçî Ïú†Îãõ ÏÑ∏ÌåÖ Ìï®Ïàò.
     {
         if (Contains(myUnitID)) return false;
 
-        UnitStats stat = DataManager.Instance.GetStats(myUnitID); // Ω∫≈›ø°º≠ IsHero bool ∞™¿∏∑Œ »Æ¿Œ.
+        UnitStats stat = DataManager.Instance.GetStats(myUnitID); // Ïä§ÌÖüÏóêÏÑú IsHero bool Í∞íÏúºÎ°ú ÌôïÏù∏.
         if (stat == null || !stat.IsHero)
         {
-            Debug.LogWarning($"¿Ø¥÷ {myUnitID}¥¬ ∏Æ¥ı∑Œ º≥¡§«“ ºˆ æ¯Ω¿¥œ¥Ÿ (IsHero = false)");
+            Debug.LogWarning($"Ïú†Îãõ {myUnitID}Îäî Î¶¨ÎçîÎ°ú ÏÑ§Ï†ïÌï† Ïàò ÏóÜÏäµÎãàÎã§ (IsHero = false)");
             return false;
         }
 
@@ -44,7 +44,7 @@ public class DeckData
         return true;
     }
 
-    public void RemovUnit(int myUnitID) // µ¶ ∏ÆΩ∫∆Æø°º≠ ¿Ø¥÷ ¡¶∞≈ «‘ºˆ.
+    public void RemovUnit(int myUnitID) // Îç± Î¶¨Ïä§Ìä∏ÏóêÏÑú Ïú†Îãõ Ï†úÍ±∞ Ìï®Ïàò.
     {
         deckList.RemoveAll(unit => unit.myUnitID == myUnitID);
 
@@ -52,5 +52,17 @@ public class DeckData
         {
             leaderUnit = null;
         }
+    }
+
+    public void SaveDeck() // Îç± Î¶¨Ïä§Ìä∏ ÏÑ§Ï†ï Ï†ÄÏû•. ÌÇ§ Í∞íÎßå Ï†ÄÏû•.
+    {
+        string json = JsonUtility.ToJson(this);
+        PlayerPrefs.SetString("DeckData", json);
+    }
+
+    public static DeckData LoadDeck() // Îç± Î¶¨Ïä§Ìä∏ ÏÑ§Ï†ï Î∂àÎü¨Ïò§Í∏∞.
+    {
+        string json = PlayerPrefs.GetString("DeckData", "");
+        return string.IsNullOrEmpty(json) ? new DeckData() : JsonUtility.FromJson<DeckData>(json);
     }
 }

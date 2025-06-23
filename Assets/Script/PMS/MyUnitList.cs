@@ -9,7 +9,7 @@ public class MyUnitList
     
     public List<UnitStats> myList = new();
 
-    public bool AddUnit (int id) // À¯´Ö Ãß°¡ ¸Ş¼­µå. À¯´ÖÀÇ µ¿ÀÏÇÑ ¾ÆÀÌµğ È®ÀÎÇØ¼­ bool °ª ¹İÈ¯.
+    public bool AddUnit (int id) // ìœ ë‹› ì¶”ê°€ ë©”ì„œë“œ. ìœ ë‹›ì˜ ë™ì¼í•œ ì•„ì´ë”” í™•ì¸í•´ì„œ bool ê°’ ë°˜í™˜.
     {
         if (myList.Exists(unit => unit.ID == id)) return false;
 
@@ -17,20 +17,23 @@ public class MyUnitList
         return true;
     }
 
-    public bool HasUnit(int id) // º¸À¯ÁßÀÎÁö Ã¼Å©
+    public bool HasUnit(int id) // ë³´ìœ ì¤‘ì¸ì§€ ì²´í¬
     {
         return myList.Exists(unit => unit.ID == id);
 
     }
 
 
-    public void SaveList() // ÀúÀå? ÀÖ¾î¾ß ÇÒ±î?
+    public void SaveMyList()
     {
-
+        string json = JsonUtility.ToJson(this);
+        PlayerPrefs.SetString("OwnedCats", json);
     }
 
-    public static MyUnitList LoadList() // ¸®½ºÆ® ºÒ·¯¿À±â? ÀÖ¾î¾ß ÇÒµí? ÀúÀåÀ» ¾î¶»°Ô ÇÏ´ÂÁö¿¡ µû¶ó¼­ Ãß°¡ µÉ ³»¿ëÀÖÀ½.
+    public static MyUnitList LoadMyList() // ë¦¬ìŠ¤íŠ¸ ë¶ˆëŸ¬ì˜¤ê¸°? ìˆì–´ì•¼ í• ë“¯? ì €ì¥ì„ ì–´ë–»ê²Œ í•˜ëŠ”ì§€ì— ë”°ë¼ì„œ ì¶”ê°€ ë  ë‚´ìš©ìˆìŒ.
     {
-        return null;
+        string json = PlayerPrefs.GetString("OwnedCats", "");
+        if (string.IsNullOrEmpty(json)) return new MyUnitList();
+        return JsonUtility.FromJson<MyUnitList>(json);
     }
 }
