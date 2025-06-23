@@ -2,9 +2,10 @@
 public class UnitStats
 {
     public int ID;
-    public string Name;
+    public string Name;//유닛 이름
+    public string Description;//유닛 설명
     public int RaceID;//종족명
-    public bool IsHero;
+    public bool IsHero;//영웅유닛
     public bool IsAOE;//범위공격
     public float AttackRange;//사거리
     public float Damage;//데미지
@@ -13,6 +14,8 @@ public class UnitStats
     public float SpawnInterval;//스폰 쿨타임
     public int Cost;//소환 코스트/보상 코스트
     public int Hitback;//넉백 체력의 n-1/n ~ 1/n일때 넉백
-    public float PreDelay;
-    public float PostDelay;
+    public float PreDelay;//공격 선딜레이
+    public float PostDelay;//공격 후딜레이
+    public string ModelName;//모델링 이름
+    public int AttackType;//공격 타입
 }

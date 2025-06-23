@@ -49,17 +49,22 @@ MonoBehaviour:
   stats:
     ID: 0
     Name: 
+    RaceID: 0
     IsHero: 0
     IsAOE: 0
     AttackRange: 0
     Damage: 0
     MaxHP: 0
     MoveSpeed: 0
-    DetectRange: 0
     SpawnInterval: 0
     Cost: 0
     Hitback: 0
+    PreDelay: 0
+    PostDelay: 0
+    ModelName: 
+    AttackType: 0
   isEnemy: 0
+  spriteRoot: {fileID: 3993383533659920783}
 --- !u!61 &7548277663470892060
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -209,9 +214,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2

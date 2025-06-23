@@ -13,34 +13,34 @@ public enum UnitState
 
 public class Unit : MonoBehaviour
 {
-    public UnitStats stats;     // null이면 비활성화 상태
+    public UnitStats stats;
     public bool isEnemy;
+
+    [SerializeField] private Transform spriteRoot;
 
     private Transform target;
     private float currentHP;
-    private float attackCooldown;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
+    private bool isAttacking = false;
 
     private UnitState state;
+    private PlayerState currentAnimState = PlayerState.OTHER;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private SPUM_Prefabs spumController;
+    private readonly Queue<IEnumerator> hitbackQueue = new();
+    private readonly HashSet<int> triggeredHitbackZones = new();
 
-    private HashSet<int> triggeredHitbackZones = new();
-    private Queue<IEnumerator> hitbackQueue = new();
-    private bool isHitbackRunning = false;
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
-        if (stats != null)
-            Initialize();
-        else
-            gameObject.SetActive(false);
+        if (stats != null) Initialize();
+        else gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if (stats == null || state == UnitState.Dead || state == UnitState.Hitback) return;
+        if (stats == null) return;
 
         switch (state)
         {
@@ -61,12 +61,51 @@ public class Unit : MonoBehaviour
         SetState(UnitState.Moving);
         gameObject.SetActive(true);
 
-        int layer = LayerMask.NameToLayer(isEnemy ? "Enemy" : "Ally");
-        SetLayerRecursively(gameObject, layer);
+        SetLayerRecursively(gameObject, LayerMask.NameToLayer(isEnemy ? "Enemy" : "Ally"));
+        LoadModel();
+    }
+
+    private void LoadModel()
+    {
+        if (spriteRoot == null)
+        {
+            Debug.LogWarning("SpriteRoot가 설정되지 않았습니다.");
+            return;
+        }
+
+        string path = $"SPUM/{stats.ModelName}";
+        var modelPrefab = Resources.Load<GameObject>(path);
+
+        if (modelPrefab == null)
+        {
+            Debug.LogWarning($"모델 프리팹을 찾을 수 없습니다: {path}");
+            return;
+        }
+
+        foreach (Transform child in spriteRoot)
+            Destroy(child.gameObject);
+
+        GameObject instance = Instantiate(modelPrefab, spriteRoot);
+        instance.transform.localPosition = Vector3.zero;
+        instance.transform.localRotation = Quaternion.identity;
+
+        if (!isEnemy)
+        {
+            var scale = instance.transform.localScale;
+            scale.x *= -1f;
+            instance.transform.localScale = scale;
+        }
+
+        spumController = instance.GetComponent<SPUM_Prefabs>();
+        spumController.OverrideControllerInit();
+        spumController.PopulateAnimationLists();
+
+        animator = spumController.GetComponentInChildren<Animator>();
     }
 
     private void MoveForward()
     {
+        UpdateAnimation();
         float dir = isEnemy ? -1f : 1f;
         transform.position += new Vector3(dir * stats.MoveSpeed * Time.deltaTime, 0, 0);
 
@@ -74,46 +113,54 @@ public class Unit : MonoBehaviour
             spriteRenderer.flipX = isEnemy;
     }
 
-    void TryDetectEnemy()
+    private void TryDetectEnemy()
     {
-        Vector2 origin = new Vector2(transform.position.x, transform.position.y);
+        Vector2 origin = transform.position;
         Vector2 direction = isEnemy ? Vector2.left : Vector2.right;
+        var layerMask = LayerMask.GetMask(isEnemy ? "Ally" : "Enemy");
 
-        RaycastHit2D hit = Physics2D.Raycast(
-            origin,
-            direction,
-            stats.AttackRange,
-            LayerMask.GetMask(isEnemy ? "Ally" : "Enemy")
-        );
-
+        var hit = Physics2D.Raycast(origin, direction, stats.AttackRange, layerMask);
         Debug.DrawRay(origin, direction * stats.AttackRange, Color.red);
 
-        if (hit.collider != null)
+        if (hit.collider?.GetComponent<Unit>() is Unit enemy)
         {
-            Unit enemy = hit.collider.GetComponent<Unit>();
-            if (enemy != null)
-            {
-                target = enemy.transform;
-                SetState(UnitState.Fighting);
-            }
+            if (enemy.state == UnitState.Hitback || enemy.state == UnitState.Dead)
+                return;
+            target = enemy.transform;
+            SetState(UnitState.Fighting);
         }
     }
 
-
     private void TryAttack()
     {
-        if (target == null || !target.gameObject.activeInHierarchy || Vector2.Distance(transform.position, target.position) > stats.AttackRange)
+        if (isAttacking) return;
+        Debug.Log("공습경보!");
+
+        if (target == null || !target.gameObject.activeInHierarchy)
         {
+            target = null;
             SetState(UnitState.Moving);
             return;
         }
 
-        attackCooldown -= Time.deltaTime;
-        if (attackCooldown > 0) return;
+        StartCoroutine(AttackRoutine());
+    }
 
+    private IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+
+        SetState(UnitState.Idle);
+        yield return new WaitForSeconds(stats.PreDelay);
+
+        SetState(UnitState.Fighting);
+
+        float attackAnimLength = spumController.GetAnimationLength(PlayerState.ATTACK);
+        yield return new WaitForSeconds(attackAnimLength);
+
+        // 데미지 처리
         if (stats.IsAOE)
         {
-            // 범위 내 모든 적 유닛 공격
             Vector2 center = transform.position;
             float radius = stats.AttackRange;
             int enemyLayer = LayerMask.NameToLayer(isEnemy ? "Ally" : "Enemy");
@@ -129,108 +176,81 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            // 단일 대상 공격
-            var unit = target.GetComponent<Unit>();
+            var unit = target?.GetComponent<Unit>();
             if (unit != null)
                 unit.TakeDamage(stats.Damage);
         }
-        attackCooldown = 1f;
+
+        yield return new WaitForSeconds(stats.PostDelay);
+        SetState(UnitState.Moving);
+
+        isAttacking = false;
     }
 
     public void TakeDamage(float amount)
     {
-        if (stats == null || state == UnitState.Hitback) return;
+        if (stats == null || state is UnitState.Hitback or UnitState.Dead) return;
 
         float oldHP = currentHP;
         currentHP -= amount;
 
-        if (stats.Hitback > 0)
-        {
-            float slice = stats.MaxHP / stats.Hitback;
-
-            for (int i = stats.Hitback; i >= 1; i--)
-            {
-                float lowerBound = slice * (i - 1);
-
-                if (oldHP > lowerBound && currentHP <= lowerBound && !triggeredHitbackZones.Contains(i))
-                {
-                    triggeredHitbackZones.Add(i);
-                    hitbackQueue.Enqueue(DoHitback());
-                }
-            }
-        }
-
         if (currentHP <= 0)
         {
-            hitbackQueue.Enqueue(Die());
-        }
-
-        if (!isHitbackRunning && hitbackQueue.Count > 0)
-            StartCoroutine(ProcessHitbackQueue());
-    }
-
-
-    private IEnumerator Die()
-    {
-        yield return StartCoroutine(DoHitback());
-        SetState(UnitState.Dead);
-        stats = null;
-        target = null;
-        attackCooldown = 0f;
-        
-        var pool = GetComponentInParent<UnitPool>();
-        if (pool != null)
-        {
-            pool.ReturnUnit(this);
+            StartCoroutine(Die());
         }
         else
         {
-            gameObject.SetActive(false);
+            float slice = stats.MaxHP / Mathf.Max(stats.Hitback, 1);
+            for (int i = stats.Hitback; i >= 1; i--)
+            {
+                float threshold = slice * (i - 1);
+                if (oldHP > threshold && currentHP <= threshold && !triggeredHitbackZones.Contains(i))
+                {
+                    triggeredHitbackZones.Add(i);
+                    StartCoroutine(DoHitback());
+                    break;
+                }
+            }
         }
     }
 
-    private void SetState(UnitState newState)
+    private IEnumerator Die()
     {
-        if (state == newState) return;
-        state = newState;
+        isAttacking = false;
+        SetState(UnitState.Dead);
 
+        stats = null;
+        target = null;
+
+        float deathAnimTime = 0f;
         if (animator != null)
-            animator.SetInteger("State", (int)state);
-    }
-    private void SetLayerRecursively(GameObject obj, int layer)
-    {
-        obj.layer = layer;
-        foreach (Transform child in obj.transform)
-            SetLayerRecursively(child.gameObject, layer);
-    }
-    private IEnumerator ProcessHitbackQueue()
-    {
-        isHitbackRunning = true;
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            deathAnimTime = stateInfo.length;
+        }
+        yield return new WaitForSeconds(deathAnimTime > 0 ? deathAnimTime : 1f);
 
-        while (hitbackQueue.Count > 0)
-            yield return StartCoroutine(hitbackQueue.Dequeue());
-
-        isHitbackRunning = false;
+        var pool = GetComponentInParent<UnitPool>();
+        if (pool != null) pool.ReturnUnit(this);
+        else gameObject.SetActive(false);
     }
 
     private IEnumerator DoHitback()
     {
+        isAttacking = false;
         SetState(UnitState.Hitback);
-
         int originalLayer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 
         float duration = 0.5f;
-        float knockbackDistance = 1f;
-        float elapsed = 0f;
-
         Vector3 start = transform.position;
-        Vector3 end = start + new Vector3(isEnemy ? 1f : -1f, 0f, 0f) * knockbackDistance;
+        Vector3 end = start + new Vector3(isEnemy ? 1f : -1f, 0f, 0f);
 
-        while (elapsed < duration)
+        float t = 0f;
+        while (t < duration)
         {
-            transform.position = Vector3.Lerp(start, end, elapsed / duration);
-            elapsed += Time.deltaTime;
+            transform.position = Vector3.Lerp(start, end, t / duration);
+            t += Time.deltaTime;
             yield return null;
         }
 
@@ -240,4 +260,41 @@ public class Unit : MonoBehaviour
         SetState(UnitState.Moving);
     }
 
+    private void SetState(UnitState newState)
+    {
+        if (state == newState) return;
+        state = newState;
+        UpdateAnimation();
+        Debug.Log(state);
+    }
+
+    private void UpdateAnimation()
+    {
+        if (spumController == null || !spumController.allListsHaveItemsExist()) return;
+
+        PlayerState newAnim = ConvertToPlayerState(state);
+        if (newAnim != currentAnimState)
+        {
+            currentAnimState = newAnim;
+            spumController.PlayAnimation(newAnim, 0);
+            Debug.Log(newAnim+"실행중!!!!!!!");
+        }
+    }
+
+    private PlayerState ConvertToPlayerState(UnitState unitState) => unitState switch
+    {
+        UnitState.Idle => PlayerState.IDLE,
+        UnitState.Moving => PlayerState.MOVE,
+        UnitState.Fighting => PlayerState.ATTACK,
+        UnitState.Hitback => PlayerState.DAMAGED,
+        UnitState.Dead => PlayerState.DEATH,
+        _ => PlayerState.OTHER
+    };
+
+    private void SetLayerRecursively(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform)
+            SetLayerRecursively(child.gameObject, layer);
+    }
 }

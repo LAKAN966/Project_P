@@ -201,4 +201,17 @@ public class SPUM_Prefabs : MonoBehaviour
         
         return clip;
     }
+    public float GetAnimationLength(PlayerState state, int index = 0)
+    {
+        string key = state.ToString();
+        if (StateAnimationPairs.TryGetValue(key, out var list) && list.Count > index)
+        {
+            return list[index].length;
+        }
+        else
+        {
+            Debug.LogWarning($"애니메이션 길이를 가져올 수 없습니다: {key} (index: {index})");
+            return 0f;
+        }
+    }
 }
