@@ -3,6 +3,7 @@ public class UnitStats
 {
     public int ID;
     public string Name;
+    public int RaceID;//종족명
     public bool IsHero;
     public bool IsAOE;//범위공격
     public float AttackRange;//사거리
@@ -12,5 +13,6 @@ public class UnitStats
     public float SpawnInterval;//스폰 쿨타임
     public int Cost;//소환 코스트/보상 코스트
     public int Hitback;//넉백 체력의 n-1/n ~ 1/n일때 넉백
-    public string species;//시너지용 종족명
+    public float PreDelay;
+    public float PostDelay;
 }

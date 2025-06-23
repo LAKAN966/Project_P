@@ -36,17 +36,21 @@ public class DataManager : MonoBehaviour
 
             UnitStats stat = new UnitStats
             {
+                //ID,Name,RaceID,IsHero,IsAOE,AttackRange,Damage,MaxHP,MoveSpeed,SpawnInterval,Cost,Hitback,PreDelay,PostDelay,ActiveSkillID,PassiveSkillID
                 ID = int.Parse(tokens[0]),
                 Name = tokens[1],
-                IsHero = bool.Parse(tokens[2]),
-                IsAOE = bool.Parse(tokens[3]),
-                AttackRange = float.Parse(tokens[4]),
-                Damage = float.Parse(tokens[5]),
-                MaxHP = float.Parse(tokens[6]),
-                MoveSpeed = float.Parse(tokens[7]),
-                SpawnInterval = float.Parse(tokens[8]),
-                Cost = int.Parse(tokens[9]),
-                Hitback = int.Parse(tokens[10]),
+                RaceID = int.Parse(tokens[2]),
+                IsHero = bool.Parse(tokens[3]),
+                IsAOE = bool.Parse(tokens[4]),
+                AttackRange = float.Parse(tokens[5]),
+                Damage = float.Parse(tokens[6]),
+                MaxHP = float.Parse(tokens[7]),
+                MoveSpeed = float.Parse(tokens[8]),
+                SpawnInterval = float.Parse(tokens[9]),
+                Cost = int.Parse(tokens[10]),
+                Hitback = int.Parse(tokens[11]),
+                PreDelay = int.Parse(tokens[12]),
+                PostDelay = int.Parse(tokens[13]),
             };
 
             unitStatsDict[stat.ID] = stat;
