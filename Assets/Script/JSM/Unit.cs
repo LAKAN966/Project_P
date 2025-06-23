@@ -27,8 +27,8 @@ public class Unit : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private SPUM_Prefabs spumController;
-    private readonly Queue<IEnumerator> hitbackQueue = new();
     private readonly HashSet<int> triggeredHitbackZones = new();
+    private Coroutine attackCoroutine;
 
     void Start()
     {
@@ -134,8 +134,6 @@ public class Unit : MonoBehaviour
     private void TryAttack()
     {
         if (isAttacking) return;
-        Debug.Log("공습경보!");
-
         if (target == null || !target.gameObject.activeInHierarchy)
         {
             target = null;
@@ -143,7 +141,7 @@ public class Unit : MonoBehaviour
             return;
         }
 
-        StartCoroutine(AttackRoutine());
+        attackCoroutine = StartCoroutine(AttackRoutine());
     }
 
     private IEnumerator AttackRoutine()
@@ -183,9 +181,9 @@ public class Unit : MonoBehaviour
 
         yield return new WaitForSeconds(stats.PostDelay);
         SetState(UnitState.Moving);
-
         isAttacking = false;
     }
+
 
     public void TakeDamage(float amount)
     {
@@ -214,9 +212,15 @@ public class Unit : MonoBehaviour
         }
     }
 
+
     private IEnumerator Die()
     {
-        isAttacking = false;
+        if (isAttacking && attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            isAttacking = false;
+            attackCoroutine = null;
+        }
         SetState(UnitState.Dead);
 
         stats = null;
@@ -237,8 +241,17 @@ public class Unit : MonoBehaviour
 
     private IEnumerator DoHitback()
     {
-        isAttacking = false;
+        if (isAttacking && attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            isAttacking = false;
+            attackCoroutine = null;
+        }
+
         SetState(UnitState.Hitback);
+
+        spumController.PlayAnimation(PlayerState.DAMAGED, 0);
+
         int originalLayer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 
@@ -260,12 +273,13 @@ public class Unit : MonoBehaviour
         SetState(UnitState.Moving);
     }
 
+
     private void SetState(UnitState newState)
     {
         if (state == newState) return;
         state = newState;
         UpdateAnimation();
-        Debug.Log(state);
+        Debug.Log(isEnemy+" : "+state);
     }
 
     private void UpdateAnimation()
