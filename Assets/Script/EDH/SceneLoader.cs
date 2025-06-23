@@ -7,8 +7,28 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public void CloseTab()
+    public void CloseTab() // 인트로에서도 사용.
     {
         SceneManager.LoadScene("MainScene");    
+    }
+
+    public void ToStage()
+    {
+        SceneManager.LoadScene("StageScene");
+    }
+
+    public void ToDeckBuild()
+    {
+        SceneManager.LoadScene("DeckBuildScene");
+    }
+
+    public void ToPickUp()
+    {
+        SceneManager.LoadScene("GotchaScene");
+    }
+
+    public void ToHQ()
+    {
+        SceneManager.LoadScene("HQScene");
     }
 }
