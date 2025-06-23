@@ -5,9 +5,9 @@ using System.Collections.Generic;
 [System.Serializable]
 public class SpawnButtonData
 {
-    public Button button;       // UI 버튼
-    public int unitID;          // 소환할 유닛 ID
-    public bool isEnemy;        // 적/아군 여부
+    public Button button;
+    public int unitID;
+    public bool isEnemy;
 }
 
 public class UnitSpawner : MonoBehaviour

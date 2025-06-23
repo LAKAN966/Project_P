@@ -1,3 +1,5 @@
-ID,Name,IsHero,IsAOE,AttackRange,Damage,MaxHP,MoveSpeed,SpawnInterval,Cost,Hitback
-1001,Swordman,false,true,1.5,30,100,5,2,50,2,
-1002,Bowman,false,false,3.5,30,100,5,2,50,100,
+ID,Name,RaceID,IsHero,IsAOE,AttackRange,Damage,MaxHP,MoveSpeed,SpawnInterval,Cost,Hitback,PreDelay,PostDelay,ActiveSkillID,PassiveSkillID
+1001,Zombie,0,FALSE,FALSE,1,10,200,3,5,50,2,2,2,,
+1002,Dohosra,0,TRUE,TRUE,3,50,300,2,180,600,3,5,5,301,101
+2001,Swordman,3,FALSE,TRUE,1.5,30,100,5,2,50,2,3,2,,
+2001,Bowman,3,FALSE,FALSE,3.5,30,100,5,2,50,100,2,2,,

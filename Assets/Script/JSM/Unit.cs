@@ -40,7 +40,6 @@ public class Unit : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(state);
         if (stats == null || state == UnitState.Dead || state == UnitState.Hitback) return;
 
         switch (state)
@@ -145,12 +144,6 @@ public class Unit : MonoBehaviour
         float oldHP = currentHP;
         currentHP -= amount;
 
-        if (currentHP <= 0)
-        {
-            Die();
-            return;
-        }
-
         if (stats.Hitback > 0)
         {
             float slice = stats.MaxHP / stats.Hitback;
@@ -163,18 +156,23 @@ public class Unit : MonoBehaviour
                 {
                     triggeredHitbackZones.Add(i);
                     hitbackQueue.Enqueue(DoHitback());
-                    break;
                 }
             }
-
-            if (!isHitbackRunning && hitbackQueue.Count > 0)
-                StartCoroutine(ProcessHitbackQueue());
         }
+
+        if (currentHP <= 0)
+        {
+            hitbackQueue.Enqueue(Die());
+        }
+
+        if (!isHitbackRunning && hitbackQueue.Count > 0)
+            StartCoroutine(ProcessHitbackQueue());
     }
 
 
-    private void Die()
+    private IEnumerator Die()
     {
+        yield return StartCoroutine(DoHitback());
         SetState(UnitState.Dead);
         stats = null;
         target = null;
