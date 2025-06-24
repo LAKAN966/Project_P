@@ -33,7 +33,7 @@ public class DeckData
     {
         if (Contains(myUnitID)) return false;
 
-        UnitStats stat = DataManager.Instance.GetStats(myUnitID); // 스텟에서 IsHero bool 값으로 확인.
+        UnitStats stat = UnitDataManager.Instance.GetStats(myUnitID); // 스텟에서 IsHero bool 값으로 확인.
         if (stat == null || !stat.IsHero)
         {
             Debug.LogWarning($"유닛 {myUnitID}는 리더로 설정할 수 없습니다 (IsHero = false)");
@@ -44,7 +44,7 @@ public class DeckData
         return true;
     }
 
-    public void RemovUnit(int myUnitID) // 덱 리스트에서 유닛 제거 함수.
+    public void RemoveUnit(int myUnitID) // 덱 리스트에서 유닛 제거 함수.
     {
         deckList.RemoveAll(unit => unit.myUnitID == myUnitID);
 

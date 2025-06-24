@@ -12,7 +12,11 @@ public class MyUnitList
 
     public bool AddUnit (int id) // 유닛 추가 메서드. 유닛의 동일한 아이디 확인해서 bool 값 반환.
     {
-        if (myList.Exists(unit => unit.ID == id)) return false;
+        if (myList.Exists(unit => unit.ID == id))
+        {
+            Debug.Log("이미 동일한 유닛이 존재합니다.");
+            return false;
+        }
 
         
         myList.Add(new UnitStats { ID = id });

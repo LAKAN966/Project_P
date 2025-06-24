@@ -23,7 +23,7 @@ public class DeckManager
 
     public bool TryAddUnitToDeck(int myUnitID) // 덱에 배치할 유닛이 리더유닛인지 아닌지 확인 후 맞는 함수 호출.
     {
-        UnitStats stats = DataManager.Instance.GetStats(myUnitID);
+        UnitStats stats = UnitDataManager.Instance.GetStats(myUnitID);
 
         if (stats == null)
         {
@@ -43,7 +43,7 @@ public class DeckManager
 
     public void RemoveFromDeck(int myUnitID) // 덱 리스트에서 제거
     {
-        currentDeck.RemovUnit(myUnitID);
+        currentDeck.RemoveUnit(myUnitID);
     }
 
     public bool CheckInDeck(int myUnitID) // 덱 포함 여부 확인 용. UI에서 유닛 표현을 다르게 하기 위해서?
