@@ -31,4 +31,10 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("HQScene");
     }
+
+    public void ToBattle()
+    {
+        SceneManager.LoadScene("BattleScene");
+
+    }
 }

@@ -1,4 +1,4 @@
-﻿[System.Serializable]
+[System.Serializable]
 public class UnitStats
 {
     public int ID;
@@ -17,5 +17,7 @@ public class UnitStats
     public float PreDelay;//공격 선딜레이
     public float PostDelay;//공격 후딜레이
     public string ModelName;//모델링 이름
-    public int AttackType;//공격 타입
+    public int AttackType;//공격 타입 0 근접 2 활 4 마법 (+1은 스킬)
+    public float Size;//유닛 크기
+    public int SkillID;//스킬 id
 }

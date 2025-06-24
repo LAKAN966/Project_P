@@ -30,7 +30,7 @@ public class Unit : MonoBehaviour
     private readonly HashSet<int> triggeredHitbackZones = new();
     private Coroutine attackCoroutine;
 
-    void Start()
+    private void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour
         else gameObject.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         if (stats == null) return;
 
@@ -54,17 +54,20 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void Initialize()
+    public virtual void Initialize()
     {
         currentHP = stats.MaxHP;
         triggeredHitbackZones.Clear();
         SetState(UnitState.Moving);
         gameObject.SetActive(true);
+        spriteRoot.localScale = new Vector3(stats.Size, stats.Size, 0);
 
         SetLayerRecursively(gameObject, LayerMask.NameToLayer(isEnemy ? "Enemy" : "Ally"));
         LoadModel();
     }
-
+    public virtual void OnSpawned()
+    {
+    }
     private void LoadModel()
     {
         if (spriteRoot == null)
@@ -211,6 +214,7 @@ public class Unit : MonoBehaviour
 
     private IEnumerator Die()
     {
+        SkillManager.Instance?.OnUnitDeath(this);
         if (isAttacking && attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
@@ -229,6 +233,7 @@ public class Unit : MonoBehaviour
             deathAnimTime = stateInfo.length;
         }
         yield return new WaitForSeconds(deathAnimTime > 0 ? deathAnimTime : 1f);
+        spriteRoot.localScale = Vector3.one;
 
         var pool = GetComponentInParent<UnitPool>();
         if (pool != null) pool.ReturnUnit(this);
@@ -286,7 +291,7 @@ public class Unit : MonoBehaviour
         if (newAnim != currentAnimState)
         {
             currentAnimState = newAnim;
-            spumController.PlayAnimation(newAnim, 0);
+            spumController.PlayAnimation(newAnim, state == UnitState.Fighting ? stats.AttackType : 0);
         }
     }
 
