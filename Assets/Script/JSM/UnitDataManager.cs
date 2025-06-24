@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -54,8 +54,7 @@ public class UnitDataManager : MonoBehaviour
                 ModelName = tokens[15],
                 AttackType = int.Parse(tokens[16]),
                 Size = float.Parse(tokens[17]),
-                ActiveSkillID = int.Parse(tokens[18]),
-                PassiveSkillID = int.Parse(tokens[19]),
+                SkillID = int.Parse(tokens[18]),
             };
 
             unitStatsDict[stat.ID] = stat;
