@@ -44,7 +44,7 @@ public class Test
         DeckManager.Instance.TryAddUnitToDeck(1001);
         DeckManager.Instance.TryAddUnitToDeck(1002);
         DeckManager.Instance.TryAddUnitToDeck(2001);
-        DeckManager.Instance.TryAddUnitToDeck(2002);
+        DeckManager.Instance.TryAddUnitToDeck(3001);
     }
 
     public void EditFuctionDeckData()
@@ -57,5 +57,10 @@ public class Test
             Debug.Log($"{deck.Name} {deck.ID} {deck.IsHero}");
         }
         Debug.Log($"{leader.Name} {leader.ID} {leader.IsHero}");
+    }
+
+    public void SetDeckList()
+    {
+        DeckBuildUIManager.instance.CreateMyUnitIcons();
     }
 }

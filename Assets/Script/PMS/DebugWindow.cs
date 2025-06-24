@@ -32,5 +32,10 @@ public class DebugWindow : EditorWindow
             Test.Instance.EditFuctionDeckData();
         }
 
+        if (GUILayout.Button("유닛리스트 세팅"))
+        {
+            Test.Instance.SetDeckList();
+        }
+
     }
 }
