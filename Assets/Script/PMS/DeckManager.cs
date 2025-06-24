@@ -23,6 +23,12 @@ public class DeckManager
 
     public bool TryAddUnitToDeck(int myUnitID) // 덱에 배치할 유닛이 리더유닛인지 아닌지 확인 후 맞는 함수 호출.
     {
+        if (!MyUnitList.Instance.HasUnit(myUnitID))
+        {
+            Debug.Log($"유닛 {myUnitID}는 보유 중이 아니므로 덱에 배치할 수 없습니다.");
+            return false;
+        }
+
         UnitStats stats = UnitDataManager.Instance.GetStats(myUnitID);
 
         if (stats == null)
@@ -32,10 +38,12 @@ public class DeckManager
 
         if (stats.IsHero)
         {
+            Debug.Log($"{myUnitID} 리더 유닛 배치 완료");
             return currentDeck.SetLeaderUnit(myUnitID); // 리더 유닛이라면 리더 칸에 배치
         }
         else
         {
+            Debug.Log($"{myUnitID} 일반 유닛 배치 완료");
             return currentDeck.AddNormalUnit(myUnitID); // 일반 유닛이라면 일반 칸에 배치
         }
 
@@ -51,6 +59,22 @@ public class DeckManager
         return currentDeck.Contains(myUnitID);
     }
 
+    public List<UnitStats> GetAllDataInDeck() 
+    {
+        if(currentDeck != null)
+        {
+            return currentDeck.GetAllUnitInDeck();
+        }
+
+        Debug.Log($"{currentDeck} is null");
+        return null;
+    }
+
+    public UnitStats GetLeaderDataInDeck()
+    {
+        return currentDeck.GetLeaderUnitInDeck();
+    }
+
     public List<int> GetAllNormalUnit() // 현재 덱에 있는 일반 유닛 아이디 리스트로 가지고 오기. UI 참조 용.
     {
         return currentDeck.deckList.Select(unit => unit.myUnitID).ToList();
@@ -60,6 +84,8 @@ public class DeckManager
     {
         return currentDeck.leaderUnit?.myUnitID;
     }
+
+
 
     
 

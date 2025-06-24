@@ -10,6 +10,7 @@ public class DeckList
 }
 public class DeckData
 {
+   
     public List<DeckList> deckList = new(); // 덱 리스트 만들기. 일반 유닛.
     public DeckList leaderUnit; // 리더 유닛.
 
@@ -53,5 +54,27 @@ public class DeckData
             leaderUnit = null;
         }
     }
+
+    public List<UnitStats> GetAllUnitInDeck() // 덱 리스트 모두 반환 함수.
+    {
+        return deckList.Select(unit => UnitDataManager.Instance.GetStats(unit.myUnitID))
+            .Where(stat => stat != null)
+            .ToList();
+        
+    }
+
+    public List<UnitStats> GetAllNormalUnit()  //덱의 일반 유닛 반환 함수.
+    {
+        return deckList.Select(unit => UnitDataManager.Instance.GetStats(unit.myUnitID))
+            .Where(stat => stat != null && !stat.IsHero).ToList()
+            .ToList();
+    }
+
+    public UnitStats GetLeaderUnitInDeck() // 덱의 리더 반환 함수.
+    {
+        if (leaderUnit == null) return null;
+        return UnitDataManager.Instance.GetStats(leaderUnit.myUnitID);
+    }
+
 
 }

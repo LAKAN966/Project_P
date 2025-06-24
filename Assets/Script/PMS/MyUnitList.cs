@@ -7,36 +7,60 @@ using UnityEngine;
 // 내가 가지고 있는 유닛 리스트. 인벤토리와 같은 역할. 뽑기 진행시 유닛을 추가 시킬 곳.
 public class MyUnitList 
 {
+    private static MyUnitList instance;
+    public static MyUnitList Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = new MyUnitList();
+            }
+            return instance;
+        }
+    }
     
-    public List<UnitStats> myList = new();
+    public List<int> myList = new();
 
     public bool AddUnit (int id) // 유닛 추가 메서드. 유닛의 동일한 아이디 확인해서 bool 값 반환.
     {
-        if (myList.Exists(unit => unit.ID == id))
+        if (myList.Contains(id))
         {
             Debug.Log("이미 동일한 유닛이 존재합니다.");
             return false;
         }
 
         
-        myList.Add(new UnitStats { ID = id });
+        myList.Add(id);
+        
         return true;
     }
 
     public bool HasUnit(int id) // 보유중인지 체크
     {
-        return myList.Exists(unit => unit.ID == id);
+        return myList.Contains(id);
 
     }
 
     public List<UnitStats> GetAllNormalUnit() // 현재 보유 유닛 리스트에서 일반 유닛만 리스트화 하기. UI 필터 적용. 추가 기능 더 필요함.
     {
-        return myList.Where(unit => unit.IsHero == false ).ToList();
+        return myList.Select(id => UnitDataManager.Instance.GetStats(id))
+            .Where(stat => stat != null && !stat.IsHero).ToList()
+            .ToList();
     }
 
     public List<UnitStats> GetAllLeaderUnit() // 현재 보유 유닛 리스트에서 리더 유닛만 리스트화 하기.
     {
-        return myList.Where(unit => unit.IsHero).ToList();
+        return myList.Select(id => UnitDataManager.Instance.GetStats(id))
+            .Where(stat => stat != null && stat.IsHero).ToList()
+            .ToList();
+    }
+
+    public List<UnitStats> GetAllUnit() // 현재 보유 중인 모든 유닛 리스트 반환.
+    {
+        return myList.Select(id => UnitDataManager.Instance.GetStats(id))
+            .Where(stat => stat != null)
+            .ToList();
     }
 
     /// <summary>
