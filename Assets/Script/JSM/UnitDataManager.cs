@@ -36,7 +36,6 @@ public class UnitDataManager : MonoBehaviour
 
             UnitStats stat = new UnitStats
             {
-                //ID,Name,RaceID,IsHero,IsAOE,AttackRange,Damage,MaxHP,MoveSpeed,SpawnInterval,Cost,Hitback,PreDelay,PostDelay,ActiveSkillID,PassiveSkillID
                 ID = int.Parse(tokens[0]),
                 Name = tokens[1],
                 Description = tokens[2],
@@ -54,6 +53,9 @@ public class UnitDataManager : MonoBehaviour
                 PostDelay = float.Parse(tokens[14]),
                 ModelName = tokens[15],
                 AttackType = int.Parse(tokens[16]),
+                Size = float.Parse(tokens[17]),
+                ActiveSkillID = int.Parse(tokens[18]),
+                PassiveSkillID = int.Parse(tokens[19]),
             };
 
             unitStatsDict[stat.ID] = stat;

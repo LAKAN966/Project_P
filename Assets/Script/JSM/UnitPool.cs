@@ -30,7 +30,7 @@ public class UnitPool : MonoBehaviour
             {
                 unit.stats = stats;
                 unit.transform.position = spawnPos;
-                unit.Initialize(); // 활성화 및 초기화
+                unit.Initialize();
                 return unit;
             }
         }
