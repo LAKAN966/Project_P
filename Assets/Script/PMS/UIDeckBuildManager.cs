@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeckBuildUIManager : MonoBehaviour
+public class UIDeckBuildManager : MonoBehaviour
 {
     [SerializeField] private GameObject unitIconPrefab;      // 아이콘 프리팹
     [SerializeField] private Transform myUnitContentParent;  // ScrollView의 Content
 
-    public static DeckBuildUIManager instance;
+    public static UIDeckBuildManager instance;
     private void Awake()
     {
         if (instance == null)

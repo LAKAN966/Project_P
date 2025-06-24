@@ -61,6 +61,6 @@ public class Test
 
     public void SetDeckList()
     {
-        DeckBuildUIManager.instance.CreateMyUnitIcons();
+        UIDeckBuildManager.instance.CreateMyUnitIcons();
     }
 }
