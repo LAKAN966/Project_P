@@ -2,9 +2,9 @@
 using System.IO;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class UnitDataManager : MonoBehaviour
 {
-    public static DataManager Instance { get; private set; }
+    public static UnitDataManager Instance { get; private set; }
 
     private Dictionary<int, UnitStats> unitStatsDict = new();
 
