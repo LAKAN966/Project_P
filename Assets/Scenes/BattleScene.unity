@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8020436972501422168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf51368041827841a37e4005c306796, type: 3}
+  m_Script: {fileID: 11500000, guid: d949222ee61335c4cbf6f43528991e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1733186251121414413
@@ -7231,7 +7231,7 @@ GameObject:
   - component: {fileID: 8399858138748015918}
   - component: {fileID: 1701691669995833364}
   m_Layer: 0
-  m_Name: DataManger
+  m_Name: UnitDataManger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

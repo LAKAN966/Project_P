@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum UnitState
@@ -286,7 +287,7 @@ public class Unit : MonoBehaviour
         if (newAnim != currentAnimState)
         {
             currentAnimState = newAnim;
-            spumController.PlayAnimation(newAnim, 0);
+            spumController.PlayAnimation(newAnim, state == UnitState.Fighting ? stats.AttackType : 0);
         }
     }
 
