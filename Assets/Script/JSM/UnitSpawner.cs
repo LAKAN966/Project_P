@@ -30,7 +30,7 @@ public class UnitSpawner : MonoBehaviour
 
     void Spawn(SpawnButtonData data)
     {
-        var stats = DataManager.Instance.GetStats(data.unitID);
+        var stats = UnitDataManager.Instance.GetStats(data.unitID);
         if (stats == null)
         {
             Debug.LogWarning($"알 수 없는 유닛 ID: {data.unitID}");
