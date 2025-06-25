@@ -7,8 +7,11 @@ using UnityEngine.UI;
 public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
     public bool isLeaderSlot = false;
-    public Image iconImage;
+    //public Image iconImage;
     public UnitStats unitData;
+
+    private float lastClickTime = 0f;
+    private float doubleClickThreshold = 0.3f;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -49,12 +52,24 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     {
         if (unitData == null) return;
 
-        DeckManager.Instance.RemoveFromDeck(unitData.ID);
+        //그냥 클릭은 정보 불러오기
+        UIUnitInfo.instance.ShowInfo(unitData);
 
-        unitData = null;
+        
 
-        UIDeckBuildManager.instance.SetMyUnitIcons();
-        UIDeckBuildManager.instance.SetDeckSlots();
+        // 더블클릭 되도록
+        if (Time.time - lastClickTime < doubleClickThreshold)
+        {
+            DeckManager.Instance.RemoveFromDeck(unitData.ID);
+
+            unitData = null;
+
+            UIDeckBuildManager.instance.SetMyUnitIcons();
+            UIDeckBuildManager.instance.SetDeckSlots();
+
+        }
+        lastClickTime = Time.time;
+
     }
 
 

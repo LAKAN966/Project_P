@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     public Image iconImage; //유닛 이미지 표시
     public TextMeshProUGUI costText; //코스트 소모량 표시
@@ -57,5 +57,10 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         canvasGroup.alpha = 0.5f;
         this.enabled = false;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        UIUnitInfo.instance.ShowInfo(myStats);
     }
 }

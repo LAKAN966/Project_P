@@ -28,7 +28,7 @@ public class UIDeckBuildManager : MonoBehaviour
         }
     }
 
-    public void Init()
+    public void Init() //테스트용 이닛
     {
         InitDeckSlots();
         CacheUnitListOrder();
@@ -36,7 +36,7 @@ public class UIDeckBuildManager : MonoBehaviour
         SetMyUnitIcons();
     }
 
-    public void InitDeckSlots() // 시작할 때 덱 슬롯 만들기
+    public void InitDeckSlots() // 시작할 때 덱 슬롯 만들기. 처음에만 쓰면됨.
     {
         foreach (Transform child in deckSlotParent)
         {
@@ -78,7 +78,7 @@ public class UIDeckBuildManager : MonoBehaviour
         if (leaderSlot != null && leaderUnitID.HasValue)
         {
             var leaderStats = UnitDataManager.Instance.GetStats(leaderUnitID.Value);
-            //leaderSlot.iconImage.sprite = leaderStats.;
+            //leaderSlot.iconImage.sprite = leaderStats.; //이미지 아직 없음
             leaderSlot.unitData = leaderStats;
         }
     }
@@ -107,6 +107,9 @@ public class UIDeckBuildManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void CacheUnitListOrder()
     {
         var allUnits = MyUnitList.Instance.GetAllUnit();
