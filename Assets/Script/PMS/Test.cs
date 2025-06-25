@@ -25,7 +25,6 @@ public class Test
         MyUnitList.Instance.AddUnit(1002);
         MyUnitList.Instance.AddUnit(2001);
         MyUnitList.Instance.AddUnit(2002);
-        MyUnitList.Instance.AddUnit(3001);
 
         var myList = MyUnitList.Instance.GetAllUnit();
         
@@ -46,8 +45,6 @@ public class Test
         DeckManager.Instance.TryAddUnitToDeck(1002);
         DeckManager.Instance.TryAddUnitToDeck(2001);
         DeckManager.Instance.TryAddUnitToDeck(2002);
-        DeckManager.Instance.TryAddUnitToDeck(3001);
-
     }
 
     public void EditFuctionDeckData()
@@ -55,26 +52,10 @@ public class Test
         var deckList = DeckManager.Instance.GetAllDataInDeck();
         var leader = DeckManager.Instance.GetLeaderDataInDeck();
 
-
         foreach(var deck in deckList)
         {
-            if (deckList == null)
-                return;
-
             Debug.Log($"{deck.Name} {deck.ID} {deck.IsHero}");
-        }
-
-        if(leader == null)
-        {
-            return;
         }
         Debug.Log($"{leader.Name} {leader.ID} {leader.IsHero}");
     }
-
-    public void SetDeckBuild()
-    {
-        UIDeckBuildManager.instance.Init();
-    }
-
-
 }
