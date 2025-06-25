@@ -26,7 +26,7 @@ public class UnitSpawner : MonoBehaviour
 
     public List<ButtonSetting> buttonSettings = new();
 
-    private void Awake()
+    private void Start()
     {
         if(Instance == null) Instance = this;
 

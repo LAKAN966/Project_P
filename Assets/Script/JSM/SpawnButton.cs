@@ -4,7 +4,7 @@ using TMPro;
 
 public class SpawnButton : MonoBehaviour
 {
-    [HideInInspector] public int unitID;
+     public int unitID;
     [HideInInspector] public bool isEnemy;
     [HideInInspector] public bool isHero;
 
@@ -49,6 +49,7 @@ public class SpawnButton : MonoBehaviour
                 Destroy(child.gameObject);
 
             string path = $"SPUM/{stats.ModelName}";
+            Debug.Log(unitID+"의 모델은"+stats.ModelName);
             var modelPrefab = Resources.Load<GameObject>(path);
             if (modelPrefab != null)
             {
