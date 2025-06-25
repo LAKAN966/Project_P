@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class GraveSpawnSkill : MonoBehaviour
@@ -36,17 +36,18 @@ public class GraveSpawnSkill : MonoBehaviour
             Debug.LogWarning("좀비 유닛 풀 부족!");
             return;
         }
-
-        unit.OnSpawned(); // 선택 사항
     }
 
-    public void ActivateAllZombies()
+    public void ActivateGraves(bool isEnemy)
     {
-        List<GraveObject> graves = GraveObject.GetAllGraves();
+        var graves = GraveObject.GetAllGraves();
 
         foreach (var grave in graves)
         {
-            grave?.ActivateZombie();
+            if (grave != null && grave.isEnemy == isEnemy)
+            {
+                grave.ActivateZombie();
+            }
         }
     }
 }
