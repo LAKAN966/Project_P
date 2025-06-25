@@ -11,25 +11,25 @@ public class WaveManager : MonoBehaviour
     public int stageID;  // 외부에서 설정
     private StageData currentStage;
     private List<WaveData> waves = new();
+    private List<WaveData> triggerWaves;
+    private List<WaveData> nonTriggerWaves;
 
     private float timer = 0f;
     private bool triggerActive = false;
     private bool waveStarted = false;
-
-    private HashSet<(float time, int enemyID)> triggeredWaves = new();
-
     private bool isPaused = false;
-    private List<WaveData> pendingWaves = new();
+    private WaveData? pendingWave = null;
+    private int waveCount;
 
     public UnitPool enemyPool;
 
-    void Awake()
+    private void Awake()
     {
         if(Instance == null) Instance = this;
         else Destroy(this);
     }
 
-    void Start()
+    private void Start()
     {
         LoadStageAndWave(stageID);
         StartCoroutine(StartWaveAfterTeaTime());
@@ -49,6 +49,9 @@ public class WaveManager : MonoBehaviour
         }
 
         waves = WaveDataLoader.Load(waveText);
+        waveCount = 0;
+        triggerWaves = waves.Where(w => w.OnTrigger).ToList();
+        nonTriggerWaves = waves.Where(w => !w.OnTrigger).ToList();
     }
 
     IEnumerator StartWaveAfterTeaTime()
@@ -59,24 +62,34 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(isPaused + " : " + timer);
         if (!waveStarted) return;
 
-        if (!isPaused) timer += Time.deltaTime;
+        if (!isPaused)
+            timer += Time.deltaTime;
 
-        foreach (var wave in waves)
+        // 대기 웨이브가 없으면 새로운 웨이브 탐색
+        if (pendingWave == null)
         {
-            if (wave.Time > timer) continue;
-
-            if (triggerActive == wave.OnTrigger) continue;
-
+            if ((triggerActive?triggerWaves[waveCount] : nonTriggerWaves[waveCount]).Time <= timer && (triggerActive ? triggerWaves.Count : nonTriggerWaves.Count) > waveCount)
+            {
+                pendingWave = triggerActive ? triggerWaves[waveCount] : nonTriggerWaves[waveCount];
+                waveCount++;
+            }
+        }
+        else
+        {
             if (enemyPool.HasAvailable())
             {
-                SpawnEnemy(wave.EnemyID);
+                isPaused = false;
+                if (SpawnEnemy(pendingWave.EnemyID))
+                {
+                    Debug.Log(pendingWave.Time+":"+waveCount);
+                    pendingWave = null;
+                    isPaused = false;
+                }
             }
             else
             {
-                timer -= 0.1f;
                 isPaused = true;
                 return;
             }
@@ -85,6 +98,8 @@ public class WaveManager : MonoBehaviour
         if (timer >= currentStage.ResetTime)
         {
             timer = 0f;
+            waveCount = 0;
+            Debug.Log("시간초기화!");
         }
 
         if (isPaused && enemyPool.HasAvailable())
@@ -92,6 +107,8 @@ public class WaveManager : MonoBehaviour
             isPaused = false;
         }
     }
+
+
 
     private bool SpawnEnemy(int enemyID)
     {
@@ -122,6 +139,7 @@ public class WaveManager : MonoBehaviour
         {
             triggerActive = true;
             timer = 0f;
+            waveCount = 0;
             isPaused = false;
         }
     }
