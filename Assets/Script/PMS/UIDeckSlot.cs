@@ -43,7 +43,7 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
         //iconImage.sprite = unitStats. //유닛 이미지 가지고 오기.
         unitData = unitStats;
-
+        UIUnitInfo.instance.ShowInfo(unitData);
         UIDeckBuildManager.instance.SetMyUnitIcons();
         UIDeckBuildManager.instance.SetDeckSlots();
     }
