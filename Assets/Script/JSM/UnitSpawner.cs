@@ -13,6 +13,8 @@ public class UnitSpawner : MonoBehaviour
     public Vector2 allySpawnPosition;
     public Vector2 enemySpawnPosition;
 
+    public static UnitSpawner Instance;
+
     [System.Serializable]
     public class ButtonSetting
     {
@@ -26,6 +28,8 @@ public class UnitSpawner : MonoBehaviour
 
     private void Awake()
     {
+        if(Instance == null) Instance = this;
+
         allySpawnPosition = GetSpawnPosition(false);
         enemySpawnPosition = GetSpawnPosition(true);
 
@@ -94,4 +98,33 @@ public class UnitSpawner : MonoBehaviour
             ? new Vector3(MapManager.Instance.mapLength / 2f - offset, 0, 0)
             : new Vector3(-MapManager.Instance.mapLength / 2f + offset, 0, 0);
     }
+    public void SpawnEnemy(int unitID)
+    {
+        var stats = UnitDataManager.Instance.GetStats(unitID);
+        if (stats == null)
+        {
+            Debug.LogWarning($"[UnitSpawner] 알 수 없는 유닛 ID: {unitID}");
+            return;
+        }
+
+        Vector3 spawnPos = enemySpawnPosition;
+
+        if (stats.IsHero)
+        {
+            var hero = enemyHeroPool.GetUnit(stats, spawnPos);
+            if (hero == null)
+            {
+                Debug.LogWarning("[UnitSpawner] 적군 영웅 유닛 풀 부족!");
+            }
+        }
+        else
+        {
+            var unit = enemyPool.GetUnit(stats, spawnPos);
+            if (unit == null)
+            {
+                Debug.LogWarning("[UnitSpawner] 적군 유닛 풀 부족!");
+            }
+        }
+    }
+
 }

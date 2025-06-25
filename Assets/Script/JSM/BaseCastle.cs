@@ -4,27 +4,35 @@ using TMPro;
 
 public class BaseCastle : MonoBehaviour
 {
-    public bool isEnemy; // true면 적, false면 아군
+    public bool isEnemy;
 
-    public int maxHP = 1000;
+    private int maxHP = 1000;
     private int currentHP;
 
     public TMP_Text hpText;
     public Image hpGauge;
 
-    public Collider2D hitCollider; // 충돌용 Collider (예: BoxCollider2D)
+    public Collider2D hitCollider;
 
     private bool isDestroyed = false;
+
+    public System.Action OnDamaged;
 
     private void Start()
     {
         currentHP = maxHP;
         UpdateUI();
     }
-
+    public void SetMaxHP(int hp)
+    {
+        maxHP = hp;
+    }
     public void TakeDamage(int amount)
     {
         if (isDestroyed) return;
+
+        if (currentHP == maxHP&&isEnemy)//처음 성이 맞아서 데미지를 입을때만 실행
+            WaveManager.Instance.TriggerWave();
 
         currentHP -= amount;
         if (currentHP <= 0)
