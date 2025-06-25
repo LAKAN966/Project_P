@@ -11,10 +11,8 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public TextMeshProUGUI costText; //코스트 소모량 표시
     public CanvasGroup canvasGroup; //캔버스 그룹, 투명도 위함
     public Transform originalParent; //시작 위치
-    public UnitStats stats;
-
-    private UnitStats myStats;
-
+    public UnitStats myStats;
+    
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -51,6 +49,8 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         canvasGroup.blocksRaycasts = true;
         transform.localPosition = Vector3.zero; // 드롭 안된 경우 원래 자리로 돌아감
         canvasGroup.alpha = 1f; // 드롭후 다시 원래대로
+        UIDeckBuildManager.instance.SetMyUnitIcons();
+        UIDeckBuildManager.instance.SetDeckSlots();
     }
 
     public void SetDisabled()

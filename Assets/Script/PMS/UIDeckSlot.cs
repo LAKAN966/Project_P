@@ -35,7 +35,7 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler
         bool success = DeckManager.Instance.TryAddUnitToDeck(unitStats.ID);
         if (!success)
         {
-            Debug.Log("이미 덱에 있음 또는 실패");
+            Debug.Log("이미 덱에 있음");
             return;
         }
 
@@ -44,7 +44,7 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler
 
         // 드래그 원본 비활성화 (중복 방지)
         //draggedIcon.SetDisabled();
-        Destroy(draggedIcon);
+        //Destroy(draggedIcon);
         UIDeckBuildManager.instance.SetMyUnitIcons();
         UIDeckBuildManager.instance.SetDeckSlots();
 
