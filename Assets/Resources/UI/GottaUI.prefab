@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 6120060462346632372}
   - component: {fileID: 1416334444542018785}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: GottaUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
