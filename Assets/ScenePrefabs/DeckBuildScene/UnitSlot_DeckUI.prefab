@@ -151,6 +151,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconImage: {fileID: 1265713229782012744}
   costText: {fileID: 4308866875988478360}
+  canvasGroup: {fileID: 685298659994959372}
+  originalParent: {fileID: 0}
+  stats:
+    ID: 0
+    Name: 
+    Description: 
+    RaceID: 0
+    IsHero: 0
+    IsAOE: 0
+    AttackRange: 0
+    Damage: 0
+    MaxHP: 0
+    MoveSpeed: 0
+    SpawnInterval: 0
+    Cost: 0
+    Hitback: 0
+    PreDelay: 0
+    PostDelay: 0
+    ModelName: 
+    AttackType: 0
+    Size: 0
+    SkillID: 0
 --- !u!1 &6445231991597516805
 GameObject:
   m_ObjectHideFlags: 0

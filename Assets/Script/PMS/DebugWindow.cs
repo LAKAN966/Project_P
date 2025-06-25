@@ -9,7 +9,7 @@ public class DebugWindow : EditorWindow
         // 창을 띄운다
         GetWindow<DebugWindow>("MyDebugWindow");
     }
-    static int StageValue = 0;
+    
     private void OnGUI()
     {
         GUILayout.Label("이건 커스텀 에디터 창입니다!", EditorStyles.boldLabel);
@@ -17,7 +17,7 @@ public class DebugWindow : EditorWindow
         GUILayout.Label("정수 값 입력", EditorStyles.boldLabel);
 
 
-        if (GUILayout.Button("테스트 버튼"))
+        if (GUILayout.Button("유닛 소환 버튼"))
         {
             Test.Instance.EditFunctionSetUnit();
         }
@@ -32,9 +32,9 @@ public class DebugWindow : EditorWindow
             Test.Instance.EditFuctionDeckData();
         }
 
-        if (GUILayout.Button("유닛리스트 세팅"))
+        if (GUILayout.Button("덱빌딩 세팅"))
         {
-            Test.Instance.SetDeckList();
+            Test.Instance.SetDeckBuild();
         }
 
     }

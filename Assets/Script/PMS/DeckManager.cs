@@ -72,6 +72,7 @@ public class DeckManager
 
     public UnitStats GetLeaderDataInDeck()
     {
+
         return currentDeck.GetLeaderUnitInDeck();
     }
 
