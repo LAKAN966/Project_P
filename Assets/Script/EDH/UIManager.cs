@@ -34,28 +34,41 @@ public class UIManager : MonoBehaviour
 
 
 
-    public void Open(string uiName)
+    public void Open<T>() where T : UIBase
     {
-        GameObject prefab = Resources.Load<GameObject>($"UI/{uiName}");
+        string uiName = GetUIName<T>();
 
-        if (prefab == null)// 방어코드
+        if (_uiList.ContainsKey(uiName) == false)
         {
-            Debug.LogError($"{uiName} not found.");// 빨간줄로 뜨게 하는법
-            return;
+            T  prefab = Resources.Load<T>($"UI/{uiName}");
+
+
+
+
+
+
+
+
+
+            if (prefab == null)// 방어코드
+            {
+                Debug.LogError($"{uiName} not found.");// 빨간줄로 뜨게 하는법
+                return;
+            }
+
+            T uiobject = Instantiate(prefab);
+
+            UIBase ui = uiobject.GetComponent<UIBase>();
+
+            if (ui == null)
+            {
+                Debug.LogError($"{uiName}Ui 프리팹에 Ui 컴포넌트가 없습니다");
+                return;
+            }
+
+            _uiList.Add(uiName, ui);
+
         }
-
-        GameObject uiobject = Instantiate(prefab);
-
-        UIBase ui = uiobject.GetComponent<UIBase>();
-
-        if (ui == null)
-        {
-            Debug.LogError($"{uiName}Ui 프리팹에 Ui 컴포넌트가 없습니다");
-            return;
-        }
-
-        _uiList.Add(uiName, ui);
-
     }
 
     public void Close(string uiName)
