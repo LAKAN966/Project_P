@@ -1,21 +1,19 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
     public static SkillManager Instance { get; private set; }
 
-    [Header("공통 스킬")]
-    public GraveSpawnSkill graveSpawnSkill;
+    [Header("스킬 ID")]
+    public int allySkillID;
+    public int enemySkillID;
 
-    [Header("영웅 스킬 ID")]
-    public int allyHeroSkillID_1;
-    public int allyHeroSkillID_2;
-    public int enemyHeroSkillID_1;
-    public int enemyHeroSkillID_2;
+    [Header("스킬 참조")]
+    public GraveSpawnSkill graveSpawnSkill;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
@@ -29,17 +27,29 @@ public class SkillManager : MonoBehaviour
         graveSpawnSkill?.TrySpawnGrave(unit);
     }
 
-    public void UseHeroSkill(int skillID, Unit unit)
+    public void UseSkill(int skillID, bool isEnemy)
     {
+        Debug.Log($"스킬 발동 요청: ID={skillID}, isEnemy={isEnemy}");
+
         switch (skillID)
         {
             case 0:
-                Debug.Log("좀비 부활!");
-                graveSpawnSkill.ActivateAllZombies();
+                if (graveSpawnSkill != null)
+                    graveSpawnSkill.ActivateGraves(isEnemy);
                 break;
             default:
                 Debug.LogWarning($"정의되지 않은 스킬 ID: {skillID}");
                 break;
         }
+    }
+
+    public void UseAllySkill()
+    {
+        UseSkill(allySkillID, isEnemy: false);
+    }
+
+    public void UseEnemySkill()
+    {
+        UseSkill(enemySkillID, isEnemy: true);
     }
 }

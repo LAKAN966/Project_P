@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -124,6 +124,16 @@ public class Unit : MonoBehaviour
         var hit = Physics2D.Raycast(origin, direction, stats.AttackRange, layerMask);
         Debug.DrawRay(origin, direction * stats.AttackRange, Color.red);
 
+        if (hit.collider == null) return; 
+
+        if (hit.collider.TryGetComponent<BaseCastle>(out var castle))
+        {
+            if (castle.isEnemy == this.isEnemy) return;
+
+            target = castle.transform;
+            SetState(UnitState.Idle);
+            return;
+        }
         if (hit.collider?.GetComponent<Unit>() is Unit enemy)
         {
             if (enemy.state == UnitState.Hitback || enemy.state == UnitState.Dead)
@@ -170,19 +180,38 @@ public class Unit : MonoBehaviour
                 var unit = hit.GetComponent<Unit>();
                 if (unit != null)
                     unit.TakeDamage(stats.Damage);
+                else
+                {
+                    var castle = target?.GetComponent<BaseCastle>();
+                    if (castle != null)
+                    {
+                        castle.TakeDamage((int)stats.Damage);
+                    }
+                }
             }
         }
         else
         {
             var unit = target?.GetComponent<Unit>();
             if (unit != null)
+            {
                 unit.TakeDamage(stats.Damage);
+            }
+            else
+            {
+                var castle = target?.GetComponent<BaseCastle>();
+                if (castle != null)
+                {
+                    castle.TakeDamage((int)stats.Damage);
+                }
+            }
         }
 
         yield return new WaitForSeconds(stats.PostDelay);
         SetState(UnitState.Moving);
         isAttacking = false;
     }
+
 
     public void TakeDamage(float amount)
     {
@@ -280,7 +309,6 @@ public class Unit : MonoBehaviour
         if (state == newState && currentAnimState != PlayerState.OTHER) return;
         state = newState;
         UpdateAnimation();
-        Debug.Log(isEnemy+" : "+state);
     }
 
     private void UpdateAnimation()
