@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ffb4f8c2c9e55d44b40811ccc72b1ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLeaderSlot: 0
   iconImage: {fileID: 0}
   unitData:
     ID: 0

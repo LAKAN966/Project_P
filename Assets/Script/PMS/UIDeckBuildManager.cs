@@ -83,7 +83,6 @@ public class UIDeckBuildManager : MonoBehaviour
         }
     }
 
-
     public void SetMyUnitIcons()
     {
         // 기존 아이콘 정리
@@ -117,5 +116,6 @@ public class UIDeckBuildManager : MonoBehaviour
             .Select(u => u.ID)
             .ToList();
     }
+
     
 }

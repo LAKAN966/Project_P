@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIDeckSlot : MonoBehaviour, IDropHandler
+public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
     public bool isLeaderSlot = false;
     public Image iconImage;
@@ -30,7 +30,6 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler
             return;
         }
 
-
         //덱 매니저에 등록 시도
         bool success = DeckManager.Instance.TryAddUnitToDeck(unitStats.ID);
         if (!success)
@@ -42,12 +41,21 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler
         //iconImage.sprite = unitStats. //유닛 이미지 가지고 오기.
         unitData = unitStats;
 
-        // 드래그 원본 비활성화 (중복 방지)
-        //draggedIcon.SetDisabled();
-        //Destroy(draggedIcon);
         UIDeckBuildManager.instance.SetMyUnitIcons();
         UIDeckBuildManager.instance.SetDeckSlots();
-
-
     }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (unitData == null) return;
+
+        DeckManager.Instance.RemoveFromDeck(unitData.ID);
+
+        unitData = null;
+
+        UIDeckBuildManager.instance.SetMyUnitIcons();
+        UIDeckBuildManager.instance.SetDeckSlots();
+    }
+
+
 }
