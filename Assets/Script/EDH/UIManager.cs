@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -31,58 +33,63 @@ public class UIManager : MonoBehaviour
 
     Dictionary<string, UIBase> _uiList = new();
 
+    private string GetUIName<T>() where T : UIBase
+    {
+        return typeof(T).Name;
+    }
 
-
-
-    public void Open<T>() where T : UIBase
+    public T Open<T>() where T : UIBase//  타입 제한자
     {
         string uiName = GetUIName<T>();
 
         if (_uiList.ContainsKey(uiName) == false)
         {
-            T  prefab = Resources.Load<T>($"UI/{uiName}");
-
-
-
-
-
-
-
-
+            T prefab = Resources.Load<T>($"UI/{uiName}"); // resources / Ui / uiName을 불러옴
 
             if (prefab == null)// 방어코드
             {
-                Debug.LogError($"{uiName} not found.");// 빨간줄로 뜨게 하는법
-                return;
+                throw new System.Exception($"{uiName} not found.");
+                //Debug.LogError($"{uiName} not found.");// 빨간줄로 뜨게 하는법
+                //return;
             }
 
-            T uiobject = Instantiate(prefab);
+            T uiobject = Instantiate(prefab); //하이어라키에 복사해서 추가
+
+            _uiList.Add(uiName, uiobject);// 딕셔너리에 생성한 ui 추가
 
             UIBase ui = uiobject.GetComponent<UIBase>();
 
             if (ui == null)
             {
-                Debug.LogError($"{uiName}Ui 프리팹에 Ui 컴포넌트가 없습니다");
-                return;
+                throw new System.Exception($"{uiName}Ui 프리팹에 Ui 컴포넌트가 없습니다");
+                //Debug.LogError($"{uiName}Ui 프리팹에 Ui 컴포넌트가 없습니다");
+                //return;
             }
-
-            _uiList.Add(uiName, ui);
-
         }
+
+        UIBase spawnedUI = _uiList[uiName]; //키값은 변수로 할당.
+        spawnedUI.Open();
+        return spawnedUI as T;
     }
 
-    public void Close(string uiName)
+    public void Close<T>(bool kill = false) where T : UIBase
     {
+        string uiName = GetUIName<T>();
+
+        UIBase ui /*= _uiList[uiName]*/  ; //  (리스트에서 불러옴)
+
+        if (_uiList.TryGetValue(uiName, out UIBase SavedUI))//  존재여부 확인을 위해 TryGetValue 사용, Out에 값을 넣어줌.
+            ui = SavedUI;
+        else return;
+
         if (_uiList.ContainsKey(uiName) == false)
         {
             Debug.Log($"{uiName}이 없습니다");
             return;
         }
 
-        UIBase ui = _uiList[uiName]; //  리스트에서 불러옴
-
+        SavedUI.Close(); // 찾은 UI를 꺼준다.
         Destroy(ui.gameObject);
         _uiList.Remove(uiName);
     }
-
 }
