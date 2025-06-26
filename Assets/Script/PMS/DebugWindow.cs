@@ -33,5 +33,13 @@ public class DebugWindow : EditorWindow
         }
 
 
+        if (GUILayout.Button("로드 스테이지 데이터 버튼"))
+        {
+            Test.Instance.SetStageData();
+        }
+
+        
+
+
     }
 }
