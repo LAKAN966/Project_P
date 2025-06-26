@@ -518,6 +518,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd0acf8a011b404f83ae8f0c5d619fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnitGotchaBotton: {fileID: 55662070278904001}
+  UnitManagementButton: {fileID: 1605679826774288289}
+  SacredPlaceButton: {fileID: 1826321321297567424}
+  StoreButton: {fileID: 8169656307584416444}
+  SelectStageButton: {fileID: 2189814585844866495}
 --- !u!1 &4033263048845424743
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,7 +572,6 @@ GameObject:
   - component: {fileID: 8878677615153396314}
   - component: {fileID: 4268647177504770998}
   - component: {fileID: 2189814585844866495}
-  - component: {fileID: 5769991578678409610}
   m_Layer: 5
   m_Name: SelectStageButton
   m_TagString: Untagged
@@ -676,31 +680,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4268647177504770998}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5769991578678409610}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: ToStage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5769991578678409610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4143109433312968604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a75d2ed5a04db0c3ba5b403f4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &4192327813673004639
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +693,6 @@ GameObject:
   - component: {fileID: 6417021170016948585}
   - component: {fileID: 7621747564780199666}
   - component: {fileID: 8169656307584416444}
-  - component: {fileID: 4648326914425958879}
   m_Layer: 5
   m_Name: StoreButton
   m_TagString: Untagged
@@ -822,31 +801,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7621747564780199666}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4648326914425958879}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: ToStore
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4648326914425958879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4192327813673004639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a75d2ed5a04db0c3ba5b403f4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &4299661797905796635
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,7 +921,6 @@ GameObject:
   - component: {fileID: 3894214585694067576}
   - component: {fileID: 8217661412358613638}
   - component: {fileID: 1605679826774288289}
-  - component: {fileID: 3798615832452791603}
   m_Layer: 5
   m_Name: UnitManagementButton
   m_TagString: Untagged
@@ -1075,31 +1029,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8217661412358613638}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3798615832452791603}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: ToDeckBuild
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3798615832452791603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4741257944160369765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a75d2ed5a04db0c3ba5b403f4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &5674766636663022086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,7 +1042,6 @@ GameObject:
   - component: {fileID: 1684818493417763846}
   - component: {fileID: 7017560391652402}
   - component: {fileID: 55662070278904001}
-  - component: {fileID: 7008500374915112427}
   m_Layer: 5
   m_Name: UnitGotchaBotton
   m_TagString: Untagged
@@ -1221,31 +1150,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7017560391652402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7008500374915112427}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: ToPickUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &7008500374915112427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5674766636663022086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a75d2ed5a04db0c3ba5b403f4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &6876492833072398017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,7 +1363,6 @@ GameObject:
   - component: {fileID: 5057812195378119146}
   - component: {fileID: 1384200633078390833}
   - component: {fileID: 1826321321297567424}
-  - component: {fileID: 9222001335458665788}
   m_Layer: 5
   m_Name: SacredPlaceButton
   m_TagString: Untagged
@@ -1567,31 +1471,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1384200633078390833}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9222001335458665788}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: ToHQ
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &9222001335458665788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8277534812687614554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a75d2ed5a04db0c3ba5b403f4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &8748251382053170804
 GameObject:
   m_ObjectHideFlags: 0
