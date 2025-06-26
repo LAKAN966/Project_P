@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Intro : UIBase
+public class Intro : MonoBehaviour
 {
     public Button EnterGameButton;
     void Start()
