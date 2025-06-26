@@ -27,7 +27,7 @@ public class UIUnitInfo : MonoBehaviour
 
     public void ShowInfo(UnitStats stats)
     {
-        infoText.text = stats.ID.ToString(); // 어떤 정보가 표시 되는지 아직 다 안넣었음. 확인 후 수정.
+        infoText.text = ($"{stats.Name}\n{stats.MaxHP}\n{stats.Damage}"); // 어떤 정보가 표시 되는지 아직 다 안넣었음. 확인 후 수정.
     }
 
     public void ShowUnitIcon()
