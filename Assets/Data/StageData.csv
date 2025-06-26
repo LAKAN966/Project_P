@@ -1,2 +1,2 @@
-ID,BaseDistance,EnemyBaseHP,EnemyUnit1,EnemyUnit2,EnemyUnit3,DropGold,DropUnit,StageName,TeaTime,ResetTime,EnemyHeroID
-10001,25,100,2002,2001,,10000,3001,TestWaveData,6,16,3001
+ID,BaseDistance,EnemyBaseHP,EnemyUnit1,EnemyUnit2,EnemyUnit3,DropGold,DropUnit,StageName,TeaTime,ResetTime,EnemyHeroID,StageBG
+10001,25,100,2002,2001,,10000,3001,TestWaveData,6,16,3001,-
