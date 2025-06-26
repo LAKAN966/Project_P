@@ -9,7 +9,7 @@ public class WaveManager : MonoBehaviour
 
     public TextAsset stageCSV;
     public int stageID;  // 외부에서 설정
-    private StageData currentStage;
+    public StageData currentStage;
     private List<WaveData> waves = new();
     private List<WaveData> triggerWaves;
     private List<WaveData> nonTriggerWaves;
@@ -67,25 +67,30 @@ public class WaveManager : MonoBehaviour
         if (!isPaused)
             timer += Time.deltaTime;
 
-        // 대기 웨이브가 없으면 새로운 웨이브 탐색
         if (pendingWave == null)
         {
-            if ((triggerActive?triggerWaves[waveCount] : nonTriggerWaves[waveCount]).Time <= timer && (triggerActive ? triggerWaves.Count : nonTriggerWaves.Count) > waveCount)
+            var currentList = triggerActive ? triggerWaves : nonTriggerWaves;
+            if (waveCount < currentList.Count &&
+                currentList[waveCount].Time <= timer)
             {
-                pendingWave = triggerActive ? triggerWaves[waveCount] : nonTriggerWaves[waveCount];
-                waveCount++;
+                pendingWave = currentList[waveCount];
             }
         }
         else
         {
             if (enemyPool.HasAvailable())
             {
-                isPaused = false;
-                if (SpawnEnemy(pendingWave.EnemyID))
+                if (UnitSpawner.Instance.SpawnEnemy(pendingWave.EnemyID))
                 {
-                    Debug.Log(pendingWave.Time+":"+waveCount);
+                    Debug.Log(pendingWave.Time + " : " + waveCount);
                     pendingWave = null;
+                    waveCount++;
                     isPaused = false;
+                }
+                else
+                {
+                    isPaused = true;
+                    return;
                 }
             }
             else
@@ -95,41 +100,17 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        if (timer >= currentStage.ResetTime)
+        if (pendingWave == null && timer >= currentStage.ResetTime)
         {
             timer = 0f;
             waveCount = 0;
-            Debug.Log("시간초기화!");
+            Debug.Log("시간 초기화!");
         }
 
         if (isPaused && enemyPool.HasAvailable())
         {
             isPaused = false;
         }
-    }
-
-
-
-    private bool SpawnEnemy(int enemyID)
-    {
-        var stats = UnitDataManager.Instance.GetStats(enemyID);
-        if (stats == null)
-        {
-            Debug.LogWarning($"EnemyID {enemyID} 유닛 데이터 없음");
-            return false;
-        }
-
-        var pos = UnitSpawner.Instance.GetSpawnPosition(true); // 적군
-        var pool = stats.IsHero ? UnitSpawner.Instance.enemyHeroPool : UnitSpawner.Instance.enemyPool;
-
-        var unit = pool.GetUnit(stats, pos);
-        if (unit == null)
-        {
-            Debug.Log($"EnemyID {enemyID} 스폰 실패: 풀 없음");
-            return false;
-        }
-
-        return true;
     }
 
     public void TriggerWave()
@@ -142,5 +123,6 @@ public class WaveManager : MonoBehaviour
             waveCount = 0;
             isPaused = false;
         }
+        UnitSpawner.Instance.SpawnEnemyHero(currentStage.EnemyHeroID);
     }
 }
