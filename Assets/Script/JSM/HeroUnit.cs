@@ -4,6 +4,6 @@ public class HeroUnit : Unit
     public override void Initialize()
     {
         base.Initialize();
-        SkillManager.Instance.UseHeroSkill(stats.SkillID, this);
+        SkillManager.Instance.UseSkill(stats.SkillID, this.isEnemy);
     }
 }

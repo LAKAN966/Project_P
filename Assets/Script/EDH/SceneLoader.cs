@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,5 +36,10 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("BattleScene");
 
+    }
+
+    public void ToStore()
+    {
+        SceneManager.LoadScene("StoreScene");
     }
 }

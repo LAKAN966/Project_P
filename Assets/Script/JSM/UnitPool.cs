@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitPool : MonoBehaviour
@@ -45,4 +45,14 @@ public class UnitPool : MonoBehaviour
         unit.transform.SetParent(transform);
         unit.gameObject.SetActive(false);
     }
+    public bool HasAvailable()
+    {
+        foreach (var unit in pool)
+        {
+            if (!unit.gameObject.activeInHierarchy)
+                return true;
+        }
+        return false;
+    }
+
 }
