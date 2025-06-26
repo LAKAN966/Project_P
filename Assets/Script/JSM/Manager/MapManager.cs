@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    public float mapLength = 50f;
+    public float mapLength;
     public Transform allyBasePrefab;
     public Transform enemyBasePrefab;
     public Transform mapRoot;
@@ -14,6 +14,7 @@ public class MapManager : MonoBehaviour
     }
     private void Start()
     {
+        mapLength = WaveManager.Instance.currentStage.BaseDistance;
         InitMap();
         SetupCameraBounds();
     }
@@ -28,7 +29,7 @@ public class MapManager : MonoBehaviour
     private void SetupCameraBounds()
     {
         float halfLength = mapLength / 2f;
-        float padding = 2f;
+        float padding = -2f;
         CameraController cam = Camera.main.GetComponent<CameraController>();
         cam.minX = -halfLength + padding;
         cam.maxX = halfLength - padding;

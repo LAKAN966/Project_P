@@ -12,7 +12,7 @@ public static class StageDataLoader
             if (string.IsNullOrWhiteSpace(lines[i])) continue;
             var values = lines[i].Split(',');
 
-            int parsedID = int.Parse(values[0]); // ID는 0번째
+            int parsedID = int.Parse(values[0]);
             if (parsedID == stageID)
             {
                 var data = new StageData
@@ -20,16 +20,17 @@ public static class StageDataLoader
                     ID = parsedID,
                     BaseDistance = float.Parse(values[1]),
                     EnemyBaseHP = int.Parse(values[2]),
-                    StageName = values[8],  // 열 순서 주의
                     DropGold = int.Parse(values[6]),
                     DropUnit = int.Parse(values[7]),
+                    StageName = values[8],
                     TeaTime = float.Parse(values[9]),
-                    ResetTime = float.Parse(values[10])
+                    ResetTime = float.Parse(values[10]),
+                    EnemyHeroID = int.Parse(values[11]),
+                    StageBG = values[12],
                 };
                 return data;
             }
         }
-
         Debug.LogError($"Stage ID {stageID} not found in CSV.");
         return null;
     }
