@@ -26,11 +26,11 @@ public static class StageDataLoader
                     TeaTime = float.Parse(values[9]),
                     ResetTime = float.Parse(values[10]),
                     EnemyHeroID = int.Parse(values[11]),
+                    StageBG = values[12],
                 };
                 return data;
             }
         }
-
         Debug.LogError($"Stage ID {stageID} not found in CSV.");
         return null;
     }

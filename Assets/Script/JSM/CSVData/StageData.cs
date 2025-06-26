@@ -9,4 +9,5 @@ public class StageData
     public float TeaTime;           //웨이브 시작 전 유예시간
     public float ResetTime;         //웨이브의 길이
     public int EnemyHeroID;         //적군 영웅 ID(없을시 0)
+    public string StageBG;          //스테이지 배경 이름
 }
