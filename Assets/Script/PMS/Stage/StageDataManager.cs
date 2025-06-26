@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StageDataManager
 {
     private static StageDataManager instance;
-    public static StageDataManager Instance 
+    public static StageDataManager Instance
     {
-        get 
+        get
         {
             if (instance == null)
             {
@@ -36,14 +38,22 @@ public class StageDataManager
 
             string[] tokens = lines[i].Split(',');
 
-            StageData stage = new StageData();
+            StageData stage = new StageData
             {
-                
-            };
+                ID = int.Parse(tokens[0]),
+                BaseDistance = float.Parse(tokens[1]),
+                EnemyBaseHP = int.Parse(tokens[2]),
+                StageName = tokens[8],
+                DropGold = int.Parse(tokens[6]),
+                DropUnit = int.Parse(tokens[7]),
+                TeaTime = float.Parse(tokens[9]),
+                ResetTime = float.Parse(tokens[10])
+            }
+            ;
 
             stageDic[stage.ID] = stage;
         }
 
-        Debug.Log($"유닛 데이터 로딩 완료: {stageDic.Count}개");
+        Debug.Log($"스테이지 데이터 로딩 완료: {stageDic.Count}개");
     }
 }
