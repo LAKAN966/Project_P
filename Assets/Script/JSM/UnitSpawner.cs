@@ -124,7 +124,7 @@ public class UnitSpawner : MonoBehaviour
             Debug.LogWarning("[UnitSpawner] 적군 영웅 유닛 풀 부족!");
         }
     }
-    public async Task SetButton()
+    public void SetButton()
     {
         foreach (var setting in buttonSettings)
         {

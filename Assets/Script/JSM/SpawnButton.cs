@@ -17,7 +17,7 @@ public class SpawnButton : MonoBehaviour
 
     async void Start()
     {
-        await UnitSpawner.Instance.SetButton();
+        UnitSpawner.Instance.SetButton();
         InitializeUI();
     }
 
