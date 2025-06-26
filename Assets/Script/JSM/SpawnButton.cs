@@ -10,13 +10,14 @@ public class SpawnButton : MonoBehaviour
 
     public Image cooldownOverlay;
     public Button button;
-    public TextMeshProUGUI costText;   // 인스펙터 연결
-    public GameObject iconParent;      // 인스펙터 연결
+    public TextMeshProUGUI costText;
+    public GameObject iconParent;
 
     private bool initialized = false;
 
-    private void Start()
+    async void Start()
     {
+        await UnitSpawner.Instance.SetButton();
         InitializeUI();
     }
 
@@ -49,7 +50,6 @@ public class SpawnButton : MonoBehaviour
                 Destroy(child.gameObject);
 
             string path = $"SPUM/{stats.ModelName}";
-            Debug.Log(unitID+"의 모델은"+stats.ModelName);
             var modelPrefab = Resources.Load<GameObject>(path);
             if (modelPrefab != null)
             {

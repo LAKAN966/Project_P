@@ -1,6 +1,6 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine;
+using System.Threading.Tasks;
 
 public class UnitSpawner : MonoBehaviour
 {
@@ -26,22 +26,16 @@ public class UnitSpawner : MonoBehaviour
 
     public List<ButtonSetting> buttonSettings = new();
 
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+    }
     private void Start()
     {
-        if(Instance == null) Instance = this;
-
         allySpawnPosition = GetSpawnPosition(false);
         enemySpawnPosition = GetSpawnPosition(true);
 
-        foreach (var setting in buttonSettings)
-        {
-            var button = setting.spawnButton;
-            button.unitID = setting.unitID;
-            button.isEnemy = setting.isEnemy;
-            button.isHero = setting.isHero;
-
-            button.button.onClick.AddListener(() => TrySpawn(button));
-        }
+        SetButton();
     }
 
     private void TrySpawn(SpawnButton data)
@@ -95,10 +89,27 @@ public class UnitSpawner : MonoBehaviour
     {
         float offset = 2f;
         return isEnemy
-            ? new Vector3(MapManager.Instance.mapLength / 2f - offset, 0, 0)
-            : new Vector3(-MapManager.Instance.mapLength / 2f + offset, 0, 0);
+            ? new Vector3(WaveManager.Instance.currentStage.BaseDistance / 2f - offset, 0, 0)
+            : new Vector3(-WaveManager.Instance.currentStage.BaseDistance / 2f + offset, 0, 0);
     }
-    public void SpawnEnemy(int unitID)
+    public bool SpawnEnemy(int unitID)
+    {
+        var stats = UnitDataManager.Instance.GetStats(unitID);
+        if (stats == null)
+        {
+            Debug.LogWarning($"[UnitSpawner] 알 수 없는 유닛 ID: {unitID}");
+            return false;
+        }
+
+        var unit = enemyPool.GetUnit(stats, enemySpawnPosition);
+        if (unit == null)
+        {
+            Debug.LogWarning("[UnitSpawner] 적군 유닛 풀 부족!");
+            return false;
+        }
+        return true;
+    }
+    public void SpawnEnemyHero(int unitID)
     {
         var stats = UnitDataManager.Instance.GetStats(unitID);
         if (stats == null)
@@ -107,24 +118,22 @@ public class UnitSpawner : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPos = enemySpawnPosition;
-
-        if (stats.IsHero)
+        var hero = enemyHeroPool.GetUnit(stats, enemySpawnPosition);
+        if (hero == null)
         {
-            var hero = enemyHeroPool.GetUnit(stats, spawnPos);
-            if (hero == null)
-            {
-                Debug.LogWarning("[UnitSpawner] 적군 영웅 유닛 풀 부족!");
-            }
-        }
-        else
-        {
-            var unit = enemyPool.GetUnit(stats, spawnPos);
-            if (unit == null)
-            {
-                Debug.LogWarning("[UnitSpawner] 적군 유닛 풀 부족!");
-            }
+            Debug.LogWarning("[UnitSpawner] 적군 영웅 유닛 풀 부족!");
         }
     }
+    public async Task SetButton()
+    {
+        foreach (var setting in buttonSettings)
+        {
+            var button = setting.spawnButton;
+            button.unitID = setting.unitID;
+            button.isEnemy = setting.isEnemy;
+            button.isHero = setting.isHero;
 
+            button.button.onClick.AddListener(() => TrySpawn(button));
+        }
+    }
 }
