@@ -4,19 +4,20 @@ using TMPro;
 
 public class SpawnButton : MonoBehaviour
 {
-    [HideInInspector] public int unitID;
+     public int unitID;
     [HideInInspector] public bool isEnemy;
     [HideInInspector] public bool isHero;
 
     public Image cooldownOverlay;
     public Button button;
-    public TextMeshProUGUI costText;   // 인스펙터 연결
-    public GameObject iconParent;      // 인스펙터 연결
+    public TextMeshProUGUI costText;
+    public GameObject iconParent;
 
     private bool initialized = false;
 
-    private void Start()
+    async void Start()
     {
+        await UnitSpawner.Instance.SetButton();
         InitializeUI();
     }
 

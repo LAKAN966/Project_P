@@ -20,12 +20,13 @@ public class BaseCastle : MonoBehaviour
 
     private void Start()
     {
+        SetMaxHP();
         currentHP = maxHP;
         UpdateUI();
     }
-    public void SetMaxHP(int hp)
+    public void SetMaxHP()
     {
-        maxHP = hp;
+        maxHP = isEnemy?WaveManager.Instance.currentStage.EnemyBaseHP : 1000; // 적 기지 : 아군 기지
     }
     public void TakeDamage(int amount)
     {
