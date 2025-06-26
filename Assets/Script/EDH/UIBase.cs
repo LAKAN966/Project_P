@@ -4,19 +4,13 @@ using UnityEngine;
 
 public abstract class UIBase : MonoBehaviour
 {
-    // Start is called before the first frame update
     public void Open()
     {
         gameObject.SetActive(true);
     }
 
-    public void Close(/*bool kill = false*/)
+    public void Close()
     {
-        //if (kill)
-        //{
-        //    Destroy(gameObject);
-        //    return;
-        //}
         gameObject.SetActive(false);
     }
 }

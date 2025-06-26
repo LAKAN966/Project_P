@@ -951,7 +951,6 @@ GameObject:
   - component: {fileID: 4651643979812340007}
   - component: {fileID: 5296958157074298501}
   - component: {fileID: 3534139630992761850}
-  - component: {fileID: 6246669147861992819}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -1060,31 +1059,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5296958157074298501}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6246669147861992819}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: CloseTab
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &6246669147861992819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882862573002158856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a75d2ed5a04db0c3ba5b403f4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &965635972868849552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1778,6 +1753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9fc7df768d53b8469869bf2471c7045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CloseButton: {fileID: 3534139630992761850}
 --- !u!1 &1527731268238346014
 GameObject:
   m_ObjectHideFlags: 0
@@ -3342,7 +3318,6 @@ GameObject:
   - component: {fileID: 796652431319128146}
   - component: {fileID: 1051864613538928666}
   - component: {fileID: 8648239625333413764}
-  - component: {fileID: 4174672344116117263}
   m_Layer: 5
   m_Name: ToDeck
   m_TagString: Untagged
@@ -3451,31 +3426,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1051864613538928666}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4174672344116117263}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: ToDeckBuild
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4174672344116117263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3460540585914039282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a75d2ed5a04db0c3ba5b403f4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &3521918116417691067
 GameObject:
   m_ObjectHideFlags: 0
@@ -4634,19 +4585,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3245334805661610349}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4272312239447123099}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &5123669411375269499
 GameObject:
   m_ObjectHideFlags: 0
@@ -6586,7 +6525,6 @@ GameObject:
   - component: {fileID: 295575232703852930}
   - component: {fileID: 876596788423781318}
   - component: {fileID: 3292551591157834095}
-  - component: {fileID: 7280404571341068126}
   m_Layer: 5
   m_Name: Encounter
   m_TagString: Untagged
@@ -6695,31 +6633,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 876596788423781318}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7280404571341068126}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: ToBattle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &7280404571341068126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7392544810494313959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a75d2ed5a04db0c3ba5b403f4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &7802602019105348085
 GameObject:
   m_ObjectHideFlags: 0

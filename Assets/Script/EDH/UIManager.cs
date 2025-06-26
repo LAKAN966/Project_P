@@ -80,16 +80,16 @@ public class UIManager : MonoBehaviour
 
         if (_uiList.TryGetValue(uiName, out UIBase SavedUI))//  존재여부 확인을 위해 TryGetValue 사용, Out에 값을 넣어줌.
             ui = SavedUI;
-        else return;
+        else //return;
 
-        if (_uiList.ContainsKey(uiName) == false)
+       // if (_uiList.ContainsKey(uiName) == false)
         {
             Debug.Log($"{uiName}이 없습니다");
             return;
         }
 
         SavedUI.Close(); // 찾은 UI를 꺼준다.
-        Destroy(ui.gameObject);
-        _uiList.Remove(uiName);
+        //Destroy(ui.gameObject);
+        //_uiList.Remove(uiName);
     }
 }
