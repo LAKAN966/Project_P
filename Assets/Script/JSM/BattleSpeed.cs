@@ -13,6 +13,6 @@ public class BattleSpeed : MonoBehaviour
         Time.timeScale = isDoubleSpeed ? 2f : 1f;
 
         if (speedLabel != null)
-            speedLabel.text = isDoubleSpeed ? "X1" : "X2";
+            speedLabel.text = isDoubleSpeed ? "X2" : "X1";
     }
 }
