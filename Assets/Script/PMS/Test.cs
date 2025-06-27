@@ -76,5 +76,10 @@ public class Test
         UIDeckBuildManager.instance.Init();
     }
 
+    public void SetStageData()
+    {
+        StageDataManager.Instance.LoadStageData();
+    }
+
 
 }

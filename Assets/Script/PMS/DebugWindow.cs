@@ -17,20 +17,29 @@ public class DebugWindow : EditorWindow
         GUILayout.Label("정수 값 입력", EditorStyles.boldLabel);
 
 
-        if (GUILayout.Button("테스트 버튼"))
+        if (GUILayout.Button("유닛뽑기 버튼"))
         {
             Test.Instance.EditFunctionSetUnit();
-        }
-
-        if (GUILayout.Button("덱 추가 버튼"))
-        {
-            Test.Instance.EditFunctionSetDeck();
         }
         
         if (GUILayout.Button("덱 데이터 출력 버튼"))
         {
             Test.Instance.EditFuctionDeckData();
         }
+
+        if (GUILayout.Button("덱빌드 씬 로드 버튼"))
+        {
+            Test.Instance.SetDeckBuild();
+        }
+
+
+        if (GUILayout.Button("로드 스테이지 데이터 버튼"))
+        {
+            Test.Instance.SetStageData();
+        }
+
+        
+
 
     }
 }

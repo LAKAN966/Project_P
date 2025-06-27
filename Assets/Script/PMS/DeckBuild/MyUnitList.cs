@@ -20,7 +20,7 @@ public class MyUnitList
         }
     }
     
-    public List<int> myList = new();
+    private List<int> myList = new();
 
     public bool AddUnit (int id) // 유닛 추가 메서드. 유닛의 동일한 아이디 확인해서 bool 값 반환.
     {
