@@ -20,5 +20,6 @@ public class StageUI : UIBase
         CloseButton.onClick.AddListener(() => UIManager.Instance.Close<HQUI>());
         CloseButton.onClick.AddListener(() => UIManager.Instance.Close<GottaUI>());
         CloseButton.onClick.AddListener(() => UIManager.Instance.Close<ShopUI>());
+        CloseButton.onClick.AddListener(() => UIManager.Instance.Close<DeckBuildUI>());
     }
 }

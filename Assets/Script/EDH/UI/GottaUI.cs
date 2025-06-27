@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 using Button = UnityEngine.UI.Button;
@@ -23,5 +22,6 @@ public class GottaUI : UIBase
         ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<HQUI>());
         ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<StageUI>());
         ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<ShopUI>());
+        ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<DeckBuildUI>());
     }
 }
