@@ -5,9 +5,17 @@ public class BuildManager : MonoBehaviour
 {
     [SerializeField] private GameObject buildListUI;
     [SerializeField] private List<BuildSlotUI> allSlots;
-    [SerializeField] private List<BuildingData> buildings;
+    public List<BuildingData> buildings;
 
     private BuildSlotUI selectedSlot;
+
+    public static BuildManager Instance;
+
+    private void Awake()
+    {
+        if(Instance == null)
+            Instance = this;
+    }
 
     public void SelectSlot(BuildSlotUI slot)
     {

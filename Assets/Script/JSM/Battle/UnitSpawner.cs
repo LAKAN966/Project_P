@@ -49,7 +49,7 @@ public class UnitSpawner : MonoBehaviour
 
         var spawnPos = data.isEnemy ? enemySpawnPosition : allySpawnPosition;
 
-        if (!BattleResourceManager.Instance.Spend(stats.Cost))
+        if (BattleResourceManager.Instance.currentResource<stats.Cost)
         {
             Debug.Log($"자원이 부족합니다.");
             return;
@@ -81,7 +81,7 @@ public class UnitSpawner : MonoBehaviour
                 return;
             }
         }
-
+        BattleResourceManager.Instance.Spend(stats.Cost);
         CoolTimeManager.Instance.SetCooldown(data.unitID, stats.SpawnInterval);
     }
 
@@ -124,7 +124,7 @@ public class UnitSpawner : MonoBehaviour
             Debug.LogWarning("[UnitSpawner] 적군 영웅 유닛 풀 부족!");
         }
     }
-    public async Task SetButton()
+    public void SetButton()
     {
         foreach (var setting in buttonSettings)
         {
@@ -133,6 +133,7 @@ public class UnitSpawner : MonoBehaviour
             button.isEnemy = setting.isEnemy;
             button.isHero = setting.isHero;
 
+            button.button.onClick.RemoveAllListeners();
             button.button.onClick.AddListener(() => TrySpawn(button));
         }
     }

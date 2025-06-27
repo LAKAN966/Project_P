@@ -2864,7 +2864,6 @@ GameObject:
   - component: {fileID: 4561479725931957679}
   - component: {fileID: 8391728271010855530}
   - component: {fileID: 7432819455238077399}
-  - component: {fileID: 3673398302382703444}
   m_Layer: 5
   m_Name: ExitBtn
   m_TagString: Untagged
@@ -2973,31 +2972,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8391728271010855530}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3673398302382703444}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: CloseTab
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3673398302382703444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2430709472590924275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a75d2ed5a04db0c3ba5b403f4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &2478446958118784513
 GameObject:
   m_ObjectHideFlags: 0
@@ -3532,6 +3507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b156b8893b7e0db4ead46eb464640765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ExitBtn: {fileID: 7432819455238077399}
 --- !u!1 &3015449881796686923
 GameObject:
   m_ObjectHideFlags: 0
