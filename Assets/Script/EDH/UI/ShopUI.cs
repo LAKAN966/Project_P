@@ -21,5 +21,6 @@ public class ShopUI : UIBase
         ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<HQUI>());
         ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<StageUI>());
         ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<GottaUI>());
+        ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<DeckBuildUI>());
     }
 }
