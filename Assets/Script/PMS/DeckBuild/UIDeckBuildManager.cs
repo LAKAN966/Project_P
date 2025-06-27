@@ -83,6 +83,7 @@ public class UIDeckBuildManager : MonoBehaviour
             {
                 UnitStats stats = UnitDataManager.Instance.GetStats(normalUnitIDs[i]);
                 slot.DeckImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+                slot.DeckImage.color = Color.white;
                 slot.unitData = stats;
 
             }

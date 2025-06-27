@@ -43,6 +43,7 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
         DeckImage.sprite = Resources.Load<Sprite>($"SPUMImg/{unitStats.ModelName}"); //유닛 이미지 가지고 오기.
         
+                        
         unitData = unitStats;
         UIUnitInfo.instance.ShowInfo(unitData);
         UIDeckBuildManager.instance.SetMyUnitIcons();
@@ -65,6 +66,7 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
             unitData = null;
             DeckImage.sprite = null;
+            
             UIDeckBuildManager.instance.SetMyUnitIcons();
             UIDeckBuildManager.instance.SetDeckSlots();
 
