@@ -9086,6 +9086,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8131870838456592072}
+  - component: {fileID: 2005590367918939610}
   m_Layer: 5
   m_Name: PurchaseUIBox
   m_TagString: Untagged
@@ -9118,6 +9119,21 @@ RectTransform:
   m_AnchoredPosition: {x: 205.22522, y: -47.91269}
   m_SizeDelta: {x: 780, y: 840}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2005590367918939610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7445526234510261781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6ebd40dbf8bfe84e920481a7f8f15e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputAmount: {fileID: 1651439733981006292}
+  AddButton: {fileID: 5943248433310510545}
+  SubtractButton: {fileID: 6148161283806486841}
 --- !u!1 &7552695431586374299
 GameObject:
   m_ObjectHideFlags: 0
