@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 630776060568476005, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
+      propertyPath: deckSlotPrefab
+      value: 
+      objectReference: {fileID: 6726473293483661461, guid: d3ab27354db08cc448cba0f9b596224d, type: 3}
     - target: {fileID: 1388534315718769016, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -138,6 +142,18 @@ PrefabInstance:
     - target: {fileID: 1388534315718769016, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.000045776367
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345605196457536205, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345605196457536205, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345605196457536205, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3406801529041214379, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
       propertyPath: m_Pivot.x
@@ -227,15 +243,38 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7276150125567953419, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
+      propertyPath: unitIcon
+      value: 
+      objectReference: {fileID: 3114321424909264729, guid: d34c46ebdb58ab948a0751549c53e5ef, type: 3}
+    - target: {fileID: 7276150125567953419, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
+      propertyPath: infoImage
+      value: 
+      objectReference: {fileID: 394950510}
     - target: {fileID: 7636398616354377307, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 9174091374555630346, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
+      propertyPath: DeckImage
+      value: 
+      objectReference: {fileID: 1795744971}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
+--- !u!114 &394950510 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7013939110860414428, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
+  m_PrefabInstance: {fileID: 390536072}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1436049381
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +435,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1795744971 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3418155504117849516, guid: 36911b3182f41484f8ae522be8a4b21f, type: 3}
+  m_PrefabInstance: {fileID: 390536072}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

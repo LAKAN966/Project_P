@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEditor;
 using UnityEngine;
 
 public class UIDeckBuildManager : MonoBehaviour
@@ -65,20 +67,20 @@ public class UIDeckBuildManager : MonoBehaviour
             if (i < normalUnitIDs.Count)
             {
                 UnitStats stats = UnitDataManager.Instance.GetStats(normalUnitIDs[i]);
-                //slot.iconImage.sprite = stats.; //이미지 아직 없음
+                slot.DeckImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
                 slot.unitData = stats;
 
             }
             else
             {
-                //slot.iconImage.sprite = null;
+                slot.DeckImage.sprite = null;
                 slot.unitData = null;
             }
         }
         if (leaderSlot != null && leaderUnitID.HasValue)
         {
             var leaderStats = UnitDataManager.Instance.GetStats(leaderUnitID.Value);
-            //leaderSlot.iconImage.sprite = leaderStats.; //이미지 아직 없음
+            leaderSlot.DeckImage.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderStats.ModelName}");
             leaderSlot.unitData = leaderStats;
         }
     }

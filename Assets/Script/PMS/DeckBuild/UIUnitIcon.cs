@@ -22,7 +22,7 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         myStats = stats;
         costText.text = stats.Cost.ToString();
-        //iconImage.sprite = // 모델명에 따라 스프라이트 로딩
+        iconImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
     }
 
     public UnitStats GetStats()
