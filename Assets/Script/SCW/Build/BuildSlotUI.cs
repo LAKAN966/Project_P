@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +12,9 @@ public class BuildSlotUI : MonoBehaviour
 
     public int Level { get; private set; } = 0;
 
-    public void Select(BuildManager manager)
+    public void Select()
     {
-        manager.SelectSlot(this);
+        BuildManager.Instance.SelectSlot(this);
     }
 
     public void Build()

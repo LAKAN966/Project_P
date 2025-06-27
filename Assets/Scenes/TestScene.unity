@@ -251,25 +251,16 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   buildings:
   - name: Archer
     upgradeSprites:
     - {fileID: 21300000, guid: 2c567b16a13d945209f751053afe3fe1, type: 3}
-    - {fileID: -8632902382057423091, guid: e7a1ab8305fcb4e6592557e7915e0409, type: 3}
-    - {fileID: 21300000, guid: 5fc81b89d4cb941379be53e56a8aaa66, type: 3}
   - name: Knight
     upgradeSprites:
     - {fileID: 21300000, guid: b217c59c26cd946559bfa038446a8d31, type: 3}
-    - {fileID: -5900576044887504656, guid: eabb93e77c1c94895b0fefef91c89601, type: 3}
-    - {fileID: 21300000, guid: 0c258eb26e1324a988342fed9368edb8, type: 3}
   - name: Sorceress
     upgradeSprites:
     - {fileID: 21300000, guid: 5c759a6c8d25c48afb0a3f6759fefffa, type: 3}
-    - {fileID: -3846737200670158752, guid: fbc4606fa5f3d44ee888a6703c0c0424, type: 3}
-    - {fileID: 21300000, guid: d7d4577638ecc45e6ba3faa09382ad3a, type: 3}
 --- !u!224 &577039630
 RectTransform:
   m_ObjectHideFlags: 0
