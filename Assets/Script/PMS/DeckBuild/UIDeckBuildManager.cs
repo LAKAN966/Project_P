@@ -1,11 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
+
+public enum UnitFilterType
+{
+    All,
+    Normal,
+    Leader
+}
 
 public class UIDeckBuildManager : MonoBehaviour
 {
-    [Header ("보유 유닛 슬롯")]
+    [Header("보유 유닛 슬롯")]
     [SerializeField] private GameObject unitIconPrefab;      // 유닛 아이콘 프리팹
     [SerializeField] private Transform myUnitContentParent;  // ScrollView의 Content
 
@@ -20,6 +30,13 @@ public class UIDeckBuildManager : MonoBehaviour
     private List<int> cachedUnitOrder = new();
 
     public static UIDeckBuildManager instance;
+
+    [Header("필터")]
+    [SerializeField] private Toggle normalToggle;
+    [SerializeField] private Toggle leaderToggle;
+    private UnitFilterType currentFilter = UnitFilterType.All; // 필터
+    
+
     private void Awake()
     {
         if (instance == null)
@@ -45,7 +62,7 @@ public class UIDeckBuildManager : MonoBehaviour
 
         deckSlotList.Clear();
 
-        for(int i = 0; i<6; i++)
+        for (int i = 0; i < 6; i++)
         {
             GameObject slot = Instantiate(deckSlotPrefab, deckSlotParent);
             UIDeckSlot uiSlot = slot.GetComponent<UIDeckSlot>();
@@ -65,20 +82,21 @@ public class UIDeckBuildManager : MonoBehaviour
             if (i < normalUnitIDs.Count)
             {
                 UnitStats stats = UnitDataManager.Instance.GetStats(normalUnitIDs[i]);
-                //slot.iconImage.sprite = stats.; //이미지 아직 없음
+                slot.DeckImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+                slot.DeckImage.color = Color.white;
                 slot.unitData = stats;
 
             }
             else
             {
-                //slot.iconImage.sprite = null;
+                slot.DeckImage.sprite = null;
                 slot.unitData = null;
             }
         }
         if (leaderSlot != null && leaderUnitID.HasValue)
         {
             var leaderStats = UnitDataManager.Instance.GetStats(leaderUnitID.Value);
-            //leaderSlot.iconImage.sprite = leaderStats.; //이미지 아직 없음
+            leaderSlot.DeckImage.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderStats.ModelName}");
             leaderSlot.unitData = leaderStats;
         }
     }
@@ -95,6 +113,19 @@ public class UIDeckBuildManager : MonoBehaviour
         {
             var stats = UnitDataManager.Instance.GetStats(unitID);
             if (stats == null) continue;
+
+            switch (currentFilter)
+            {
+                case UnitFilterType.Normal:
+                    if (stats.IsHero) continue;
+                    break;
+                case UnitFilterType.Leader:
+                    if (!stats.IsHero) continue;
+                    break;
+                case UnitFilterType.All: // 모두 표시
+                    break;
+            }
+
 
             GameObject iconGO = Instantiate(unitIconPrefab, myUnitContentParent);
             var unitIcon = iconGO.GetComponent<UIUnitIcon>();
@@ -120,5 +151,35 @@ public class UIDeckBuildManager : MonoBehaviour
             .ToList();
     }
 
-    
+    public void OnToggleNormal(bool isOn)
+    {
+        RefreshFilter();
+    }
+
+    public void OnToggleLeader(bool isOn)
+    {
+        RefreshFilter();
+    }
+
+    public void RefreshFilter()
+    {
+        bool normalOn = normalToggle.isOn;
+        bool leaderOn = leaderToggle.isOn;
+
+        if (normalOn && !leaderOn)
+        {
+            currentFilter = UnitFilterType.Normal;
+        }
+        else if (!normalOn && leaderOn)
+        {
+            currentFilter = UnitFilterType.Leader;
+        }
+
+        else
+        {
+            currentFilter = UnitFilterType.All;
+        }
+
+        SetMyUnitIcons();
+    }
 }

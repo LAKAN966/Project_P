@@ -68,4 +68,9 @@ public class StageDataManager
         Debug.Log($"스테이지ID {id}에 해당하는 정보를 찾을 올 수 없습니다.");
         return null;
     }
+
+    public Dictionary<int, StageData> GetAllStageData()
+    {
+        return stageDic;
+    }
 }
