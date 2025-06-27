@@ -8,6 +8,8 @@ public class BuildingSpawner : MonoBehaviour
     public Transform parentObject;
     public int count = 5;
     public ScrollRect scrollRect;
+    public GameObject buildListUI;
+    public GameObject buildGospelUI;
 
     private void Start()
     {
@@ -25,6 +27,8 @@ public class BuildingSpawner : MonoBehaviour
                     buildSlotUI.Select();
                 });
             }
+            newObj.GetComponentInChildren<BuildSlotUI>().buildListUI = buildListUI;
+            newObj.GetComponentInChildren<BuildSlotUI>().buildGospelUI = buildGospelUI;
         }
     }
 }

@@ -13,7 +13,7 @@ public class UILoader
         else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Q))
         { UIManager.Instance.Open<MainUI>(); }
         //Shift + Q = MainUI
-        
+
         else if (Input.GetKeyDown(KeyCode.W))
         { UIManager.Instance.Open<StageUI>(); }
         //W = StageUI
@@ -30,7 +30,9 @@ public class UILoader
         { UIManager.Instance.Open<HQUI>(); }
         //T = HQUI
 
-
+        else if (Input.GetKeyDown(KeyCode.Y))
+        { UIManager.Instance.Open<DeckBuildUI>(); }
+        //Y = DeckBuildUI
 
         //전체 삭제 Delete
         if (Input.GetKeyDown(KeyCode.Delete))
@@ -40,6 +42,7 @@ public class UILoader
             UIManager.Instance.Close<GottaUI>();
             UIManager.Instance.Close<ShopUI>();
             UIManager.Instance.Close<HQUI>();
+            UIManager.Instance.Close<DeckBuildUI>();
         }
 
 

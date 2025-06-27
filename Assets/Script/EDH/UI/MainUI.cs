@@ -16,6 +16,7 @@ public class MainUI : UIBase
     public Button SacredPlaceButton;     //내실
     public Button StoreButton;           //상점
 
+
     public Button SelectStageButton;     // 스테이지
 
     public void Start()
@@ -29,7 +30,7 @@ public class MainUI : UIBase
     public void ButtonPressed()
     {
         UnitGotchaBotton.onClick.AddListener(() => uiManager.Open<GottaUI>());
-        UnitManagementButton.onClick.AddListener(() => SceneManager.LoadScene("DeckBuildScene"));
+        UnitManagementButton.onClick.AddListener(() => UIManager.Instance.Open<DeckBuildUI>());
         SacredPlaceButton.onClick.AddListener(() => uiManager.Open<HQUI>());
         StoreButton.onClick.AddListener(() => uiManager.Open<ShopUI>());
         SelectStageButton.onClick.AddListener(() => uiManager.Open<StageUI>());

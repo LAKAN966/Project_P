@@ -244,23 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc64d9fb0b43d7439e805700321afa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildListUI: {fileID: 0}
-  allSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  buildings:
-  - name: Archer
-    upgradeSprites:
-    - {fileID: 21300000, guid: 2c567b16a13d945209f751053afe3fe1, type: 3}
-  - name: Knight
-    upgradeSprites:
-    - {fileID: 21300000, guid: b217c59c26cd946559bfa038446a8d31, type: 3}
-  - name: Sorceress
-    upgradeSprites:
-    - {fileID: 21300000, guid: 5c759a6c8d25c48afb0a3f6759fefffa, type: 3}
 --- !u!224 &577039630
 RectTransform:
   m_ObjectHideFlags: 0

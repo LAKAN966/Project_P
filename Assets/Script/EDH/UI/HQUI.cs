@@ -20,5 +20,7 @@ public class HQUI : UIBase
         ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<StageUI>());
         ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<GottaUI>());
         ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<ShopUI>());
+        ExitBtn.onClick.AddListener(() => UIManager.Instance.Close<DeckBuildUI>());
+
     }
 }
