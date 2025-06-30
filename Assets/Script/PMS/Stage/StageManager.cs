@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageManager : MonoBehaviour 
@@ -67,6 +68,7 @@ public class StageManager : MonoBehaviour
         var normalDeck = DeckManager.Instance.GetAllDataInDeck(); // 일반 덱 전달
         var leaderDeck = DeckManager.Instance.GetLeaderDataInDeck(); // 리더 전달
 
+        SceneManager.LoadScene("BattleScene");
         // BattleManager 호출. 덱 정보와 현재 스테이지 아이디 전달.
         // BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck);
 
