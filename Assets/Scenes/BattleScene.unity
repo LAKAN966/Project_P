@@ -392,50 +392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &336253237
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 336253239}
-  - component: {fileID: 336253238}
-  m_Layer: 0
-  m_Name: BattleManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &336253238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336253237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02b7b3629bb6b2448ec67a96d084a9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &336253239
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336253237}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &395116512 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6040878521771731924, guid: fd0143b4b2811bc4b9f0c2dcea9fb349, type: 3}
@@ -1746,7 +1702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageCSV: {fileID: 4900000, guid: 120f0f7d64786864aa1427d63fa14e84, type: 3}
-  stageID: 0
+  stageID: 10001
   enemyPool: {fileID: 8054658924490451434}
 --- !u!114 &249876054068631152
 MonoBehaviour:
@@ -8183,4 +8139,3 @@ SceneRoots:
   - {fileID: 1939909480329903748}
   - {fileID: 183771071670645203}
   - {fileID: 8034332117181291323}
-  - {fileID: 336253239}

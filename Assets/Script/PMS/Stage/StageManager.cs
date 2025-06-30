@@ -65,13 +65,18 @@ public class StageManager : MonoBehaviour
     {
         if (selectedStageID == -1) return;
 
-        var normalDeck = DeckManager.Instance.GetAllDataInDeck(); // 일반 덱 전달
-        var leaderDeck = DeckManager.Instance.GetLeaderDataInDeck(); // 리더 전달
-
+        SceneManager.sceneLoaded += OnBattleSceneLoaded;
         SceneManager.LoadScene("BattleScene");
-        BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck);
-
         Debug.Log($"{selectedStageID} 입장");
     }
-
+    private void OnBattleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "BattleScene")
+        {
+            var normalDeck = DeckManager.Instance.GetAllDataInDeck(); // 일반 덱 전달
+            var leaderDeck = DeckManager.Instance.GetLeaderDataInDeck(); // 리더 전달
+            SceneManager.sceneLoaded -= OnBattleSceneLoaded;
+            BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck);
+        }
+    }
 }

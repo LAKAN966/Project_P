@@ -1,18 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager
 {
-    public static BattleManager Instance;
-
-    private void Awake()
+    private static BattleManager instance;
+    public static BattleManager Instance
     {
-        if (Instance != null && Instance != this)
-            Destroy(gameObject);
+        get
+        {
+            if (instance == null)
+            {
+                instance = new BattleManager();
+            }
+            return instance;
+        }
     }
+
+    private BattleManager() { }
 
     public void StartBattle(int selectedStageID, List<UnitStats> normalDeck, UnitStats leaderDeck)
     {
         WaveManager.Instance.stageID = selectedStageID;
     }
 }
+
