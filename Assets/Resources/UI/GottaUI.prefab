@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2114480339769721370}
+  - component: {fileID: 6232949778948255030}
   m_Layer: 5
   m_Name: PickButton
   m_TagString: Untagged
@@ -37,6 +38,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -64}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6232949778948255030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294837873009139842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b68f68d0c4a254d4fbe7ac25019af745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTicketAmountText: {fileID: 3086654900257292084}
+  PityCount: {fileID: 5435057134401164798}
+  PickOnce: {fileID: 8279767113699549230}
+  PickTen: {fileID: 5196912133161593331}
 --- !u!1 &301094545803113100
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,7 +1372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBCF4\uC720 \uC7AC\uD654 :"
+  m_text: "\uBCF4\uC720 \uD2F0\uCF13 :"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8728abdc993f6f14d88b82d8d59400a4, type: 2}
   m_sharedMaterial: {fileID: 4804673219077872049, guid: 8728abdc993f6f14d88b82d8d59400a4, type: 2}
@@ -1512,7 +1529,7 @@ GameObject:
   - component: {fileID: 8783182503131701040}
   - component: {fileID: 8279767113699549230}
   m_Layer: 5
-  m_Name: Pick Once
+  m_Name: PickOnce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

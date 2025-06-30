@@ -9,4 +9,6 @@ public class PickUpCalculator
         float randomValue = UnityEngine.Random.value;     //리더유닛10, 일반 90 //0~1.
         return randomValue <= 0.1f;
     }
+
+
 }
