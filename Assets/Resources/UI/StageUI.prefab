@@ -1209,6 +1209,7 @@ GameObject:
   - component: {fileID: 6378041326879389069}
   - component: {fileID: 8618319577714952045}
   - component: {fileID: 4389284965155557670}
+  - component: {fileID: 2463429725308101370}
   m_Layer: 5
   m_Name: Stage_6
   m_TagString: Untagged
@@ -1330,6 +1331,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &2463429725308101370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133136150000809074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8311594b20d5841b1ddbdc4934e53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageBtn: {fileID: 4389284965155557670}
+  stageID: 0
 --- !u!1 &1148215857772107987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,6 +1493,7 @@ GameObject:
   - component: {fileID: 884154464499117421}
   - component: {fileID: 1907657594163425859}
   - component: {fileID: 2333362028385891778}
+  - component: {fileID: 7599864706985095699}
   m_Layer: 5
   m_Name: Stage_5
   m_TagString: Untagged
@@ -1599,6 +1615,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &7599864706985095699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272745364128703724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8311594b20d5841b1ddbdc4934e53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageBtn: {fileID: 2333362028385891778}
+  stageID: 0
 --- !u!1 &1314505271735875261
 GameObject:
   m_ObjectHideFlags: 0
@@ -2114,6 +2144,7 @@ GameObject:
   - component: {fileID: 5167525196194487703}
   - component: {fileID: 7546598925298959179}
   - component: {fileID: 6838895184594496896}
+  - component: {fileID: 7632649136296392131}
   m_Layer: 5
   m_Name: Stage_9
   m_TagString: Untagged
@@ -2235,6 +2266,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &7632649136296392131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858418652402455146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8311594b20d5841b1ddbdc4934e53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageBtn: {fileID: 6838895184594496896}
+  stageID: 0
 --- !u!1 &1920003170207878035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2322,6 +2367,7 @@ GameObject:
   - component: {fileID: 7988429885522506517}
   - component: {fileID: 7053335377710102831}
   - component: {fileID: 7789246716625978963}
+  - component: {fileID: 7993741032989465982}
   m_Layer: 5
   m_Name: Stage_3
   m_TagString: Untagged
@@ -2443,6 +2489,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &7993741032989465982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963674358562400137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8311594b20d5841b1ddbdc4934e53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageBtn: {fileID: 7789246716625978963}
+  stageID: 0
 --- !u!1 &1988602410289414921
 GameObject:
   m_ObjectHideFlags: 0
@@ -3626,9 +3686,9 @@ RectTransform:
   - {fileID: 2867417977356949188}
   m_Father: {fileID: 9132916561263914138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &796652431319128146
@@ -3745,9 +3805,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6835323768839993691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7419017842848777995
@@ -5254,9 +5314,9 @@ RectTransform:
   - {fileID: 6217517339471715714}
   m_Father: {fileID: 9132916561263914138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 660, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &123594173212263577
@@ -6214,6 +6274,7 @@ GameObject:
   - component: {fileID: 7289482365410560508}
   - component: {fileID: 3126019310810651220}
   - component: {fileID: 1975444945800007822}
+  - component: {fileID: 2474079614990648190}
   m_Layer: 5
   m_Name: Stage_7
   m_TagString: Untagged
@@ -6335,6 +6396,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &2474079614990648190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5832834417159602041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8311594b20d5841b1ddbdc4934e53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageBtn: {fileID: 1975444945800007822}
+  stageID: 0
 --- !u!1 &5992259444730865262
 GameObject:
   m_ObjectHideFlags: 0
@@ -6556,6 +6631,7 @@ GameObject:
   - component: {fileID: 5104787750645657729}
   - component: {fileID: 203283006822785711}
   - component: {fileID: 3057703383589303090}
+  - component: {fileID: 7383316298513665250}
   m_Layer: 5
   m_Name: Stage_1
   m_TagString: Untagged
@@ -6675,8 +6751,22 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7383316298513665250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6019324180807452111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8311594b20d5841b1ddbdc4934e53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageBtn: {fileID: 3057703383589303090}
+  stageID: 0
 --- !u!1 &6141101546534852610
 GameObject:
   m_ObjectHideFlags: 0
@@ -6709,9 +6799,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6835323768839993691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 450, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1146531616064707161
@@ -6764,6 +6854,7 @@ GameObject:
   - component: {fileID: 1219107677504979306}
   - component: {fileID: 2423012758968076844}
   - component: {fileID: 663468608406824178}
+  - component: {fileID: 2328555722892238714}
   m_Layer: 5
   m_Name: Stage_2
   m_TagString: Untagged
@@ -6885,6 +6976,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &2328555722892238714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151767713142136075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8311594b20d5841b1ddbdc4934e53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageBtn: {fileID: 663468608406824178}
+  stageID: 0
 --- !u!1 &6177857885118926047
 GameObject:
   m_ObjectHideFlags: 0
@@ -7614,9 +7719,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6835323768839993691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7698076367857057876
@@ -7669,6 +7774,7 @@ GameObject:
   - component: {fileID: 5919892278288785163}
   - component: {fileID: 8635457205482677534}
   - component: {fileID: 746574914231994602}
+  - component: {fileID: 5526146925059546554}
   m_Layer: 5
   m_Name: Stage_4
   m_TagString: Untagged
@@ -7790,6 +7896,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &5526146925059546554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865961560930199232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8311594b20d5841b1ddbdc4934e53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageBtn: {fileID: 746574914231994602}
+  stageID: 0
 --- !u!1 &6931932354838911848
 GameObject:
   m_ObjectHideFlags: 0
@@ -7958,9 +8078,9 @@ RectTransform:
   - {fileID: 3994555479916814943}
   m_Father: {fileID: 9132916561263914138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 380, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &295575232703852930
@@ -8044,7 +8164,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 876596788423781318}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7383316298513665250}
+        m_TargetAssemblyTypeName: StageNode, Assembly-CSharp
+        m_MethodName: OnClickEnterBattle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7933070663868900112
 GameObject:
   m_ObjectHideFlags: 0
@@ -9091,6 +9223,7 @@ GameObject:
   - component: {fileID: 1142517912393339941}
   - component: {fileID: 1206807835359368114}
   - component: {fileID: 4973008626478760070}
+  - component: {fileID: 7610190684492172448}
   m_Layer: 5
   m_Name: Stage_8
   m_TagString: Untagged
@@ -9212,6 +9345,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &7610190684492172448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430614894887812334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8311594b20d5841b1ddbdc4934e53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageBtn: {fileID: 4973008626478760070}
+  stageID: 0
 --- !u!1 &8920496608440624245
 GameObject:
   m_ObjectHideFlags: 0
@@ -9492,6 +9639,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7347277660297794906}
+  - component: {fileID: 3072563825796744562}
   m_Layer: 5
   m_Name: Stage
   m_TagString: Untagged
@@ -9520,6 +9668,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0.00039101, y: -0.001876831}
   m_SizeDelta: {x: 1573.8, y: 665.08}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3072563825796744562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044856983862897705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7b3d4f55a600d3488615f32e0d0eb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeParent: {fileID: 5770194728498436757}
+  battleBtn: {fileID: 3292551591157834095}
 --- !u!1 &9203408489202564054
 GameObject:
   m_ObjectHideFlags: 0

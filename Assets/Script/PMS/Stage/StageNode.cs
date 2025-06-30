@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class StageNode : MonoBehaviour
 {
     [SerializeField] private Button stageBtn;
-    [SerializeField] private Button battleBtn;
 
     public int stageID;
 
@@ -16,20 +15,11 @@ public class StageNode : MonoBehaviour
         
         stageBtn.onClick.RemoveAllListeners();
         stageBtn.onClick.AddListener(OnClickNode);
-        battleBtn.onClick.RemoveAllListeners();
-        battleBtn.onClick.AddListener(OnClickEnterBattle);
-
     }
 
     public void OnClickNode()
     {
-        var data = StageDataManager.Instance.GetStageData(stageID);
+        StageManager.instance.SelectStage(stageID);
     }
 
-    public void OnClickEnterBattle() // 배틀에 들어갈대 플레이어의 노말, 유니크 덱, 스테이지 아이디 전달
-    {
-        var normal = DeckManager.Instance.GetAllDataInDeck();
-        var leader = DeckManager.Instance.GetLeaderDataInDeck();
-        // 배틀 불러오기 함수 필요
-    }
 }
