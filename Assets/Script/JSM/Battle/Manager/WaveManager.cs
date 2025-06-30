@@ -37,7 +37,6 @@ public class WaveManager : MonoBehaviour
 
     private void LoadStageAndWave(int id)
     {
-        Debug.Log(id);
         currentStage = StageDataLoader.LoadByID(stageCSV, id);
         if (currentStage == null) return;
 

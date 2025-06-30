@@ -20,7 +20,9 @@ public class BattleManager
 
     public void StartBattle(int selectedStageID, List<UnitStats> normalDeck, UnitStats leaderDeck)
     {
+        Debug.Log(normalDeck.Count);
         WaveManager.Instance.stageID = selectedStageID;
+        UnitSpawner.Instance.Init(normalDeck, leaderDeck);
     }
 }
 
