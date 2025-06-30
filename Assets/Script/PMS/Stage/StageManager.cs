@@ -64,10 +64,10 @@ public class StageManager : MonoBehaviour
     {
         if (selectedStageID == -1) return;
 
-        var normalDeck = DeckManager.Instance.GetAllDataInDeck();
-        var leaderDeck = DeckManager.Instance.GetLeaderDataInDeck();
+        var normalDeck = DeckManager.Instance.GetAllDataInDeck(); // 일반 덱 전달
+        var leaderDeck = DeckManager.Instance.GetLeaderDataInDeck(); // 리더 전달
 
-        // BattleManager 호출
+        // BattleManager 호출. 덱 정보와 현재 스테이지 아이디 전달.
         // BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck);
 
         Debug.Log($"{selectedStageID} 입장");
