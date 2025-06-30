@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class StageManager : MonoBehaviour 
 {
     [SerializeField] private Transform nodeParent;
+    [SerializeField] private Button battleBtn;
 
     private StageNode[] nodes;
+
+    private int selectedStageID = -1;
 
     public static StageManager instance;
 
@@ -21,6 +24,8 @@ public class StageManager : MonoBehaviour
         nodes = nodeParent.GetComponentsInChildren<StageNode>();
         SetStageIDs();
         SetupNodes();
+
+        battleBtn.onClick.AddListener(OnClickEnterBattle);
     }
 
     private void SetStageIDs()
@@ -45,6 +50,27 @@ public class StageManager : MonoBehaviour
 
             node.Init(data);
         }
+    }
+
+    public void SelectStage(int stageID)
+    {
+        selectedStageID = stageID;
+        Debug.Log($"스테이지 {stageID} 선택됨");
+
+        battleBtn.gameObject.SetActive(true);
+    }
+
+    private void OnClickEnterBattle()
+    {
+        if (selectedStageID == -1) return;
+
+        var normalDeck = DeckManager.Instance.GetAllDataInDeck(); // 일반 덱 전달
+        var leaderDeck = DeckManager.Instance.GetLeaderDataInDeck(); // 리더 전달
+
+        // BattleManager 호출. 덱 정보와 현재 스테이지 아이디 전달.
+        // BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck);
+
+        Debug.Log($"{selectedStageID} 입장");
     }
 
 }

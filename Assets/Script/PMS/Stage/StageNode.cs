@@ -19,6 +19,7 @@ public class StageNode : MonoBehaviour
 
     public void OnClickNode()
     {
-        var data = StageDataManager.Instance.GetStageData(stageID);
+        StageManager.instance.SelectStage(stageID);
     }
+
 }
