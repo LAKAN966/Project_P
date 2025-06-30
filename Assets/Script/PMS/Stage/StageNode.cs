@@ -30,6 +30,6 @@ public class StageNode : MonoBehaviour
     {
         var normal = DeckManager.Instance.GetAllDataInDeck();
         var leader = DeckManager.Instance.GetLeaderDataInDeck();
-
+        // 배틀 불러오기 함수 필요
     }
 }
