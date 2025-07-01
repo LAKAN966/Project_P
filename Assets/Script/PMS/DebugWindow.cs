@@ -21,7 +21,13 @@ public class DebugWindow : EditorWindow
         {
             Test.Instance.EditFunctionSetUnit();
         }
-        
+
+        if (GUILayout.Button("덱 추가 버튼"))
+        {
+            Test.Instance.EditFunctionSetDeck();
+        }
+
+
         if (GUILayout.Button("덱 데이터 출력 버튼"))
         {
             Test.Instance.EditFuctionDeckData();
