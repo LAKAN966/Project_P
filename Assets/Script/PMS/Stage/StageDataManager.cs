@@ -47,16 +47,17 @@ public class StageDataManager
                 ID = int.Parse(tokens[0]),
                 BaseDistance = float.Parse(tokens[1]),
                 EnemyBaseHP = int.Parse(tokens[2]),
-                StageName = tokens[8],
                 DropGold = int.Parse(tokens[6]),
                 DropUnit = int.Parse(tokens[7]),
+                StageName = tokens[8],
                 TeaTime = float.Parse(tokens[9]),
                 ResetTime = float.Parse(tokens[10]),
                 EnemyHeroID = int.Parse(tokens[11]),
-                StageBG = tokens[12]
+                StageBG = tokens[12],
+                ActionPoint = int.Parse(tokens[13])
             };
-
             stageDic[stage.ID] = stage;
+
         }
 
         Debug.Log($"스테이지 데이터 로딩 완료: {stageDic.Count}개");
@@ -64,7 +65,7 @@ public class StageDataManager
 
     public StageData GetStageData(int id)
     {
-        if(stageDic.ContainsKey(id)) return stageDic[id];
+        if (stageDic.ContainsKey(id)) return stageDic[id];
         Debug.Log($"스테이지ID {id}에 해당하는 정보를 찾을 올 수 없습니다.");
         return null;
     }

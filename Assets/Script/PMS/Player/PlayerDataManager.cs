@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,11 @@ public class PlayerDataManager
         player.ticket += amount;
     }
 
+    public void AddActionPoint(int amount)
+    {
+        player.actionPoint += amount;
+    }
+
     public bool AddUnit(int id)
     {
         if (player.myUnitIDs.Contains(id))
@@ -82,12 +88,50 @@ public class PlayerDataManager
             .Where(stat => stat != null)
             .ToList();
     }
-
+ 
     public void ClearStage(int stageID)
     {
         if (!player.clearedStageIDs.Contains(stageID))
         {
             player.clearedStageIDs.Add(stageID);
+        }
+    }
+
+    public void RefreshActionPoint()
+    {
+        long now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        long last = player.lastActionPointTime;
+
+        if(last == 0)
+        {
+            player.lastActionPointTime = now;
+            return;
+        }
+
+        long elapsedSeconds = now - last;
+        int recovered = (int)(elapsedSeconds / 60); // 1분에 행동력 1씩 회복
+
+        if (recovered > 0)
+        {
+            player.actionPoint = Mathf.Min(player.actionPoint + recovered, 100); // 최대치 100과 비교해서 낮은쪽 사용.
+            player.lastActionPointTime += recovered * 60;
+        }
+    }
+
+    public bool UseActionPoint(int amount)
+    {
+        RefreshActionPoint();
+
+        if(player.actionPoint >= amount)
+        {
+            player.actionPoint -= amount;
+            return true;
+        }
+
+        else
+        {
+            Debug.Log("행동력이 부족합니다.");
+            return false;
         }
     }
 

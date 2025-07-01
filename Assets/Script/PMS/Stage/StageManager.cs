@@ -65,10 +65,16 @@ public class StageManager : MonoBehaviour
     {
         if (selectedStageID == -1) return;
 
+        int stageAP = StageDataManager.Instance.GetStageData(selectedStageID).ActionPoint;
+
+        if (!PlayerDataManager.Instance.UseActionPoint(stageAP))
+            return;
+
         SceneManager.sceneLoaded += OnBattleSceneLoaded;//씬 로드 후에 실행되게 설정
         SceneManager.LoadScene("BattleScene");
         Debug.Log($"{selectedStageID} 입장");
     }
+
     private void OnBattleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "BattleScene")
