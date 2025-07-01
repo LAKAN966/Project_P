@@ -1701,7 +1701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f57b5db2ef82cfb4685989b854cd6db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageCSV: {fileID: 4900000, guid: 120f0f7d64786864aa1427d63fa14e84, type: 3}
+  stageCSV: {fileID: 4900000, guid: 6ebfaeb1b160ee24bb7756d800fec427, type: 3}
   stageID: 10001
   enemyPool: {fileID: 8054658924490451434}
 --- !u!114 &249876054068631152
