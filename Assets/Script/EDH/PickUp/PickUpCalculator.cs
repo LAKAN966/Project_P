@@ -2,70 +2,39 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.NetworkInformation;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
-public class PickUpCalculator
+
+
+public class PickUpCalculator : MonoBehaviour
 {
-    public static bool IsLeader()
+    UnitDataManager unitDataManager;
+
+    private void Start()
     {
-        float randomValue = UnityEngine.Random.value;     //리더유닛10, 일반 90 //0~1.
-        return randomValue <= 0.1f;
+        unitDataManager = UnitDataManager.Instance;
     }
-    //리더인지 아닌지
-    //리더일 경우 리스트에서 하나 뽑는다.
-    //리더가 아닐경우 일반에서 모집.
-
-
-
-    public List<Card> deck = new List<Card>();
-    public int Total = 0;
-    public List<Card> CardResult = new List<Card>();
-
-    public void ResultSelect()
+    
+    public void PickUps()
     {
-        CardResult.Add(RandomCard(Total));
-    }
-    public Card RandomCard(int weight)
-    {
-        int SelectNum = 0;
-        SelectNum = Mathf.RoundToInt(Total * Random.Range(0.0f, 1.0f));
+        string path = Path.Combine(Application.dataPath, "Data/UnitData.csv");
 
-        for (int i = 0; i < deck.Count; i++)
+        if (!File.Exists(path))
         {
-            weight += deck[i].Weight;
-            if (SelectNum <= weight)
-            {
-                Card temp = new Card(deck[i]);
-                return temp;
-            }
+            Debug.LogError($"UnitData.csv 파일이 없습니다: {path}");
+            return;
         }
-        return null;
-    }
 
-    void start()
-    {
-        for (int i = 0; i < deck.Count; i++)
-        {
-            Total += deck[i].Weight;
-        }
+        string[] lines = File.ReadAllLines(path);
 
     }
 }
+//리더인지 아닌지
+//리더일 경우 리스트에서 하나 뽑는다.
+//리더가 아닐경우 일반에서 모집.
+//PlayerDataManager.AddUnit에 데이터 패싱 필요.
 
-public enum CardGrade { Leader, }
-[System.Serializable]
-public class Card
-{
-    public string CaedName;
-    public string CardImage;
-    public CardGrade cardGrade;
-    public int Weight;
 
-    public Card(Card card)
-    {
-        this.CaedName = card.CaedName;
-        this.CardImage = card.CardImage;
-        this.cardGrade = card.cardGrade;
-        this.Weight = card.Weight;
-    }
-}
