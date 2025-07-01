@@ -11,13 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BattleScene.unity
     guid: 62c8668dc01781d4aac2b01f8fee3b22
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DeckBuildScene.unity
     guid: b37cda5f555088849ac09fdf92baa205
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GotchaScene.unity
     guid: 3035949957f5edb41b64a10fb7d81551
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HQScene.unity
     guid: b7d99cbf8425c6d49861215b011701d8
   - enabled: 1
@@ -26,7 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: fa5abd042933a584cba732ee14b83256
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StoreScene.unity
     guid: bbb2f40d067a66c488c8ef033c6cadfc
   - enabled: 1
