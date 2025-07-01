@@ -85,12 +85,12 @@ public class StageManager : MonoBehaviour
         PlayerDataManager.Instance.ClearStage(selectedStageID);
     }
 
-    public void AddReward() // 클리어 스테이지 골드 추가.
+    public void AddReward() // 클리어 스테이지 골드, 드랍 유닛 추가.
     {
         int dropGold = StageDataManager.Instance.GetStageData(selectedStageID).DropGold;
         PlayerDataManager.Instance.AddGold(dropGold);
 
         int dropUnit = StageDataManager.Instance.GetStageData(selectedStageID).DropUnit;
-        PlayerDataManager.Instance.AddGold(dropUnit);
+        PlayerDataManager.Instance.AddUnit(dropUnit);
     }
 }
