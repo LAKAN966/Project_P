@@ -2,7 +2,7 @@
     "Name": "Undead",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2024-09-11 00:03:32",
+    "CreationDate": "2025-06-30 20:46:29",
     "SpumAnimationData": [],
     "SpumTextureData": [
         {
@@ -201,23 +201,7 @@
             "Name": "Zombie_5",
             "UnitType": "Unit",
             "PartType": "Body",
-            "SubType": "Arm_L",
-            "PartSubType": "",
-            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
-        },
-        {
-            "Name": "Zombie_5",
-            "UnitType": "Unit",
-            "PartType": "Body",
             "SubType": "Arm_R",
-            "PartSubType": "",
-            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
-        },
-        {
-            "Name": "Zombie_5",
-            "UnitType": "Unit",
-            "PartType": "Body",
-            "SubType": "Body",
             "PartSubType": "",
             "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
         },
@@ -233,6 +217,14 @@
             "Name": "Zombie_5",
             "UnitType": "Unit",
             "PartType": "Body",
+            "SubType": "Head",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
+        },
+        {
+            "Name": "Zombie_5",
+            "UnitType": "Unit",
+            "PartType": "Body",
             "SubType": "Foot_R",
             "PartSubType": "",
             "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
@@ -241,7 +233,15 @@
             "Name": "Zombie_5",
             "UnitType": "Unit",
             "PartType": "Body",
-            "SubType": "Head",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
+        },
+        {
+            "Name": "Zombie_5",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_L",
             "PartSubType": "",
             "Path": "Addons/Undead/0_Unit/0_Sprite/0_Body/Zombie_5"
         },
@@ -481,7 +481,7 @@
             "Name": "Undead_Pant_02",
             "UnitType": "Unit",
             "PartType": "Pant",
-            "SubType": "Left",
+            "SubType": "Right",
             "PartSubType": "",
             "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_02"
         },
@@ -489,7 +489,7 @@
             "Name": "Undead_Pant_02",
             "UnitType": "Unit",
             "PartType": "Pant",
-            "SubType": "Right",
+            "SubType": "Left",
             "PartSubType": "",
             "Path": "Addons/Undead/0_Unit/0_Sprite/3_Pant/Undead_Pant_02"
         },
