@@ -14,58 +14,41 @@ public class PickUpCalculator
     //리더인지 아닌지
     //리더일 경우 리스트에서 하나 뽑는다.
     //리더가 아닐경우 일반에서 모집.
+    //PlayerDataManager.AddUnit에 데이터 패싱 필요.
 
 
-
-    public List<Card> deck = new List<Card>();
-    public int Total = 0;
-    public List<Card> CardResult = new List<Card>();
-
-    public void ResultSelect()
+    [Serializable]
+    public class Merchandise<T>
     {
-        CardResult.Add(RandomCard(Total));
+        public T item;
+        public float value;
     }
-    public Card RandomCard(int weight)
-    {
-        int SelectNum = 0;
-        SelectNum = Mathf.RoundToInt(Total * Random.Range(0.0f, 1.0f));
 
-        for (int i = 0; i < deck.Count; i++)
+    public class PickUpCalculator2
+    {
+
+        // 확률에 따라 랜덤으로 선택하는 함수
+        public static T GetRandomEnum<T>(List<Merchandise<T>> probabilities)
         {
-            weight += deck[i].Weight;
-            if (SelectNum <= weight)
+            float total = 0f;
+            foreach (var entry in probabilities)
             {
-                Card temp = new Card(deck[i]);
-                return temp;
+                total += entry.value; // 전체 확률 합계
             }
+
+            float randomValue = UnityEngine.Random.Range(0f, total); // 0과 total 사이의 랜덤 값 생성
+            float cumulative = 0f;
+
+            foreach (var entry in probabilities)
+            {
+                cumulative += entry.value; // 확률을 누적
+                if (randomValue < cumulative)
+                {
+                    return entry.item; // 랜덤 값이 누적 확률을 넘지 않으면 해당 값을 선택
+                }
+            }
+
+            return probabilities[0].item; // 기본값 (예외처리로 사용 가능)
         }
-        return null;
-    }
-
-    void start()
-    {
-        for (int i = 0; i < deck.Count; i++)
-        {
-            Total += deck[i].Weight;
-        }
-
-    }
-}
-
-public enum CardGrade { Leader, }
-[System.Serializable]
-public class Card
-{
-    public string CaedName;
-    public string CardImage;
-    public CardGrade cardGrade;
-    public int Weight;
-
-    public Card(Card card)
-    {
-        this.CaedName = card.CaedName;
-        this.CardImage = card.CardImage;
-        this.cardGrade = card.cardGrade;
-        this.Weight = card.Weight;
     }
 }
