@@ -29,4 +29,14 @@ public class PlayerDataManager
     {
 
     }
+    public void AddGold(int amount)
+    {
+        player.gold += amount;
+    }
+
+    public void AddTicket(int amount)
+    {
+        player.ticket += amount;
+    }
+
 }
