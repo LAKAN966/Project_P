@@ -133,6 +133,38 @@ public class PlayerDataManager
             return false;
         }
     }
+    
+    public bool UseGold(int amount)
+    {
+        if (player.gold >= amount)
+        {
+            player.gold -= amount;
+            return true;
+        }
+
+        else
+        {
+            Debug.Log("골드가 부족합니다.");
+            return false;
+        }
+    }
+    
+    public bool UseTicket(int amount)
+    {
+        if(player.ticket >= amount)
+        {
+            player.ticket -= amount;
+            return true;
+        }
+
+        else
+        {
+            Debug.Log("티켓이 부족합니다.");
+            return false;
+        }
+
+    }
+
     public bool HasClearedStage(int stageID)
     {
         return player.clearedStageIDs.Contains(stageID);
