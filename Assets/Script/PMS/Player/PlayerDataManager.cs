@@ -56,7 +56,6 @@ public class PlayerDataManager
         }
 
         player.myUnitIDs.Add(id);
-        Save();
         return true;
     }
 
