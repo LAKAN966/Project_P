@@ -134,5 +134,9 @@ public class PlayerDataManager
             return false;
         }
     }
+    public bool HasClearedStage(int stageID)
+    {
+        return player.clearedStageIDs.Contains(stageID);
+    }
 
 }
