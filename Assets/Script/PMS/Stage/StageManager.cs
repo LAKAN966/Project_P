@@ -79,4 +79,18 @@ public class StageManager : MonoBehaviour
             BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck);
         }
     }
+
+    public void ClearStage() // 클리어 스테이지 플레이어에 추가. 배틀 끝나고 불러오기.
+    {
+        PlayerDataManager.Instance.ClearStage(selectedStageID);
+    }
+
+    public void AddReward() // 클리어 스테이지 골드 추가.
+    {
+        int dropGold = StageDataManager.Instance.GetStageData(selectedStageID).DropGold;
+        PlayerDataManager.Instance.AddGold(dropGold);
+
+        int dropUnit = StageDataManager.Instance.GetStageData(selectedStageID).DropUnit;
+        PlayerDataManager.Instance.AddGold(dropUnit);
+    }
 }
