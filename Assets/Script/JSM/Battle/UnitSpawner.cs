@@ -37,7 +37,14 @@ public class UnitSpawner : MonoBehaviour
 
         SetButton();
     }
-
+    public void Init(List<UnitStats> normalDeck, UnitStats leaderDeck)
+    {
+        for (int i = 0; i < normalDeck.Count; i++)
+        {
+            buttonSettings[i].unitID = normalDeck[i].ID;
+        }
+        buttonSettings[6].unitID = leaderDeck.ID;
+    }
     private void TrySpawn(SpawnButton data)
     {
         var stats = UnitDataManager.Instance.GetStats(data.unitID);

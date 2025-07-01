@@ -27,13 +27,20 @@ public class SpawnButton : MonoBehaviour
 
         float remaining = CoolTimeManager.Instance.GetRemainingCooldown(unitID);
         float total = GetCooldown();
-
+        if(unitID == 0)
+        {
+            cooldownOverlay.fillAmount = 1;
+        }
         cooldownOverlay.fillAmount = total > 0 ? remaining / total : 0f;
         button.interactable = remaining <= 0f;
     }
 
     private void InitializeUI()
     {
+        if (unitID == 0)
+        {
+            return;
+        }
         var stats = UnitDataManager.Instance.GetStats(unitID);
         if (stats == null)
         {
