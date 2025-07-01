@@ -39,15 +39,18 @@ public class Pick : MonoBehaviour
 
     public void One()
     {
-        TicketAmount--; // 1장 소모
-        TicketAmount = Math.Max(TicketAmount, 0); // 0검사
+        if (TicketAmount >= 1)
+        {
+            TicketAmount--; // 1장 소모
+            TicketAmount = Math.Max(TicketAmount, 0); // 0검사
 
-        if (TicketAmount == 0)
-             PickPoint += 0;
-        else PickPoint++;
+            if (TicketAmount < 0)
+                PickPoint += 0;
+            else PickPoint++;
 
-        ShowTicketAmountText.text = TicketAmount.ToString();
-        PityCount.text = PickPoint.ToString();
+            ShowTicketAmountText.text = TicketAmount.ToString();
+            PityCount.text = PickPoint.ToString();
+        }
     }
 
     public void Ten()
