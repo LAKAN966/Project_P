@@ -21,13 +21,13 @@ public class Test
     public void EditFunctionSetUnit()
     {
 
-        MyUnitList.Instance.AddUnit(1001);
-        MyUnitList.Instance.AddUnit(1002);
-        MyUnitList.Instance.AddUnit(2001);
-        MyUnitList.Instance.AddUnit(2002);
-        MyUnitList.Instance.AddUnit(3001);
+        PlayerDataManager.Instance.AddUnit(1001);
+        PlayerDataManager.Instance.AddUnit(1002);
+        PlayerDataManager.Instance.AddUnit(2001);
+        PlayerDataManager.Instance.AddUnit(2002);
+        PlayerDataManager.Instance.AddUnit(3001);
 
-        var myList = MyUnitList.Instance.GetAllUnit();
+        var myList = PlayerDataManager.Instance.GetAllUnit();
 
         if (myList == null)
         {

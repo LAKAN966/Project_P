@@ -12,4 +12,6 @@ public class Player
 
     public List<int> clearedStageIDs = new(); // 클리어 스테이지 정보
 
+    public int actionPoint = 100; // 현재 행동력
+    public long lastActionPointTime; // 행동력 사용한 마지막 시간
 }

@@ -65,10 +65,16 @@ public class StageManager : MonoBehaviour
     {
         if (selectedStageID == -1) return;
 
+        int stageAP = StageDataManager.Instance.GetStageData(selectedStageID).ActionPoint;
+
+        if (!PlayerDataManager.Instance.UseActionPoint(stageAP))
+            return;
+
         SceneManager.sceneLoaded += OnBattleSceneLoaded;//씬 로드 후에 실행되게 설정
         SceneManager.LoadScene("BattleScene");
         Debug.Log($"{selectedStageID} 입장");
     }
+
     private void OnBattleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "BattleScene")
@@ -78,5 +84,19 @@ public class StageManager : MonoBehaviour
             SceneManager.sceneLoaded -= OnBattleSceneLoaded;
             BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck);
         }
+    }
+
+    public void ClearStage() // 클리어 스테이지 플레이어에 추가. 배틀 끝나고 불러오기.
+    {
+        PlayerDataManager.Instance.ClearStage(selectedStageID);
+    }
+
+    public void AddReward() // 클리어 스테이지 골드, 드랍 유닛 추가.
+    {
+        int dropGold = StageDataManager.Instance.GetStageData(selectedStageID).DropGold;
+        PlayerDataManager.Instance.AddGold(dropGold);
+
+        int dropUnit = StageDataManager.Instance.GetStageData(selectedStageID).DropUnit;
+        PlayerDataManager.Instance.AddUnit(dropUnit);
     }
 }
