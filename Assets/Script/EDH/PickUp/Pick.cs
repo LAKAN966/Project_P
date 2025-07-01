@@ -62,7 +62,7 @@ public class Pick : MonoBehaviour
 
             if (TicketAmount < 0)
                  PickPoint += 0;
-            else PickPoint += 10;
+            else PickPoint += 10; 
 
             ShowTicketAmountText.text = TicketAmount.ToString();
             PityCount.text = PickPoint.ToString();
