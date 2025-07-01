@@ -21,14 +21,15 @@ public class Pick : MonoBehaviour
     int TicketAmount; // 티켓 수
     int PickPoint;    // 뽑은 횟수
 
+    
 
     private void Start()
     {
         PickOnce.onClick.AddListener(() => One()); //1회  뽑기
         PickTen.onClick.AddListener(() => Ten()); //10회 뽑기
 
-        TicketAmount = 50;
-        PickPoint = 0;
+       TicketAmount = PlayerDataManager.Instance.player.ticket;
+         PickPoint = 0;
 
         ShowTicketAmountText.text = TicketAmount.ToString();        //현재 티켓 수
         PityCount.text = PickPoint.ToString();                      //현재 마일리지
