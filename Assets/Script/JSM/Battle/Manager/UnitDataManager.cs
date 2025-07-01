@@ -1,26 +1,30 @@
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class UnitDataManager : MonoBehaviour
+public class UnitDataManager
 {
-    public static UnitDataManager Instance { get; private set; }
+    private static UnitDataManager instance;
+    public static UnitDataManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new UnitDataManager();
+                instance.LoadUnitData();
+            }
+            return instance;
+        }
+    }
 
     private Dictionary<int, UnitStats> unitStatsDict = new();
 
-    private void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-
-        LoadUnitData();
-    }
+    private UnitDataManager() { }
 
     private void LoadUnitData()
     {
         string path = Path.Combine(Application.dataPath, "Data/UnitData.csv");
-
         if (!File.Exists(path))
         {
             Debug.LogError($"UnitData.csv 파일이 없습니다: {path}");
@@ -70,6 +74,4 @@ public class UnitDataManager : MonoBehaviour
         Debug.LogWarning($"ID {id}에 해당하는 유닛 데이터를 찾을 수 없습니다.");
         return null;
     }
-
-    
 }
