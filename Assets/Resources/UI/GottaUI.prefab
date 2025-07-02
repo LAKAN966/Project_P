@@ -1550,7 +1550,7 @@ GameObject:
   - component: {fileID: 2258758658389832143}
   - component: {fileID: 2016518321185364749}
   m_Layer: 5
-  m_Name: Pick Ten
+  m_Name: PickTenTimes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1746,7 +1746,7 @@ GameObject:
   - component: {fileID: 54779887415107245}
   - component: {fileID: 5322838016584627354}
   m_Layer: 5
-  m_Name: Pick One
+  m_Name: PickOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

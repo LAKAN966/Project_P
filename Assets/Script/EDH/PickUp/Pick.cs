@@ -21,7 +21,9 @@ public class Pick : MonoBehaviour
     int TicketAmount; // 티켓 수
     int PickPoint;    // 뽑은 횟수
 
-    
+    GameObject PickOne;        // 1회뽑기 화면
+    GameObject PickTenTimes;   // 10회  뽑기화면
+
 
     private void Start()
     {
@@ -34,12 +36,13 @@ public class Pick : MonoBehaviour
         ShowTicketAmountText.text = TicketAmount.ToString();        //현재 티켓 수
         PityCount.text = PickPoint.ToString();                      //현재 마일리지
 
-        //외부에서 데이터 가져와야함.
+        //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)
     }
 
 
     public void One()
     {
+        PickOne.SetActive(true);
         if (TicketAmount >= 1)
         {
             TicketAmount--; // 1장 소모
@@ -56,6 +59,7 @@ public class Pick : MonoBehaviour
 
     public void Ten()
     {
+        PickTenTimes.SetActive(true);
         if (TicketAmount >= 10)
         {
             TicketAmount -= 10;// 10장 소모

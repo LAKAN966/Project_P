@@ -15,9 +15,10 @@ public static class WaveDataLoader
 
             result.Add(new WaveData
             {
-                Time = float.Parse(tokens[0]),
-                EnemyID = int.Parse(tokens[1]),
-                OnTrigger = bool.Parse(tokens[2])
+                StageID = int.Parse(tokens[0]),
+                Time = float.Parse(tokens[1]),
+                EnemyID = int.Parse(tokens[2]),
+                OnTrigger = bool.Parse(tokens[3])
             });
         }
 
