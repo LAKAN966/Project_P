@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class StageManager : MonoBehaviour 
+public class StageManager : MonoBehaviour
 {
     [SerializeField] private Transform nodeParent;
     [SerializeField] private Button battleBtn;
@@ -91,17 +91,51 @@ public class StageManager : MonoBehaviour
         PlayerDataManager.Instance.ClearStage(selectedStageID);
     }
 
-    public void AddReward() // 클리어 스테이지 골드, 드랍 유닛 추가. 최초 클리어시 유닛 획득. 중복 클리어시 골드만 획득.
+    public void AddReward() // 스테이지 클리어 보상
     {
         var stageData = StageDataManager.Instance.GetStageData(selectedStageID);
 
-        PlayerDataManager.Instance.AddGold(stageData.DropGold);
+        bool firstClear = !PlayerDataManager.Instance.HasClearedStage(selectedStageID);
 
-        if (!PlayerDataManager.Instance.HasClearedStage(selectedStageID))
+        if (firstClear)
         {
-            int dropUnit = StageDataManager.Instance.GetStageData(selectedStageID).DropUnit;
-            PlayerDataManager.Instance.AddUnit(dropUnit);
+            for (int i = 0; i < stageData.firstRewardItemIDs.Count; i++)
+            {
+                int itemID = stageData.firstRewardItemIDs[i];
+                int amount = stageData.firstRewardAmounts[i];
+                GiveReward(itemID, amount);
+            }
         }
-        
+
+        else
+        {
+            for (int i = 0; i < stageData.repeatRewardItemIDs.Count; i++)
+            {
+                int itemID = stageData.repeatRewardItemIDs[i];
+                int amount = stageData.repeatRewardAmounts[i];
+                GiveReward(itemID, amount);
+            }
+        }
+
+    }
+
+    private void GiveReward(int itemID, int amount)
+    {
+        switch (itemID)
+        {
+            case 101:
+                PlayerDataManager.Instance.AddGold(amount);
+                break;
+
+            case 102:
+                PlayerDataManager.Instance.AddTicket(amount);
+                break;
+
+            case 103:
+                PlayerDataManager.Instance.AddBluePrint(amount);
+                break;
+        }
+
+
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,7 +20,9 @@ public class StageDataManager
             if (instance == null)
             {
                 instance = new StageDataManager();
+                instance.LoadStageData();
             }
+            
             return instance;
         }
     }
@@ -45,17 +48,38 @@ public class StageDataManager
             StageData stage = new StageData
             {
                 ID = int.Parse(tokens[0]),
-                BaseDistance = float.Parse(tokens[1]),
-                EnemyBaseHP = int.Parse(tokens[2]),
-                DropGold = int.Parse(tokens[6]),
-                DropUnit = int.Parse(tokens[7]),
-                StageName = tokens[8],
-                TeaTime = float.Parse(tokens[9]),
-                ResetTime = float.Parse(tokens[10]),
-                EnemyHeroID = int.Parse(tokens[11]),
-                StageBG = tokens[12],
-                ActionPoint = int.Parse(tokens[13])
+                Chapter = int.Parse(tokens[1]),
+                BaseDistance = float.Parse(tokens[2]),
+                EnemyBaseHP = int.Parse(tokens[3]),
+                StageName = tokens[11],
+                TeaTime = float.Parse(tokens[12]),
+                ResetTime = float.Parse(tokens[13]),
+                EnemyHeroID = int.Parse(tokens[14]),
+                StageBG = tokens[15],
+                ActionPoint = int.Parse(tokens[16])
             };
+
+            if (!string.IsNullOrWhiteSpace(tokens[7]))
+            {
+                stage.firstRewardItemIDs = tokens[7].Split(';').Select(int.Parse).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(tokens[8]))
+            {
+                stage.firstRewardAmounts = tokens[8].Split(';').Select(int.Parse).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(tokens[9]))
+            {
+                stage.repeatRewardItemIDs = tokens[9].Split(';').Select(int.Parse).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(tokens[10]))
+            {
+                stage.repeatRewardAmounts = tokens[10].Split(';').Select(int.Parse).ToList();
+            }
+
+
             stageDic[stage.ID] = stage;
 
         }
