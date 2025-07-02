@@ -12,11 +12,9 @@ public class ShoppingManager : MonoBehaviour
 
     private void Start()
     {
-        EnterShop();
-    }
-
-    void EnterShop()
-    {
 
     }
 }
+
+
+   

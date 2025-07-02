@@ -9,35 +9,62 @@ using UnityEngine;
 using System.IO;
 using Button = UnityEngine.UI.Button;
 using Unity.VisualScripting;
+using TMPro;
+using JetBrains.Annotations;
 
 
 public class ItemSlot : MonoBehaviour
 {
-    private ItemListLoader shoppingManager;
-    public PlayerManager playerManager;
+    //private ItemListLoader shoppingManager;
+    //public PlayerManager playerManager;
+    //public Button Merchandise;
+    //public ItemList itemList;
+    //public int slotindex;
+    //public bool Purchase(int index)
+    //{
+    //    if (PlayerDataManager.Instance.player.gold > index.cost)
+    //    {
+    //        PlayerDataManager.Instance.UseGold(Cost);
+    //        PlayerDataManager.Instance.AddTicket(amount);
+    //    }
+    //    return true;
+    //}
 
-    public Button Merchandise;
-    public ItemList itemList;
+    [SerializeField] private TMP_Text MerchandiseCost; // 아이템 가격
+    [SerializeField] private Button BuyButton;        // 구매버튼
+    public TMP_InputField InputAmount;
+    private ItemList _ItemList;
 
-
-    public int slotindex;
-   
-
-    public void start()
+    public void init(ItemList itemList)
     {
-        Merchandise.onClick.AddListener(() => Purchase());
+        MerchandiseCost.text = MerchandiseCost.text + "";
+        _ItemList = itemList;
+
+        BuyButton.onClick.RemoveAllListeners();
+        BuyButton.onClick.AddListener(Purchase);
+
+        
     }
 
-    
-    
-    public bool Purchase(int index)
+
+
+    public void Purchase()
     {
-        if (PlayerDataManager.Instance.player.gold > index.cost)
+        int amount = _ItemList.Cost;
+        if (_ItemList.Cost < PlayerDataManager.Instance.player.gold)
         {
-            PlayerDataManager.Instance.UseGold(Cost);
-            PlayerDataManager.Instance.AddTicket(amount);
+            if(_ItemList.ID == 101)
+            {
+                PlayerDataManager.Instance.UseGold(amount);
+                int Buy = InputAmount.text.ToString().Length;
+                PlayerDataManager.Instance.AddTicket(Buy);
+
+            }
+
         }
-        return true;
+       
+         
+     
     }
 
 }

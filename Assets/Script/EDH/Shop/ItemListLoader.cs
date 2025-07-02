@@ -10,7 +10,7 @@ using static UnityEditor.Progress;
 using Unity.VisualScripting;
 
 
-public class ItemListLoader
+public class ItemListLoader : MonoBehaviour 
 {
     private static ItemListLoader _instance;
 
