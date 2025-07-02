@@ -42,9 +42,19 @@ public class PlayerDataManager
         player.ticket += amount;
     }
 
+    public void AddBluePrint(int amount)
+    {
+        player.bluePrint += amount;
+    }
+
     public void AddActionPoint(int amount)
     {
         player.actionPoint += amount;
+    }
+
+    public void AddTribute(int amount)
+    {
+        player.tribute += amount;
     }
 
     public bool AddUnit(int id)
@@ -169,5 +179,7 @@ public class PlayerDataManager
     {
         return player.clearedStageIDs.Contains(stageID);
     }
+
+    
 
 }

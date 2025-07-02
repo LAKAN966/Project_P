@@ -68,6 +68,9 @@ sysinfo.txt
 *.unitypackage.meta
 *.app
 
+# Firebase SDK large binaries
+Assets/Firebase/Plugins/
+
 # Crashlytics generated file
 crashlytics-build.properties
 
