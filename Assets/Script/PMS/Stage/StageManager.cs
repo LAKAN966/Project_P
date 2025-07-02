@@ -1,18 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageManager : MonoBehaviour
 {
+    [Header("챕터")]
+    [SerializeField] private Button prevBtn;
+    [SerializeField] private Button nextBtn;
+    [SerializeField] private TextMeshProUGUI chapterText;
+
+    [Header("스테이지")]
     [SerializeField] private Transform nodeParent;
+    [SerializeField] private StageNode stageNodePrefab;
     [SerializeField] private Button battleBtn;
+    [SerializeField] private GameObject stageInfo;
 
-    private StageNode[] nodes;
+    public Action<int> SetStageInfo;
 
+    private int currentChapter = 1;
     private int selectedStageID = -1;
 
+    
     public static StageManager instance;
 
     public void Awake()
@@ -22,41 +35,86 @@ public class StageManager : MonoBehaviour
 
     public void Init()
     {
-        nodes = nodeParent.GetComponentsInChildren<StageNode>();
-        SetStageIDs();
-        SetupNodes();
-
+        prevBtn.onClick.AddListener(() => ChangeChapter(-1));
+        nextBtn.onClick.AddListener(() => ChangeChapter(1));
         battleBtn.onClick.AddListener(OnClickEnterBattle);
+
+        battleBtn.gameObject.SetActive(false);
+
+        SetStageInfo = (stageID) =>
+        {
+            stageInfo.SetActive(true);
+        };
+
+        UpdateStageUI();
     }
 
-    private void SetStageIDs()
+    public void ChangeChapter(int delta)
     {
-        var stageDatas = StageDataManager.Instance.GetAllStageData(); // 딕셔너리로 만들어진 모든 스테이지 데이터. 딕셔너리 키 값은 스테이지 아이디
+        currentChapter += delta;
 
-        var sortedStages = new List<StageData>(stageDatas.Values);
-        sortedStages.Sort((a, b) => a.ID.CompareTo(b.ID)); // 스테이지 리스트 정렬 (a와 b 비교해서 오름차순으로)
+        var stageDataDic = StageDataManager.Instance.GetAllStageData();
+        int minChapter = stageDataDic.Values.Min(x => x.Chapter);
+        int maxChapter = stageDataDic.Values.Max(x => x.Chapter);
 
-        for (int i = 0; i < nodes.Length && i < sortedStages.Count; i++)
+        currentChapter = Mathf.Clamp(currentChapter, minChapter, maxChapter);
+
+        UpdateStageUI();
+    }
+
+    private void UpdateStageUI()
+    {
+        foreach(Transform child in nodeParent)
         {
-            nodes[i].stageID = sortedStages[i].ID; // 노드에 스테이지 매칭
+            Destroy(child.gameObject);
+        }
+
+        chapterText.text = $"Chater_{currentChapter}";
+        var stageDataDic = StageDataManager.Instance.GetAllStageData(); // 딕셔너리로 만들어진 모든 스테이지 데이터. 딕셔너리 키 값은 스테이지 아이디
+
+        var chapterStages = stageDataDic.Values
+            .Where(x => x.Chapter == currentChapter)
+            .OrderBy(x => x.ID)
+            .ToList();
+
+        int nodeCount = chapterStages.Count;
+
+        // 부모 영역의 크기
+        RectTransform parentRect = nodeParent.GetComponent<RectTransform>();
+        float parentWidth = parentRect.rect.width;
+        float parentHeight = parentRect.rect.height;
+
+        float marginX = 50f; // 왼쪽/오른쪽 여유
+        float availableWidth = parentWidth - marginX * 2;
+
+        float spacingX = availableWidth / (nodeCount - 1); // 노드 수 - 1 로 나누면 균등
+
+        float topY = parentHeight * 0.6f;
+        float bottomY = parentHeight * 0.1f;
+
+        for (int i = 0; i < nodeCount; i++)
+        {
+            var stage = chapterStages[i];
+            var node = Instantiate(stageNodePrefab, nodeParent);
+            node.Init(stage);
+
+            RectTransform nodePosition = node.GetComponent<RectTransform>();
+            if (nodePosition != null)
+            {
+                float x = marginX + spacingX * i;
+                float y = (i % 2 == 0) ? topY : bottomY;
+
+                nodePosition.anchoredPosition = new Vector2(x, y);
+            }
         }
     }
-
-    private void SetupNodes()
-    {
-        foreach (var node in nodes)
-        {
-            var data = StageDataManager.Instance.GetStageData(node.stageID);
-            if (data == null) continue;
-
-            node.Init(data);
-        }
-    }
+    
 
     public void SelectStage(int stageID)
     {
         selectedStageID = stageID;
         Debug.Log($"스테이지 {stageID} 선택됨");
+        SetStageInfo?.Invoke(stageID);
 
         battleBtn.gameObject.SetActive(true);
     }

@@ -20,7 +20,6 @@ public class StageDataManager
             if (instance == null)
             {
                 instance = new StageDataManager();
-                instance.LoadStageData();
             }
             
             return instance;
