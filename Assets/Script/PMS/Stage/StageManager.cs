@@ -87,7 +87,7 @@ public class StageManager : MonoBehaviour
         float marginX = 50f; // 왼쪽/오른쪽 여유
         float availableWidth = parentWidth - marginX * 2;
 
-        float spacingX = availableWidth / (nodeCount - 1); // 노드 수 - 1 로 나누면 균등
+        float spacingX = availableWidth / nodeCount;
 
         float topY = parentHeight * 0.6f;
         float bottomY = parentHeight * 0.1f;
