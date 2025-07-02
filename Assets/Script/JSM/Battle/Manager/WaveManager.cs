@@ -7,7 +7,6 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager Instance;
 
-    public TextAsset stageCSV;
     public int stageID;  // 외부에서 설정
     public StageData currentStage;
     private List<WaveData> waves = new();
@@ -37,22 +36,27 @@ public class WaveManager : MonoBehaviour
 
     private void LoadStageAndWave(int id)
     {
+        TextAsset stageCSV = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Data/StageData.csv");
+
         currentStage = StageDataLoader.LoadByID(stageCSV, id);
         if (currentStage == null) return;
 
-        string assetPath = "Assets/Data/" + currentStage.StageName + ".csv";
-        TextAsset waveText = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>(assetPath);
+        Debug.Log($"스테이지 로딩: {currentStage.StageName}");
+        TextAsset waveText = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Data/WaveData.csv");
         if (waveText == null)
         {
-            Debug.LogError($"CSV not found at {assetPath}");
+            Debug.LogError($"WaveData.csv 파일이 없습니다: {"Assets/Data/WaveData.csv"}");
             return;
         }
 
-        waves = WaveDataLoader.Load(waveText);
+        var allWaves = WaveDataLoader.Load(waveText);
+        waves = allWaves.Where(w => w.StageID == id).ToList();
+
         waveCount = 0;
         triggerWaves = waves.Where(w => w.OnTrigger).ToList();
         nonTriggerWaves = waves.Where(w => !w.OnTrigger).ToList();
     }
+
 
     IEnumerator StartWaveAfterTeaTime()
     {
