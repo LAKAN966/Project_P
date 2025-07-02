@@ -1,5 +1,6 @@
 [System.Serializable]
-public class ItemList
+public class Item
+
 {
     public int ID;          //아이템 ID
     public string Name;     //아이템 이름

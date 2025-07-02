@@ -15,56 +15,21 @@ using JetBrains.Annotations;
 
 public class ItemSlot : MonoBehaviour
 {
-    //private ItemListLoader shoppingManager;
-    //public PlayerManager playerManager;
-    //public Button Merchandise;
-    //public ItemList itemList;
-    //public int slotindex;
-    //public bool Purchase(int index)
-    //{
-    //    if (PlayerDataManager.Instance.player.gold > index.cost)
-    //    {
-    //        PlayerDataManager.Instance.UseGold(Cost);
-    //        PlayerDataManager.Instance.AddTicket(amount);
-    //    }
-    //    return true;
-    //}
-
-    [SerializeField] private TMP_Text MerchandiseCost; // 아이템 가격
-    [SerializeField] private Button BuyButton;        // 구매버튼
-    public TMP_InputField InputAmount;
-    private ItemList _ItemList;
-
-    public void init(ItemList itemList)
+    
+    [SerializeField] private TMP_Text MerchandiseCost;   // 아이템 가격
+    [SerializeField] private Button   SelfButton;        // 자기자신 
+    
+    private Item _Item;
+    private PurchaseSync _PurchaseSync;
+    public ItemListLoader ItemListLoader;
+    public void init(Item item)
     {
-        MerchandiseCost.text = MerchandiseCost.text + "";
-        _ItemList = itemList;
+        ItemListLoader.GetAllList();
+        GameObject root = transform.root.gameObject;
+        Debug.Log(root.name);
+        _Item = item;
 
-        BuyButton.onClick.RemoveAllListeners();
-        BuyButton.onClick.AddListener(Purchase);
-
-        
+        SelfButton.onClick.RemoveAllListeners();
+        SelfButton.onClick.AddListener(() => _PurchaseSync.Open(_Item.Cost));
     }
-
-
-
-    public void Purchase()
-    {
-        int amount = _ItemList.Cost;
-        if (_ItemList.Cost < PlayerDataManager.Instance.player.gold)
-        {
-            if(_ItemList.ID == 101)
-            {
-                PlayerDataManager.Instance.UseGold(amount);
-                int Buy = InputAmount.text.ToString().Length;
-                PlayerDataManager.Instance.AddTicket(Buy);
-
-            }
-
-        }
-       
-         
-     
-    }
-
 }

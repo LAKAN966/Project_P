@@ -32,7 +32,7 @@ public class ItemListLoader : MonoBehaviour
         return Instance;
     }
 
-    private Dictionary<int, ItemList> itemListsDict = new();
+    private Dictionary<int, Item> itemListsDict = new();
     private void LoadItemData()
     {
         string path = Path.Combine(Application.dataPath, "Data/MarketItemData.csv");
@@ -50,7 +50,7 @@ public class ItemListLoader : MonoBehaviour
 
             string[] tokens = lines[i].Split(',');
 
-            ItemList item = new ItemList
+            Item item = new Item
             {
                 ID = int.Parse(tokens[0]),
                 Name = tokens[1],
@@ -60,7 +60,7 @@ public class ItemListLoader : MonoBehaviour
         }
         Debug.Log($"유닛 데이터 로딩 완료: {itemListsDict.Count}개");
     }
-    public Dictionary<int, ItemList> GetAllList()
+    public Dictionary<int, Item> GetAllList()
     { return itemListsDict; }
 }
 

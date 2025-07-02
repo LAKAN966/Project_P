@@ -9,12 +9,14 @@ public class SlotSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SpawnSlot();
     }
 
     public void SpawnSlot()
     {
-        Dictionary<int, ItemList> items = ItemListLoader.Instance.GetAllList();
+        Dictionary<int, Item> items = ItemListLoader.Instance.GetAllList();
+
+        Debug.Log(items.Count + "총아이템의 개수");
 
         foreach(var item in items)
         {

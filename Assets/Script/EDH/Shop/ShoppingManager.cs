@@ -10,9 +10,11 @@ public class ShoppingManager : MonoBehaviour
 
     public ItemListLoader ItemListLoader;
 
+    
     private void Start()
     {
-
+        ItemListLoader.GetAllList();
+        ItemSlot.Instantiate(Contenet);
     }
 }
 
