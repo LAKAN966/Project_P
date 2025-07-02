@@ -52,6 +52,11 @@ public class PlayerDataManager
         player.actionPoint += amount;
     }
 
+    public void AddTribute(int amount)
+    {
+        player.tribute += amount;
+    }
+
     public bool AddUnit(int id)
     {
         if (player.myUnitIDs.Contains(id))

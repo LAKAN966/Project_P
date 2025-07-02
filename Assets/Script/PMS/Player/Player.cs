@@ -7,6 +7,7 @@ public class Player
     public int gold = 0; // 골드
     public int ticket = 0; // 뽑기 재화
     public int bluePrint = 0; // 설계도
+    public int tribute = 0; // 공물
 
     public List<int> myUnitIDs = new(); // 보유 유닛 정보
     public DeckData currentDeck = new(); // 덱 정보
