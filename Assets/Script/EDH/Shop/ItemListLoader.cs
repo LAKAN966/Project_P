@@ -67,6 +67,7 @@ public class ItemListLoader : MonoBehaviour
                 ID = int.Parse(tokens[0]),
                 Name = tokens[1],
                 Cost = int.Parse(tokens[2]),
+                //Description = tokens[3]
             };
             itemListsDict[item.ID] = item;
         }

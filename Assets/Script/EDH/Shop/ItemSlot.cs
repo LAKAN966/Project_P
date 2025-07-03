@@ -15,10 +15,12 @@ using JetBrains.Annotations;
 
 public class ItemSlot : MonoBehaviour
 {
+    [SerializeField] private TMP_Text ItemCost;             // 아이템 가격
+    [SerializeField] private TMP_Text ItemNameText;         // 아이템 이름
+    [SerializeField] private TMP_Text ItemDescriptionText;  // 아이템 설명
 
-    [SerializeField] private TMP_Text MerchandiseCost;   // 아이템 가격
-    [SerializeField] private TMP_Text ItemNameText;      // 아이템 이름
-    [SerializeField] private Button itemSlot;          // 아이템 슬롯
+    [SerializeField] private Button itemSlot;               // 아이템 슬롯
+    [SerializeField] private Button PurchaseItemIcon;       // 아이템 아이콘
 
 
     private Item _Item;
@@ -31,13 +33,14 @@ public class ItemSlot : MonoBehaviour
         Debug.Log(root.name);
 
         _Item = item;
+        ItemNameText.text = item.Name;
+        ItemCost.text = item.Cost.ToString();
+        //ItemDescriptionText.text = item.Description.ToString(); 
+
+        
 
         itemSlot.onClick.RemoveAllListeners();
-        itemSlot.onClick.AddListener(() => Open());
-    }
-
-    public void Open()
-    {
-        PurchaseUIBox.SetActive(true);
+        itemSlot.onClick.AddListener(() => UIController.Instance. PurchaseUIBox.SetActive(true));
+        PurchaseItemIcon.onClick.AddListener(() => UIController.Instance.DescriptionBox.SetActive(!UIController.Instance.DescriptionBox.activeSelf));
     }
 }

@@ -21,10 +21,6 @@ public class Pick : MonoBehaviour
     int TicketAmount; // 티켓 수
     int PickPoint;    // 뽑은 횟수
 
-    GameObject PickOne;        // 1회뽑기 화면
-    GameObject PickTenTimes;   // 10회  뽑기화면
-
-
     private void Start()
     {
         PickOnce.onClick.AddListener(() => One()); //1회  뽑기
@@ -42,7 +38,7 @@ public class Pick : MonoBehaviour
 
     public void One()
     {
-        PickOne.SetActive(true);
+        
         if (TicketAmount >= 1)
         {
             TicketAmount--; // 1장 소모
@@ -59,7 +55,6 @@ public class Pick : MonoBehaviour
 
     public void Ten()
     {
-        PickTenTimes.SetActive(true);
         if (TicketAmount >= 10)
         {
             TicketAmount -= 10;// 10장 소모
