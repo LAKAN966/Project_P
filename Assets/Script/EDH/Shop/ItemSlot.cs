@@ -15,21 +15,31 @@ using JetBrains.Annotations;
 
 public class ItemSlot : MonoBehaviour
 {
-    
+
     [SerializeField] private TMP_Text MerchandiseCost;   // 아이템 가격
-    [SerializeField] private Button   SelfButton;        // 자기자신 
-    
+    [SerializeField] private TMP_Text ItemNameText;      // 아이템 이름
+    [SerializeField] private Button itemSlot;          // 아이템 슬롯
+
+
     private Item _Item;
     private PurchaseSync _PurchaseSync;
-    public ItemListLoader ItemListLoader;
+    private ItemListLoader ItemListLoader; // 아이템 리스트 로더
+    public GameObject PurchaseUIBox;
+
     public void init(Item item)
     {
-        ItemListLoader.GetAllList();
         GameObject root = transform.root.gameObject;
         Debug.Log(root.name);
+
         _Item = item;
 
-        SelfButton.onClick.RemoveAllListeners();
-        SelfButton.onClick.AddListener(() => _PurchaseSync.Open(_Item.Cost));
+        itemSlot.onClick.RemoveAllListeners();
+        itemSlot.onClick.AddListener(() => Open());
+     }
+
+    public void Open()
+    {
+        PurchaseUIBox.SetActive(true);
     }
 }
+

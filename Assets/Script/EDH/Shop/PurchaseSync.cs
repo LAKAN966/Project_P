@@ -58,14 +58,8 @@ public class PurchaseSync : MonoBehaviour
         }
         );
     }
-    public void Open(int _cost)
-    {
-        PurchaseUIBox.SetActive(true);
-    }
     public void Purchase()
     {
-        itemListLoader.GetAllList();
-
         int Cost = _Item.Cost;//
         int amount = int.Parse(InputAmount.text);
         if (_Item.Cost < PlayerDataManager.Instance.player.gold)
@@ -81,7 +75,7 @@ public class PurchaseSync : MonoBehaviour
                 PlayerDataManager.Instance.AddTicket(amount);
             }
         }
+        else return;
     }
-
 }
 

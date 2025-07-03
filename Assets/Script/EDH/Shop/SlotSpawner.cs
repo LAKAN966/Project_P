@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SlotSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject Merchandise;
+    [SerializeField] private GameObject ItemSlot;
     [SerializeField] private Transform Content;
-    // Start is called before the first frame update
+    
     void Start()
     {
         SpawnSlot();
@@ -20,8 +20,8 @@ public class SlotSpawner : MonoBehaviour
 
         foreach(var item in items)
         {
-            GameObject go = Instantiate(Merchandise, Content);
-            ItemSlot slot = go.AddComponent<ItemSlot>();
+            GameObject go = Instantiate(ItemSlot, Content);
+            ItemSlot slot = go.GetComponent<ItemSlot>();
             slot.init(item.Value);
         }
     }

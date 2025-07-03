@@ -26,6 +26,18 @@ public class ItemListLoader : MonoBehaviour
         }
         
     }
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            _instance = this;
+            LoadItemData();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private ItemListLoader GetInstance()
     {
