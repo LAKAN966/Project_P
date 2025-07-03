@@ -623,7 +623,6 @@ GameObject:
   - component: {fileID: 5808714849987026902}
   - component: {fileID: 6120060462346632372}
   - component: {fileID: 1416334444542018785}
-  - component: {fileID: -1033293600280479875}
   m_Layer: 5
   m_Name: GottaUI
   m_TagString: Untagged
@@ -721,19 +720,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &-1033293600280479875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2747634268854979294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b11b3ecd0f3a57340a914b7012d2bbd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExitBtn: {fileID: 6945398992751323786}
 --- !u!1 &2941513168252564385
 GameObject:
   m_ObjectHideFlags: 0

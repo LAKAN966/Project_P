@@ -450,6 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnterGameButton: {fileID: 1525218408}
+  MainUI: {fileID: 3200420910887419581, guid: 0017fb8fbcd3246428fa338b6c98b392, type: 3}
 --- !u!1 &960958955
 GameObject:
   m_ObjectHideFlags: 0

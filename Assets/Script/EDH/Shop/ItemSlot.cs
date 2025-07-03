@@ -22,7 +22,6 @@ public class ItemSlot : MonoBehaviour
 
 
     private Item _Item;
-    private PurchaseSync _PurchaseSync;
     private ItemListLoader ItemListLoader; // 아이템 리스트 로더
     public GameObject PurchaseUIBox;
 
@@ -35,11 +34,10 @@ public class ItemSlot : MonoBehaviour
 
         itemSlot.onClick.RemoveAllListeners();
         itemSlot.onClick.AddListener(() => Open());
-     }
+    }
 
     public void Open()
     {
         PurchaseUIBox.SetActive(true);
     }
 }
-

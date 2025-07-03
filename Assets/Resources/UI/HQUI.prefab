@@ -1685,7 +1685,6 @@ GameObject:
   - component: {fileID: 7760577275880011381}
   - component: {fileID: 6695921634208446403}
   - component: {fileID: 128297861206308906}
-  - component: {fileID: 2556011626078358091}
   m_Layer: 5
   m_Name: HQUI
   m_TagString: Untagged
@@ -1778,19 +1777,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2556011626078358091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2082990543191234510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 359468fad10e136478aeab7cd28f21f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExitBtn: {fileID: 3243357415759575115}
 --- !u!1 &2232245133225609371
 GameObject:
   m_ObjectHideFlags: 0
@@ -5707,7 +5693,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 106}
+  m_AnchoredPosition: {x: -4493.306, y: 106}
   m_SizeDelta: {x: 0, y: 715.8}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &7614227448543111533

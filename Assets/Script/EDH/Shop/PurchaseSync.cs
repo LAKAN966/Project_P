@@ -24,7 +24,10 @@ public class PurchaseSync : MonoBehaviour
 
     public void Start()
     {
-        InputAmount.text = "1";
+        InputAmount.text = "1"; // 기본 세팅.
+
+        AddButton.onClick.RemoveAllListeners();
+
         AddButton.onClick.AddListener(() =>
         {
             int amount = int.Parse(InputAmount.text);
@@ -61,19 +64,19 @@ public class PurchaseSync : MonoBehaviour
     public void Purchase()
     {
         int Cost = _Item.Cost;//
-        int amount = int.Parse(InputAmount.text);
+        int Amount = int.Parse(InputAmount.text);
         if (_Item.Cost < PlayerDataManager.Instance.player.gold)
         {
             if(_Item.ID == 101)
             {
-                PlayerDataManager.Instance.UseGold(Cost*amount);
-                PlayerDataManager.Instance.AddTicket(amount);
+                PlayerDataManager.Instance.UseGold(Cost*Amount);
+                PlayerDataManager.Instance.AddTicket(Amount);
             }
             if(_Item.ID == 102)
             {
-                PlayerDataManager.Instance.UseGold(Cost * amount);
-                PlayerDataManager.Instance.AddTicket(amount);
-            }
+                PlayerDataManager.Instance.UseGold(Cost * Amount);
+                PlayerDataManager.Instance.AddTicket(Amount);
+            } 
         }
         else return;
     }
