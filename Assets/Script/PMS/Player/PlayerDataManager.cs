@@ -33,7 +33,7 @@ public class PlayerDataManager
     public void Save() // 플레이어 데이터 저장
     {
         string json = JsonConvert.SerializeObject(player, Formatting.Indented);
-        string userID = "testID";
+        string userID = SystemInfo.deviceUniqueIdentifier; // 사용 기기 개인아이디로 저장
 
         FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").SetValueAsync(json)
             .ContinueWith(task =>
@@ -51,7 +51,7 @@ public class PlayerDataManager
 
     public void Load() // 플레이어 데이터 불러오기
     {
-        string userID = "testID";
+        string userID = SystemInfo.deviceUniqueIdentifier; // 사용 기기 개인아이디로 불러오기
 
         FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").GetValueAsync()
             .ContinueWith(task =>
