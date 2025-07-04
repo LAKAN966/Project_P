@@ -237,8 +237,114 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2277016273076835730, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277016273076835730, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277016273076835730, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277016273076835730, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277016273076835730, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277016273076835730, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277016273076835730, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -235
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277016273076835730, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4466477426916431875, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4466477426916431875, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4466477426916431875, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 556024965}
+    - target: {fileID: 4466477426916431875, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4466477426916431875, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeChapter
+      objectReference: {fileID: 0}
+    - target: {fileID: 4466477426916431875, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StageManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4466477426916431875, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149995199035587736, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 205
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149995199035587736, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585923997230274319, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585923997230274319, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585923997230274319, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 556024965}
+    - target: {fileID: 7585923997230274319, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585923997230274319, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeChapter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585923997230274319, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StageManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585923997230274319, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761234823866916638, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_text
+      value: chapter
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032945623583200352, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 764213052639099167, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
+    - {fileID: 6931932354838911848, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 713f96fa0b4fd5c4dba3a8535d62b97d, type: 3}

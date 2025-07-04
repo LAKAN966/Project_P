@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Newtonsoft.Json;
+using Unity.VisualScripting;
+using Firebase.Auth;
+using Firebase.Database;
+
+
+
 
 
 public class PlayerDataManager
@@ -13,7 +20,7 @@ public class PlayerDataManager
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new PlayerDataManager();
             }
@@ -25,13 +32,53 @@ public class PlayerDataManager
 
     public void Save() // 플레이어 데이터 저장
     {
+        string json = JsonConvert.SerializeObject(player, Formatting.Indented);
+        string userID = "testID";
 
+        FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").SetValueAsync(json)
+            .ContinueWith(task =>
+            {
+                if (task.IsCompletedSuccessfully)
+                {
+                    Debug.Log("플레이어 데이터 저장 성공");
+                }
+                else
+                {
+                    Debug.Log($"플레이어 데이터 저장 실패 : {task.Exception}");
+                }
+            });
     }
 
     public void Load() // 플레이어 데이터 불러오기
     {
+        string userID = "testID";
 
+        FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").GetValueAsync()
+            .ContinueWith(task =>
+            {
+                if (task.IsCompletedSuccessfully)
+                {
+                    var existID = task.Result; // 기존 데이터 있으면 여기로
+
+                    if (existID.Exists && existID.Value != null)
+                    {
+                        string json = existID.Value.ToString();
+                        player = JsonConvert.DeserializeObject<Player>(json);
+                        Debug.Log("플레이어 데이터 불러오기 성공");
+                        Debug.Log($"보유 골드 : {player.gold}\n보유 티켓 : {player.ticket}\n보유 행동력 : {player.actionPoint}");
+                    }
+                    else
+                    {
+                        Save(); //새로운 데이터면 저장
+                    }
+                }
+                else
+                {
+                    Debug.Log($"플레이어 데이터 불러오기 실패 : {task.Exception}");
+                }
+            });
     }
+
     public void AddGold(int amount)
     {
         player.gold += amount;
@@ -97,7 +144,7 @@ public class PlayerDataManager
             .Where(stat => stat != null)
             .ToList();
     }
- 
+
     public void ClearStage(int stageID)
     {
         if (!player.clearedStageIDs.Contains(stageID))
@@ -111,7 +158,7 @@ public class PlayerDataManager
         long now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         long last = player.lastActionPointTime;
 
-        if(last == 0)
+        if (last == 0)
         {
             player.lastActionPointTime = now;
             return;
@@ -131,7 +178,7 @@ public class PlayerDataManager
     {
         RefreshActionPoint();
 
-        if(player.actionPoint >= amount)
+        if (player.actionPoint >= amount)
         {
             player.actionPoint -= amount;
             return true;
@@ -143,7 +190,7 @@ public class PlayerDataManager
             return false;
         }
     }
-    
+
     public bool UseGold(int amount)
     {
         if (player.gold >= amount)
@@ -158,10 +205,10 @@ public class PlayerDataManager
             return false;
         }
     }
-    
+
     public bool UseTicket(int amount)
     {
-        if(player.ticket >= amount)
+        if (player.ticket >= amount)
         {
             player.ticket -= amount;
             return true;
@@ -180,6 +227,6 @@ public class PlayerDataManager
         return player.clearedStageIDs.Contains(stageID);
     }
 
-    
+
 
 }

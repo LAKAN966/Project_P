@@ -86,5 +86,15 @@ public class Test
         StageManager.instance.Init();
     }
 
+    public void SaveTest()
+    {
+        PlayerDataManager.Instance.AddGold(500);
+        PlayerDataManager.Instance.Save();
+    }
+    public void LoadTest() 
+    {
+        PlayerDataManager.Instance.Load();
+    }
+
 
 }

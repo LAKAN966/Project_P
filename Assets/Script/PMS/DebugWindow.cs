@@ -49,6 +49,15 @@ public class DebugWindow : EditorWindow
             Test.Instance.SetStageData();
         }
 
+        if (GUILayout.Button("데이터 저장 버튼"))
+        {
+            Test.Instance.SaveTest();
+        }
+        if (GUILayout.Button("데이터 로드 버튼"))
+        {
+            Test.Instance.LoadTest();
+        }
+
 
 
 
