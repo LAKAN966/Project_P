@@ -5,8 +5,8 @@ using UnityEngine;
 public class GospelManager : MonoBehaviour
 {
     private readonly string gospelCsvPath = "Assets/Data/GospelData.csv";
-    public Dictionary<int, List<List<GospelData>>> gospelMap = new(); // BuildID → [Layer → Gospels]
-    private Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new(); // 추가됨
+    public Dictionary<int, List<List<GospelData>>> gospelMap = new();
+    private Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();
 
     public static GospelManager Instance;
 
@@ -56,13 +56,11 @@ public class GospelManager : MonoBehaviour
         return gospelMap.ContainsKey(buildID) ? gospelMap[buildID] : new List<List<GospelData>>();
     }
 
-    // ✅ 선택된 교리인지 확인
     public bool IsSelected(int buildID, int gospelID)
     {
         return selectedGospelIDsByBuildID.ContainsKey(buildID) && selectedGospelIDsByBuildID[buildID].Contains(gospelID);
     }
 
-    // ✅ 선택된 order 기준 다음 선택 가능한 order 반환
     public int GetCurrentSelectableOrder(int buildID)
     {
         if (!gospelMap.ContainsKey(buildID)) return 0;
@@ -78,7 +76,6 @@ public class GospelManager : MonoBehaviour
         return layers.Count;
     }
 
-    // ✅ 교리 선택 처리
     public void SelectGospel(int buildID, int gospelID)
     {
         if (!selectedGospelIDsByBuildID.ContainsKey(buildID))

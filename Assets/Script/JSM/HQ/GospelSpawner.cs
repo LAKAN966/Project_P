@@ -38,7 +38,7 @@ public class GospelSpawner : MonoBehaviour
         var layeredGospels = GospelManager.Instance.GetGospelsByBuildID(buildID);
         int currentSelectableOrder = GospelManager.Instance.GetCurrentSelectableOrder(buildID);
 
-        for (int order = layeredGospels.Count - 1; order >= 0; order--) // 역순
+        for (int order = layeredGospels.Count - 1; order >= 0; order--)
         {
             var layerData = layeredGospels[order];
 
@@ -46,7 +46,6 @@ public class GospelSpawner : MonoBehaviour
             container.name = $"GospelContainer_Order{order + 1}";
             spawnedContainers.Add(container);
 
-            // 🔸 컨테이너 상태 설정 (어둡게 처리)
             var containerUI = container.GetComponent<GospelContainerUI>();
             if (containerUI != null)
                 containerUI.SetInteractable(order == currentSelectableOrder);
@@ -55,6 +54,9 @@ public class GospelSpawner : MonoBehaviour
             {
                 GameObject slot = Instantiate(GospelSlotPrefab, container.transform);
                 slot.name = $"GospelSlot_{gospel.id}";
+                slot.GetComponent<GospelSlotUI>().gospelSpawner = this;
+                slot.GetComponent<GospelSlotUI>().containerUI = container.GetComponent<GospelContainerUI>();
+                container.GetComponent<GospelContainerUI>().AddSlot(slot.GetComponent<GospelSlotUI>());
 
                 var slotUI = slot.GetComponent<GospelSlotUI>();
                 if (slotUI != null)
@@ -68,10 +70,15 @@ public class GospelSpawner : MonoBehaviour
                         state = GospelState.Locked;
                     else
                         state = GospelState.Available;
-
+                    Debug.Log(state);
                     slotUI.SetData(gospel, state);
                 }
             }
         }
+    }
+    public void OnSlotSelected(GospelSlotUI selectedSlot)
+    {
+        ClearGospels();
+        SpawnGospels();
     }
 }

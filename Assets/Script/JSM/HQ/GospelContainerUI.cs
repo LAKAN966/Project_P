@@ -1,13 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GospelContainerUI : MonoBehaviour
 {
-    public CanvasGroup canvasGroup; // 어두운 효과용
+    public CanvasGroup canvasGroup;
+
+    public List<GospelSlotUI> slotUIs = new();
 
     public void SetInteractable(bool interactable)
     {
-        canvasGroup.alpha = interactable ? 1f : 0.5f;
         canvasGroup.interactable = interactable;
         canvasGroup.blocksRaycasts = interactable;
+    }
+
+    public void AddSlot(GospelSlotUI slot)
+    {
+        if (!slotUIs.Contains(slot))
+        {
+            Debug.Log("추가됨!");
+            slotUIs.Add(slot);
+            slot.containerUI = this;
+        }
     }
 }

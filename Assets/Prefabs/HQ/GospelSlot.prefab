@@ -243,11 +243,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124848d21e4002046a1b81f8f1074765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectedImg: {fileID: 1882012889743747197}
+  SelectedImg: {fileID: 1855007690146772004}
   canvasGroup: {fileID: 5697229764099239523}
   nameText: {fileID: 1992917698756810156}
   costText: {fileID: 8133937703801243712}
   gospelConfirmUI: {fileID: 0}
+  gospelSpawner: {fileID: 0}
+  containerUI: {fileID: 0}
 --- !u!114 &1457876677612747272
 MonoBehaviour:
   m_ObjectHideFlags: 0
