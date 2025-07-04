@@ -23,8 +23,8 @@ public class PickUp : MonoBehaviour
 
     private void Start()
     {
-        PickOnce.onClick.AddListener(() => One()); //1회  뽑기
-        PickTen.onClick.AddListener(() => Ten()); //10회 뽑기
+        PickOnce.onClick.AddListener(() => PickOneTime());          //1회  뽑기
+        PickTen.onClick.AddListener(() => PickTenTimes());      //10회 뽑기
 
         TicketAmount = PlayerDataManager.Instance.player.ticket;
         PickPoint = 0;
@@ -36,7 +36,7 @@ public class PickUp : MonoBehaviour
     }
 
 
-    public void One()
+    public void PickOneTime()
     {
         var pickTable = PickUpListLoader.Instance.GetAllPickList();
         if (TicketAmount >= 1)
@@ -53,7 +53,7 @@ public class PickUp : MonoBehaviour
         }
     }
 
-    public void Ten()
+    public void PickTenTimes()
     {
         var pickTable = PickUpListLoader.Instance.GetAllPickList();
         if (TicketAmount >= 10)

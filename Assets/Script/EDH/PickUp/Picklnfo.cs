@@ -1,3 +1,5 @@
+using UnityEngine;
+
 [System.Serializable]
 public class PickInfo
 {
@@ -5,4 +7,5 @@ public class PickInfo
     public string Name;            //유닛 이름
     public string Description;     //유닛 설명
     public bool IsHero;            //유닛의 타입
+    //public Sprite Uniticon;        //유닛 아이콘
 }

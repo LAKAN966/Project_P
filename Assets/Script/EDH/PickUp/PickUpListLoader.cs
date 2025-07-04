@@ -40,7 +40,7 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
                 ID          =  int.Parse(tokens[0]),
                 Name        = tokens[1],
                 Description = tokens[2],
-                IsHero      = bool.Parse(tokens[3])
+               IsHero      = bool.Parse(tokens[4])
             }
             ;
             PickListsDict[pickinfo.ID] = pickinfo;
