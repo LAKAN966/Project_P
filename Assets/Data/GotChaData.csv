@@ -1,0 +1,13 @@
+ID,Name,IsHero,ModelName
+1001,Zombie,FALSE,Undead_01
+1002,TankZombie,FALSE,Undead_02
+1003,BattleZombie,FALSE,Undead_03
+1004,UndeadBowman,FALSE,Undead_04
+1005,UndeadMagician,FALSE,Undead_05
+1006,Undeadknight,FALSE,Undead_07
+1007,CrawlerKnight,FALSE,Crawler_01
+1008,CrawlerAssassin,FALSE,Crawler_02
+1009,CrawlerNinja,FALSE,Crawler_03
+1010,CrawlerDualblade,FALSE,Crawler_04
+3001,LichKing,TRUE,UndeadHero_01
+3002,CrawlerGeneral,TRUE,CrawlerHero_01

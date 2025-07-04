@@ -17,9 +17,17 @@ public class PurchaseSync : MonoBehaviour
     public Button AddButton; //수량 추가 버튼
     public Button SubtractButton; // 수량 빼기버튼
 
+    public GameObject PurchaseUIBox;
+
+    private ItemListLoader itemListLoader;
+    public Item _Item;
+
     public void Start()
     {
-        InputAmount.text = "1";
+        InputAmount.text = "1"; // 기본 세팅.
+
+        AddButton.onClick.RemoveAllListeners();
+
         AddButton.onClick.AddListener(() =>
         {
             int amount = int.Parse(InputAmount.text);
@@ -44,13 +52,33 @@ public class PurchaseSync : MonoBehaviour
                 amount -= 1;
                 InputAmount.text = amount.ToString();
             }
-            else{ Debug.Log("s"); }
+            else { Debug.Log("s"); }
 
-            if(amount < 0)
+            if (amount < 0)
             {
                 Debug.Log("f");
             }
         }
         );
     }
+    public void Purchase()
+    {
+        int Cost = _Item.Cost;//
+        int Amount = int.Parse(InputAmount.text);
+        if (_Item.Cost < PlayerDataManager.Instance.player.gold)
+        {
+            if(_Item.ID == 101)
+            {
+                PlayerDataManager.Instance.UseGold(Cost*Amount);
+                PlayerDataManager.Instance.AddTicket(Amount);
+            }
+            if(_Item.ID == 102)
+            {
+                PlayerDataManager.Instance.UseGold(Cost * Amount);
+                PlayerDataManager.Instance.AddTicket(Amount);
+            } 
+        }
+        else return;
+    }
 }
+

@@ -17,7 +17,7 @@ public class PickUpCalculator : MonoBehaviour
     {
         unitDataManager = UnitDataManager.Instance;
     }
-    
+
     public void PickUps()
     {
         string path = Path.Combine(Application.dataPath, "Data/UnitData.csv");
@@ -28,7 +28,12 @@ public class PickUpCalculator : MonoBehaviour
             return;
         }
 
+
         string[] lines = File.ReadAllLines(path);
+        for (int i = 1; i < lines.Length; i++)
+        {
+            if (string.IsNullOrWhiteSpace(lines[i])) continue;
+        }
 
     }
 }

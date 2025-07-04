@@ -37,7 +37,6 @@ public class UILoader
         //전체 삭제 Delete
         if (Input.GetKeyDown(KeyCode.Delete))
         {
-            UIManager.Instance.Close<MainUI>();
             UIManager.Instance.Close<StageUI>();
             UIManager.Instance.Close<GottaUI>();
             UIManager.Instance.Close<ShopUI>();
