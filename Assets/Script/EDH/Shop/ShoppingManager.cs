@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ShoppingManager : MonoBehaviour
 {
     public GameObject Merchandise;
     public Transform Content;
-
+    public TMP_Text GoldAmount;
     public ItemListLoader ItemListLoader;
 
     public static ShoppingManager Instance { get; private set; }
@@ -19,6 +20,11 @@ public class ShoppingManager : MonoBehaviour
         {
             Instantiate(ItemListLoader);
         }
+    }
+
+    public void ShowNowGold()
+    {
+        GoldAmount.text = PlayerDataManager.Instance.player.gold.ToString(); 
     }
 }
 

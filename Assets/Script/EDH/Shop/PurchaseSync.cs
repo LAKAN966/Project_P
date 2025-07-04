@@ -22,6 +22,7 @@ public class PurchaseSync : MonoBehaviour
     private ItemListLoader itemListLoader;
     public Item _Item;
 
+
     public void Start()
     {
         InputAmount.text = "1"; // 기본 세팅.
@@ -67,16 +68,19 @@ public class PurchaseSync : MonoBehaviour
         int Amount = int.Parse(InputAmount.text);
         if (_Item.Cost < PlayerDataManager.Instance.player.gold)
         {
-            if(_Item.ID == 101)
-            {
-                PlayerDataManager.Instance.UseGold(Cost*Amount);
-                PlayerDataManager.Instance.AddTicket(Amount);
-            }
-            if(_Item.ID == 102)
+            if (_Item.ID == 101)
             {
                 PlayerDataManager.Instance.UseGold(Cost * Amount);
                 PlayerDataManager.Instance.AddTicket(Amount);
-            } 
+                ShoppingManager.Instance.ShowNowGold();
+            }
+            if (_Item.ID == 102)
+            {
+                PlayerDataManager.Instance.UseGold(Cost * Amount);
+                PlayerDataManager.Instance.AddTicket(Amount);
+                ShoppingManager.Instance.ShowNowGold();
+            }
+
         }
         else return;
     }

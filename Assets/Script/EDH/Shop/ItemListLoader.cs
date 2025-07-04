@@ -76,13 +76,3 @@ public class ItemListLoader : MonoBehaviour
     public Dictionary<int, Item> GetAllList()
     { return itemListsDict; }
 }
-
-//슬롯스트를 하나 만드렁서 슬롯을 넣어준다. 아이템 리스트 딕트 갯수만큼 만든다
-
-//리스트를 순회하면서 슬롯에 넣어준다.
-
-
-
-
-
-
