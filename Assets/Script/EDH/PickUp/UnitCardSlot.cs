@@ -8,10 +8,10 @@ using UnityEngine.UI;
 
 public class UnitCardSlot : MonoBehaviour
 {
-    [SerializeField] private TMP_Text ItemNameText;         // 아이템 이름
-    private TMP_Text ID;                                    // 유닛 정보
+    [SerializeField] private TMP_Text ItemNameText;             // 아이템 이름
+    private TMP_Text ID;                                        // 유닛 정보
 
-    [SerializeField] public Image UnitIcon;               // 유닛 아이콘
+    [SerializeField] public Image UnitIcon;                     // 유닛 아이콘
     [SerializeField] private GameObject PickCardSlot;           // 유닛 카드 슬롯
 
     private PickInfo _PickInfo;
@@ -24,7 +24,7 @@ public class UnitCardSlot : MonoBehaviour
 
         pickInfo = (pickInfo != null) ? pickInfo : new PickInfo();
         
-        ItemNameText.text = pickInfo.Name;  //이름
-       // UnitIcon.sprite = pickInfo.I      // 이미지
+        ItemNameText.text = pickInfo.Name;      //이름
+       // UnitIcon.sprite = pickInfo.image      // 이미지
        }
 }

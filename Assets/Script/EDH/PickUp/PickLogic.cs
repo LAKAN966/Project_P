@@ -8,20 +8,15 @@ public class PickLogic : MonoBehaviour
 {
     private PickUp _PickUp;
     public SlotSpawner slotSpawner;
-    private void GottchaLogic()
+    public void GottchaLogic()
     {
-        float v = Random.value;
-        v = Random.value;
-        PickInfo pickInfo = new PickInfo();
+      
         Dictionary<int, PickInfo> _PickInfo = PickUpListLoader.Instance.GetAllPickList();
 
         if (PlayerDataManager.Instance.UseTicket(1) == true)
         {
-            bool Hero = pickInfo.IsHero;
-            List<bool> IsHero = new List<bool>();
-            IsHero.Add(pickInfo.IsHero);
-
-            pickInfo.IsHero = true;
+            float v = Random.value;
+         
             int index = Random.Range(0, _PickInfo.Count);
             PickInfo randomPick = _PickInfo.ElementAt(index).Value;
 
@@ -33,15 +28,14 @@ public class PickLogic : MonoBehaviour
             Debug.Log($"뽑기 결과: {(randomPick.IsHero ? "영웅!" : "일반")}");
 
         }
+
         if (PlayerDataManager.Instance.UseTicket(10) == true)
         {
             for (int i = 0; i < 10; i++)
             {
-                bool Hero = pickInfo.IsHero;
-                List<bool> IsHero = new List<bool>();
-                IsHero.Add(pickInfo.IsHero);
+                float v = Random.value;
 
-                pickInfo.IsHero = true;
+        
                 int index = Random.Range(0, _PickInfo.Count);
                 PickInfo randomPick = _PickInfo.ElementAt(index).Value;
 
@@ -51,7 +45,7 @@ public class PickLogic : MonoBehaviour
                     randomPick.IsHero = false;
 
                 Debug.Log($"뽑기 결과: {(randomPick.IsHero ? "영웅!" : "일반")}");
-                
+
             }
         }
     }

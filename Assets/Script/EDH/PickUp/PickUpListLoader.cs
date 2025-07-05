@@ -20,7 +20,7 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
     private Dictionary<int, PickInfo> PickListsDict = new();
     public void PickUps()
     {
-        string path = Path.Combine(Application.dataPath, "Data/UnitData.csv");
+        string path = Path.Combine(Application.streamingAssetsPath, "Data/UnitData.csv"); // 파일 경로
 
         if (!File.Exists(path))
         {
@@ -37,10 +37,10 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
 
             PickInfo pickinfo = new PickInfo
             {
-                ID          =  int.Parse(tokens[0]),
-                Name        = tokens[1],
-                Description = tokens[2],
-               IsHero      = bool.Parse(tokens[4])
+                ID          =  int.Parse(tokens[0]),    // 유닛 ID
+                Name        = tokens[1],                // 유닛 이름
+                Description = tokens[2],                // 설명
+               IsHero      = bool.Parse(tokens[4])      // 영웅 여부
             }
             ;
             PickListsDict[pickinfo.ID] = pickinfo;
