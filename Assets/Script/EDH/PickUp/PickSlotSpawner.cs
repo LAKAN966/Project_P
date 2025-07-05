@@ -14,11 +14,9 @@ public class PickSlotSpawner : MonoBehaviour
 
     void Start()
     {
-        SpawnCardOne();
-        SpawnCardTen();
     }
 
-    public void SpawnCardOne()
+    public void SpawnCardOne(PickInfo pick)
     {
         Dictionary<int, PickInfo> _PickInfo = PickUpListLoader.Instance.GetAllPickList();
 
@@ -28,20 +26,20 @@ public class PickSlotSpawner : MonoBehaviour
         {
             GameObject go = Instantiate(UnitCardSlot, PickOneTime);
             UnitCardSlot slot = go.GetComponent<UnitCardSlot>();
-            slot.init(PickInfo.Value);
+            slot.init(pick);
         }
     }
-    public void SpawnCardTen()
+    public void SpawnCardTen(PickInfo pick)
     {
         Dictionary<int, PickInfo> _PickInfo = PickUpListLoader.Instance.GetAllPickList();
-
+      
         Debug.Log(_PickInfo.Count + "총아이템의 개수");
 
         foreach (var PickInfo in _PickInfo)
         {
             GameObject go = Instantiate(UnitCardSlot, PickTenTimes);
             UnitCardSlot slot = go.GetComponent<UnitCardSlot>();
-            slot.init(PickInfo.Value);
+            slot.init(pick);
         }
     }
 }

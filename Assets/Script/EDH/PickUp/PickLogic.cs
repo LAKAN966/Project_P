@@ -7,46 +7,53 @@ using UnityEngine;
 public class PickLogic : MonoBehaviour
 {
     private PickUp _PickUp;
-
-    public void GottchaLogic()
+    public SlotSpawner slotSpawner;
+    private void GottchaLogic()
     {
-        float v = 0;
+        float v = Random.value;
         v = Random.value;
         PickInfo pickInfo = new PickInfo();
         Dictionary<int, PickInfo> _PickInfo = PickUpListLoader.Instance.GetAllPickList();
+
         if (PlayerDataManager.Instance.UseTicket(1) == true)
         {
             bool Hero = pickInfo.IsHero;
-            List<bool> IsHero =new List<bool>();
+            List<bool> IsHero = new List<bool>();
             IsHero.Add(pickInfo.IsHero);
-            if (v < 0.10f)
-            {
-                TakeInfo.Equals(pickInfo.IsHero, Hero = true);
-                
-                SlotSpawner slotSpawner = new SlotSpawner();
-                //slotSpawner.SpawnSlot(IsHero.Count) = TakeInfo(slotSpawner);
 
-                
+            pickInfo.IsHero = true;
+            int index = Random.Range(0, _PickInfo.Count);
+            PickInfo randomPick = _PickInfo.ElementAt(index).Value;
 
+            if (v < 0.1f)
+                randomPick.IsHero = true;
+            else
+                randomPick.IsHero = false;
 
+            Debug.Log($"뽑기 결과: {(randomPick.IsHero ? "영웅!" : "일반")}");
 
-
-
-
-            }
-            else if (v > 0.10f)
-            {
-                pickInfo.IsHero = true;
-            }
         }
         if (PlayerDataManager.Instance.UseTicket(10) == true)
         {
-            if (v < 0.1f)
+            for (int i = 0; i < 10; i++)
             {
+                bool Hero = pickInfo.IsHero;
+                List<bool> IsHero = new List<bool>();
+                IsHero.Add(pickInfo.IsHero);
 
+                pickInfo.IsHero = true;
+                int index = Random.Range(0, _PickInfo.Count);
+                PickInfo randomPick = _PickInfo.ElementAt(index).Value;
 
+                if (v < 0.1f)
+                    randomPick.IsHero = true;
+                else
+                    randomPick.IsHero = false;
 
+                Debug.Log($"뽑기 결과: {(randomPick.IsHero ? "영웅!" : "일반")}");
+                
             }
         }
     }
 }
+
