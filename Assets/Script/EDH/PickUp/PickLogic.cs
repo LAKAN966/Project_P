@@ -6,12 +6,12 @@ public class PickLogic : MonoBehaviour
 {
 
     public PickSlotSpawner pickSlotSpawner;
-    public void DrawOne()
+    public void DrawOne() //1뽑
     {
         PickInfo pick = PickRandom();
         pickSlotSpawner.SpawnCardOne(pick);
     }
-    public void DrawTen()
+    public void DrawTen()//10뽑
     {
 
         List<PickInfo> picks = new List<PickInfo>();
@@ -21,7 +21,7 @@ public class PickLogic : MonoBehaviour
         }
             pickSlotSpawner.SpawnCardTen(picks);
     }
-    public PickInfo PickRandom()
+    public PickInfo PickRandom()// 랜덤뽑기 로직
     {
         Dictionary<int, PickInfo> pickInfoDict = PickUpListLoader.Instance.GetAllPickList();
         List<int> keys = pickInfoDict.Keys.ToList();
