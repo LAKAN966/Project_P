@@ -9627,6 +9627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1786e3e9208b574ba1c24d9a84659d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickSlotSpawner: {fileID: 0}
 --- !u!114 &803037756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21437,9 +21438,9 @@ MonoBehaviour:
     Description: 
     IsHero: 0
   PickOne: {fileID: 1925169937}
+  UnitCardSlot: {fileID: 6898841203582730279, guid: ba0e623f8db92264c83e0bd9c7e83cf0, type: 3}
   PickOneTime: {fileID: 1925169938}
   PickTenTimes: {fileID: 1429946509}
-  UnitCardSlot: {fileID: 6898841203582730279, guid: ba0e623f8db92264c83e0bd9c7e83cf0, type: 3}
 --- !u!1 &1708524155
 GameObject:
   m_ObjectHideFlags: 0
@@ -24414,7 +24415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1960845581
 RectTransform:
   m_ObjectHideFlags: 0
