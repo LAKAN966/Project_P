@@ -11,7 +11,7 @@ using Button = UnityEngine.UI.Button;
 
 public class PickUp : MonoBehaviour
 {
-    public TextMeshProUGUI ShowTicketAmountText; //소유하고 있는 티켓 수
+    public TextMeshProUGUI ShowTicketAmountText; // 소유하고 있는 티켓 수
     public TextMeshProUGUI PityCount;            // 모집 마일리지
 
 
@@ -23,14 +23,14 @@ public class PickUp : MonoBehaviour
 
     private void Start()
     {
-        PickOnce.onClick.AddListener(() => PickOneTime());          //1회  뽑기
-        PickTen.onClick.AddListener(() => PickTenTimes());      //10회 뽑기
+        PickOnce.onClick.AddListener(() => PickOneTime());      // 1회  뽑기
+        PickTen.onClick.AddListener(() => PickTenTimes());      // 10회 뽑기
 
         TicketAmount = PlayerDataManager.Instance.player.ticket;
         PickPoint = 0;
 
-        ShowTicketAmountText.text = TicketAmount.ToString();        //현재 티켓 수
-        PityCount.text = PickPoint.ToString();                      //현재 마일리지
+        ShowTicketAmountText.text = TicketAmount.ToString();        // 현재 티켓 수
+        PityCount.text = PickPoint.ToString();                      // 현재 마일리지
 
         //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)
     }

@@ -5,13 +5,12 @@ using UnityEngine;
 public class PickSlotSpawner : MonoBehaviour
 {
     public PickInfo PickInfo;
+
     [SerializeField] private GameObject PickOne;
+    [SerializeField] private GameObject UnitCardSlot;
 
     [SerializeField] private Transform PickOneTime;
     [SerializeField] private Transform PickTenTimes;
-
-    [SerializeField] private GameObject UnitCardSlot;
-
 
     public void SpawnCardOne(PickInfo pick)
     {
