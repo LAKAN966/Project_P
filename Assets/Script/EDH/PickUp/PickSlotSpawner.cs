@@ -12,34 +12,20 @@ public class PickSlotSpawner : MonoBehaviour
 
     [SerializeField] private GameObject UnitCardSlot;
 
-    void Start()
-    {
-    }
 
     public void SpawnCardOne(PickInfo pick)
     {
-        Dictionary<int, PickInfo> _PickInfo = PickUpListLoader.Instance.GetAllPickList();
-
-        Debug.Log(_PickInfo.Count + "총아이템의 개수");
-
-        foreach (var PickInfo in _PickInfo)
-        {
-            GameObject go = Instantiate(UnitCardSlot, PickOneTime);
-            UnitCardSlot slot = go.GetComponent<UnitCardSlot>();
-            slot.init(pick);
-        }
+        Debug.Log(pick + "총아이템의 개수");
+        CreateCard(PickInfo, PickOneTime);
     }
-    public void SpawnCardTen(PickInfo pick)
+    public void SpawnCardTen(List<PickInfo> picks)
     {
-        Dictionary<int, PickInfo> _PickInfo = PickUpListLoader.Instance.GetAllPickList();
-      
-        Debug.Log(_PickInfo.Count + "총아이템의 개수");
-
-        foreach (var PickInfo in _PickInfo)
-        {
-            GameObject go = Instantiate(UnitCardSlot, PickTenTimes);
-            UnitCardSlot slot = go.GetComponent<UnitCardSlot>();
-            slot.init(pick);
-        }
+        CreateCard(PickInfo, PickTenTimes);
+    }
+    private void CreateCard(PickInfo pick, Transform parent)
+    {
+        GameObject go = Instantiate(UnitCardSlot, parent);
+        UnitCardSlot slot = go.GetComponent<UnitCardSlot>();
+        slot.init(pick);
     }
 }
