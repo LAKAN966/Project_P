@@ -74,7 +74,6 @@ public class GospelSpawner : MonoBehaviour
                         state = GospelState.Locked;
                     else
                         state = GospelState.Available;
-                    Debug.Log(state);
                     slotUI.SetData(gospel, state);
                 }
             }

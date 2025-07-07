@@ -94,6 +94,10 @@ public class BuildManager : MonoBehaviour
     {
         return Resources.Load<Sprite>($"Sprites/{imageName}");
     }
+    public int GetBuildingRaceID(int id)
+    {
+        return buildings[id].raceId;
+    }
     public int GetBuildingCount()
     {
         return buildings.Count;

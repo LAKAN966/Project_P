@@ -98,8 +98,6 @@ public static class BuffManager
                 Debug.LogWarning($"알 수 없는 statIndex: {statIndex}");
                 return;
         }
-
         raceBuffTable[raceID] = buff;
     }
-
 }

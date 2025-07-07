@@ -8,6 +8,10 @@ public class HQInitial : MonoBehaviour
     [SerializeField] private ScrollRect targetScroll;
     [SerializeField] private GameObject[] UIsToDisable;
 
+    private void Awake()
+    {
+        BuffManager.InitBuffs(UnitDataManager.Instance.GetRaceCount());
+    }
     private void OnDisable()
     {
         if (targetScroll != null)

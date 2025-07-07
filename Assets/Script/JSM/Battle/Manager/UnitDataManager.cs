@@ -74,4 +74,14 @@ public class UnitDataManager
         Debug.LogWarning($"ID {id}에 해당하는 유닛 데이터를 찾을 수 없습니다.");
         return null;
     }
+    public int GetRaceCount()
+    {
+        HashSet<int> raceSet = new HashSet<int>();
+        foreach (var unit in unitStatsDict.Values)
+        {
+            raceSet.Add(unit.RaceID);
+        }
+        return raceSet.Count;
+    }
+
 }
