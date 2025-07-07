@@ -52,7 +52,7 @@ public class PickUp : MonoBehaviour
 
     public void PickOneTime()
     {
-        var pickTable = PickUpListLoader.Instance.GetAllPickList();
+        Dictionary<int, PickInfo> PickInfo = PickUpListLoader.Instance.GetAllPickList();
         if (TicketAmount >= 1)
         {
             TicketAmount--; // 1장 소모
