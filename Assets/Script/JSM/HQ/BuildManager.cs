@@ -62,9 +62,12 @@ public class BuildManager : MonoBehaviour
             buildings.Add(new BuildingData(id, displayName, imageName, raceId, gold, blueprint));
         }
     }
-
     public Sprite GetBuildingSprite(string imageName)
     {
         return Resources.Load<Sprite>($"Sprites/{imageName}");
+    }
+    public int GetBuildingCount()
+    {
+        return buildings.Count;
     }
 }

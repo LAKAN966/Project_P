@@ -8,7 +8,7 @@ public class BuildingSlotSpanwer : MonoBehaviour
 {
     public GameObject prefabToSpawn;
     public Transform parentObject;
-    public int count = 3;
+    public int count;
     public ScrollRect scrollRect;
 
     public GameObject confirmPanel;
@@ -20,6 +20,7 @@ public class BuildingSlotSpanwer : MonoBehaviour
 
     private void Start()
     {
+        count = BuildManager.Instance.GetBuildingCount();
         for (int i = 0; i < count; i++)
         {
             GameObject newObj = Instantiate(prefabToSpawn, parentObject);

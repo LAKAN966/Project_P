@@ -5,8 +5,8 @@ using UnityEngine;
 public class GospelManager : MonoBehaviour
 {
     private readonly string gospelCsvPath = "Assets/Data/GospelData.csv";
-    public Dictionary<int, List<List<GospelData>>> gospelMap = new();
-    private Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();
+    public Dictionary<int, List<List<GospelData>>> gospelMap = new();//id별 건물의 레이어별 데이터
+    private Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();//id별 선택된 교리 데이터
 
     public static GospelManager Instance;
 
