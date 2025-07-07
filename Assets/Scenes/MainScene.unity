@@ -21495,7 +21495,7 @@ MonoBehaviour:
     m_Left: 200
     m_Right: 200
     m_Top: 0
-    m_Bottom: 0
+    m_Bottom: 106
   m_ChildAlignment: 6
   m_Spacing: 355.1
   m_ChildForceExpandWidth: 0
@@ -25716,9 +25716,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GospelContainerPrefab: {fileID: 3042625125543671682, guid: 2e38b0a7112f7ac4da3f359d5a255850, type: 3}
   GospelSlotPrefab: {fileID: 5690557332254815112, guid: 0cf380b773631f84c87435704d4fdbae, type: 3}
+  LackLevelPanel: {fileID: 3185322954293418549, guid: aab6ca08f1e5e4244ae4873e06fc80e6, type: 3}
   parent: {fileID: 3574055233294889760}
   buildID: 1
   gospelConfirmUI: {fileID: 5029736173089433914}
+  level: 0
 --- !u!224 &4172597305920396998
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25923,7 +25925,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.000061035156, y: 106}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 715.8}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &4286794771892768320

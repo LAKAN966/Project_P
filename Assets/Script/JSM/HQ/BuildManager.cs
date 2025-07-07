@@ -98,4 +98,19 @@ public class BuildManager : MonoBehaviour
     {
         return buildings.Count;
     }
+    public int GetOrderLevel(int id, int level)
+    {
+        return buildings[id-1].orderByLevel[level-1];
+    }
+    public int GetNextLevel(int id, int layer)
+    {
+        var orders = buildings[id-1].orderByLevel;
+        for (int i = 0; i < orders.Count; i++)
+        {
+            if (orders[i] >= layer)
+                return i + 1;
+        }
+        return -1;
+    }
+
 }

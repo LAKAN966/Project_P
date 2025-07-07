@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public class GospelSpawner : MonoBehaviour
 {
     public GameObject GospelContainerPrefab;
     public GameObject GospelSlotPrefab;
+    public GameObject LackLevelPanel;
     public Transform parent;
     public int buildID;
     public GameObject gospelConfirmUI;
@@ -75,6 +77,11 @@ public class GospelSpawner : MonoBehaviour
                     Debug.Log(state);
                     slotUI.SetData(gospel, state);
                 }
+            }
+            if(BuildManager.Instance.GetOrderLevel(buildID, level)<=order)
+            {
+                GameObject lack = Instantiate(LackLevelPanel, container.transform);
+                lack.GetComponentInChildren<TextMeshProUGUI>().text = BuildManager.Instance.GetNextLevel(buildID, order).ToString()+"레벨에 해금됩니다.";
             }
         }
     }
