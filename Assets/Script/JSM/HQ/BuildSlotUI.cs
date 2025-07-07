@@ -13,7 +13,7 @@ public class BuildSlotUI : MonoBehaviour
     public GameObject buildListUI;
     public GameObject buildGospelUI;
 
-    public float maxHeight = 300f; // ✅ 최대 높이 제한
+    public float maxHeight = 300f;
 
     public int Level { get; private set; } = 0;
 
@@ -43,13 +43,11 @@ public class BuildSlotUI : MonoBehaviour
         Level++;
         if (plusText != null) Destroy(plusText);
 
-        // Building Image Changed
         if (slotImage != null)
         {
             Sprite newSprite = BuildManager.Instance.GetBuildingSprite(building.imageName);
             slotImage.sprite = newSprite;
 
-            // ✅ 비율 유지 + 최대 높이 제한
             AspectRatioFitter fitter = slotImage.GetComponent<AspectRatioFitter>();
             RectTransform rt = slotImage.GetComponent<RectTransform>();
 

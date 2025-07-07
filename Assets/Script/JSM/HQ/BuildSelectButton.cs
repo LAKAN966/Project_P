@@ -34,13 +34,22 @@ public class BuildSelectButton : MonoBehaviour
         buildConfirmPanel.SetActive(true);
 
         buildImg.sprite = BuildManager.Instance.GetBuildingSprite(BuildManager.Instance.buildings[buildingIndex].imageName);
-        //goldText.text =
-        //blueprintText.text = 추가 필요
+        goldText.text = $"{PlayerDataManager.Instance.player.gold} / {BuildManager.Instance.buildings[buildingIndex].gold}";
+        blueprintText.text = $"{PlayerDataManager.Instance.player.bluePrint} / {BuildManager.Instance.buildings[buildingIndex].blueprint}";
 
-        // 이전 리스너 제거 후 새 리스너 추가 (중복 방지)
         confirmButton.onClick.RemoveAllListeners();
         confirmButton.onClick.AddListener(() =>
         {
+            //if (PlayerDataManager.Instance.player.gold < BuildManager.Instance.buildings[buildingIndex].gold
+            //|| PlayerDataManager.Instance.player.bluePrint < BuildManager.Instance.buildings[buildingIndex].blueprint)
+            //{
+            //    HQResourceUI.Instance.ShowLackPanel();
+            //    buildConfirmPanel.SetActive(false);
+            //    return;
+            //}
+            //자원 모자라면 판넬 띄우는 코드, 추후 주석 삭제 필요
+
+            //자원 감소 코드 추가 필요
             BuildManager.Instance.BuildSelected(buildingIndex);
             buildConfirmPanel.SetActive(false);
             buildListUI.SetActive(false);
