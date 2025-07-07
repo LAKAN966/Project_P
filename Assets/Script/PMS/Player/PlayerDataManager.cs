@@ -5,8 +5,8 @@ using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
 using Unity.VisualScripting;
-using Firebase.Auth;
-using Firebase.Database;
+//using Firebase.Auth;
+//using Firebase.Database;
 
 
 
@@ -35,48 +35,48 @@ public class PlayerDataManager
         string json = JsonConvert.SerializeObject(player, Formatting.Indented);
         string userID = "testID";
 
-        FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").SetValueAsync(json)
-            .ContinueWith(task =>
-            {
-                if (task.IsCompletedSuccessfully)
-                {
-                    Debug.Log("플레이어 데이터 저장 성공");
-                }
-                else
-                {
-                    Debug.Log($"플레이어 데이터 저장 실패 : {task.Exception}");
-                }
-            });
+      //  FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").SetValueAsync(json)
+            //.ContinueWith(task =>
+            //{
+            //    if (task.IsCompletedSuccessfully)
+            //    {
+            //        Debug.Log("플레이어 데이터 저장 성공");
+            //    }
+            //    else
+            //    {
+            //        Debug.Log($"플레이어 데이터 저장 실패 : {task.Exception}");
+            //    }
+            //});
     }
 
     public void Load() // 플레이어 데이터 불러오기
     {
         string userID = "testID";
 
-        FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").GetValueAsync()
-            .ContinueWith(task =>
-            {
-                if (task.IsCompletedSuccessfully)
-                {
-                    var existID = task.Result; // 기존 데이터 있으면 여기로
+       // FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").GetValueAsync()
+           // .ContinueWith(task =>
+            //{
+            //    if (task.IsCompletedSuccessfully)
+            //    {
+            //        var existID = task.Result; // 기존 데이터 있으면 여기로
 
-                    if (existID.Exists && existID.Value != null)
-                    {
-                        string json = existID.Value.ToString();
-                        player = JsonConvert.DeserializeObject<Player>(json);
-                        Debug.Log("플레이어 데이터 불러오기 성공");
-                        Debug.Log($"보유 골드 : {player.gold}\n보유 티켓 : {player.ticket}\n보유 행동력 : {player.actionPoint}");
-                    }
-                    else
-                    {
-                        Save(); //새로운 데이터면 저장
-                    }
-                }
-                else
-                {
-                    Debug.Log($"플레이어 데이터 불러오기 실패 : {task.Exception}");
-                }
-            });
+            //        if (existID.Exists && existID.Value != null)
+            //        {
+            //            string json = existID.Value.ToString();
+            //            player = JsonConvert.DeserializeObject<Player>(json);
+            //            Debug.Log("플레이어 데이터 불러오기 성공");
+            //            Debug.Log($"보유 골드 : {player.gold}\n보유 티켓 : {player.ticket}\n보유 행동력 : {player.actionPoint}");
+            //        }
+            //        else
+            //        {
+            //            Save(); //새로운 데이터면 저장
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Debug.Log($"플레이어 데이터 불러오기 실패 : {task.Exception}");
+            //    }
+            //});
     }
 
     public void AddGold(int amount)

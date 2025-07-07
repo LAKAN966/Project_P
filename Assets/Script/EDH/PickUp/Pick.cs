@@ -9,9 +9,9 @@ using UnityEngine.UI;
 using TMPro;
 using Button = UnityEngine.UI.Button;
 
-public class Pick : MonoBehaviour
+public class PickUp : MonoBehaviour
 {
-    public TextMeshProUGUI ShowTicketAmountText; //소유하고 있는 티켓 수
+    public TextMeshProUGUI ShowTicketAmountText; // 소유하고 있는 티켓 수
     public TextMeshProUGUI PityCount;            // 모집 마일리지
 
 
@@ -23,22 +23,22 @@ public class Pick : MonoBehaviour
 
     private void Start()
     {
-        PickOnce.onClick.AddListener(() => One()); //1회  뽑기
-        PickTen.onClick.AddListener(() => Ten()); //10회 뽑기
+        PickOnce.onClick.AddListener(() => PickOneTime());      // 1회  뽑기
+        PickTen.onClick.AddListener(() => PickTenTimes());      // 10회 뽑기
 
-       TicketAmount = PlayerDataManager.Instance.player.ticket;
-         PickPoint = 0;
+        TicketAmount = PlayerDataManager.Instance.player.ticket;
+        PickPoint = 0;
 
-        ShowTicketAmountText.text = TicketAmount.ToString();        //현재 티켓 수
-        PityCount.text = PickPoint.ToString();                      //현재 마일리지
+        ShowTicketAmountText.text = TicketAmount.ToString();        // 현재 티켓 수
+        PityCount.text = PickPoint.ToString();                      // 현재 마일리지
 
         //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)
     }
 
 
-    public void One()
+    public void PickOneTime()
     {
-        
+        var pickTable = PickUpListLoader.Instance.GetAllPickList();
         if (TicketAmount >= 1)
         {
             TicketAmount--; // 1장 소모
@@ -53,16 +53,17 @@ public class Pick : MonoBehaviour
         }
     }
 
-    public void Ten()
+    public void PickTenTimes()
     {
+        var pickTable = PickUpListLoader.Instance.GetAllPickList();
         if (TicketAmount >= 10)
         {
             TicketAmount -= 10;// 10장 소모
             TicketAmount = Math.Max(TicketAmount, 0); // 예외처리
 
             if (TicketAmount < 0)
-                 PickPoint += 0;
-            else PickPoint += 10; 
+                PickPoint += 0;
+            else PickPoint += 10;
 
             ShowTicketAmountText.text = TicketAmount.ToString();
             PityCount.text = PickPoint.ToString();
