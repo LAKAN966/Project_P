@@ -14,12 +14,7 @@ public class UIController : Singleton<UIController>
 
     //Pannal
     public GameObject PurchaseUIBox;         //구매시 상자창
-    public GameObject StageInfo;             //스테이지 정보창
-    public GameObject GospelPanel;           //
-    public GameObject GospelConfirmPanel;    //
-    public GameObject BuildConfirmPanel;     //건설 확인 창
     public GameObject DescriptionBox;        //아이템 설명창
-
 
     private void Start()
     {

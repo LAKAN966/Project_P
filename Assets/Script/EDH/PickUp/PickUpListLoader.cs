@@ -20,7 +20,7 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
     private Dictionary<int, PickInfo> PickListsDict = new();
     public void PickUps()
     {
-        string path = Path.Combine(Application.streamingAssetsPath, "Data/UnitData.csv"); // 파일 경로
+        string path = Path.Combine(Application.dataPath, "Data/UnitData.csv"); // 파일 경로
 
         if (!File.Exists(path))
         {
