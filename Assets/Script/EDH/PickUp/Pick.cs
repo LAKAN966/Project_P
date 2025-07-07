@@ -15,16 +15,28 @@ public class PickUp : MonoBehaviour
     public TextMeshProUGUI PityCount;            // 모집 마일리지
 
 
-    public Button PickOnce; // 1회  버튼
+    public Button PickOnce; //  1회 버튼
     public Button PickTen;  // 10회 버튼
+
+    public Button RePickOne; //다시  1회 뽑기 버튼
+    public Button RePickTen; //다시 10회 뽑기 버튼
+
+    public GameObject PickOnePage; //  1회 뽑기 화면
+    public GameObject PickTenPage; // 10회 뽑기 화면
+
+
+    private PickLogic pickLogic; // 뽑기 로직
 
     int TicketAmount; // 티켓 수
     int PickPoint;    // 뽑은 횟수
 
     private void Start()
     {
-        PickOnce.onClick.AddListener(() => PickOneTime());      // 1회  뽑기
-        PickTen.onClick.AddListener(() => PickTenTimes());      // 10회 뽑기
+        PickOnce.onClick.AddListener(() => PickOneTime());       //  1회 뽑기
+        PickTen.onClick.AddListener(()  => PickTenTimes());      // 10회 뽑기
+
+        RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기
+        RePickTen.onClick.AddListener(() => PickTenTimes());     // 10회 다시 뽑기
 
         TicketAmount = PlayerDataManager.Instance.player.ticket;
         PickPoint = 0;
@@ -50,6 +62,14 @@ public class PickUp : MonoBehaviour
 
             ShowTicketAmountText.text = TicketAmount.ToString();
             PityCount.text = PickPoint.ToString();
+
+            PickOnePage.SetActive(true);
+
+            pickLogic.DrawOne();
+        }
+        else
+        {
+            Debug.Log("티켓이 부족합니다");
         }
     }
 
@@ -67,6 +87,13 @@ public class PickUp : MonoBehaviour
 
             ShowTicketAmountText.text = TicketAmount.ToString();
             PityCount.text = PickPoint.ToString();
+
+            PickTenPage.SetActive(true);
+            pickLogic.DrawTen();
+        }
+        else
+        {
+            Debug.Log("티켓이 부족합니다");
         }
     }
 }
