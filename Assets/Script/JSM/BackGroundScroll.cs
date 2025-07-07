@@ -25,6 +25,7 @@ public class BackGroundScroll : MonoBehaviour
     {
         contentWidth = scrollRect.content.rect.width + contentWidthOffset;
         viewportWidth = viewport.rect.width;
+        
     }
 
     void Update()
