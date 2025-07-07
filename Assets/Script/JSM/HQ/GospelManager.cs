@@ -75,12 +75,31 @@ public class GospelManager : MonoBehaviour
         }
         return layers.Count;
     }
+    public GospelData GetGospelByID(int gospelID)
+    {
+        foreach (var buildEntry in gospelMap.Values)
+        {
+            foreach (var layer in buildEntry)
+            {
+                foreach (var gospel in layer)
+                {
+                    if (gospel.id == gospelID)
+                        return gospel;
+                }
+            }
+        }
+
+        Debug.LogWarning($"Gospel ID {gospelID}에 해당하는 데이터를 찾을 수 없습니다.");
+        return null;
+    }
 
     public void SelectGospel(int buildID, int gospelID)
     {
         if (!selectedGospelIDsByBuildID.ContainsKey(buildID))
             selectedGospelIDsByBuildID[buildID] = new HashSet<int>();
-
         selectedGospelIDsByBuildID[buildID].Add(gospelID);
+        GospelData data = GetGospelByID(gospelID);
+        Debug.Log("??");
+        BuffManager.UpdateBuffStat(BuildManager.Instance.GetBuildingRaceID(buildID), data.statIndex, data.effectValue);
     }
 }

@@ -13,7 +13,7 @@ public class SPUMPreviewExporter
     [MenuItem("Tools/Export SPUM Preview")]
     public static void Export()
     {
-        string prefabPath = "SPUM";
+        string prefabPath = "Units";
         string savePath = "Assets/Resources/SPUMImg";
         Directory.CreateDirectory(savePath);
 

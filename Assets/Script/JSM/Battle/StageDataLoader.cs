@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class StageDataLoader
@@ -27,6 +28,7 @@ public static class StageDataLoader
                     ResetTime = float.Parse(values[10]),
                     EnemyHeroID = int.Parse(values[11]),
                     StageBG = values[12],
+                    BGList = { values[14], values[15], values[16], values[17], values[18] , values[19] },
                 };
                 return data;
             }

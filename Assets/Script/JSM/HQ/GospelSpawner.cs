@@ -1,13 +1,16 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public class GospelSpawner : MonoBehaviour
 {
     public GameObject GospelContainerPrefab;
     public GameObject GospelSlotPrefab;
+    public GameObject LackLevelPanel;
     public Transform parent;
     public int buildID;
     public GameObject gospelConfirmUI;
+    public int level;
 
     private readonly List<GameObject> spawnedContainers = new();
 
@@ -43,7 +46,8 @@ public class GospelSpawner : MonoBehaviour
             var layerData = layeredGospels[order];
 
             GameObject container = Instantiate(GospelContainerPrefab, parent);
-            container.name = $"GospelContainer_Order{order + 1}";
+            container.name = $"GospelContainer_Order{order}";
+            container.layer = order;
             spawnedContainers.Add(container);
 
             var containerUI = container.GetComponent<GospelContainerUI>();
@@ -70,9 +74,13 @@ public class GospelSpawner : MonoBehaviour
                         state = GospelState.Locked;
                     else
                         state = GospelState.Available;
-                    Debug.Log(state);
                     slotUI.SetData(gospel, state);
                 }
+            }
+            if(BuildManager.Instance.GetOrderLevel(buildID, level)<=order)
+            {
+                GameObject lack = Instantiate(LackLevelPanel, container.transform);
+                lack.GetComponentInChildren<TextMeshProUGUI>().text = BuildManager.Instance.GetNextLevel(buildID, order).ToString()+"레벨에 해금됩니다.";
             }
         }
     }

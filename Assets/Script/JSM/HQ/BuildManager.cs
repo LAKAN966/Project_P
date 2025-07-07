@@ -59,15 +59,62 @@ public class BuildManager : MonoBehaviour
             int gold = int.Parse(parts[4].Trim());
             int blueprint = int.Parse(parts[5].Trim());
 
-            buildings.Add(new BuildingData(id, displayName, imageName, raceId, gold, blueprint));
+            List<int> goldList = new List<int>();
+            for (int j = 6; j <= 9; j++)
+            {
+                if (j < parts.Length && int.TryParse(parts[j].Trim(), out int value))
+                    goldList.Add(value);
+                else
+                    goldList.Add(0);
+            }
+            List<int> costList = new List<int>();
+            for (int j = 10; j <= 13; j++)
+            {
+                if (j < parts.Length && int.TryParse(parts[j].Trim(), out int value))
+                    costList.Add(value);
+                else
+                    costList.Add(0);
+            }
+            List<int> orderByLevel = new List<int>();
+            if (parts.Length > 14 && !string.IsNullOrWhiteSpace(parts[14]))
+            {
+                string[] rawValues = parts[14].Split(';');
+                foreach (var raw in rawValues)
+                {
+                    if (int.TryParse(raw.Trim(), out int val))
+                        orderByLevel.Add(val);
+                    else
+                        orderByLevel.Add(0);
+                }
+            }
+            buildings.Add(new BuildingData(id, displayName, imageName, raceId, gold, blueprint, goldList, costList, orderByLevel));
         }
     }
     public Sprite GetBuildingSprite(string imageName)
     {
         return Resources.Load<Sprite>($"Sprites/{imageName}");
     }
+    public int GetBuildingRaceID(int id)
+    {
+        return buildings[id].raceId;
+    }
     public int GetBuildingCount()
     {
         return buildings.Count;
     }
+    public int GetOrderLevel(int id, int level)
+    {
+        return buildings[id-1].orderByLevel[level-1];
+    }
+    public int GetNextLevel(int id, int layer)
+    {
+        var orders = buildings[id-1].orderByLevel;
+        for (int i = 0; i < orders.Count; i++)
+        {
+            if (orders[i] >= layer)
+                return i + 1;
+        }
+        return -1;
+    }
+
 }

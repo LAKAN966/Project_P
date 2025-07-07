@@ -4,6 +4,7 @@ using UnityEngine;
 public class GospelContainerUI : MonoBehaviour
 {
     public CanvasGroup canvasGroup;
+    public int Layer;
 
     public List<GospelSlotUI> slotUIs = new();
 

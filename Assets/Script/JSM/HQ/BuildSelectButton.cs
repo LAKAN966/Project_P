@@ -15,12 +15,11 @@ public class BuildSelectButton : MonoBehaviour
     public TMP_Text goldText;
     public TMP_Text blueprintText;
 
-    private Image img;
+    public Image img;
 
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(OnClick);
-        img = GetComponent<Image>();
     }
 
     private void Start()
