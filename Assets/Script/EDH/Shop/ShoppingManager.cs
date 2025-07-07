@@ -20,6 +20,8 @@ public class ShoppingManager : MonoBehaviour
         {
             Instantiate(ItemListLoader);
         }
+        UIController.Instance.DescriptionBox.SetActive(false);
+        UIController.Instance.PurchaseUIBox.SetActive(false);
     }
 
     public void ShowNowGold()

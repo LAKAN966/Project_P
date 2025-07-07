@@ -24,12 +24,13 @@ public class PickUp : MonoBehaviour
     public GameObject PickOnePage; //  1회 뽑기 화면
     public GameObject PickTenPage; // 10회 뽑기 화면
 
-
+    [SerializeField]
     private PickLogic pickLogic; // 뽑기 로직
 
     int TicketAmount; // 티켓 수
     int PickPoint;    // 뽑은 횟수
 
+    
     private void Start()
     {
         PickOnce.onClick.AddListener(() => PickOneTime());       //  1회 뽑기
@@ -38,7 +39,8 @@ public class PickUp : MonoBehaviour
         RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기
         RePickTen.onClick.AddListener(() => PickTenTimes());     // 10회 다시 뽑기
 
-        TicketAmount = PlayerDataManager.Instance.player.ticket;
+        //TicketAmount = PlayerDataManager.Instance.player.ticket;
+        TicketAmount = 50;
         PickPoint = 0;
 
         ShowTicketAmountText.text = TicketAmount.ToString();        // 현재 티켓 수
@@ -64,7 +66,6 @@ public class PickUp : MonoBehaviour
             PityCount.text = PickPoint.ToString();
 
             PickOnePage.SetActive(true);
-
             pickLogic.DrawOne();
         }
         else
