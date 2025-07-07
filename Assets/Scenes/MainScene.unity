@@ -2175,6 +2175,7 @@ RectTransform:
   - {fileID: 1960552166}
   - {fileID: 1960845581}
   - {fileID: 483857560}
+  - {fileID: 942603512}
   m_Father: {fileID: 962814705}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -6300,7 +6301,6 @@ RectTransform:
   - {fileID: 362177748}
   - {fileID: 1926708058}
   - {fileID: 94601818}
-  - {fileID: 942603512}
   m_Father: {fileID: 185618142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11746,12 +11746,12 @@ RectTransform:
   - {fileID: 1332195737}
   - {fileID: 1513727368}
   - {fileID: 367608772}
-  m_Father: {fileID: 483857560}
+  m_Father: {fileID: 185618142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1820, y: 980.2892}
+  m_SizeDelta: {x: 0, y: 0.28930664}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &943091248
 GameObject:
@@ -21437,7 +21437,6 @@ MonoBehaviour:
     Name: 
     Description: 
     IsHero: 0
-  PickOne: {fileID: 1925169937}
   UnitCardSlot: {fileID: 6898841203582730279, guid: ba0e623f8db92264c83e0bd9c7e83cf0, type: 3}
   PickOneTime: {fileID: 1925169938}
   PickTenTimes: {fileID: 1429946509}
@@ -24415,7 +24414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1960845581
 RectTransform:
   m_ObjectHideFlags: 0
