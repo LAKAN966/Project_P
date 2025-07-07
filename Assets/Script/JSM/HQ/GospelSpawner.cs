@@ -8,6 +8,7 @@ public class GospelSpawner : MonoBehaviour
     public Transform parent;
     public int buildID;
     public GameObject gospelConfirmUI;
+    public int level;
 
     private readonly List<GameObject> spawnedContainers = new();
 
@@ -43,7 +44,8 @@ public class GospelSpawner : MonoBehaviour
             var layerData = layeredGospels[order];
 
             GameObject container = Instantiate(GospelContainerPrefab, parent);
-            container.name = $"GospelContainer_Order{order + 1}";
+            container.name = $"GospelContainer_Order{order}";
+            container.layer = order;
             spawnedContainers.Add(container);
 
             var containerUI = container.GetComponent<GospelContainerUI>();
