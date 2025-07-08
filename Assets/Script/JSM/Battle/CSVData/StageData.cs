@@ -24,4 +24,5 @@ public class StageData
     public int EnemyHeroID; //적 영웅 ID
     public string StageBG; //스테이지 배경 이름
     public int ActionPoint; //행동력
+    public List<string> BGList;
 }

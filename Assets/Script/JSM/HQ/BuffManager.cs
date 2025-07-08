@@ -79,9 +79,7 @@ public static class BuffManager
             Debug.LogWarning($"Race ID {raceID}에 대한 버프가 존재하지 않습니다.");
             return;
         }
-
         var buff = raceBuffTable[raceID];
-
         switch (statIndex)
         {
             case 0: buff.Damage = value; break;
@@ -98,8 +96,6 @@ public static class BuffManager
                 Debug.LogWarning($"알 수 없는 statIndex: {statIndex}");
                 return;
         }
-
         raceBuffTable[raceID] = buff;
     }
-
 }

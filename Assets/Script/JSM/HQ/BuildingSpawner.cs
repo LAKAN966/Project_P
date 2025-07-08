@@ -10,6 +10,7 @@ public class BuildingSpawner : MonoBehaviour
     public ScrollRect scrollRect;
     public GameObject buildListUI;
     public GameObject buildGospelUI;
+    public GameObject levelUpPanel;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class BuildingSpawner : MonoBehaviour
             }
             newObj.GetComponentInChildren<BuildSlotUI>().buildListUI = buildListUI;
             newObj.GetComponentInChildren<BuildSlotUI>().buildGospelUI = buildGospelUI;
+            newObj.GetComponentInChildren<BuildSlotUI>().levelUpPanel = levelUpPanel;
         }
     }
 }

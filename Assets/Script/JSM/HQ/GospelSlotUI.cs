@@ -78,6 +78,7 @@ public class GospelSlotUI : MonoBehaviour
         //플레이어자원 제거하는 코드 필요
 
         GospelManager.Instance.SelectGospel(gospelData.buildID, gospelData.id);
+        Debug.Log("?");
 
         gospelSpawner.OnSlotSelected(this);
 

@@ -9,9 +9,11 @@ public class BuildSlotUI : MonoBehaviour
     public Image slotImage;
     public TMP_Text nameText;
     public TMP_Text levelText;
+    public Button levelUpBtn;
     public GameObject plusText;
     public GameObject buildListUI;
     public GameObject buildGospelUI;
+    public GameObject levelUpPanel;
 
     public float maxHeight = 300f;
 
@@ -23,6 +25,7 @@ public class BuildSlotUI : MonoBehaviour
         if (Level > 0)
         {
             buildGospelUI.GetComponentInChildren<GospelSpawner>().buildID = buildingID;
+            buildGospelUI.GetComponentInChildren<GospelSpawner>().level = Level;
             buildGospelUI.SetActive(true);
         }
         else
@@ -81,6 +84,24 @@ public class BuildSlotUI : MonoBehaviour
             nameText.text = BuildManager.Instance.buildings[buildingID - 1].displayName;
         }
 
+        if (levelText != null)
+        {
+            if (!levelText.gameObject.activeSelf)
+                levelText.gameObject.SetActive(true);
+
+            levelText.text = $"Lv.{Level}";
+        }
+        if(levelUpBtn != null)
+        {
+            if (!levelUpBtn.gameObject.activeSelf)
+                levelUpBtn.gameObject.SetActive(true);
+            levelUpBtn.GetComponent<BuildingLevelUpUI>().levelUpPanel = levelUpPanel;
+            levelUpBtn.GetComponent<BuildingLevelUpUI>().buildSlotUI = this;
+        }
+    }
+    public void LevelUp()
+    {
+        Level++;
         if (levelText != null)
         {
             if (!levelText.gameObject.activeSelf)
