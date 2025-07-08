@@ -39,8 +39,8 @@ public class GameManager : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        StageManager.instance.ClearStage();
         StageManager.instance.AddReward();
+        StageManager.instance.ClearStage();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
