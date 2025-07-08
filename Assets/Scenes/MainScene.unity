@@ -17417,19 +17417,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4563529454910381860}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5840524744245538062}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1017615873742155386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27168,6 +27156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8783310778212767653}
   - component: {fileID: 6682286056570472729}
+  - component: {fileID: 8783310778212767654}
   m_Layer: 5
   m_Name: PurchaseUIBox
   m_TagString: Untagged
@@ -28921,10 +28910,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InputAmount: {fileID: 8175187489376318279}
-  ItemDescriptionText: {fileID: 8739364953963542113}
   AddButton: {fileID: 4450127504431721479}
   SubtractButton: {fileID: 185576913616721218}
-  PurchaseItemIcon: {fileID: 5618635181358785750}
   PurchaseButton: {fileID: 5618635181358785750}
   _Item:
     ID: 0
@@ -32829,6 +32816,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8783310778212767654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5840524744245538062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 170aeb9883a0c0843a57acafaf5c0a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NotEnoughBoxText: {fileID: 1917383462261251457}
+  ItemDescriptionText: {fileID: 8739364953963542113}
+  NotEnoughBox: {fileID: 7365977189393907163}
+  purchaseUIBox: {fileID: 5840524744245538062}
+  DescriptionBox: {fileID: 3129855018760299552}
+  PurchaseItemIcon: {fileID: 4527692270067148234}
+  CancelButton: {fileID: 1003774260036864051}
+  _Item:
+    ID: 0
+    Name: 
+    Cost: 0
+    Description: 
 --- !u!114 &8789353300235128571
 MonoBehaviour:
   m_ObjectHideFlags: 0
