@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GameOverPanel : MonoBehaviour
+{
+    public TextMeshProUGUI title;
+    public TextMeshProUGUI description;
+    public GameObject rewardPanel;
+    public GameObject rewardSlot;
+    private List<int> rewardItemId;
+    private List<int> rewardItemCount;
+
+    public void Win()
+    {
+        Debug.Log(WaveManager.Instance.currentStage.StageName);
+        title.text = "VICTORY";
+        description.text = "승리 보상";
+        rewardItemId = WaveManager.Instance.currentStage.firstRewardItemIDs;
+        rewardItemCount = WaveManager.Instance.currentStage.firstRewardAmounts;
+        for (int i = 0; i < rewardItemId.Count; i++)
+        {
+            int itemId = rewardItemId[i];
+            int itemCount = rewardItemCount[i];
+
+            GameObject slot = Instantiate(rewardSlot, rewardPanel.transform);
+
+            Sprite icon = Resources.Load<Sprite>($"Rewards/{itemId}");
+            if (icon == null)
+            {
+                Debug.LogWarning($"스프라이트를 찾을 수 없습니다: Rewards/{itemId}");
+                continue;
+            }
+
+            Image iconImage = slot.GetComponentInChildren<Image>();
+            if (iconImage != null) iconImage.sprite = icon;
+
+            TextMeshProUGUI countText = slot.GetComponentInChildren<TextMeshProUGUI>();
+            if (countText != null) countText.text = itemCount.ToString();
+        }
+    }
+    public void Lose()
+    {
+        title.text = "DEFEAT";
+        description.text = "전투 패배";
+    }
+}
