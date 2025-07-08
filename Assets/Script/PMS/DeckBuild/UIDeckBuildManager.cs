@@ -51,6 +51,7 @@ public class UIDeckBuildManager : MonoBehaviour
         CacheUnitListOrder();
         SetDeckSlots();
         SetMyUnitIcons();
+        UIUnitInfo.instance.ClearInfo();
     }
 
     public void InitDeckSlots() // 시작할 때 덱 슬롯 만들기. 처음에만 쓰면됨.
@@ -82,22 +83,51 @@ public class UIDeckBuildManager : MonoBehaviour
             if (i < normalUnitIDs.Count)
             {
                 UnitStats stats = UnitDataManager.Instance.GetStats(normalUnitIDs[i]);
-                slot.DeckImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
-                slot.DeckImage.color = Color.white;
+                slot.unitImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+                slot.unitImage.color = Color.white;
                 slot.unitData = stats;
 
+                //UIUnitInfo.instance.ShowInfo(stats);
             }
             else
             {
-                slot.DeckImage.sprite = null;
+                slot.unitImage.sprite = null;
+                slot.unitImage.color = new Color(1, 1, 1, 0);
                 slot.unitData = null;
+
+                //UIUnitInfo.instance.ShowInfo(null);
             }
         }
-        if (leaderSlot != null && leaderUnitID.HasValue)
+
+        if(leaderSlot != null)
         {
-            var leaderStats = UnitDataManager.Instance.GetStats(leaderUnitID.Value);
-            leaderSlot.DeckImage.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderStats.ModelName}");
-            leaderSlot.unitData = leaderStats;
+            if (leaderUnitID.HasValue)
+            {
+                var leaderStats = UnitDataManager.Instance.GetStats(leaderUnitID.Value);
+
+                if(leaderStats != null)
+                {
+                    leaderSlot.unitImage.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderStats.ModelName}");
+                    leaderSlot.unitImage.color = Color.white;
+                    leaderSlot.unitData = leaderStats;
+
+                    UIUnitInfo.instance.ShowleaderInfo(leaderStats);
+                }
+
+                else
+                {
+                    UIUnitInfo.instance.ShowleaderInfo(null);
+                }
+            }
+
+            else
+            {
+                leaderSlot.unitData = null;
+                leaderSlot.unitImage.sprite = null;
+                leaderSlot.unitImage.color = new Color(1, 1, 1, 0);
+
+                UIUnitInfo.instance.ShowleaderInfo(null);
+            }
         }
     }
 

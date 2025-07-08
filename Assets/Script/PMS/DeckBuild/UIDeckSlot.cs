@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
     public bool isLeaderSlot = false;
-    public Image DeckImage;
+    public Image deckSlotBG;
+    public Image unitImage;
     public UnitStats unitData;
 
     private float lastClickTime = 0f;
@@ -41,13 +42,14 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             return;
         }
 
-        DeckImage.sprite = Resources.Load<Sprite>($"SPUMImg/{unitStats.ModelName}"); //유닛 이미지 가지고 오기.
-        
-                        
+        unitImage.sprite = Resources.Load<Sprite>($"SPUMImg/{unitStats.ModelName}"); //유닛 이미지 가지고 오기.
+        unitImage.color = new Color(1, 1, 1, 1);
+
+
         unitData = unitStats;
-        UIUnitInfo.instance.ShowInfo(unitData);
         UIDeckBuildManager.instance.SetMyUnitIcons();
         UIDeckBuildManager.instance.SetDeckSlots();
+        UIUnitInfo.instance.ShowInfo(unitData);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -65,10 +67,12 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             DeckManager.Instance.RemoveFromDeck(unitData.ID);
 
             unitData = null;
-            DeckImage.sprite = null;
-            
+            unitImage.sprite = null;
+            unitImage.color = new Color(1, 1, 1, 0);
+
             UIDeckBuildManager.instance.SetMyUnitIcons();
             UIDeckBuildManager.instance.SetDeckSlots();
+            UIUnitInfo.instance.ShowInfo(null);
 
         }
         lastClickTime = Time.time;
