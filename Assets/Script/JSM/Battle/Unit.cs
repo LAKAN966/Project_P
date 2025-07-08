@@ -60,7 +60,7 @@ public class Unit : MonoBehaviour
         triggeredHitbackZones.Clear();
         SetState(UnitState.Moving);
         gameObject.SetActive(true);
-        spriteRoot.localScale = new Vector3(stats.Size, stats.Size, 0);
+        spriteRoot.localScale = new Vector3(stats.Size*1.5f, stats.Size*1.5f, 0);
 
         SetLayerRecursively(gameObject, LayerMask.NameToLayer(isEnemy ? "Enemy" : "Ally"));
         LoadModel();

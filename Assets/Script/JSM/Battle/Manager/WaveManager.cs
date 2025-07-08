@@ -62,6 +62,7 @@ public class WaveManager : MonoBehaviour
     {
         yield return new WaitForSeconds(currentStage.TeaTime);
         waveStarted = true;
+        GameManager.Instance.OnBaseDestroyed(true);
     }
 
     void Update()
