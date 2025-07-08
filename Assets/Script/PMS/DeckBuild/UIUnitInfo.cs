@@ -10,13 +10,11 @@ public class UIUnitInfo : MonoBehaviour
     [SerializeField] private Image infoImage; 
     [SerializeField] private TextMeshProUGUI infoText;
 
-    [Header("보유 유닛 이미지/정보")]
-    [SerializeField] private Image unitIcon; 
+    [Header("리더 유닛 이미지/정보")]
+    [SerializeField] private Image leaderIMG;
     [SerializeField] private TextMeshProUGUI costText;
-
-    [Header("덱 슬롯 유닛 이미지/정보")] 
-    [SerializeField] private Image deckImage; 
-
+    [SerializeField] private Image costIcon;
+    
 
     public static UIUnitInfo instance;
 
@@ -27,13 +25,46 @@ public class UIUnitInfo : MonoBehaviour
 
     public void ShowInfo(UnitStats stats)
     {
-        infoImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
-        infoText.text = ($"{stats.Name}\n{stats.MaxHP}\n{stats.Damage}"); // 어떤 정보가 표시 되는지 아직 다 안넣었음. 확인 후 수정.
+        if(stats != null)
+        {
+            infoImage.gameObject.SetActive(true);
+            infoText.gameObject.SetActive(true);
+            
+            infoImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+            infoText.text = ($"{stats.Name}\n{stats.MaxHP}\n{stats.Damage}"); // 어떤 정보가 표시 되는지 아직 다 안넣었음. 확인 후 수정.
+        }
+
+        else
+        {
+            infoImage.gameObject.SetActive(false);
+            infoText.gameObject.SetActive(false);
+        }
     }
 
-    public void ShowUnitIcon(UnitStats stats)
+    public void ShowleaderInfo(UnitStats stats)
     {
-        unitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+        if(stats != null)
+        {
+            leaderIMG.gameObject.SetActive(true);
+            costText.gameObject.SetActive(true);
+            costIcon.gameObject.SetActive(true);
+
+            leaderIMG.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+            costText.text = stats.Cost.ToString();
+        }
+
+        else
+        {
+            leaderIMG.gameObject.SetActive(false);
+            costText.gameObject.SetActive(false);
+            costIcon.gameObject.SetActive(false);
+        }
+    }
+
+    public void ClearInfo()
+    {
+        infoImage.sprite = null;
+        infoText.text = "";
     }
 
 
