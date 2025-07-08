@@ -1,0 +1,123 @@
+[
+
+    {
+        "ID": 101,
+        "Type": "Daily",
+        "Title": "행동력 50 소모",
+        "ConditionType": "UseStemina",
+        "ConditionValue": 50,
+        "RewardType": "Gold",
+        "RewardValue": 5000,
+        "Order": 1
+    },
+    {
+        "ID": 102,
+        "Type": "Daily",
+        "Title": "약탈 1회 진행",
+        "ConditionType": "Looting",
+        "ConditionValue": 1,
+        "RewardType": "Gold",
+        "RewardValue": 5000,
+        "Order": 2
+    },
+    {
+        "ID": 103,
+        "Type": "Daily",
+        "Title": "접속 1회 완료",
+        "ConditionType": "Login",
+        "ConditionValue": 1,
+        "RewardType": "Ticket",
+        "RewardValue": 1,
+        "Order": 3
+    },
+    {
+        "ID": 104,
+        "Type": "Daily",
+        "Title": "유닛모집 1회 진행",
+        "ConditionType": "Recruit",
+        "ConditionValue": 1,
+        "RewardType": "Gold",
+        "RewardValue": 5000,
+        "Order": 4
+    },
+    {
+        "ID": 105,
+        "Type": "Daily",
+        "Title": "미궁의탑 1회 진행",
+        "ConditionType": "Tower",
+        "ConditionValue": 1,
+        "RewardType": "Ticket",
+        "RewardValue": 1,
+        "Order": 5
+    },
+    {
+        "ID": 106,
+        "Type": "Daily",
+        "Title": "메인챕터 1회 진행",
+        "ConditionType": "MainChapter",
+        "ConditionValue": 1,
+        "RewardType": "Ticket",
+        "RewardValue": 1,
+        "Order": 6
+    },
+    {
+        "ID": 107,
+        "Type": "Weekly",
+        "Title": "행동력 300 소모",
+        "ConditionType": "UseStemina",
+        "ConditionValue": 300,
+        "RewardType": "Gold",
+        "RewardValue": 15000,
+        "Order": 1
+    },
+    {
+        "ID": 108,
+        "Type": "Weekly",
+        "Title": "약탈 7회 진행",
+        "ConditionType": "Looting",
+        "ConditionValue": 7,
+        "RewardType": "Gold",
+        "RewardValue": 15000,
+        "Order": 2
+    },
+    {
+        "ID": 109,
+        "Type": "Weekly",
+        "Title": "접속 3회 완료",
+        "ConditionType": "Login",
+        "ConditionValue": 5,
+        "RewardType": "Ticket",
+        "RewardValue": 3,
+        "Order": 3
+    },
+    {
+        "ID": 110,
+        "Type": "Weekly",
+        "Title": "유닛모집 20회 완료",
+        "ConditionType": "Recruit",
+        "ConditionValue": 20,
+        "RewardType": "Gold",
+        "RewardValue": 30000,
+        "Order": 4
+    },
+    {
+        "ID": 111,
+        "Type": "Weekly",
+        "Title": "미궁의탑 5회 진행",
+        "ConditionType": "Tower",
+        "ConditionValue": 5,
+        "RewardType": "Ticket",
+        "RewardValue": 3,
+        "Order": 5
+    },
+    {
+        "ID": 112,
+        "Type": "Weekly",
+        "Title": "메인챕터 5회 진행",
+        "ConditionType": "MainChapter",
+        "ConditionValue": 5,
+        "RewardType": "Ticket",
+        "RewardValue": 3,
+        "Order": 6
+    }
+]
