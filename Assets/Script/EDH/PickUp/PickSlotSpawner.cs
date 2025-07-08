@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class PickSlotSpawner : MonoBehaviour
 {
-    public PickInfo PickInfo;
 
     [SerializeField] private GameObject UnitICard;
 
@@ -23,7 +22,7 @@ public class PickSlotSpawner : MonoBehaviour
             Destroy(Child.gameObject);
         }
         Debug.Log(pick + "총아이템의 개수");
-        CreateCard(PickInfo, Grid1);
+        CreateCard(pick,Grid1);
     }
     public void SpawnCardTen(List<PickInfo> picks) //10개 뽑기 결과생성
     {
@@ -33,7 +32,7 @@ public class PickSlotSpawner : MonoBehaviour
         }
         foreach (PickInfo pickInfo in picks)
         {
-            CreateCard(PickInfo, Grid2);
+            CreateCard(pickInfo, Grid2);
         }
     }
     private void CreateCard(PickInfo pick, Transform parent) //카드 슬롯 생성

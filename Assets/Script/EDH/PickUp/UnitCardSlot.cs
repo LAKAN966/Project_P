@@ -6,21 +6,23 @@ using UnityEngine;
 using static UnityEditor.Progress;
 using UnityEngine.UI;
 using System;
+using UnityEditor.Experimental.GraphView;
 
 public class UnitCardSlot : MonoBehaviour
 {
     [SerializeField] private TMP_Text UnitICardNametext;        // 유닛 이름
 
     [SerializeField] public Image UnitIcon;                     // 유닛 아이콘
-    Dictionary<int, PickInfo> PickInfo = PickUpListLoader.Instance.GetAllPickList();
+    
     public void init(PickInfo pickInfo)
     {
         GameObject root = transform.root.gameObject;
         Debug.Log(root.name);
 
+        UnitICardNametext.text = pickInfo.Name;
 
-        pickInfo.Name = UnitICardNametext.text;    // 이름
+        Debug.Log(pickInfo.Name);
 
-        pickInfo.Uniticon = UnitIcon.sprite;       // 이미지
+        UnitIcon.sprite = pickInfo.Uniticon;
     }
 }

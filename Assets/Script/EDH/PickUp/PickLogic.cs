@@ -19,7 +19,7 @@ public class PickLogic : MonoBehaviour
         {
             picks.Add(PickRandom());
         }
-            pickSlotSpawner.SpawnCardTen(picks);
+        pickSlotSpawner.SpawnCardTen(picks);
     }
     public PickInfo PickRandom()// 랜덤뽑기 로직
     {
@@ -29,6 +29,9 @@ public class PickLogic : MonoBehaviour
         int randomKey = keys[Random.Range(0, keys.Count)];
 
         PickInfo originalPick = pickInfoDict[randomKey];
+
+        Debug.Log(originalPick.ID);
+        Debug.Log(originalPick.Name);
 
         PickInfo randomPick = new PickInfo
         {
