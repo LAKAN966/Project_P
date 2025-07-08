@@ -58,7 +58,7 @@ public class StageManager : MonoBehaviour
         int maxChapter = stageDataDic.Values.Max(x => x.Chapter);
 
         currentChapter = Mathf.Clamp(currentChapter, minChapter, maxChapter);
-        Debug.Log("챕터변경");
+        //Debug.Log("챕터변경");
         UpdateStageUI();
     }
 
@@ -69,7 +69,7 @@ public class StageManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        chapterText.text = $"Chpater_{currentChapter}";
+        chapterText.text = $"Chpater {currentChapter}";
         var stageDataDic = StageDataManager.Instance.GetAllStageData(); // 딕셔너리로 만들어진 모든 스테이지 데이터. 딕셔너리 키 값은 스테이지 아이디
 
         var chapterStages = stageDataDic.Values
@@ -115,6 +115,10 @@ public class StageManager : MonoBehaviour
         selectedStageID = stageID;
         Debug.Log($"스테이지 {stageID} 선택됨");
         SetStageInfo?.Invoke(stageID);
+        if (SetStageInfo == null)
+        {
+            Debug.LogWarning("SetStageInfo 델리게이트가 null입니다!");
+        }
 
         battleBtn.gameObject.SetActive(true);
     }
