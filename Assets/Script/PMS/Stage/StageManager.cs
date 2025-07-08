@@ -35,6 +35,7 @@ public class StageManager : MonoBehaviour
 
     public void Init()
     {
+        StageDataManager.Instance.LoadStageData();
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
         battleBtn.onClick.AddListener(OnClickEnterBattle);
