@@ -35,6 +35,7 @@ public class StageManager : MonoBehaviour
 
     public void Init()
     {
+        StageDataManager.Instance.LoadStageData();
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
         battleBtn.onClick.AddListener(OnClickEnterBattle);
@@ -58,7 +59,7 @@ public class StageManager : MonoBehaviour
         int maxChapter = stageDataDic.Values.Max(x => x.Chapter);
 
         currentChapter = Mathf.Clamp(currentChapter, minChapter, maxChapter);
-        Debug.Log("챕터변경");
+        //Debug.Log("챕터변경");
         UpdateStageUI();
     }
 
@@ -69,7 +70,7 @@ public class StageManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        chapterText.text = $"Chpater_{currentChapter}";
+        chapterText.text = $"Chpater {currentChapter}";
         var stageDataDic = StageDataManager.Instance.GetAllStageData(); // 딕셔너리로 만들어진 모든 스테이지 데이터. 딕셔너리 키 값은 스테이지 아이디
 
         var chapterStages = stageDataDic.Values
@@ -104,6 +105,20 @@ public class StageManager : MonoBehaviour
                 float x = marginX + spacingX * i;
                 float y = (i % 2 == 0) ? topY : bottomY;
 
+                if(i == nodeCount - 1)
+                {
+                    y = parentHeight * 0.28f;
+                    x += 60;
+
+                    nodePosition.sizeDelta *= 1.5f;
+
+                    var img = node.GetComponent<Image>();
+                    if(img !=null)
+                    {
+                        img.color = Color.red;
+                    }
+                }
+
                 nodePosition.anchoredPosition = new Vector2(x, y);
             }
         }
@@ -115,6 +130,10 @@ public class StageManager : MonoBehaviour
         selectedStageID = stageID;
         Debug.Log($"스테이지 {stageID} 선택됨");
         SetStageInfo?.Invoke(stageID);
+        if (SetStageInfo == null)
+        {
+            Debug.LogWarning("SetStageInfo 델리게이트가 null입니다!");
+        }
 
         battleBtn.gameObject.SetActive(true);
     }

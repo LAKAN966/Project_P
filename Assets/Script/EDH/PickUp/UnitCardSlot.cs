@@ -5,10 +5,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Progress;
 using UnityEngine.UI;
+using System;
+using UnityEditor.Experimental.GraphView;
 
 public class UnitCardSlot : MonoBehaviour
 {
-    [SerializeField] private TMP_Text UnitICardNametext;        //유닛 이름
+    [SerializeField] private TMP_Text UnitICardNametext;        // 유닛 이름
 
     [SerializeField] public Image UnitIcon;                     // 유닛 아이콘
     
@@ -17,9 +19,10 @@ public class UnitCardSlot : MonoBehaviour
         GameObject root = transform.root.gameObject;
         Debug.Log(root.name);
 
-        pickInfo = (pickInfo != null) ? pickInfo : new PickInfo();
+        UnitICardNametext.text = pickInfo.Name;
 
-        UnitICardNametext.text = pickInfo.Name;      // 이름
-        // UnitIcon.sprite = pickInfo.image     // 이미지
-       }
+        Debug.Log(pickInfo.Name);
+
+        UnitIcon.sprite = pickInfo.Uniticon;
+    }
 }

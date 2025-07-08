@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class UIController : Singleton<UIController>
 {
@@ -16,8 +18,25 @@ public class UIController : Singleton<UIController>
     public GameObject PurchaseUIBox;         //구매시 상자창
     public GameObject DescriptionBox;        //아이템 설명창
 
+
+    //버튼
+    public Button UnitManagementButton;  //덱빌딩
+    
+
     private void Start()
     {
         Main.SetActive(true);
+    }
+
+
+    public void UnitManageActive()
+    {
+        DeckBuild.SetActive(true);
+        UIDeckBuildManager.instance.Init();
+    }
+
+    public void SetButton()
+    {
+        UnitManagementButton.onClick.AddListener(UnitManageActive);
     }
 }

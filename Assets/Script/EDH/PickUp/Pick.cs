@@ -9,7 +9,7 @@ using UnityEngine.UI;
 using TMPro;
 using Button = UnityEngine.UI.Button;
 
-public class PickUp : MonoBehaviour
+public class Pick : MonoBehaviour
 {
     public TextMeshProUGUI ShowTicketAmountText; // 소유하고 있는 티켓 수
     public TextMeshProUGUI PityCount;            // 모집 마일리지
@@ -39,8 +39,8 @@ public class PickUp : MonoBehaviour
         RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기
         RePickTen.onClick.AddListener(() => PickTenTimes());     // 10회 다시 뽑기
 
-        //TicketAmount = PlayerDataManager.Instance.player.ticket;
-        TicketAmount = 50;
+        //TicketAmount = PlayerDataManager.Instance.player.ticket;  // 사용할것.
+        TicketAmount = 50;         // 임시 테스트용
         PickPoint = 0;
 
         ShowTicketAmountText.text = TicketAmount.ToString();        // 현재 티켓 수
