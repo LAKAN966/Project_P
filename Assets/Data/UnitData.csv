@@ -4,7 +4,7 @@ ID,Name,Discription,RaceID,IsHero,IsAOE,AttackRange,Damage,MaxHP,MoveSpeed,Spawn
 1003,BattleZombie,,0,FALSE,FALSE,1.5,8,60,2.5,20,40,1,3,3,Undead_03,0,1,0
 1004,UndeadBowman,,0,FALSE,FALSE,4,5,20,2,10,15,1,2,2,Undead_04,2,1,0
 1005,UndeadMagician,,0,FALSE,TRUE,3,5,20,1,30,60,1,4,4,Undead_05,4,1,0
-1006,Undeadknight,,0,FALSE,FALSE,2.5,10,100,4,80,180,2,3,2,Undead_07,0,1,0
+1006,Undeadknight,,0,FALSE,FALSE,2.5,10,100,4,80,180,2,3,2,Undead_06,0,1,0
 1007,CrawlerKnight,,1,FALSE,FALSE,1.5,8,80,2,15,30,2,2,2,Crawler_01,0,1,0
 1008,CrawlerAssassin,,0,FALSE,FALSE,1,15,30,3,30,60,1,1,1,Crawler_02,0,1,0
 1009,CrawlerNinja,,0,FALSE,FALSE,3.5,15,20,3,45,80,1,2,1,Crawler_03,2,1,0

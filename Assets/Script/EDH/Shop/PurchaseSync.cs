@@ -13,27 +13,30 @@ public class PurchaseSync : MonoBehaviour
     private UILoader uILoader;
     private UIManager uiManager;
 
-    public TMP_InputField InputAmount; //수량 입력칸
+    public TMP_InputField InputAmount;   // 수량 입력칸
+    public TMP_Text ItemDescriptionText; // 아이템 설명 텍스트
 
-    public Button AddButton; //수량 추가 버튼
-    public Button SubtractButton; // 수량 빼기버튼
+    public Button AddButton;        // 수량 추가 버튼
+    public Button SubtractButton;   // 수량 빼기버튼
+    public Button PurchaseItemIcon; // 상품 아이콘
+    public Button PurchaseButton;   // 아이템 구매 버튼
 
-    private GameObject PurchaseUIBox;
-
-    private ItemListLoader itemListLoader;
+    private GameObject PurchaseUIBox; // 구매 
+    
     public Item _Item;
 
-    public TMP_Text NotEnoughBoxText;
-    public GameObject NotEnoughBox;
+    public TMP_Text NotEnoughBoxText;  // 재화 부족 경고 텍스트
+    public GameObject NotEnoughBox;    // 재화 부족 경고
 
-    private PlayerDataManager playerDataManager;
-    
 
     public void Start()
     {
         InputAmount.text = "1"; // 기본 세팅.
 
         AddButton.onClick.RemoveAllListeners();
+        SubtractButton.onClick.RemoveAllListeners();
+        PurchaseItemIcon.onClick.RemoveAllListeners();
+        PurchaseButton.onClick.RemoveAllListeners();
 
         AddButton.onClick.AddListener(() =>
         {
@@ -48,7 +51,6 @@ public class PurchaseSync : MonoBehaviour
             { Debug.Log("s"); }
         }
         );
-
 
         SubtractButton.onClick.AddListener(() =>
         {
@@ -67,6 +69,9 @@ public class PurchaseSync : MonoBehaviour
             }
         }
         );
+        PurchaseButton.onClick.AddListener(() => Purchase()); // 구매
+
+        ItemDescriptionText.text = _Item.Description.ToString(); // 아이템 설명 동기화.
     }
     public void Purchase()
     {
@@ -86,12 +91,12 @@ public class PurchaseSync : MonoBehaviour
                 PlayerDataManager.Instance.AddTribute(Amount);
                 ShoppingManager.Instance.ShowNowGold();
             }
-            //if (_Item.ID == 103)
-            //{
-            //    PlayerDataManager.Instance.UseGold(Cost * Amount);
-            //    PlayerDataManager.Instance.AddBluePrint(Amount);
-            //    ShoppingManager.Instance.ShowNowGold();
-            //}
+            if (_Item.ID == 103)
+            {
+                PlayerDataManager.Instance.UseGold(Cost * Amount);
+                PlayerDataManager.Instance.AddBluePrint(Amount);
+                ShoppingManager.Instance.ShowNowGold();
+            }
         }
         else
         {

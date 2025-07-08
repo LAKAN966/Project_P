@@ -37,7 +37,6 @@ public class PickLogic : MonoBehaviour
         {
             ID = originalPick.ID,
             Name = originalPick.Name,
-            Description = originalPick.Description,
             IsHero = Random.value < 0.1f
         };
 

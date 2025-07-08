@@ -26,6 +26,7 @@ public class UIController : Singleton<UIController>
     private void Start()
     {
         Main.SetActive(true);
+        SetButton();
     }
 
 
@@ -38,5 +39,10 @@ public class UIController : Singleton<UIController>
     public void SetButton()
     {
         UnitManagementButton.onClick.AddListener(UnitManageActive);
+    }
+
+    public void SetDesecription(bool open)
+    {
+        DescriptionBox.SetActive(open);
     }
 }
