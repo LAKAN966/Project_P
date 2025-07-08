@@ -104,6 +104,20 @@ public class StageManager : MonoBehaviour
                 float x = marginX + spacingX * i;
                 float y = (i % 2 == 0) ? topY : bottomY;
 
+                if(i == nodeCount - 1)
+                {
+                    y = parentHeight * 0.28f;
+                    x += 60;
+
+                    nodePosition.sizeDelta *= 1.5f;
+
+                    var img = node.GetComponent<Image>();
+                    if(img !=null)
+                    {
+                        img.color = Color.red;
+                    }
+                }
+
                 nodePosition.anchoredPosition = new Vector2(x, y);
             }
         }
