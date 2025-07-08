@@ -86,7 +86,7 @@ public class WaveManager : MonoBehaviour
             {
                 if (UnitSpawner.Instance.SpawnEnemy(pendingWave.EnemyID))
                 {
-                    Debug.Log(pendingWave.Time + " : " + waveCount);
+                    //Debug.Log(pendingWave.Time + " : " + waveCount);
                     pendingWave = null;
                     waveCount++;
                     isPaused = false;

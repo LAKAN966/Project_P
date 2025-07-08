@@ -78,6 +78,7 @@ public class SPUM_Prefabs : MonoBehaviour
                     StateAnimationPairs[stateText] = OTHER_List;
                     break;
             }
+            
         }
     }
     public bool allListsHaveItemsExist()
@@ -160,9 +161,9 @@ public class SPUM_Prefabs : MonoBehaviour
         Animator animator = _anim;
         //Debug.Log(PlayState.ToString());
         var animations = StateAnimationPairs[PlayState.ToString()];
-        //Debug.Log(OverrideController[PlayState.ToString()].name);
+        //Debug.Log(OverrideController[PlayState.ToString()].length);
+        Debug.Log(PlayState.ToString() + "의" + index+"은"+ animations[index]);
         OverrideController[PlayState.ToString()] = animations[index];
-        //Debug.Log(OverrideController[PlayState.ToString()].name);
         var StateStr = PlayState.ToString();
 
         bool isMove = StateStr.Contains("MOVE");

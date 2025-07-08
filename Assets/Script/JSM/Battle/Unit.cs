@@ -76,7 +76,7 @@ public class Unit : MonoBehaviour
             return;
         }
 
-        string path = $"SPUM/{stats.ModelName}";
+        string path = $"Units/{stats.ModelName}";
         var modelPrefab = Resources.Load<GameObject>(path);
 
         if (modelPrefab == null)

@@ -56,7 +56,7 @@ public class SpawnButton : MonoBehaviour
             foreach (Transform child in iconParent.transform)
                 Destroy(child.gameObject);
 
-            string path = $"SPUM/{stats.ModelName}";
+            string path = $"Units/{stats.ModelName}";
             var modelPrefab = Resources.Load<GameObject>(path);
             if (modelPrefab != null)
             {
