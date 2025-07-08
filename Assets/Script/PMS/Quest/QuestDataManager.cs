@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ public class QuestDataManager
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new QuestDataManager();
             }
@@ -26,7 +27,14 @@ public class QuestDataManager
 
     public async void Init()
     {
-        await LoadQuestData();
+        try
+        {
+            await LoadQuestData();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"퀘스트 데이터 불러오기 오류 {ex.Message}");
+        }
     }
 
     private async Task LoadQuestData()
@@ -34,8 +42,8 @@ public class QuestDataManager
         string path = "questData/quests";
         var dataRef = FirebaseDatabase.DefaultInstance.GetReference(path);
         var task = await dataRef.GetValueAsync();
-        
-        if(task == null || !task.Exists)
+
+        if (task == null || !task.Exists)
         {
             Debug.Log("퀘스트 데이터 로드 실패");
             return;
@@ -49,7 +57,7 @@ public class QuestDataManager
             string json = child.GetRawJsonValue();
             QuestData quest = JsonConvert.DeserializeObject<QuestData>(json);
 
-            if(quest != null)
+            if (quest != null)
             {
                 allQuests.Add(quest);
                 questDic[quest.ID] = quest;

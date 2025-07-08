@@ -23,8 +23,6 @@ public enum RewardType
     Ticket,
     BluePrint
 }
-
-[Serializable]
 public class QuestData
 {
     public int ID;
