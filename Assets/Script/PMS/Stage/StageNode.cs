@@ -14,7 +14,7 @@ public class StageNode : MonoBehaviour
     public void Init(StageData data)
     {
         stageID = data.ID;
-        stageNameTxt.text = data.StageName;
+        stageNameTxt.text = data.StageName.Replace("stage","");
         
         stageBtn.onClick.RemoveAllListeners();
         stageBtn.onClick.AddListener(OnClickNode);
