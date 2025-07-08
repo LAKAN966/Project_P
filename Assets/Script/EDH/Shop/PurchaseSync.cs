@@ -14,7 +14,7 @@ public class PurchaseSync : MonoBehaviour
     private UIManager uiManager;
 
     public TMP_InputField InputAmount;   // 수량 입력칸
-    
+
 
     public Button AddButton;        // 수량 추가 버튼
     public Button SubtractButton;   // 수량 빼기버튼
@@ -98,7 +98,25 @@ public class PurchaseSync : MonoBehaviour
                 purchaseBoxSet.TabClose();
             }
         }
-        else purchaseBoxSet.NotEnough();
+        else
+        {
+            NotEnough();
+        }
+    }
+    public void NotEnough()
+    {
+        if (_Item.Cost > PlayerDataManager.Instance.player.gold)
+        {
+            NotEnoughBoxText.text = "골드가 부족합니다.";
+            NotEnoughBox.SetActive(true);
+            StartCoroutine(HideNotEnoughBox());
+        }
+
+        IEnumerator HideNotEnoughBox()
+        {
+            yield return new WaitForSeconds(3f); // 3초 대기
+            NotEnoughBox.SetActive(false);       // 경고창 비활성화
+        }
     }
 }
 
