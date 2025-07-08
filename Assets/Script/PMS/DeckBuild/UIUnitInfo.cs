@@ -65,6 +65,8 @@ public class UIUnitInfo : MonoBehaviour
     {
         infoImage.sprite = null;
         infoText.text = "";
+
+        infoImage.gameObject.SetActive(false);
     }
 
 
