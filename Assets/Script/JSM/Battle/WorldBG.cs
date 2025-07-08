@@ -5,35 +5,80 @@ using System.Collections.Generic;
 public class WorldParallaxLayer
 {
     public string spritePath;
-    public float parallaxFactor = 1f;
-    public float tileWidth = 10f;
+    public float parallaxFactor = 1f; // 정렬 순서용
+    public float yPosition = 0f;
 }
 
 public class WorldBG : MonoBehaviour
 {
-    public float startX = -20f;
-    public float endX = 20f;
-    public Transform cameraTarget;
     public Transform parentTransform;
-
-    public int stageID = 0; // Stage ID 지정 가능하도록
-    public TextAsset stageDataCSV; // Editor에서 연결할 수 있게
+    public int stageID = 0;
+    public TextAsset stageDataCSV;
 
     public List<WorldParallaxLayer> layers = new();
+    private readonly List<Transform> generatedTiles = new();
 
-    private List<Transform> generatedTiles = new();
-
-    void Awake()
+    private void Start()
     {
-        if (layers.Count == 0)
-            LoadBGListFromStage();
+        if (stageID == 0 && WaveManager.Instance != null)
+        {
+            stageID = WaveManager.Instance.stageID;
+        }
+
+        LoadBGListFromStage();
+
+        foreach (var layer in layers)
+        {
+            Sprite sprite = FindSpriteInSubfolders(layer.spritePath, out int sortingOrder);
+            if (sprite == null) continue;
+
+            GameObject go = new GameObject($"BG_{layer.spritePath}", typeof(SpriteRenderer));
+            go.transform.SetParent(parentTransform);
+            go.transform.localPosition = new Vector3(0f, layer.yPosition, 0f);
+
+            SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+            sr.sprite = sprite;
+            sr.sortingOrder = sortingOrder;
+
+            generatedTiles.Add(go.transform);
+        }
     }
 
-    void LoadBGListFromStage()
+    private Sprite FindSpriteInSubfolders(string spriteName, out int sortingOrder)
+    {
+        var folderOrder = new Dictionary<string, int>
+    {
+        { "Sky", -100 },
+        { "Mountain", -99 },
+        { "Middle-Far", -98 },
+        { "Middle-Near", -97 },
+        { "Ground", -96 },
+        { "Foreground", -95 }
+    };
+
+        foreach (var kvp in folderOrder)
+        {
+            string fullPath = $"Backgrounds/{kvp.Key}/{spriteName}";
+            Sprite found = Resources.Load<Sprite>(fullPath);
+            if (found != null)
+            {
+                sortingOrder = kvp.Value;
+                return found;
+            }
+        }
+
+        Debug.LogWarning($"스프라이트를 찾을 수 없습니다: {spriteName}");
+        sortingOrder = 0;
+        return null;
+    }
+
+
+
+    private void LoadBGListFromStage()
     {
         if (stageDataCSV == null)
         {
-            Debug.LogError("Stage CSV가 할당되지 않았습니다.");
+            Debug.LogError("Stage CSV가 비어있습니다.");
             return;
         }
 
@@ -49,62 +94,9 @@ public class WorldBG : MonoBehaviour
             layers.Add(new WorldParallaxLayer
             {
                 spritePath = path,
-                parallaxFactor = 1f, // 필요시 다르게 설정
-                tileWidth = 10f
+                parallaxFactor = 1f,
+                yPosition = 0f
             });
-        }
-    }
-
-    void Start()
-    {
-        foreach (var layer in layers)
-        {
-            Sprite sprite = Resources.Load<Sprite>(layer.spritePath);
-            if (sprite == null)
-            {
-                Debug.LogError($"스프라이트 경로 잘못됨: {layer.spritePath}");
-                continue;
-            }
-
-            float totalWidth = endX - startX + layer.tileWidth * 2;
-            int tileCount = Mathf.CeilToInt(totalWidth / layer.tileWidth) + 2;
-
-            for (int i = 0; i < tileCount; i++)
-            {
-                float xPos = startX + i * layer.tileWidth;
-
-                GameObject go = new GameObject($"ParallaxTile_{layer.spritePath}_{i}", typeof(SpriteRenderer));
-                go.transform.SetParent(parentTransform);
-                go.transform.localScale = Vector3.one;
-                go.transform.position = new Vector3(xPos, 0f, 0f);
-
-                SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
-                sr.sprite = sprite;
-                sr.sortingOrder = -Mathf.RoundToInt(layer.parallaxFactor * 100);
-
-                generatedTiles.Add(go.transform);
-            }
-        }
-    }
-
-    void Update()
-    {
-        foreach (var layer in layers)
-        {
-            float camX = cameraTarget.position.x * layer.parallaxFactor;
-
-            foreach (Transform tile in generatedTiles)
-            {
-                if (tile.name.StartsWith($"ParallaxTile_{layer.spritePath}"))
-                {
-                    float offset = tile.position.x - camX;
-
-                    if (offset < startX - layer.tileWidth)
-                        tile.position += Vector3.right * (endX - startX + layer.tileWidth);
-                    else if (offset > endX + layer.tileWidth)
-                        tile.position -= Vector3.right * (endX - startX + layer.tileWidth);
-                }
-            }
         }
     }
 }
