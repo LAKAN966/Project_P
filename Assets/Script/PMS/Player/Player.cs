@@ -17,3 +17,8 @@ public class Player
     public int actionPoint = 100; // 현재 행동력
     public long lastActionPointTime; // 행동력 사용한 마지막 시간
 }
+
+public class PlayerQuestData
+{
+
+}

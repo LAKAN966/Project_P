@@ -58,6 +58,11 @@ public class DebugWindow : EditorWindow
             Test.Instance.LoadTest();
         }
 
+        if (GUILayout.Button("퀘스트 데이터 로드 버튼"))
+        {
+            Test.Instance.LoadQuest();
+        }
+
 
 
 

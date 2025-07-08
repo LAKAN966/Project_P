@@ -30,7 +30,15 @@ public class StageManager : MonoBehaviour
 
     public void Awake()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance == this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Init()
