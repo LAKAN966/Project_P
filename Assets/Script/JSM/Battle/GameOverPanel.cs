@@ -18,8 +18,8 @@ public class GameOverPanel : MonoBehaviour
         Debug.Log(WaveManager.Instance.currentStage.StageName);
         title.text = "VICTORY";
         description.text = "승리 보상";
-        rewardItemId = WaveManager.Instance.currentStage.firstRewardItemIDs;
-        rewardItemCount = WaveManager.Instance.currentStage.firstRewardAmounts;
+        rewardItemId = PlayerDataManager.Instance.HasClearedStage(WaveManager.Instance.stageID) ? WaveManager.Instance.currentStage.repeatRewardItemIDs : WaveManager.Instance.currentStage.firstRewardItemIDs;
+        rewardItemCount = PlayerDataManager.Instance.HasClearedStage(WaveManager.Instance.stageID) ? WaveManager.Instance.currentStage.repeatRewardAmounts : WaveManager.Instance.currentStage.firstRewardAmounts;
         for (int i = 0; i < rewardItemId.Count; i++)
         {
             int itemId = rewardItemId[i];

@@ -20,4 +20,5 @@ public class UnitStats
     public int AttackType;      //공격 타입 0 근접 2 활 4 마법 (+1은 스킬)
     public float Size;          //유닛 크기
     public int SkillID;         //스킬 id
+    public bool isEnemy;        //아군적군 구분용
 }
