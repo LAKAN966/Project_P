@@ -21,7 +21,7 @@ public class PurchaseSync : MonoBehaviour
 
     public Button PurchaseButton;   // 아이템 구매 버튼
 
-    private GameObject PurchaseUIBox; // 구매 
+    private GameObject PurchaseUIBox; // 아이템 구매 
 
     public Item _Item;
     public ItemSlot iSlot;
