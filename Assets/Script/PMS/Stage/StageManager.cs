@@ -172,6 +172,7 @@ public class StageManager : MonoBehaviour
     {
         PlayerDataManager.Instance.ClearStage(selectedStageID);
         PlayerDataManager.Instance.UseActionPoint(StageDataManager.Instance.GetStageData(selectedStageID).ActionPoint);
+        QuestEvent.OnMainChapterClear?.Invoke();
     }
 
     public void AddReward() // 스테이지 클리어 보상
