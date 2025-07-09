@@ -63,14 +63,14 @@ public class StageDataManager
                 stage.firstRewardItemIDs = tokens[7].Split(';').Select(int.Parse).ToList();
             }
 
-            if (!string.IsNullOrWhiteSpace(tokens[8]))
-            {
-                stage.firstRewardAmounts = tokens[8].Split(';').Select(int.Parse).ToList();
-            }
-
             if (!string.IsNullOrWhiteSpace(tokens[9]))
             {
-                stage.repeatRewardItemIDs = tokens[9].Split(';').Select(int.Parse).ToList();
+                stage.firstRewardAmounts = tokens[9].Split(';').Select(int.Parse).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(tokens[8]))
+            {
+                stage.repeatRewardItemIDs = tokens[8].Split(';').Select(int.Parse).ToList();
             }
 
             if (!string.IsNullOrWhiteSpace(tokens[10]))

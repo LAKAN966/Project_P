@@ -5,12 +5,8 @@ using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
 using Unity.VisualScripting;
-//using Firebase.Auth;
-//using Firebase.Database;
-
-
-
-
+using Firebase.Auth;
+using Firebase.Database;
 
 public class PlayerDataManager
 {
@@ -35,73 +31,77 @@ public class PlayerDataManager
         string json = JsonConvert.SerializeObject(player, Formatting.Indented);
         string userID = SystemInfo.deviceUniqueIdentifier; // 사용 기기 개인아이디로 저장
 
-      //  FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").SetValueAsync(json)
-            //.ContinueWith(task =>
-            //{
-            //    if (task.IsCompletedSuccessfully)
-            //    {
-            //        Debug.Log("플레이어 데이터 저장 성공");
-            //    }
-            //    else
-            //    {
-            //        Debug.Log($"플레이어 데이터 저장 실패 : {task.Exception}");
-            //    }
-            //});
+        FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").SetValueAsync(json)
+            .ContinueWith(task =>
+            {
+                if (task.IsCompletedSuccessfully)
+                {
+                    Debug.Log("플레이어 데이터 저장 성공");
+                }
+                else
+                {
+                    Debug.Log($"플레이어 데이터 저장 실패 : {task.Exception}");
+                }
+            });
     }
-
     public void Load() // 플레이어 데이터 불러오기
     {
         string userID = SystemInfo.deviceUniqueIdentifier; // 사용 기기 개인아이디로 불러오기
 
-       // FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").GetValueAsync()
-           // .ContinueWith(task =>
-            //{
-            //    if (task.IsCompletedSuccessfully)
-            //    {
-            //        var existID = task.Result; // 기존 데이터 있으면 여기로
+        FirebaseDatabase.DefaultInstance.GetReference($"users/{userID}/playerJson").GetValueAsync()
+            .ContinueWith(task =>
+            {
+                if (task.IsCompletedSuccessfully)
+                {
+                    var existID = task.Result; // 기존 데이터 있으면 여기로
 
-            //        if (existID.Exists && existID.Value != null)
-            //        {
-            //            string json = existID.Value.ToString();
-            //            player = JsonConvert.DeserializeObject<Player>(json);
-            //            Debug.Log("플레이어 데이터 불러오기 성공");
-            //            Debug.Log($"보유 골드 : {player.gold}\n보유 티켓 : {player.ticket}\n보유 행동력 : {player.actionPoint}");
-            //        }
-            //        else
-            //        {
-            //            Save(); //새로운 데이터면 저장
-            //        }
-            //    }
-            //    else
-            //    {
-            //        Debug.Log($"플레이어 데이터 불러오기 실패 : {task.Exception}");
-            //    }
-            //});
+                    if (existID.Exists && existID.Value != null)
+                    {
+                        string json = existID.Value.ToString();
+                        player = JsonConvert.DeserializeObject<Player>(json);
+                        Debug.Log("플레이어 데이터 불러오기 성공");
+                        Debug.Log($"보유 골드 : {player.gold}\n보유 티켓 : {player.ticket}\n보유 행동력 : {player.actionPoint}");
+                    }
+                    else
+                    {
+                        Save(); //새로운 데이터면 저장
+                    }
+                }
+                else
+                {
+                    Debug.Log($"플레이어 데이터 불러오기 실패 : {task.Exception}");
+                }
+            });
     }
 
     public void AddGold(int amount)
     {
         player.gold += amount;
+        PlayerCurrencyEvent.OnGoldChange?.Invoke(player.gold);
     }
 
     public void AddTicket(int amount)
     {
         player.ticket += amount;
+        PlayerCurrencyEvent.OnTicketChange?.Invoke(player.ticket);
     }
 
     public void AddBluePrint(int amount)
     {
         player.bluePrint += amount;
+        PlayerCurrencyEvent.OnBluePrintChange?.Invoke(player.bluePrint);
     }
 
     public void AddActionPoint(int amount)
     {
         player.actionPoint += amount;
+        PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
     }
 
     public void AddTribute(int amount)
     {
         player.tribute += amount;
+        PlayerCurrencyEvent.OnTributeChange?.Invoke(player.tribute);
     }
 
     public bool AddUnit(int id)
@@ -171,6 +171,8 @@ public class PlayerDataManager
         {
             player.actionPoint = Mathf.Min(player.actionPoint + recovered, 100); // 최대치 100과 비교해서 낮은쪽 사용.
             player.lastActionPointTime += recovered * 60;
+
+            PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
         }
     }
 
@@ -181,6 +183,8 @@ public class PlayerDataManager
         if (player.actionPoint >= amount)
         {
             player.actionPoint -= amount;
+            PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
+            QuestEvent.UseActionPoint?.Invoke(amount); // 퀘스트 이벤트
             return true;
         }
 
@@ -196,6 +200,7 @@ public class PlayerDataManager
         if (player.gold >= amount)
         {
             player.gold -= amount;
+            PlayerCurrencyEvent.OnGoldChange?.Invoke(player.gold);
             return true;
         }
 
@@ -211,15 +216,28 @@ public class PlayerDataManager
         if (player.ticket >= amount)
         {
             player.ticket -= amount;
+            PlayerCurrencyEvent.OnTicketChange?.Invoke(player.ticket);
             return true;
         }
-
         else
         {
             Debug.Log("티켓이 부족합니다.");
             return false;
         }
-
+    }
+    public bool UseTribute(int amount)
+    {
+        if (player.tribute >= amount)
+        {
+            player.tribute -= amount;
+            PlayerCurrencyEvent.OnTributeChange?.Invoke(player.tribute);
+            return true;
+        }
+        else
+        {
+            Debug.Log("티켓이 부족합니다.");
+            return false;
+        }
     }
 
     public bool HasClearedStage(int stageID)
@@ -227,6 +245,71 @@ public class PlayerDataManager
         return player.clearedStageIDs.Contains(stageID);
     }
 
+    public PlayerQuestData GetQuestProgress(int questID)
+    {
+        return player.playerQuest.Find(quest => quest.QuestID == questID);
+    }
+    public bool IsQuestCompleted(int questID)
+    {
+        var progress = GetQuestProgress(questID);
+        return progress != null && progress.IsCompleted;
+    }
+    public bool HasReceivedQuestReward(int questID)
+    {
+        var progress = GetQuestProgress(questID);
+        return progress != null && progress.IsReward;
+    }
 
+    public void AddQuestProgress(ConditionType conditionType, int value) // 플레이어 퀘스트 진행도 추적
+    {
+        foreach (var progress in player.playerQuest)
+        {
+            QuestData quest = QuestDataManager.Instance.GetQuestID(progress.QuestID);
+            if(quest == null || progress.IsCompleted)
+            {
+                continue;
+            }
 
+            if(quest.ConditionType == conditionType)
+            {
+                progress.CurrentValue += value;
+                Debug.Log($"{quest.Title} 진행도 {progress.CurrentValue} / {quest.ConditionValue}");
+
+                if(progress.CurrentValue >= quest.ConditionValue)
+                {
+                    progress.CurrentValue = quest.ConditionValue;
+                    progress.IsCompleted = true;
+                    Debug.Log($"{quest.Title} 완료");
+                }
+            }
+        }
+    }
+    
+    public bool TryGetQuestReward(int questID)
+    {
+        var progress = GetQuestProgress(questID);
+        var quest = QuestDataManager.Instance.GetQuestID(questID);
+
+        if(progress == null || !progress.IsCompleted || progress.IsReward)
+        {
+            return false;
+        }
+
+        switch (quest.RewardType)
+        {
+            case RewardType.Gold:
+                AddGold(quest.RewardValue);
+                break;
+            case RewardType.Ticket:
+                AddTicket(quest.RewardValue); 
+                break;
+            case RewardType.BluePrint:
+                AddBluePrint(quest.RewardValue);
+                break;
+        }
+
+        progress.IsReward = true;
+        Debug.Log($"{quest.RewardType} {quest.RewardValue} 획득");
+        return true;
+    }
 }

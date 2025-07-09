@@ -60,6 +60,7 @@ public class UnitDataManager
                 AttackType = int.Parse(tokens[16]),
                 Size = float.Parse(tokens[17]),
                 SkillID = int.Parse(tokens[18]),
+                isEnemy = bool.Parse(tokens[19]),
             };
 
             unitStatsDict[stat.ID] = stat;

@@ -9,7 +9,6 @@ public class DebugWindow : EditorWindow
         // 창을 띄운다
         GetWindow<DebugWindow>("MyDebugWindow");
     }
-    static int StageValue = 0;
     private void OnGUI()
     {
         GUILayout.Label("이건 커스텀 에디터 창입니다!", EditorStyles.boldLabel);
@@ -56,6 +55,21 @@ public class DebugWindow : EditorWindow
         if (GUILayout.Button("데이터 로드 버튼"))
         {
             Test.Instance.LoadTest();
+        }
+
+        if (GUILayout.Button("퀘스트 데이터 로드 버튼"))
+        {
+            Test.Instance.LoadQuest();
+        }
+
+        if (GUILayout.Button("퀘스트 데이터 세팅 버튼"))
+        {
+            Test.Instance.SetQuest();
+        }
+
+        if (GUILayout.Button("퀘스트 유아이세팅 버튼"))
+        {
+            Test.Instance.SetQuestUI();
         }
 
 

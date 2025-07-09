@@ -96,5 +96,21 @@ public class Test
         PlayerDataManager.Instance.Load();
     }
 
+    public void LoadQuest()
+    {
+        QuestDataManager.Instance.Init();
+    }
+    
+    public void SetQuest()
+    {
+        QuestManager.Instance.Init();
+    }
+
+    public void SetQuestUI()
+    {
+        UIQuestManager.instance.Init();
+    }
+
+
 
 }
