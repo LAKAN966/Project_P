@@ -28,9 +28,7 @@ public class GameManager : MonoBehaviour
             GameoverUI.GetComponent<GameOverPanel>().Lose();
         }
 
-        UnitSpawner spawner = FindObjectOfType<UnitSpawner>();
-        if (spawner != null)
-            spawner.enabled = false;
+        WaveManager.Instance.isPaused = true;
     }
     public void OnClicked()
     {
