@@ -100,5 +100,12 @@ public class Test
     {
         QuestDataManager.Instance.Init();
     }
+    
+    public void SetQuest()
+    {
+        QuestManager.Instance.Init();
+    }
+
+
 
 }
