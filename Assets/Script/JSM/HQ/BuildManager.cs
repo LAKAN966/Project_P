@@ -1,13 +1,20 @@
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
+public class BuildingState
+{
+    public BuildingData buildingData;
+    public int level;
+}
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance;
-
     private readonly string buildingCsvPath = "Assets/Data/BuildingData.csv";
     public List<BuildingData> buildings = new();
+    public int count = 5;
+    public List<BuildingState> buildingsList = new();
 
     private BuildSlotUI selectedSlot;
 
@@ -15,6 +22,12 @@ public class BuildManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        DontDestroyOnLoad(this);
+
+        for (int i = 0; i < count; i++)
+        {
+            buildingsList.Add(new BuildingState { buildingData = null, level = 0 });
+        }
     }
 
     private void Start()
@@ -31,8 +44,11 @@ public class BuildManager : MonoBehaviour
         if (selectedSlot == null) return;
         if (buildingIndex < 0 || buildingIndex >= buildings.Count) return;
 
+
         BuildingData building = buildings[buildingIndex];
         selectedSlot.Build(building);
+        buildingsList[selectedSlot.slotID].buildingData = building;
+        buildingsList[selectedSlot.slotID].level = selectedSlot.Level;
         selectedSlot = null;
     }
 

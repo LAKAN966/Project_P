@@ -14,6 +14,7 @@ public class GospelManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        DontDestroyOnLoad(this);
     }
 
     private void Start()
