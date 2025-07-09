@@ -16,7 +16,7 @@ public class WaveManager : MonoBehaviour
     private float timer = 0f;
     private bool triggerActive = false;
     private bool waveStarted = false;
-    private bool isPaused = false;
+    public bool isPaused = false;
     private WaveData? pendingWave = null;
     private int waveCount;
 
@@ -62,7 +62,7 @@ public class WaveManager : MonoBehaviour
     {
         yield return new WaitForSeconds(currentStage.TeaTime);
         waveStarted = true;
-        GameManager.Instance.OnBaseDestroyed(true);
+        //GameManager.Instance.OnBaseDestroyed(true);
     }
 
     void Update()
