@@ -34,6 +34,7 @@ public class PurchaseSync : MonoBehaviour
     {
         InputAmount.text = "1"; // 기본 세팅.
 
+        //버튼 누적 호출 스책 초기화
         AddButton.onClick.RemoveAllListeners();
         SubtractButton.onClick.RemoveAllListeners();
         PurchaseButton.onClick.RemoveAllListeners();
