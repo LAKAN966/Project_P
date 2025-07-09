@@ -181,7 +181,7 @@ public class PlayerDataManager
         if (player.actionPoint >= amount)
         {
             player.actionPoint -= amount;
-            QuestEvent.OnUseStemina?.Invoke(amount); // 퀘스트 이벤트
+            QuestEvent.UseActionPoint?.Invoke(amount); // 퀘스트 이벤트
             return true;
         }
 
