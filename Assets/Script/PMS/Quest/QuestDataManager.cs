@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
-using Firebase.Database;
 using Newtonsoft.Json;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,46 +25,46 @@ public class QuestDataManager
     public List<QuestData> allQuests = new();
     public Dictionary<int, QuestData> questDic = new();
 
-    public async void Init()
+    public void Init()
     {
-        try
-        {
-            await LoadQuestData();
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"퀘스트 데이터 불러오기 오류 {ex.Message}");
-        }
+        LoadQuestData();
     }
 
-    private async Task LoadQuestData()
+    private void LoadQuestData()
     {
-        string path = "questData/quests";
-        var dataRef = FirebaseDatabase.DefaultInstance.GetReference(path);
-        var task = await dataRef.GetValueAsync();
+        string path = Path.Combine(Application.dataPath, "Data/QuestData.json");
 
-        if (task == null || !task.Exists)
+        if(!File.Exists(path))
         {
-            Debug.Log("퀘스트 데이터 로드 실패");
+            Debug.Log("퀘스트 파일이 존재하지 않습니다.");
             return;
         }
 
-        allQuests.Clear();
-        questDic.Clear();
-
-        foreach (var child in task.Children)
+        try
         {
-            string json = child.GetRawJsonValue();
-            QuestData quest = JsonConvert.DeserializeObject<QuestData>(json);
+            string json = File.ReadAllText(path);
+            List<QuestData> data = JsonConvert.DeserializeObject<List<QuestData>>(json);
 
-            if (quest != null)
+            allQuests.Clear();
+            questDic.Clear();
+
+            foreach (QuestData quest in data)
             {
-                allQuests.Add(quest);
-                questDic[quest.ID] = quest;
+                if (quest != null)
+                {
+                    allQuests.Add(quest);
+                    questDic[quest.ID] = quest;
+                }
             }
+
+            allQuests.Sort((a, b) => a.Order.CompareTo(b.Order));
+            Debug.Log($"{allQuests.Count}개 퀘스트 데이터 로드 완료");
         }
-        allQuests.Sort((a, b) => a.Order.CompareTo(b.Order));
-        Debug.Log($"{allQuests.Count}개 로드 완료");
+
+        catch (Exception ex)
+        {
+            Debug.LogError($"퀘스트 데이터 로드 실패 : {ex.Message}");
+        }
     }
 
     public QuestData GetQuestID(int id)
