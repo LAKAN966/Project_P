@@ -33837,6 +33837,7 @@ MonoBehaviour:
     AttackType: 0
     Size: 0
     SkillID: 0
+    isEnemy: 0
 --- !u!1 &356054017272897346
 GameObject:
   m_ObjectHideFlags: 0

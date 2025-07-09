@@ -68,6 +68,11 @@ public class DebugWindow : EditorWindow
             Test.Instance.SetQuest();
         }
 
+        if (GUILayout.Button("퀘스트 유아이세팅 버튼"))
+        {
+            Test.Instance.SetQuestUI();
+        }
+
 
 
 
