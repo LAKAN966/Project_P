@@ -25,6 +25,7 @@ public class PurchaseBoxSet : MonoBehaviour
     private void Start()
     {
         ItemDescriptionText.text = _Item.Description.ToString(); // 아이템 설명 동기화.
+        PurchaseItemIcon.onClick.AddListener(() =>DescriptionBox.SetActive(true));
         CancelButton.onClick.AddListener(TabClose);
     }
 

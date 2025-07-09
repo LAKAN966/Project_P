@@ -273,6 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemCost: {fileID: 2913043485394982499}
   ItemNameText: {fileID: 5853669701581703503}
+  purchaseSync: {fileID: 0}
   itemSlot: {fileID: 7330615398705974182}
 --- !u!1 &7421888090700811623
 GameObject:

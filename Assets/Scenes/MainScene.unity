@@ -35264,7 +35264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170aeb9883a0c0843a57acafaf5c0a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemDescriptionText: {fileID: 0}
+  ItemDescriptionText: {fileID: 1612816928310999671}
   purchaseUIBox: {fileID: 8702158706224051226}
   DescriptionBox: {fileID: 6725715522060105061}
   PurchaseItemIcon: {fileID: 7216753001527204342}

@@ -50,6 +50,13 @@ public class ItemSlot : MonoBehaviour
         {
             purchaseSync.Init(_Item, this);
             UIController.Instance.PurchaseUIBox.SetActive(true);
+            if (purchaseSync != null)
+            {
+                FindObjectOfType<PurchaseSync>();
+            }
         });
+
+
+
     }
 }
