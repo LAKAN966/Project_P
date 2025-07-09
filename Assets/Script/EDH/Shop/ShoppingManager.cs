@@ -7,9 +7,13 @@ using UnityEngine;
 public class ShoppingManager : Singleton<ShoppingManager>
 {
     public GameObject Merchandise;
-    public Transform Content;
-    public TMP_Text GoldAmount;
     public ItemListLoader ItemListLoader;
+    public Transform Content;
+    
+    public TMP_Text GoldAmount; //골드 상점용
+    public TMP_Text PityCount; // 뽑기 횟수 =  증명서 갯수
+
+
 
     void Start()
     {
@@ -26,5 +30,10 @@ public class ShoppingManager : Singleton<ShoppingManager>
     public void ShowNowGold()
     {
         GoldAmount.text = PlayerDataManager.Instance.player.gold.ToString(); 
+    }
+
+    public void ShowNowCertificate()
+    {
+        int CertificateAmount = int.Parse(PityCount.text);
     }
 }

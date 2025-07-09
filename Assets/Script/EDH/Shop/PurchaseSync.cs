@@ -70,9 +70,9 @@ public class PurchaseSync : MonoBehaviour
             }
         }
         );
-        PurchaseButton.onClick.AddListener (Purchase); // 구매
+        PurchaseButton.onClick.AddListener (PurchaseItem); // 구매
     }
-    public void Purchase()
+    public void PurchaseItem()
     {
         Debug.Log(PlayerDataManager.Instance.player.gold + "이건 플레이어 골드");
         Debug.Log(_Item.Cost + "아이템 가격");
