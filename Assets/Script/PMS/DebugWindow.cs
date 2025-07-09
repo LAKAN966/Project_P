@@ -63,6 +63,11 @@ public class DebugWindow : EditorWindow
             Test.Instance.LoadQuest();
         }
 
+        if (GUILayout.Button("퀘스트 데이터 세팅 버튼"))
+        {
+            Test.Instance.SetQuest();
+        }
+
 
 
 

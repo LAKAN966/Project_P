@@ -152,9 +152,6 @@ public class StageManager : MonoBehaviour
 
         int stageAP = StageDataManager.Instance.GetStageData(selectedStageID).ActionPoint;
 
-        if (!PlayerDataManager.Instance.UseActionPoint(stageAP))
-            return;
-
         SceneManager.sceneLoaded += OnBattleSceneLoaded;//씬 로드 후에 실행되게 설정
         SceneManager.LoadScene("BattleScene");
         Debug.Log($"{selectedStageID} 입장");
@@ -174,6 +171,7 @@ public class StageManager : MonoBehaviour
     public void ClearStage() // 클리어 스테이지 플레이어에 추가. 배틀 끝나고 불러오기.
     {
         PlayerDataManager.Instance.ClearStage(selectedStageID);
+        PlayerDataManager.Instance.UseActionPoint(StageDataManager.Instance.GetStageData(selectedStageID).ActionPoint);
     }
 
     public void AddReward() // 스테이지 클리어 보상

@@ -10,7 +10,7 @@ public enum QuestType
 }
 public enum ConditionType
 {
-    UseStemina,
+    UseActionPoint,
     Looting,
     Login,
     Recruit,

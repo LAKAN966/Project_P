@@ -181,6 +181,7 @@ public class PlayerDataManager
         if (player.actionPoint >= amount)
         {
             player.actionPoint -= amount;
+            QuestEvent.OnUseStemina?.Invoke(amount); // 퀘스트 이벤트
             return true;
         }
 
@@ -227,6 +228,56 @@ public class PlayerDataManager
         return player.clearedStageIDs.Contains(stageID);
     }
 
+    public void AddQuestProgress(ConditionType conditionType, int value) // 플레이어 퀘스트 진행도 추적
+    {
+        foreach (var progress in player.playerQuest)
+        {
+            QuestData quest = QuestDataManager.Instance.GetQuestID(progress.QuestID);
+            if(quest == null || progress.IsCompleted)
+            {
+                continue;
+            }
 
+            if(quest.ConditionType == conditionType)
+            {
+                progress.CurrentValue += value;
+                Debug.Log($"{quest.Title} 진행도 {progress.CurrentValue} / {quest.ConditionValue}");
 
+                if(progress.CurrentValue >= quest.ConditionValue)
+                {
+                    progress.CurrentValue = quest.ConditionValue;
+                    progress.IsCompleted = true;
+                    Debug.Log($"{quest.Title} 완료");
+                }
+            }
+        }
+    }
+    
+    public bool TryGetQuestReward(int questID)
+    {
+        var progress = player.playerQuest.Find(q => q.QuestID == questID);
+        var quest = QuestDataManager.Instance.GetQuestID(questID);
+
+        if(progress == null || !progress.IsCompleted || !progress.IsReward)
+        {
+            return false;
+        }
+
+        switch (quest.RewardType)
+        {
+            case RewardType.Gold:
+                AddGold(quest.RewardValue);
+                break;
+            case RewardType.Ticket:
+                AddTicket(quest.RewardValue); 
+                break;
+            case RewardType.BluePrint:
+                AddBluePrint(quest.RewardValue);
+                break;
+        }
+
+        progress.IsReward = true;
+        Debug.Log($"{quest.RewardType} {quest.RewardValue} 획득");
+        return true;
+    }
 }
