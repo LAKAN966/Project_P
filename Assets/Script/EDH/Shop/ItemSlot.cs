@@ -18,18 +18,21 @@ public class ItemSlot : MonoBehaviour
 {
     [SerializeField] private TMP_Text ItemCost;             // 아이템 가격
     [SerializeField] private TMP_Text ItemNameText;         // 아이템 이름
-    //[SerializeField] private TMP_Text ItemDescriptionText;  // 아이템 설명
-
+    [SerializeField] private PurchaseSync purchaseSync;
     [SerializeField] private Button itemSlot;               // 아이템 슬롯
-    //[SerializeField] private Button PurchaseItemIcon;       // 아이템 아이콘
-    //[SerializeField] private Button PurchaseButton;         // 아이템 구매 버튼
-    
-    
+
+
 
     //private PurchaseSync purchaseSync;
     private Item _Item;
     private ItemListLoader ItemListLoader; // 아이템 리스트 로더
-  
+    private void Awake()
+    {
+        if (purchaseSync == null)
+        {
+            purchaseSync = FindObjectOfType<PurchaseSync>();
+        }
+    }
 
     public void init(Item item)
     {
@@ -39,11 +42,14 @@ public class ItemSlot : MonoBehaviour
         _Item = item;
         ItemNameText.text = item.Name;
         ItemCost.text = item.Cost.ToString();
-    
+
 
         itemSlot.onClick.RemoveAllListeners();
 
-        itemSlot.onClick.AddListener(() =>  UIController.Instance.PurchaseUIBox.SetActive(true));
-      
+        itemSlot.onClick.AddListener(() =>
+        {
+            purchaseSync.Init(_Item, this);
+            UIController.Instance.PurchaseUIBox.SetActive(true);
+        });
     }
 }

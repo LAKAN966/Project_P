@@ -24,11 +24,12 @@ public class PurchaseSync : MonoBehaviour
     private GameObject PurchaseUIBox; // 구매 
 
     public Item _Item;
+    public ItemSlot iSlot;
 
     public TMP_Text NotEnoughBoxText;  // 재화 부족 경고 텍스트
     public GameObject NotEnoughBox;    // 재화 부족 경고
-    private PurchaseBoxSet purchaseBoxSet;
-    //public ItemSlot ItemSlot;
+    public PurchaseBoxSet purchaseBoxSet;
+ 
 
     public void Start()
     {
@@ -69,35 +70,32 @@ public class PurchaseSync : MonoBehaviour
             }
         }
         );
-        PurchaseButton.onClick.AddListener(() => Purchase()); // 구매
+        PurchaseButton.onClick.AddListener (Purchase); // 구매
     }
     public void Purchase()
     {
-        int Cost = _Item.Cost;//
+        Debug.Log(PlayerDataManager.Instance.player.gold + "이건 플레이어 골드");
+        Debug.Log(_Item.Cost + "아이템 가격");
+        int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
-        if (_Item.Cost < PlayerDataManager.Instance.player.gold)
+        if (_Item.Cost <= PlayerDataManager.Instance.player.gold)
         {
-            if (_Item.ID == 101)
-            {
                 PlayerDataManager.Instance.UseGold(Cost * Amount);
-                PlayerDataManager.Instance.AddTicket(Amount);
+                if(iSlot.name == "Ticket")
+                {
+                    PlayerDataManager.Instance.AddTicket(Amount);
+                    Debug.Log(PlayerDataManager.Instance.player.ticket);
+                }
+                if (iSlot.name == "UpgradeTool")
+                {
+                    PlayerDataManager.Instance.AddTribute(Amount);
+                }
+                if (iSlot.name == "BluePrint")
+                {
+                    PlayerDataManager.Instance.AddBluePrint(Amount);
+                }
                 ShoppingManager.Instance.ShowNowGold();
                 purchaseBoxSet.TabClose();
-            }
-            if (_Item.ID == 102)
-            {
-                PlayerDataManager.Instance.UseGold(Cost * Amount);
-                PlayerDataManager.Instance.AddTribute(Amount);
-                ShoppingManager.Instance.ShowNowGold();
-                purchaseBoxSet.TabClose();
-            }
-            if (_Item.ID == 103)
-            {
-                PlayerDataManager.Instance.UseGold(Cost * Amount);
-                PlayerDataManager.Instance.AddBluePrint(Amount);
-                ShoppingManager.Instance.ShowNowGold();
-                purchaseBoxSet.TabClose();
-            }
         }
         else
         {
@@ -119,5 +117,12 @@ public class PurchaseSync : MonoBehaviour
             NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
+
+    public void Init(Item item, ItemSlot slot)
+    {
+        _Item = item;
+        iSlot = slot;
+    }
+
 }
 
