@@ -27,9 +27,11 @@ public class PickLogic : MonoBehaviour
     {
         //Dictionary<int, PickInfo> pickInfoDict = PickUpListLoader.Instance.GetAllPickList();
         //List<int> keys = pickInfoDict.Keys.ToList();
-       var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
+
+
+       List<PickInfo> PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
  
-        PickInfo randomPick = PicklistDo[(PicklistDo.Count -1)];
+        PickInfo randomPick = PicklistDo[(PicklistDo.Count -1)]; // -1은 최상단 밸류 명칭 라인.
 
         PickInfo Result = new PickInfo
         {

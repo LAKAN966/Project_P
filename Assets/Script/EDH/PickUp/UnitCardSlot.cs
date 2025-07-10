@@ -15,7 +15,7 @@ public class UnitCardSlot : MonoBehaviour
 
     [SerializeField] public Image UnitIcon;                     // 유닛 아이콘
 
-    public void init(PickInfo Alliance)
+    public void init(PickInfo Alliance) //4
     {
         UnitICardNametext.text = Alliance.Name;
 
@@ -23,6 +23,6 @@ public class UnitCardSlot : MonoBehaviour
 
         Debug.Log(stats.ModelName);
 
-        UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+        UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}"); //5
     }
 }
