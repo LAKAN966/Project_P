@@ -10,6 +10,7 @@ public class UIQuestManager : MonoBehaviour
     public void Start()
     {
         instance = this;
+        Init();
     }
 
     public GameObject questPanel;
@@ -33,6 +34,7 @@ public class UIQuestManager : MonoBehaviour
 
     public void OpenPanel()
     {
+        
         questPanel.SetActive(true);
         ShowQuests(QuestType.Daily);
     }
