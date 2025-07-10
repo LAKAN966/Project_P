@@ -7,10 +7,17 @@ public class UIQuestManager : MonoBehaviour
 {
     public static UIQuestManager instance;
 
-    public void Start()
+    public void Awake()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         Init();
+        QuestDataManager.Instance.Init();
+        QuestManager.Instance.Init();
+
     }
 
     public GameObject questPanel;
