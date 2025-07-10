@@ -4,7 +4,12 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public GameObject GameoverUI;
+    public GameObject gameoverUI;
+    public GameObject allyPool;
+    public GameObject enemyPool;
+    public GameObject allyHeroPool;
+    public GameObject enemyHeroPool;
+    public BattleSpeed battleSpeed;
 
     private void Awake()
     {
@@ -12,23 +17,27 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         else
             Instance = this;
-        GameoverUI.GetComponent<Button>().onClick.AddListener(OnClicked);
+        gameoverUI.GetComponent<Button>().onClick.AddListener(OnClicked);
     }
 
 
     public void OnBaseDestroyed(bool isEnemyBase)
     {
-        GameoverUI.SetActive(true);
+        gameoverUI.SetActive(true);
         if (isEnemyBase)
         {//승리
-            GameoverUI.GetComponent<GameOverPanel>().Win();
+            gameoverUI.GetComponent<GameOverPanel>().Win();
+            enemyPool.SetActive(false);
+            enemyHeroPool.SetActive(false);
         }
         else
         {//패배
-            GameoverUI.GetComponent<GameOverPanel>().Lose();
+            gameoverUI.GetComponent<GameOverPanel>().Lose();
+            allyPool.SetActive(false);
+            allyHeroPool.SetActive(false);
         }
 
-        WaveManager.Instance.isPaused = true;
+        battleSpeed.gameSpeed = 1;
     }
     public void OnClicked()
     {

@@ -22,8 +22,8 @@ public class MapManager : MonoBehaviour
     private void InitMap()
     {
         float halfLength = mapLength / 2f;
-        Instantiate(allyBasePrefab, new Vector3(-halfLength, 0, 0), Quaternion.identity, mapRoot);
-        Instantiate(enemyBasePrefab, new Vector3(halfLength, 0, 0), Quaternion.identity, mapRoot);
+        Instantiate(allyBasePrefab, new Vector3(-halfLength, -1.0f, 0), Quaternion.identity, mapRoot);
+        Instantiate(enemyBasePrefab, new Vector3(halfLength, -1.0f, 0), Quaternion.identity, mapRoot);
     }
 
     private void SetupCameraBounds()

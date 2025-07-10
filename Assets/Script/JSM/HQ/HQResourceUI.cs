@@ -6,8 +6,9 @@ using UnityEngine;
 public class HQResourceUI : MonoBehaviour
 {
     public static HQResourceUI Instance;
-    public TextMeshProUGUI GoldTxt;
-    public TextMeshProUGUI SkullTxt;
+    public TextMeshProUGUI goldTxt;
+    public TextMeshProUGUI skullTxt;
+    public TextMeshProUGUI bluePrintTxt;
     public GameObject targetPanel;
     private void Awake()
     {
@@ -20,8 +21,9 @@ public class HQResourceUI : MonoBehaviour
     }
     public void UpdateUI()
     {
-        GoldTxt.text = PlayerDataManager.Instance.player.gold.ToString();
-        SkullTxt.text = PlayerDataManager.Instance.player.tribute.ToString();
+        goldTxt.text = PlayerDataManager.Instance.player.gold.ToString();
+        skullTxt.text = PlayerDataManager.Instance.player.tribute.ToString();
+        bluePrintTxt.text = PlayerDataManager.Instance.player.bluePrint.ToString();
     }
     public void ShowLackPanel(float duration = 3f)
     {

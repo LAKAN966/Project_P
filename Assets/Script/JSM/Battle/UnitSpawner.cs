@@ -53,6 +53,7 @@ public class UnitSpawner : MonoBehaviour
             Debug.LogWarning($"알 수 없는 유닛 ID: {data.unitID}");
             return;
         }
+        stats = BuffManager.ApplyBuff(stats);
 
         var spawnPos = data.isEnemy ? enemySpawnPosition : allySpawnPosition;
 
@@ -94,10 +95,10 @@ public class UnitSpawner : MonoBehaviour
 
     public Vector3 GetSpawnPosition(bool isEnemy)
     {
-        float offset = 2f;
+        float offset = 1f;
         return isEnemy
-            ? new Vector3(WaveManager.Instance.currentStage.BaseDistance / 2f - offset, 0, 0)
-            : new Vector3(-WaveManager.Instance.currentStage.BaseDistance / 2f + offset, 0, 0);
+            ? new Vector3(WaveManager.Instance.currentStage.BaseDistance / 2f - offset, -2.5f, 0)
+            : new Vector3(-WaveManager.Instance.currentStage.BaseDistance / 2f + offset, -2.5f, 0);
     }
     public bool SpawnEnemy(int unitID)
     {
