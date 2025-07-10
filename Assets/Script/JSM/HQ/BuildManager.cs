@@ -43,10 +43,9 @@ public class BuildManager : MonoBehaviour
     public void BuildSelected(int buildingIndex)
     {
         if (selectedSlot == null) return;
-        if (buildingIndex < 0 || buildingIndex >= buildings.Count) return;
 
 
-        BuildingData building = buildings[buildingIndex];
+        BuildingData building = GetBuildingData(buildingIndex);
         selectedSlot.Build(building);
         buildingsList[selectedSlot.slotID].buildingData = building;
         buildingsList[selectedSlot.slotID].level = selectedSlot.Level;
@@ -128,10 +127,20 @@ public class BuildManager : MonoBehaviour
         var orders = buildings[id-1].orderByLevel;
         for (int i = 0; i < orders.Count; i++)
         {
-            if (orders[i] >= layer)
+            if (orders[i] > layer)
                 return i + 1;
         }
         return -1;
     }
-
+    public BuildingData GetBuildingData(int id)
+    {
+        foreach (var building in buildings)
+        {
+            if (building != null && building.id == id)
+            {
+                return building;
+            }
+        }
+        return null;
+    }
 }

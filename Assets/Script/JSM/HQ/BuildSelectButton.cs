@@ -14,6 +14,7 @@ public class BuildSelectButton : MonoBehaviour
     public Image buildImg;
     public TMP_Text goldText;
     public TMP_Text blueprintText;
+    private BuildingData building;
 
     public Image img;
 
@@ -24,7 +25,8 @@ public class BuildSelectButton : MonoBehaviour
 
     private void Start()
     {
-        img.sprite = BuildManager.Instance.GetBuildingSprite(BuildManager.Instance.buildings[buildingIndex].imageName);
+        building = BuildManager.Instance.GetBuildingData(buildingIndex);
+        img.sprite = BuildManager.Instance.GetBuildingSprite(building.imageName);
         buildConfirmPanel.SetActive(false); // 처음엔 꺼두기
     }
 
@@ -32,23 +34,23 @@ public class BuildSelectButton : MonoBehaviour
     {
         buildConfirmPanel.SetActive(true);
 
-        buildImg.sprite = BuildManager.Instance.GetBuildingSprite(BuildManager.Instance.buildings[buildingIndex].imageName);
-        goldText.text = $"{PlayerDataManager.Instance.player.gold} / {BuildManager.Instance.buildings[buildingIndex].gold}";
-        blueprintText.text = $"{PlayerDataManager.Instance.player.bluePrint} / {BuildManager.Instance.buildings[buildingIndex].blueprint}";
+        buildImg.sprite = BuildManager.Instance.GetBuildingSprite(building.imageName);
+        goldText.text = $"{PlayerDataManager.Instance.player.gold} / {building.gold}";
+        blueprintText.text = $"{PlayerDataManager.Instance.player.bluePrint} / {building.blueprint}";
 
         confirmButton.onClick.RemoveAllListeners();
         confirmButton.onClick.AddListener(() =>
         {
-            //if (PlayerDataManager.Instance.player.gold < BuildManager.Instance.buildings[buildingIndex].gold
-            //|| PlayerDataManager.Instance.player.bluePrint < BuildManager.Instance.buildings[buildingIndex].blueprint)
-            //{
-            //    HQResourceUI.Instance.ShowLackPanel();
-            //    buildConfirmPanel.SetActive(false);
-            //    return;
-            //}
-            //자원 모자라면 판넬 띄우는 코드, 추후 주석 삭제 필요
-
-            //자원 감소 코드 추가 필요
+            if (PlayerDataManager.Instance.player.gold < building.gold
+            || PlayerDataManager.Instance.player.bluePrint < building.blueprint)
+            {
+                HQResourceUI.Instance.ShowLackPanel();
+                buildConfirmPanel.SetActive(false);
+                return;
+            }
+            PlayerDataManager.Instance.UseGold(building.gold);
+            PlayerDataManager.Instance.UseBluePrint(building.blueprint);
+            HQResourceUI.Instance.UpdateUI();
             BuildManager.Instance.BuildSelected(buildingIndex);
             buildConfirmPanel.SetActive(false);
             buildListUI.SetActive(false);
