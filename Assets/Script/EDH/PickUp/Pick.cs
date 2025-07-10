@@ -46,7 +46,7 @@ public class Pick : MonoBehaviour
 
         ShowTicketAmountText.text = TicketAmount.ToString();        // 현재 티켓 수
 
-        PlayerCurrencyEvent.OnTicketChange += value => ShowTicketAmountText.text = TicketAmount.ToString();
+        PlayerCurrencyEvent.OnTicketChange += value => ShowTicketAmountText.text = value.ToString();
         PityCount.text = PickPoint.ToString();                      // 현재 마일리지
 
         //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)

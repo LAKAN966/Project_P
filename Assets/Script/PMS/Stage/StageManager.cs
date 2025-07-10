@@ -50,11 +50,6 @@ public class StageManager : MonoBehaviour
 
         battleBtn.gameObject.SetActive(false);
 
-        SetStageInfo = (stageID) =>
-        {
-            stageInfo.SetActive(true);
-        };
-
         UpdateStageUI();
     }
 
@@ -137,11 +132,7 @@ public class StageManager : MonoBehaviour
     {
         selectedStageID = stageID;
         Debug.Log($"스테이지 {stageID} 선택됨");
-        SetStageInfo?.Invoke(stageID);
-        if (SetStageInfo == null)
-        {
-            Debug.LogWarning("SetStageInfo 델리게이트가 null입니다!");
-        }
+        stageInfo.SetActive(true);
 
         battleBtn.gameObject.SetActive(true);
     }
