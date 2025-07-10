@@ -81,16 +81,16 @@ public class PurchaseSync : MonoBehaviour
         if (_Item.Cost <= PlayerDataManager.Instance.player.gold)
         {
                 PlayerDataManager.Instance.UseGold(Cost * Amount);
-                if(iSlot.name == "Ticket")
+                if(_Item.ID == 101)
                 {
                     PlayerDataManager.Instance.AddTicket(Amount);
                     Debug.Log(PlayerDataManager.Instance.player.ticket);
                 }
-                if (iSlot.name == "UpgradeTool")
+                if (_Item.ID == 102)
                 {
                     PlayerDataManager.Instance.AddTribute(Amount);
                 }
-                if (iSlot.name == "BluePrint")
+                if (_Item.ID == 103)
                 {
                     PlayerDataManager.Instance.AddBluePrint(Amount);
                 }
