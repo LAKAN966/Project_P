@@ -449,7 +449,7 @@ RectTransform:
   - {fileID: 1412144689}
   - {fileID: 702122517}
   - {fileID: 458909885}
-  m_Father: {fileID: 2067348276}
+  m_Father: {fileID: 2109387160}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2020,6 +2020,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2109387159}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 28371369}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -4334,7 +4346,6 @@ RectTransform:
   m_Children:
   - {fileID: 748982296}
   - {fileID: 1507121324}
-  - {fileID: 1464932914}
   - {fileID: 2099014745}
   - {fileID: 2109387160}
   m_Father: {fileID: 2067348276}
@@ -5797,7 +5808,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 458909887}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 28371369}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &458909887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16625,7 +16648,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464932913}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16635,7 +16658,7 @@ RectTransform:
   - {fileID: 1779497104}
   - {fileID: 1126073192}
   - {fileID: 808538830}
-  m_Father: {fileID: 387247267}
+  m_Father: {fileID: 1507121324}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17124,6 +17147,7 @@ RectTransform:
   m_Children:
   - {fileID: 1459598811}
   - {fileID: 679939482}
+  - {fileID: 1464932914}
   m_Father: {fileID: 387247267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -18928,6 +18952,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1507121323}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1464932913}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -22869,7 +22905,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 387247267}
-  - {fileID: 28371370}
   - {fileID: 1639802147}
   m_Father: {fileID: 185618142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23638,6 +23673,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1798231362}
+  - {fileID: 28371370}
   m_Father: {fileID: 387247267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -39466,7 +39502,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PurchaseButton: {fileID: 7105515261824764184}
-  CertiCost: {fileID: 0}
   pick: {fileID: 0}
   NotEnoughBoxText: {fileID: 1219192957613082801}
   NotEnoughBox: {fileID: 1889346672465690656}
@@ -39477,6 +39512,7 @@ MonoBehaviour:
     Description: 
     IsHero: 0
     Uniticon: 
+    warrant: 0
 --- !u!114 &5886407585023054302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45145,6 +45181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitIcon: {fileID: 7168594734207038306}
   certiSlot: {fileID: 6368036717191600136}
+  PurchaseCertiUnitBox: {fileID: 0}
 --- !u!222 &8113772370134743002
 CanvasRenderer:
   m_ObjectHideFlags: 0
