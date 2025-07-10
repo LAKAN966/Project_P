@@ -1,13 +1,20 @@
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
+public class BuildingState
+{
+    public BuildingData buildingData;
+    public int level;
+}
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance;
-
     private readonly string buildingCsvPath = "Assets/Data/BuildingData.csv";
     public List<BuildingData> buildings = new();
+    public int count = 5;
+    public List<BuildingState> buildingsList = new();
 
     private BuildSlotUI selectedSlot;
 
@@ -15,6 +22,13 @@ public class BuildManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        DontDestroyOnLoad(this);
+
+        for (int i = 0; i < count; i++)
+        {
+            buildingsList.Add(new BuildingState { buildingData = null, level = 0 });
+        }
+        BuffManager.InitBuffs(UnitDataManager.Instance.GetRaceCount());
     }
 
     private void Start()
@@ -29,10 +43,12 @@ public class BuildManager : MonoBehaviour
     public void BuildSelected(int buildingIndex)
     {
         if (selectedSlot == null) return;
-        if (buildingIndex < 0 || buildingIndex >= buildings.Count) return;
 
-        BuildingData building = buildings[buildingIndex];
+
+        BuildingData building = GetBuildingData(buildingIndex);
         selectedSlot.Build(building);
+        buildingsList[selectedSlot.slotID].buildingData = building;
+        buildingsList[selectedSlot.slotID].level = selectedSlot.Level;
         selectedSlot = null;
     }
 
@@ -111,10 +127,20 @@ public class BuildManager : MonoBehaviour
         var orders = buildings[id-1].orderByLevel;
         for (int i = 0; i < orders.Count; i++)
         {
-            if (orders[i] >= layer)
+            if (orders[i] > layer)
                 return i + 1;
         }
         return -1;
     }
-
+    public BuildingData GetBuildingData(int id)
+    {
+        foreach (var building in buildings)
+        {
+            if (building != null && building.id == id)
+            {
+                return building;
+            }
+        }
+        return null;
+    }
 }

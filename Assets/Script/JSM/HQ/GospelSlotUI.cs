@@ -68,17 +68,16 @@ public class GospelSlotUI : MonoBehaviour
     {
         if (state == GospelState.Locked) return;
 
-        //if (PlayerDataManager.Instance.player.tribute < gospelData.cost)
-        //{
-        //    HQResourceUI.Instance.ShowLackPanel();
-        //    CancleBuild();
-        //    return;
-        //}
-        //자원 부족시 보여주는 판넬, 추후 주석 삭제 필요
-        //플레이어자원 제거하는 코드 필요
+        if (PlayerDataManager.Instance.player.tribute < gospelData.cost)
+        {
+            HQResourceUI.Instance.ShowLackPanel();
+            CancleBuild();
+            return;
+        }
+        PlayerDataManager.Instance.UseTribute(gospelData.cost);
+        HQResourceUI.Instance.UpdateUI();
 
         GospelManager.Instance.SelectGospel(gospelData.buildID, gospelData.id);
-        Debug.Log("?");
 
         gospelSpawner.OnSlotSelected(this);
 

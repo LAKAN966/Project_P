@@ -6,7 +6,6 @@ public class BuildingSpawner : MonoBehaviour
 {
     public GameObject prefabToSpawn;
     public Transform parentObject;
-    public int count = 5;
     public ScrollRect scrollRect;
     public GameObject buildListUI;
     public GameObject buildGospelUI;
@@ -14,7 +13,7 @@ public class BuildingSpawner : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < BuildManager.Instance.count; i++)
         {
             GameObject newObj = Instantiate(prefabToSpawn, parentObject);
             newObj.name = $"{prefabToSpawn.name}_{i}";
@@ -28,9 +27,15 @@ public class BuildingSpawner : MonoBehaviour
                     buildSlotUI.Select();
                 });
             }
+            buildSlotUI.Level = BuildManager.Instance.buildingsList[i].level;
             newObj.GetComponentInChildren<BuildSlotUI>().buildListUI = buildListUI;
             newObj.GetComponentInChildren<BuildSlotUI>().buildGospelUI = buildGospelUI;
             newObj.GetComponentInChildren<BuildSlotUI>().levelUpPanel = levelUpPanel;
+            newObj.GetComponentInChildren<BuildSlotUI>().slotID = i;
+            if (BuildManager.Instance.buildingsList[i].buildingData != null)
+            {
+                buildSlotUI.Build(BuildManager.Instance.buildingsList[i].buildingData);
+            }
         }
     }
 }

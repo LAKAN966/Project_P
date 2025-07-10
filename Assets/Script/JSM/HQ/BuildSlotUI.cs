@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BuildSlotUI : MonoBehaviour
 {
+    public int slotID;
     public int buildingID;
     public Image slotImage;
     public TMP_Text nameText;
@@ -17,7 +18,7 @@ public class BuildSlotUI : MonoBehaviour
 
     public float maxHeight = 300f;
 
-    public int Level { get; private set; } = 0;
+    public int Level = 0;
 
     public void Select()
     {
@@ -44,6 +45,7 @@ public class BuildSlotUI : MonoBehaviour
 
         buildingID = building.id;
         Level++;
+
         if (plusText != null) Destroy(plusText);
 
         if (slotImage != null)
@@ -109,5 +111,6 @@ public class BuildSlotUI : MonoBehaviour
 
             levelText.text = $"Lv.{Level}";
         }
+        BuildManager.Instance.buildingsList[slotID].level = Level;
     }
 }

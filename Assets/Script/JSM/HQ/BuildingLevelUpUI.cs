@@ -33,7 +33,7 @@ public class BuildingLevelUpUI : MonoBehaviour
         buildImg.sprite = buildSlotUI.slotImage.sprite;
         Debug.Log(buildSlotUI.buildingID);
         moneyTxt.text = $"{PlayerDataManager.Instance.player.gold} / {BuildManager.Instance.buildings[buildSlotUI.buildingID-1].goldList[buildSlotUI.Level-1]}";
-        tributeTxt.text = $"{PlayerDataManager.Instance.player.bluePrint} / {BuildManager.Instance.buildings[buildSlotUI.buildingID-1].costList[buildSlotUI.Level-1]}";
+        tributeTxt.text = $"{PlayerDataManager.Instance.player.tribute} / {BuildManager.Instance.buildings[buildSlotUI.buildingID-1].costList[buildSlotUI.Level-1]}";
         currentLevelTxt.text = buildSlotUI.Level.ToString();
         nextLevelTxt.text = (buildSlotUI.Level+1).ToString();
         
@@ -41,16 +41,17 @@ public class BuildingLevelUpUI : MonoBehaviour
         confirmButton.onClick.RemoveAllListeners();
         confirmButton.onClick.AddListener(() =>
         {
-            //if (PlayerDataManager.Instance.player.gold < BuildManager.Instance.buildings[buildSlotUI.buildingID].GoldList[buildSlotUI.Level-1]}
-            //|| PlayerDataManager.Instance.player.bluePrint < BuildManager.Instance.buildings[buildSlotUI.buildingID].CostList[buildSlotUI.Level-1])
-            //{
-            //    HQResourceUI.Instance.ShowLackPanel();
-            //    buildConfirmPanel.SetActive(false);
-            //    return;
-            //}
-            //자원 모자라면 판넬 띄우는 코드, 추후 주석 삭제 필요
+            if (PlayerDataManager.Instance.player.gold < BuildManager.Instance.buildings[buildSlotUI.buildingID].goldList[buildSlotUI.Level - 1]
+             || PlayerDataManager.Instance.player.tribute < BuildManager.Instance.buildings[buildSlotUI.buildingID].costList[buildSlotUI.Level - 1])
+            {
+                HQResourceUI.Instance.ShowLackPanel();
+                levelUpPanel.SetActive(false);
+                return;
+            }
 
-            //자원 감소 코드 추가 필요
+            PlayerDataManager.Instance.UseGold(BuildManager.Instance.buildings[buildSlotUI.buildingID].goldList[buildSlotUI.Level - 1]);
+            PlayerDataManager.Instance.UseTribute(BuildManager.Instance.buildings[buildSlotUI.buildingID].costList[buildSlotUI.Level - 1]);
+            HQResourceUI.Instance.UpdateUI();
             buildSlotUI.LevelUp();
             if(buildSlotUI.Level == 5)
             {

@@ -5,14 +5,19 @@ public class BattleSpeed : MonoBehaviour
 {
     public TextMeshProUGUI speedLabel;
 
-    private bool isDoubleSpeed = false;
+    public int gameSpeed = 1;
 
     public void ToggleSpeed()
     {
-        isDoubleSpeed = !isDoubleSpeed;
-        Time.timeScale = isDoubleSpeed ? 2f : 1f;
+        switch (gameSpeed)
+        {
+            case 1: gameSpeed = 2;break;
+            case 2: gameSpeed = 3;break;
+            case 3: gameSpeed = 1;break;
+        }
+        Time.timeScale = gameSpeed;
 
         if (speedLabel != null)
-            speedLabel.text = isDoubleSpeed ? "X2" : "X1";
+            speedLabel.text = $"X{gameSpeed}";
     }
 }

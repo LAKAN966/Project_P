@@ -12,7 +12,7 @@ public class GospelConfirmUI : MonoBehaviour
     public void Show(GospelData data)
     {
         nameText.text = data.name;
-        costText.text = $"{PlayerDataManager.Instance.player.gold}/{data.cost}";
+        costText.text = $"{PlayerDataManager.Instance.player.tribute}/{data.cost}";
         descText.text = data.description;
     }
 }
