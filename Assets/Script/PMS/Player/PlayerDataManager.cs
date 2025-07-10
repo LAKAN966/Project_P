@@ -235,7 +235,23 @@ public class PlayerDataManager
         }
         else
         {
-            Debug.Log("티켓이 부족합니다.");
+            Debug.Log("공물이 부족합니다.");
+            return false;
+        }
+    }
+
+    public bool UseBluePrint(int amount)
+    {
+        if(player.bluePrint >= amount)
+        {
+            player.bluePrint -= amount;
+            PlayerCurrencyEvent.OnBluePrintChange?.Invoke(player.bluePrint);
+            return true;
+        }
+
+        else
+        {
+            Debug.Log("설계도가 부족합니다.");
             return false;
         }
     }
