@@ -13,7 +13,6 @@ using TMPro;
 using JetBrains.Annotations;
 using UnityEngine.UIElements;
 
-
 public class ItemSlot : MonoBehaviour
 {
     [SerializeField] private TMP_Text ItemCost;             // 아이템 가격
@@ -22,8 +21,6 @@ public class ItemSlot : MonoBehaviour
     [SerializeField] private Button itemSlot;               // 아이템 슬롯
 
 
-
-    //private PurchaseSync purchaseSync;
     private Item _Item;
     private ItemListLoader ItemListLoader; // 아이템 리스트 로더
    
