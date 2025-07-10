@@ -8,6 +8,7 @@ public class Player
     public int ticket = 0; // 뽑기 재화
     public int bluePrint = 99999; // 설계도
     public int tribute = 999999; // 공물
+    public int certi = 0; // 뽑기 천장 재화
 
     public List<int> myUnitIDs = new(); // 보유 유닛 정보
     public DeckData currentDeck = new(); // 덱 정보
