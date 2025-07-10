@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class UnitDataManager
@@ -63,10 +64,8 @@ public class UnitDataManager
                 isEnemy = bool.Parse(tokens[19]),
                 warrant = int.Parse(tokens[20]),
             };
-
             unitStatsDict[stat.ID] = stat;
-        }
-
+;        }
         Debug.Log($"유닛 데이터 로딩 완료: {unitStatsDict.Count}개");
     }
 
@@ -85,5 +84,4 @@ public class UnitDataManager
         }
         return raceSet.Count;
     }
-
 }

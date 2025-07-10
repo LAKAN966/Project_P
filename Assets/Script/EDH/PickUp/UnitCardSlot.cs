@@ -14,19 +14,15 @@ public class UnitCardSlot : MonoBehaviour
     [SerializeField] private TMP_Text UnitICardNametext;        // 유닛 이름
 
     [SerializeField] public Image UnitIcon;                     // 유닛 아이콘
- 
-    public void init(PickInfo pickInfo)
+
+    public void init(PickInfo Alliance)
     {
-        GameObject root = transform.root.gameObject;
-        Debug.Log(root.name);
+        UnitICardNametext.text = Alliance.Name;
 
-        UnitICardNametext.text = pickInfo.Name;
-        Debug.Log(pickInfo.Name);
+        var stats = UnitDataManager.Instance.GetStats(Alliance.ID);
 
-        var stats = UnitDataManager.Instance.GetStats(pickInfo.ID);
-        
+        Debug.Log(stats.ModelName);
+
         UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
-        pickInfo.IsEnemy = false;
-        
     }
 }

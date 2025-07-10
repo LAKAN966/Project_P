@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,26 +25,22 @@ public class PickLogic : MonoBehaviour
     }
     public PickInfo PickRandom()// 랜덤뽑기 로직
     {
-        Dictionary<int, PickInfo> pickInfoDict = PickUpListLoader.Instance.GetAllPickList();
-        List<int> keys = pickInfoDict.Keys.ToList();
+        //Dictionary<int, PickInfo> pickInfoDict = PickUpListLoader.Instance.GetAllPickList();
+        //List<int> keys = pickInfoDict.Keys.ToList();
+       var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
+ 
+        PickInfo randomPick = PicklistDo[(PicklistDo.Count -1)];
 
-        int randomKey = keys[Random.Range(0, keys.Count)];
-
-        PickInfo originalPick = pickInfoDict[randomKey];
-
-        Debug.Log(originalPick.ID);
-        Debug.Log(originalPick.Name);
-
-        PickInfo randomPick = new PickInfo
+        PickInfo Result = new PickInfo
         {
-            ID = originalPick.ID,
-            Name = originalPick.Name,
-            IsHero = Random.value < 0.1f,
-            IsEnemy = false,
+            ID = randomPick.ID,
+            Name = randomPick.Name,
+            IsHero = UnityEngine.Random.value < 0.1f,
+            IsEnemy = randomPick.IsEnemy
         };
 
-        Debug.Log($"뽑기 결과: {(randomPick.IsHero ? "영웅!" : "일반")}");
-        return randomPick;
+        Debug.Log($"뽑기 결과: {(Result.IsHero ? "영웅!" : "일반")}");
+        return Result;
     }
 }
 
