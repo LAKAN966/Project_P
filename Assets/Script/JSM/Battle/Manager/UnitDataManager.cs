@@ -61,6 +61,7 @@ public class UnitDataManager
                 Size = float.Parse(tokens[17]),
                 SkillID = int.Parse(tokens[18]),
                 isEnemy = bool.Parse(tokens[19]),
+                warrant = int.Parse(tokens[20]),
             };
 
             unitStatsDict[stat.ID] = stat;

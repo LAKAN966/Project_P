@@ -18,7 +18,6 @@ public class GospelContainerUI : MonoBehaviour
     {
         if (!slotUIs.Contains(slot))
         {
-            Debug.Log("추가됨!");
             slotUIs.Add(slot);
             slot.containerUI = this;
         }

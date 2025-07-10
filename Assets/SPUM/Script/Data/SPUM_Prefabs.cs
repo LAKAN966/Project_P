@@ -162,7 +162,7 @@ public class SPUM_Prefabs : MonoBehaviour
         //Debug.Log(PlayState.ToString());
         var animations = StateAnimationPairs[PlayState.ToString()];
         //Debug.Log(OverrideController[PlayState.ToString()].length);
-        Debug.Log(PlayState.ToString() + "의" + index+"은"+ animations[index]);
+        //Debug.Log(PlayState.ToString() + "의" + index+"은"+ animations[index]);
         OverrideController[PlayState.ToString()] = animations[index];
         var StateStr = PlayState.ToString();
 

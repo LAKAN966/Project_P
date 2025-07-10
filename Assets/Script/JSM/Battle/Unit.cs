@@ -46,7 +46,6 @@ public class Unit : MonoBehaviour
         {
             case UnitState.Moving:
                 TryDetectEnemy();
-                MoveForward();
                 break;
             case UnitState.Idle:
                 TryAttack();
@@ -124,17 +123,18 @@ public class Unit : MonoBehaviour
         var hit = Physics2D.Raycast(origin, direction, stats.AttackRange, layerMask);
         Debug.DrawRay(origin, direction * stats.AttackRange, Color.red);
 
-        if (hit.collider == null) return; 
-
-        if (hit.collider.TryGetComponent<BaseCastle>(out var castle))
+        if (hit.collider == null)
+            MoveForward();
+        else if (hit.collider.TryGetComponent<BaseCastle>(out var castle))
         {
-            if (castle.isEnemy == this.isEnemy) return;
-
-            target = castle.transform;
-            SetState(UnitState.Idle);
-            return;
+            if (castle.isEnemy == this.isEnemy) MoveForward();
+            else
+            {
+                target = castle.transform;
+                SetState(UnitState.Idle);
+            }
         }
-        if (hit.collider?.GetComponent<Unit>() is Unit enemy)
+        else if (hit.collider?.GetComponent<Unit>() is Unit enemy)
         {
             if (enemy.state == UnitState.Hitback || enemy.state == UnitState.Dead)
                 return;

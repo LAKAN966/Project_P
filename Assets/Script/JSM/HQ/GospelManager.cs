@@ -100,7 +100,6 @@ public class GospelManager : MonoBehaviour
             selectedGospelIDsByBuildID[buildID] = new HashSet<int>();
         selectedGospelIDsByBuildID[buildID].Add(gospelID);
         GospelData data = GetGospelByID(gospelID);
-        Debug.Log("??");
         BuffManager.UpdateBuffStat(BuildManager.Instance.GetBuildingRaceID(buildID), data.statIndex, data.effectValue);
     }
 }
