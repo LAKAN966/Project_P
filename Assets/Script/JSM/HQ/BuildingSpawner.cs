@@ -27,14 +27,14 @@ public class BuildingSpawner : MonoBehaviour
                     buildSlotUI.Select();
                 });
             }
-            buildSlotUI.Level = BuildManager.Instance.buildingsList[i].level;
+            buildSlotUI.Level = PlayerDataManager.Instance.player.buildingsList[i].level;
             newObj.GetComponentInChildren<BuildSlotUI>().buildListUI = buildListUI;
             newObj.GetComponentInChildren<BuildSlotUI>().buildGospelUI = buildGospelUI;
             newObj.GetComponentInChildren<BuildSlotUI>().levelUpPanel = levelUpPanel;
             newObj.GetComponentInChildren<BuildSlotUI>().slotID = i;
-            if (BuildManager.Instance.buildingsList[i].buildingData != null)
+            if (PlayerDataManager.Instance.player.buildingsList[i].buildingData != null)
             {
-                buildSlotUI.Build(BuildManager.Instance.buildingsList[i].buildingData);
+                buildSlotUI.Build(PlayerDataManager.Instance.player.buildingsList[i].buildingData);
             }
         }
     }

@@ -35,7 +35,7 @@ public class BuildingSlotSpanwer : MonoBehaviour
         for (int i = 0; i < BuildManager.Instance.GetBuildingCount(); i++)
         {
             int index = BuildManager.Instance.buildings[i].id;
-            if (BuildManager.Instance.buildingsList.Any(b => b.buildingData != null && b.buildingData.id == index))
+            if (PlayerDataManager.Instance.player.buildingsList.Any(b => b.buildingData != null && b.buildingData.id == index))
             {
                 Debug.Log(i);
                 continue;

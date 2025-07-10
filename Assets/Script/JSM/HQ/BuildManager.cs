@@ -14,7 +14,6 @@ public class BuildManager : MonoBehaviour
     private readonly string buildingCsvPath = "Assets/Data/BuildingData.csv";
     public List<BuildingData> buildings = new();
     public int count = 5;
-    public List<BuildingState> buildingsList = new();
 
     private BuildSlotUI selectedSlot;
 
@@ -26,7 +25,7 @@ public class BuildManager : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            buildingsList.Add(new BuildingState { buildingData = null, level = 0 });
+            PlayerDataManager.Instance.player.buildingsList.Add(new BuildingState { buildingData = null, level = 0 });
         }
         BuffManager.InitBuffs(UnitDataManager.Instance.GetRaceCount());
     }
@@ -47,8 +46,8 @@ public class BuildManager : MonoBehaviour
 
         BuildingData building = GetBuildingData(buildingIndex);
         selectedSlot.Build(building);
-        buildingsList[selectedSlot.slotID].buildingData = building;
-        buildingsList[selectedSlot.slotID].level = selectedSlot.Level;
+        PlayerDataManager.Instance.player.buildingsList[selectedSlot.slotID].buildingData = building;
+        PlayerDataManager.Instance.player.buildingsList[selectedSlot.slotID].level = selectedSlot.Level;
         selectedSlot = null;
     }
 

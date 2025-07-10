@@ -15,7 +15,7 @@ public class HQResourceUI : MonoBehaviour
         if(Instance == null)
         Instance = this;
     }
-    private void Start()
+    private void OnEnable()
     {
         UpdateUI();
     }
