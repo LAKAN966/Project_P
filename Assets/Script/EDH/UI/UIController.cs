@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,7 @@ public class UIController : Singleton<UIController>
     //Pannal
     public GameObject PurchaseUIBox;         //구매시 상자창
     public GameObject DescriptionBox;        //아이템 설명창
-
+    public TMP_Text GoldAmount;              //골드 표기
 
     //버튼
     public Button UnitManagementButton;  //덱빌딩
@@ -26,6 +27,7 @@ public class UIController : Singleton<UIController>
     private void Start()
     {
         Main.SetActive(true);
+        SetButton();
     }
 
 
@@ -38,5 +40,14 @@ public class UIController : Singleton<UIController>
     public void SetButton()
     {
         UnitManagementButton.onClick.AddListener(UnitManageActive);
+    }
+
+    public void SetDesecription(bool open)
+    {
+        DescriptionBox.SetActive(open);
+    }
+    public void ShowNowGold()
+    {
+        GoldAmount.text = PlayerDataManager.Instance.player.gold.ToString();
     }
 }

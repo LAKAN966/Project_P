@@ -8,23 +8,28 @@ using UnityEngine.UI;
 using System;
 using UnityEditor.Experimental.GraphView;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
-
-public class UnitCardSlot : MonoBehaviour
+public class CertiSlot : MonoBehaviour
 {
-    [SerializeField] private TMP_Text UnitICardNametext;        // 유닛 이름
-
     [SerializeField] public Image UnitIcon;                     // 유닛 아이콘
- 
+    [SerializeField] private Button certiSlot;                  // 증명서 유닛 슬롯
+    
+
     public void init(PickInfo pickInfo)
     {
-        GameObject root = transform.root.gameObject;
-        Debug.Log(root.name);
-
-        UnitICardNametext.text = pickInfo.Name;
-        Debug.Log(pickInfo.Name);
-
         var stats = UnitDataManager.Instance.GetStats(pickInfo.ID);
-        
+
         UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+
+        certiSlot.onClick.RemoveAllListeners();
+
+        certiSlot.onClick.AddListener(() =>
+        {
+            Debug.Log("a");
+
+            CertiPurChaseSync.Instance.Init(pickInfo, this);
+
+            UIController.Instance.PurchaseUIBox.SetActive(true);
+
+        });
     }
 }

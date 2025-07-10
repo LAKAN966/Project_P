@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ShoppingManager : MonoBehaviour
+public class ShoppingManager : Singleton<ShoppingManager>
 {
     public GameObject Merchandise;
-    public Transform Content;
-    public TMP_Text GoldAmount;
     public ItemListLoader ItemListLoader;
+    public Transform Content;
+    
+    public TMP_Text GoldAmount; //골드 상점용
+    public TMP_Text PityCount; // 뽑기 횟수 =  증명서 갯수
 
-    public static ShoppingManager Instance { get; private set; }
+
+
     void Start()
     {
         ItemListLoader.GetAllList();
@@ -28,7 +31,9 @@ public class ShoppingManager : MonoBehaviour
     {
         GoldAmount.text = PlayerDataManager.Instance.player.gold.ToString(); 
     }
+
+    public void ShowNowCertificate()
+    {
+        int CertificateAmount = int.Parse(PityCount.text);
+    }
 }
-
-
-   

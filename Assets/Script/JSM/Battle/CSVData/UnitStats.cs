@@ -21,4 +21,5 @@ public class UnitStats
     public float Size;          //유닛 크기
     public int SkillID;         //스킬 id
     public bool isEnemy;        //아군적군 구분용
+    public int warrant;         //증명서 수
 }
