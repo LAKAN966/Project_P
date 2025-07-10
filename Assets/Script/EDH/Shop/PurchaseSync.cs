@@ -120,6 +120,7 @@ public class PurchaseSync : MonoBehaviour
 
     public void Init(Item item, ItemSlot slot)
     {
+        Debug.Log("c");
         _Item = item;
         iSlot = slot;
     }

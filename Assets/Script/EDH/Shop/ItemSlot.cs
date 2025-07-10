@@ -26,13 +26,7 @@ public class ItemSlot : MonoBehaviour
     //private PurchaseSync purchaseSync;
     private Item _Item;
     private ItemListLoader ItemListLoader; // 아이템 리스트 로더
-    private void Awake()
-    {
-        if (purchaseSync == null)
-        {
-            purchaseSync = FindObjectOfType<PurchaseSync>();
-        }
-    }
+   
 
     public void init(Item item)
     {
@@ -48,15 +42,16 @@ public class ItemSlot : MonoBehaviour
 
         itemSlot.onClick.AddListener(() =>
         {
-            purchaseSync.Init(_Item, this);
-            UIController.Instance.PurchaseUIBox.SetActive(true);
-            if (purchaseSync != null)
+            Debug.Log("a");
+
+            if (purchaseSync == null)
             {
-                FindObjectOfType<PurchaseSync>();
+                purchaseSync = FindObjectOfType<PurchaseSync>();
             }
+            purchaseSync.Init(_Item,this);
+         
+            UIController.Instance.PurchaseUIBox.SetActive(true);
+           
         });
-
-
-
     }
 }
