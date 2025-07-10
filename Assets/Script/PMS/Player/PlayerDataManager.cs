@@ -8,10 +8,6 @@ using Unity.VisualScripting;
 using Firebase.Auth;
 using Firebase.Database;
 
-
-
-
-
 public class PlayerDataManager
 {
     private static PlayerDataManager instance;
@@ -48,7 +44,6 @@ public class PlayerDataManager
                 }
             });
     }
-
     public void Load() // 플레이어 데이터 불러오기
     {
         string userID = SystemInfo.deviceUniqueIdentifier; // 사용 기기 개인아이디로 불러오기
@@ -82,26 +77,31 @@ public class PlayerDataManager
     public void AddGold(int amount)
     {
         player.gold += amount;
+        PlayerCurrencyEvent.OnGoldChange?.Invoke(player.gold);
     }
 
     public void AddTicket(int amount)
     {
         player.ticket += amount;
+        PlayerCurrencyEvent.OnTicketChange?.Invoke(player.ticket);
     }
 
     public void AddBluePrint(int amount)
     {
         player.bluePrint += amount;
+        PlayerCurrencyEvent.OnBluePrintChange?.Invoke(player.bluePrint);
     }
 
     public void AddActionPoint(int amount)
     {
         player.actionPoint += amount;
+        PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
     }
 
     public void AddTribute(int amount)
     {
         player.tribute += amount;
+        PlayerCurrencyEvent.OnTributeChange?.Invoke(player.tribute);
     }
 
     public bool AddUnit(int id)
@@ -171,6 +171,8 @@ public class PlayerDataManager
         {
             player.actionPoint = Mathf.Min(player.actionPoint + recovered, 100); // 최대치 100과 비교해서 낮은쪽 사용.
             player.lastActionPointTime += recovered * 60;
+
+            PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
         }
     }
 
@@ -181,6 +183,7 @@ public class PlayerDataManager
         if (player.actionPoint >= amount)
         {
             player.actionPoint -= amount;
+            PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
             QuestEvent.UseActionPoint?.Invoke(amount); // 퀘스트 이벤트
             return true;
         }
@@ -197,6 +200,7 @@ public class PlayerDataManager
         if (player.gold >= amount)
         {
             player.gold -= amount;
+            PlayerCurrencyEvent.OnGoldChange?.Invoke(player.gold);
             return true;
         }
 
@@ -212,20 +216,48 @@ public class PlayerDataManager
         if (player.ticket >= amount)
         {
             player.ticket -= amount;
+            PlayerCurrencyEvent.OnTicketChange?.Invoke(player.ticket);
             return true;
         }
-
         else
         {
             Debug.Log("티켓이 부족합니다.");
             return false;
         }
-
+    }
+    public bool UseTribute(int amount)
+    {
+        if (player.tribute >= amount)
+        {
+            player.tribute -= amount;
+            PlayerCurrencyEvent.OnTributeChange?.Invoke(player.tribute);
+            return true;
+        }
+        else
+        {
+            Debug.Log("티켓이 부족합니다.");
+            return false;
+        }
     }
 
     public bool HasClearedStage(int stageID)
     {
         return player.clearedStageIDs.Contains(stageID);
+    }
+
+    public PlayerQuestData GetQuestProgress(int questID)
+    {
+        return player.playerQuest.Find(quest => quest.QuestID == questID);
+    }
+    public bool IsQuestCompleted(int questID)
+    {
+        var progress = GetQuestProgress(questID);
+        return progress != null && progress.IsCompleted;
+    }
+    public bool HasReceivedQuestReward(int questID)
+    {
+        var progress = GetQuestProgress(questID);
+        return progress != null && progress.IsReward;
     }
 
     public void AddQuestProgress(ConditionType conditionType, int value) // 플레이어 퀘스트 진행도 추적
@@ -255,10 +287,10 @@ public class PlayerDataManager
     
     public bool TryGetQuestReward(int questID)
     {
-        var progress = player.playerQuest.Find(q => q.QuestID == questID);
+        var progress = GetQuestProgress(questID);
         var quest = QuestDataManager.Instance.GetQuestID(questID);
 
-        if(progress == null || !progress.IsCompleted || !progress.IsReward)
+        if(progress == null || !progress.IsCompleted || progress.IsReward)
         {
             return false;
         }

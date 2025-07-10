@@ -28,6 +28,11 @@ public class QuestManager
     {
         var allQuests = QuestDataManager.Instance.allQuests;
         var playerQuests = PlayerDataManager.Instance.player.playerQuest;
+        
+        if(playerQuests.Count > 0)
+        {
+            return;
+        }
 
         foreach (var quest in allQuests)
         {

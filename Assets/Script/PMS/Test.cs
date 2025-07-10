@@ -106,6 +106,11 @@ public class Test
         QuestManager.Instance.Init();
     }
 
+    public void SetQuestUI()
+    {
+        UIQuestManager.instance.Init();
+    }
+
 
 
 }
