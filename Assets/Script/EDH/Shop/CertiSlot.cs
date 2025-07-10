@@ -25,6 +25,7 @@ public class CertiSlot : MonoBehaviour
         _Info = pickInfo;
         _Info.Name = pickInfo.Name;
         _Info.ID = pickInfo.ID;
+        _Info.IsEnemy = false;
         _Info.warrant = pickInfo.warrant;
 
 

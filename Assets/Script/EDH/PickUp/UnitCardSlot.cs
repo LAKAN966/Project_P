@@ -26,5 +26,7 @@ public class UnitCardSlot : MonoBehaviour
         var stats = UnitDataManager.Instance.GetStats(pickInfo.ID);
         
         UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+        pickInfo.IsEnemy = false;
+        
     }
 }

@@ -38,7 +38,8 @@ public class PickLogic : MonoBehaviour
         {
             ID = originalPick.ID,
             Name = originalPick.Name,
-            IsHero = Random.value < 0.1f
+            IsHero = Random.value < 0.1f,
+            IsEnemy = false,
         };
 
         Debug.Log($"뽑기 결과: {(randomPick.IsHero ? "영웅!" : "일반")}");
