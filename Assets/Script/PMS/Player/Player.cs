@@ -19,6 +19,8 @@ public class Player
     public long lastActionPointTime; // 행동력 사용한 마지막 시간
 
     public List<PlayerQuestData> playerQuest = new(); // 플레이어의 퀘스트 리스트
+    public List<BuildingState> buildingsList = new();
+    public Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();//id별 선택된 교리 데이터
 }
 
 public class PlayerQuestData

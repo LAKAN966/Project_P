@@ -111,6 +111,6 @@ public class BuildSlotUI : MonoBehaviour
 
             levelText.text = $"Lv.{Level}";
         }
-        BuildManager.Instance.buildingsList[slotID].level = Level;
+        PlayerDataManager.Instance.player.buildingsList[slotID].level = Level;
     }
 }

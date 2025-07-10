@@ -6,7 +6,6 @@ public class GospelManager : MonoBehaviour
 {
     private readonly string gospelCsvPath = "Assets/Data/GospelData.csv";
     public Dictionary<int, List<List<GospelData>>> gospelMap = new();//id별 건물의 레이어별 데이터
-    private Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();//id별 선택된 교리 데이터
 
     public static GospelManager Instance;
 
@@ -59,7 +58,7 @@ public class GospelManager : MonoBehaviour
 
     public bool IsSelected(int buildID, int gospelID)
     {
-        return selectedGospelIDsByBuildID.ContainsKey(buildID) && selectedGospelIDsByBuildID[buildID].Contains(gospelID);
+        return PlayerDataManager.Instance.player.selectedGospelIDsByBuildID.ContainsKey(buildID) && PlayerDataManager.Instance.player.selectedGospelIDsByBuildID[buildID].Contains(gospelID);
     }
 
     public int GetCurrentSelectableOrder(int buildID)
@@ -96,9 +95,9 @@ public class GospelManager : MonoBehaviour
 
     public void SelectGospel(int buildID, int gospelID)
     {
-        if (!selectedGospelIDsByBuildID.ContainsKey(buildID))
-            selectedGospelIDsByBuildID[buildID] = new HashSet<int>();
-        selectedGospelIDsByBuildID[buildID].Add(gospelID);
+        if (!PlayerDataManager.Instance.player.selectedGospelIDsByBuildID.ContainsKey(buildID))
+            PlayerDataManager.Instance.player.selectedGospelIDsByBuildID[buildID] = new HashSet<int>();
+        PlayerDataManager.Instance.player.selectedGospelIDsByBuildID[buildID].Add(gospelID);
         GospelData data = GetGospelByID(gospelID);
         BuffManager.UpdateBuffStat(BuildManager.Instance.GetBuildingRaceID(buildID), data.statIndex, data.effectValue);
     }
