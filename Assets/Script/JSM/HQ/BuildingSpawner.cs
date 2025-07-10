@@ -34,7 +34,7 @@ public class BuildingSpawner : MonoBehaviour
             newObj.GetComponentInChildren<BuildSlotUI>().slotID = i;
             if (PlayerDataManager.Instance.player.buildingsList[i].buildingData != null)
             {
-                buildSlotUI.Build(PlayerDataManager.Instance.player.buildingsList[i].buildingData);
+                buildSlotUI.Build(PlayerDataManager.Instance.player.buildingsList[i].buildingData, PlayerDataManager.Instance.player.buildingsList[i].level);
             }
         }
     }
