@@ -33,8 +33,8 @@ public class Pick : MonoBehaviour
     
     private void Start()
     {
-        PickOnce.onClick.AddListener(() => PickOneTime());       //  1회 뽑기
-        PickTen.onClick.AddListener(()  => PickTenTimes());      // 10회 뽑기
+        PickOnce.onClick.AddListener(PickOneTime);       //  1회 뽑기
+        PickTen.onClick.AddListener(PickTenTimes);      // 10회 뽑기
 
         RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기
         RePickTen.onClick.AddListener(() => PickTenTimes());     // 10회 다시 뽑기
@@ -61,9 +61,7 @@ public class Pick : MonoBehaviour
             TicketAmount--; // 1장 소모
             TicketAmount = Math.Max(TicketAmount, 0); // 0검사
 
-            if (TicketAmount < 0)
-                PickPoint += 0;
-            else PickPoint++;
+            PickPoint++;
 
             ShowTicketAmountText.text = TicketAmount.ToString();
             PityCount.text = PickPoint.ToString();

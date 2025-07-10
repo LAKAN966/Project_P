@@ -76,15 +76,17 @@ public class PurchaseSync : MonoBehaviour
     {
         Debug.Log(PlayerDataManager.Instance.player.gold + "이건 플레이어 골드");
         Debug.Log(_Item.Cost + "아이템 가격");
+        
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
         if (_Item.Cost <= PlayerDataManager.Instance.player.gold)
         {
                 PlayerDataManager.Instance.UseGold(Cost * Amount);
-                if(_Item.ID == 101)
+                if(_Item.ID == 101)    
                 {
-                    PlayerDataManager.Instance.AddTicket(Amount);
-                    Debug.Log(PlayerDataManager.Instance.player.ticket);
+                PlayerDataManager.Instance.AddTicket (Amount);
+                PlayerCurrencyEvent.OnTicketChange.Invoke(Amount);
+                Debug.Log(PlayerDataManager.Instance.player.ticket);
                 }
                 if (_Item.ID == 102)
                 {

@@ -9,8 +9,12 @@ public class PickLogic : MonoBehaviour
     public PickSlotSpawner pickSlotSpawner;
     public void DrawOne() //1뽑
     {
-        PickInfo pick = PickRandom();
-        pickSlotSpawner.SpawnCardOne(pick);
+        List<PickInfo> picks = new List<PickInfo>();
+        for (int i = 0; i < 1; i++)
+        {
+            picks.Add(PickRandom());
+        }
+        pickSlotSpawner.SpawnCardOne(PickRandom());
     }
     public void DrawTen()//10뽑
     {

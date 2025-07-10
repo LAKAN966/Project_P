@@ -24354,7 +24354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &58698734521326991
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31010,8 +31010,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b970aed8c22039e43a08d00654bb70e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CertiSlot: {fileID: 8756135456785135053, guid: fde0e4a7cc2f146468b868400796223a, type: 3}
-  Content: {fileID: 5770731829972855099}
 --- !u!114 &2535939037870286231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35164,7 +35162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4052463304010306710
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39243,7 +39241,7 @@ MonoBehaviour:
   ItemListLoader: {fileID: 8136484149258218430}
   Content: {fileID: 8173507478135478935}
   GoldAmount: {fileID: 8017125248206122909}
-  PityCount: {fileID: 0}
+  PityCount: {fileID: 782394493}
 --- !u!224 &5830119245397471433
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39478,6 +39476,7 @@ MonoBehaviour:
     IsHero: 0
     Uniticon: 
     warrant: 0
+    IsEnemy: 0
 --- !u!114 &5886407585023054302
 MonoBehaviour:
   m_ObjectHideFlags: 0
