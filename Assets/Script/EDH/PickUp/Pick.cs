@@ -27,8 +27,8 @@ public class Pick : MonoBehaviour
     [SerializeField]
     private PickLogic pickLogic; // 뽑기 로직
 
-    int TicketAmount; // 티켓 수
-    int PickPoint;    // 뽑은 횟수
+   private int TicketAmount; // 티켓 수
+   private int PickPoint;    // 뽑은 횟수
 
     
     private void Start()
@@ -39,11 +39,14 @@ public class Pick : MonoBehaviour
         RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기
         RePickTen.onClick.AddListener(() => PickTenTimes());     // 10회 다시 뽑기
 
-        //TicketAmount = PlayerDataManager.Instance.player.ticket;  // 사용할것.
-        TicketAmount = 50;         // 임시 테스트용
+        
         PickPoint = 0;
 
+        TicketAmount = PlayerDataManager.Instance.player.ticket;
+
         ShowTicketAmountText.text = TicketAmount.ToString();        // 현재 티켓 수
+
+        PlayerCurrencyEvent.OnTicketChange += value => ShowTicketAmountText.text = TicketAmount.ToString();
         PityCount.text = PickPoint.ToString();                      // 현재 마일리지
 
         //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)

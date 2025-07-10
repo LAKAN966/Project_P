@@ -1,8 +1,3 @@
-//Onclick 으로 받아준다.
-
-//구매처리
-
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
