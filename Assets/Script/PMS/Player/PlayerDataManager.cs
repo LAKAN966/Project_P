@@ -104,6 +104,12 @@ public class PlayerDataManager
         PlayerCurrencyEvent.OnTributeChange?.Invoke(player.tribute);
     }
 
+    public void AddCerti(int amount)
+    {
+        player.certi += amount;
+        PlayerCurrencyEvent.OnCertiChange?.Invoke(player.certi);
+    }
+
     public bool AddUnit(int id)
     {
         if (player.myUnitIDs.Contains(id))
@@ -255,6 +261,23 @@ public class PlayerDataManager
             return false;
         }
     }
+
+    public bool UseCerti(int amount)
+    {
+        if (player.certi >= amount)
+        {
+            player.certi -= amount;
+            PlayerCurrencyEvent.OnCertiChange?.Invoke(player.certi);
+            return true;
+        }
+
+        else
+        {
+            Debug.Log("증명서가 부족합니다.");
+            return false;
+        }
+    }
+
 
     public bool HasClearedStage(int stageID)
     {
