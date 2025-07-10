@@ -12,13 +12,21 @@ public class CertiSlot : MonoBehaviour
 {
     [SerializeField] public Image UnitIcon;                     // 유닛 아이콘
     [SerializeField] private Button certiSlot;                  // 증명서 유닛 슬롯
-    
+    [SerializeField] public GameObject PurchaseCertiUnitBox;
+
+    private PickInfo _Info;
 
     public void init(PickInfo pickInfo)
     {
         var stats = UnitDataManager.Instance.GetStats(pickInfo.ID);
 
         UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+
+        _Info = pickInfo;
+        _Info.Name = pickInfo.Name;
+        _Info.ID = pickInfo.ID;
+        _Info.warrant = pickInfo.warrant;
+
 
         certiSlot.onClick.RemoveAllListeners();
 
@@ -28,7 +36,7 @@ public class CertiSlot : MonoBehaviour
 
             CertiPurChaseSync.Instance.Init(pickInfo, this);
 
-            UIController.Instance.PurchaseUIBox.SetActive(true);
+            PurchaseCertiUnitBox.SetActive(true);
 
         });
     }

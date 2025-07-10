@@ -12,7 +12,6 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
 
     public Button PurchaseButton;   // 아이템 구매 버튼
 
-    public TMP_Text CertiCost;      // 증명서 슬롯 가격 텍스트
     public Pick pick;               // 증명서 양
 
     PlayerDataManager PlayerDataManager;
@@ -30,19 +29,21 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
     
     public void PurchaseCertiUnit()
     {
+        
         int Amount = int.Parse(pick.PityCount.text);
-        int Cost =  int.Parse(CertiCost.text);
-        if (Amount > Cost ) 
+        int Cost = Info.warrant;
+        if (Amount > Cost)
         {
-            Amount -= Cost;
-            PlayerDataManager.AddUnit(Info.ID );
+            PlayerDataManager.UseCerti(Cost);
+            PlayerDataManager.AddUnit(Info.ID);
         }
+        else NotEnough();
     }
 
     public void NotEnough()
     {
         int Amount = int.Parse(pick.PityCount.text);
-        int Cost = int.Parse(CertiCost.text);
+        int Cost = Info.warrant;
         if (Amount < Cost)
         {
             NotEnoughBoxText.text = "증명서가 부족합니다.";

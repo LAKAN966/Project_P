@@ -8,9 +8,14 @@ public class CertiSlotSpawner : MonoBehaviour
     [SerializeField] private GameObject CertiSlot;
     [SerializeField] private Transform Content;
 
+    private void Start()
+    {
+       // SpawnCeriUnitCard();
+    }
 
     public void SpawnCeriUnitCard(List<PickInfo> picks) 
     {
+       // UnitDataManager.Instance.GetStats();
         foreach (PickInfo pickInfo in picks)
         {
             CreateCard(pickInfo, Content);
@@ -47,6 +52,7 @@ public class CertiSlotSpawner : MonoBehaviour
         {
             ID = originalPick.ID,
             Name = originalPick.Name,
+            warrant = originalPick.warrant
         };
 
        
