@@ -22,7 +22,12 @@ public class PickSlotSpawner : MonoBehaviour
             Destroy(Child.gameObject);
         }
         Debug.Log(pick + "총아이템의 개수");
+
         CreateCard(pick,Grid1);
+        foreach (Transform Child in Grid1)
+        {
+            PlayerDataManager.Instance.AddUnit(pick.ID);
+        }
     }
     public void SpawnCardTen(List<PickInfo> picks) //10개 뽑기 결과생성
     {
@@ -33,6 +38,10 @@ public class PickSlotSpawner : MonoBehaviour
         foreach (PickInfo pickInfo in picks)
         {
             CreateCard(pickInfo, Grid2);
+        }
+        foreach (PickInfo pick in picks)
+        {
+            PlayerDataManager.Instance.AddUnit(pick.ID);
         }
     }
     private void CreateCard(PickInfo pick, Transform parent) //카드 슬롯 생성

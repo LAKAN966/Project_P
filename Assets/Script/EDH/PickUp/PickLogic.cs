@@ -20,6 +20,7 @@ public class PickLogic : MonoBehaviour
             picks.Add(PickRandom());
         }
         pickSlotSpawner.SpawnCardTen(picks);
+        
     }
     public PickInfo PickRandom()// 랜덤뽑기 로직
     {

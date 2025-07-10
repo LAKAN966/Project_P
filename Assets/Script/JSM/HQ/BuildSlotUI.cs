@@ -35,16 +35,10 @@ public class BuildSlotUI : MonoBehaviour
         }
     }
 
-    public void Build(BuildingData building)
+    public void Build(BuildingData building, int level)
     {
-        if (Level < 0)
-        {
-            Debug.Log("최대 레벨");
-            return;
-        }
-
         buildingID = building.id;
-        Level++;
+        Level=level;
 
         if (plusText != null) Destroy(plusText);
 
