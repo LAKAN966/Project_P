@@ -24,7 +24,8 @@ public class PlayerDataManager
         }
     }
 
-    public Player player = new();
+    private Player Player = new();
+    public Player player => Player;
 
     public void Save() // 플레이어 데이터 저장
     {
@@ -58,7 +59,7 @@ public class PlayerDataManager
                     if (existID.Exists && existID.Value != null)
                     {
                         string json = existID.Value.ToString();
-                        player = JsonConvert.DeserializeObject<Player>(json);
+                        Player = JsonConvert.DeserializeObject<Player>(json);
                         Debug.Log("플레이어 데이터 불러오기 성공");
                         Debug.Log($"보유 골드 : {player.gold}\n보유 티켓 : {player.ticket}\n보유 행동력 : {player.actionPoint}");
                     }
