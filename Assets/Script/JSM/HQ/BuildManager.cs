@@ -28,6 +28,7 @@ public class BuildManager : MonoBehaviour
         {
             buildingsList.Add(new BuildingState { buildingData = null, level = 0 });
         }
+        BuffManager.InitBuffs(UnitDataManager.Instance.GetRaceCount());
     }
 
     private void Start()

@@ -53,6 +53,7 @@ public class UnitSpawner : MonoBehaviour
             Debug.LogWarning($"알 수 없는 유닛 ID: {data.unitID}");
             return;
         }
+        stats = BuffManager.ApplyBuff(stats);
 
         var spawnPos = data.isEnemy ? enemySpawnPosition : allySpawnPosition;
 
