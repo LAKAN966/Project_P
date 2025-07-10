@@ -14403,11 +14403,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1960845581}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 960, y: 540}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1264941423
@@ -21729,6 +21729,7 @@ RectTransform:
   m_Children:
   - {fileID: 967317549}
   - {fileID: 1728548519}
+  - {fileID: 1264941422}
   m_Father: {fileID: 185618142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -34208,7 +34209,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6705213276980714743}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.97954607
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -39466,7 +39467,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PurchaseButton: {fileID: 7105515261824764184}
-  CertiCost: {fileID: 0}
   pick: {fileID: 0}
   NotEnoughBoxText: {fileID: 1219192957613082801}
   NotEnoughBox: {fileID: 1889346672465690656}
@@ -39477,6 +39477,7 @@ MonoBehaviour:
     Description: 
     IsHero: 0
     Uniticon: 
+    warrant: 0
 --- !u!114 &5886407585023054302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41152,7 +41153,7 @@ RectTransform:
   m_Father: {fileID: 3903763065812284089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.97954607}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -45145,6 +45146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitIcon: {fileID: 7168594734207038306}
   certiSlot: {fileID: 6368036717191600136}
+  PurchaseCertiUnitBox: {fileID: 0}
 --- !u!222 &8113772370134743002
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -48209,5 +48211,4 @@ SceneRoots:
   - {fileID: 952994888}
   - {fileID: 264623201}
   - {fileID: 214715215}
-  - {fileID: 1264941422}
   - {fileID: 2559490582840844945}
