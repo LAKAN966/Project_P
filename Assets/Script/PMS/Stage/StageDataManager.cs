@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -29,14 +30,14 @@ public class StageDataManager
 
     public void LoadStageData()
     {
-        string path = Path.Combine(Application.dataPath, "Data/StageData.csv");
-
-        if (!File.Exists(path))
+        TextAsset csvFile = Resources.Load<TextAsset>("Data/StageData");
+        if (csvFile == null)
         {
-            Debug.Log($"StageData.csv is null");
+            Debug.LogError("StageData.csv 파일을 Resources/Data 폴더에 넣었는지 확인하세요.");
             return;
         }
-        string[] lines = File.ReadAllLines(path);
+
+        string[] lines = csvFile.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 1; i < lines.Length; i++)
         {
@@ -59,32 +60,23 @@ public class StageDataManager
             };
 
             if (!string.IsNullOrWhiteSpace(tokens[7]))
-            {
                 stage.firstRewardItemIDs = tokens[7].Split(';').Select(int.Parse).ToList();
-            }
 
             if (!string.IsNullOrWhiteSpace(tokens[9]))
-            {
                 stage.firstRewardAmounts = tokens[9].Split(';').Select(int.Parse).ToList();
-            }
 
             if (!string.IsNullOrWhiteSpace(tokens[8]))
-            {
                 stage.repeatRewardItemIDs = tokens[8].Split(';').Select(int.Parse).ToList();
-            }
 
             if (!string.IsNullOrWhiteSpace(tokens[10]))
-            {
                 stage.repeatRewardAmounts = tokens[10].Split(';').Select(int.Parse).ToList();
-            }
-
 
             stageDic[stage.ID] = stage;
-
         }
 
         Debug.Log($"스테이지 데이터 로딩 완료: {stageDic.Count}개");
     }
+
 
     public StageData GetStageData(int id)
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
@@ -11,7 +12,6 @@ public class BuildingState
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance;
-    private readonly string buildingCsvPath = "Assets/Data/BuildingData.csv";
     public List<BuildingData> buildings = new();
     public int count = 5;
 
@@ -60,13 +60,16 @@ public class BuildManager : MonoBehaviour
     {
         buildings.Clear();
 
-        if (!File.Exists(buildingCsvPath))
+        // Resources/Data/Buildings.csv 파일을 로드 (확장자 없이 경로 지정)
+        TextAsset csvFile = Resources.Load<TextAsset>("Data/BuildingData");
+        if (csvFile == null)
         {
-            Debug.LogError($"[BuildManager] CSV not found at path: {buildingCsvPath}");
+            Debug.LogError("[BuildManager] Resources/Data/BuildingData.csv 파일을 찾을 수 없습니다.");
             return;
         }
 
-        string[] lines = File.ReadAllLines(buildingCsvPath);
+        string[] lines = csvFile.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+
         for (int i = 1; i < lines.Length; i++)
         {
             if (string.IsNullOrWhiteSpace(lines[i])) continue;
@@ -87,6 +90,7 @@ public class BuildManager : MonoBehaviour
                 else
                     goldList.Add(0);
             }
+
             List<int> costList = new List<int>();
             for (int j = 10; j <= 13; j++)
             {
@@ -95,6 +99,7 @@ public class BuildManager : MonoBehaviour
                 else
                     costList.Add(0);
             }
+
             List<int> orderByLevel = new List<int>();
             if (parts.Length > 14 && !string.IsNullOrWhiteSpace(parts[14]))
             {
@@ -107,9 +112,13 @@ public class BuildManager : MonoBehaviour
                         orderByLevel.Add(0);
                 }
             }
+
             buildings.Add(new BuildingData(id, displayName, imageName, raceId, gold, blueprint, goldList, costList, orderByLevel));
         }
+
+        Debug.Log($"[BuildManager] 건물 데이터 로딩 완료: {buildings.Count}개");
     }
+
     public Sprite GetBuildingSprite(string imageName)
     {
         return Resources.Load<Sprite>($"Sprites/{imageName}");

@@ -1,10 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 public class GospelManager : MonoBehaviour
 {
-    private readonly string gospelCsvPath = "Assets/Data/GospelData.csv";
     public Dictionary<int, List<List<GospelData>>> gospelMap = new();//id별 건물의 레이어별 데이터
 
     public static GospelManager Instance;
@@ -29,7 +29,15 @@ public class GospelManager : MonoBehaviour
     public void LoadGospels()
     {
         gospelMap.Clear();
-        string[] lines = File.ReadAllLines(gospelCsvPath);
+
+        TextAsset csvFile = Resources.Load<TextAsset>("Data/GospelData");
+        if (csvFile == null)
+        {
+            Debug.LogError("Resources/Data/Gospels.csv 파일이 존재하지 않습니다.");
+            return;
+        }
+
+        string[] lines = csvFile.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 1; i < lines.Length; i++) // skip header
         {
@@ -54,7 +62,10 @@ public class GospelManager : MonoBehaviour
 
             layers[^1].Add(new GospelData(id, buildID, order, cost, desc, name, statIndex, effectValue));
         }
+
+        Debug.Log($"복음 데이터 로딩 완료: {gospelMap.Count}개 빌딩에 대해 로딩됨");
     }
+
 
     public List<List<GospelData>> GetGospelsByBuildID(int buildID)
     {

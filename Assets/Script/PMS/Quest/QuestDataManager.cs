@@ -32,17 +32,16 @@ public class QuestDataManager
 
     private void LoadQuestData()
     {
-        string path = Path.Combine(Application.dataPath, "Data/QuestData.json");
-
-        if(!File.Exists(path))
+        TextAsset jsonFile = Resources.Load<TextAsset>("Data/QuestData"); // 확장자 생략
+        if (jsonFile == null)
         {
-            Debug.Log("퀘스트 파일이 존재하지 않습니다.");
+            Debug.LogWarning("Resources/Data/QuestData.json 파일이 존재하지 않습니다.");
             return;
         }
 
         try
         {
-            string json = File.ReadAllText(path);
+            string json = jsonFile.text;
             List<QuestData> data = JsonConvert.DeserializeObject<List<QuestData>>(json);
 
             allQuests.Clear();
@@ -60,12 +59,12 @@ public class QuestDataManager
             allQuests.Sort((a, b) => a.Order.CompareTo(b.Order));
             Debug.Log($"{allQuests.Count}개 퀘스트 데이터 로드 완료");
         }
-
         catch (Exception ex)
         {
-            Debug.LogError($"퀘스트 데이터 로드 실패 : {ex.Message}");
+            Debug.LogError($"퀘스트 데이터 로드 실패: {ex.Message}");
         }
     }
+
 
     public QuestData GetQuestID(int id)
     {
