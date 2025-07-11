@@ -16,7 +16,7 @@ public class PickSlotSpawner : MonoBehaviour
 
     
     
-    public void SpawnCardOne(PickInfo pick) //1개 뽑기 결과 생성
+    public void SpawnCardOne() //1개 뽑기 결과 생성
     {
         List<PickInfo> Alliance = new();
         var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
@@ -24,7 +24,6 @@ public class PickSlotSpawner : MonoBehaviour
         {
             Destroy(Child.gameObject);
         }
-        Debug.Log(pick + "총아이템의 개수");
 
         foreach (PickInfo pickInfo in PicklistDo)
         {
@@ -34,11 +33,11 @@ public class PickSlotSpawner : MonoBehaviour
                 Alliance.Add(pickInfo);
             }
         }
-        CreateCard(Alliance, Grid1);
+        PickInfo pick = CreateCard(Alliance, Grid1);
         PlayerDataManager.Instance.AddUnit(pick.ID);
     }
 
-    public void SpawnCardTen(List<PickInfo> picks) //10개 뽑기 결과생성
+    public void SpawnCardTen() //10개 뽑기 결과생성
     {
         List<PickInfo> Alliance = new();
         var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
@@ -54,27 +53,29 @@ public class PickSlotSpawner : MonoBehaviour
                 Alliance.Add(pickInfo);
             }
         }
+        List<PickInfo> picks = new List<PickInfo>();
         for (int i = 0; i < 10; i++)
-            CreateCard(Alliance, Grid2);
+        {
+            picks.Add(CreateCard(Alliance, Grid2));
+        }
         foreach (PickInfo pick in picks)
         {
             PlayerDataManager.Instance.AddUnit(pick.ID);
         }
     }
-    private void CreateCard(List<PickInfo> Alliance, Transform parent) //카드 슬롯 생성
+    private PickInfo CreateCard(List<PickInfo> Alliance, Transform parent) //카드 슬롯 생성
     {
         UnitCardSlot slot = new UnitCardSlot();
-        List<PickInfo> RanResult = new();
+        PickInfo RanResult;
 
         int ranindex = Random.Range(0, Alliance.Count);
-        RanResult.Add(Alliance[ranindex]);
+        RanResult = Alliance[ranindex];
+
+        GameObject go = Instantiate(UnitICard, parent); //1
+        slot = go.GetComponent<UnitCardSlot>(); //2
+        slot.init(RanResult); //3
         
-        foreach (PickInfo pickInfo in RanResult)
-        {
-            GameObject go = Instantiate(UnitICard, parent); //1
-            slot = go.GetComponent<UnitCardSlot>(); //2
-            slot.init(pickInfo); //3
-        }
+        return RanResult;
     }
 
 }
