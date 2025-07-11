@@ -1877,7 +1877,6 @@ MonoBehaviour:
   DescriptionBox: {fileID: 7240944648656298919}
   MainGoldAmount: {fileID: 1306854635947908316}
   StoreGoldAmount: {fileID: 8017125248206122909}
-  showActivePoint: {fileID: 0}
   UnitManagementButton: {fileID: 887057846899614898}
   SelectStageButton: {fileID: 5077918571915380276}
   UnitGotchaBotton: {fileID: 1132802983755298267}
@@ -21323,7 +21322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1960845581
 RectTransform:
   m_ObjectHideFlags: 0

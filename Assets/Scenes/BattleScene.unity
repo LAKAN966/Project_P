@@ -2419,6 +2419,8 @@ MonoBehaviour:
   stageID: 10001
   isPaused: 0
   enemyPool: {fileID: 8054658924490451434}
+  stageCSV: {fileID: 4900000, guid: 4774cb3de2e0abb47b1371fa6de9f85a, type: 3}
+  waveText: {fileID: 4900000, guid: 078f045398d134d45b07360886161fb6, type: 3}
 --- !u!114 &249876054068631152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4525,11 +4527,11 @@ RectTransform:
   - {fileID: 4268004375643358440}
   m_Father: {fileID: 1403771370412499436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -750, y: 430}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 69.29999, y: -63.58}
   m_SizeDelta: {x: 300, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &2078442345742296232
 CanvasRenderer:
   m_ObjectHideFlags: 0
