@@ -36,12 +36,16 @@ public class StageManager : MonoBehaviour
             return;
         }
         instance = this;
+        StageDataManager.Instance.LoadStageData();
 
+    }
+
+    public void Start()
+    {
     }
 
     public void Init()
     {
-        StageDataManager.Instance.LoadStageData();
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
         battleBtn.onClick.AddListener(OnClickEnterBattle);
@@ -150,8 +154,8 @@ public class StageManager : MonoBehaviour
     {
         if (scene.name == "BattleScene")
         {
-            var normalDeck = DeckManager.Instance.GetAllDataInDeck();
-            var leaderDeck = DeckManager.Instance.GetLeaderDataInDeck();
+            var normalDeck = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
+            var leaderDeck = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
             SceneManager.sceneLoaded -= OnBattleSceneLoaded;
             BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck);
         }
