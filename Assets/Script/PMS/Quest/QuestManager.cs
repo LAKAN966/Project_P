@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Firebase.Database;
 using UnityEngine;
 
 public class QuestManager
@@ -27,8 +29,88 @@ public class QuestManager
         }
 
         isInit = true;
+        GetServerTimeAndCheckReset();
         InitializePlayerQuest();
         RegistEvent();
+    }
+
+    void GetServerTimeAndCheckReset()
+    {
+        var dbtime = FirebaseDatabase.DefaultInstance.GetReference("serverTime");
+        dbtime.SetValueAsync(ServerValue.Timestamp).ContinueWith(setTask =>
+        {
+            dbtime.GetValueAsync().ContinueWith(getTask =>
+            {
+                if (getTask.IsCompletedSuccessfully)
+                {
+                    long time = (long)getTask.Result.Value;
+                    DateTime serverTime = DateTimeOffset.FromUnixTimeMilliseconds(time).UtcDateTime;
+                    CheckQuestReset(serverTime);
+                }
+                else
+                {
+                    Debug.Log("서버 시간 불러오기 실패.");
+                }
+            });
+        });
+    }
+
+    void CheckQuestReset(DateTime serverTime)
+    {
+        var player = PlayerDataManager.Instance.player;
+
+        DateTime daily = DateTimeOffset.FromUnixTimeMilliseconds(player.lastDailyQuestTime).UtcDateTime;
+        if(serverTime.Date > daily.Date)
+        {
+            ResetDailyQuests();
+            player.lastDailyQuestTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        }
+
+        DateTime weekly = DateTimeOffset.FromUnixTimeMilliseconds(player.lastWeeklyQuestTime).UtcDateTime;
+        if(serverTime.DayOfWeek == DayOfWeek.Monday && GetWeekNumber(serverTime) != GetWeekNumber(weekly))
+        {
+            ResetWeeklyQuests();
+            player.lastWeeklyQuestTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        }
+
+    }
+
+    int GetWeekNumber(DateTime serverTime)
+    {
+        var ci = System.Globalization.CultureInfo.InvariantCulture;
+        return ci.Calendar.GetWeekOfYear(serverTime, System.Globalization.CalendarWeekRule.FirstFourDayWeek,DayOfWeek.Monday);
+    }
+
+    void ResetDailyQuests()
+    {
+        var dailyQuestID = QuestDataManager.Instance.GetDailyQuests().Select(quest => quest.ID).ToHashSet();
+        var playerQuests = PlayerDataManager.Instance.player.playerQuest;
+
+        foreach (var quest in playerQuests)
+        {
+            if (dailyQuestID.Contains(quest.QuestID))
+            {
+                quest.CurrentValue = 0;
+                quest.IsCompleted = false;
+                quest.IsReward = false;
+            }
+        }
+    }
+
+    void ResetWeeklyQuests()
+    {
+        var weeklyQuestID = QuestDataManager.Instance.GetDailyQuests().Select(quest => quest.ID).ToHashSet();
+        var playerQuests = PlayerDataManager.Instance.player.playerQuest;
+
+        foreach (var quest in playerQuests)
+        {
+            if (weeklyQuestID.Contains(quest.QuestID))
+            {
+                quest.CurrentValue = 0;
+                quest.IsCompleted = false;
+                quest.IsReward = false;
+            }
+        }
     }
 
     void InitializePlayerQuest() // 플레이어 퀘스트 초기화
