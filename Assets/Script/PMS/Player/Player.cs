@@ -15,6 +15,7 @@ public class Player
     public List<int> clearedStageIDs = new();
 
     public int actionPoint = 100;
+    public int maxActionPoint = 100;
     public long lastActionPointTime;
 
     public List<PlayerQuestData> playerQuest = new();

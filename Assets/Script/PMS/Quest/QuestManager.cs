@@ -21,7 +21,7 @@ public class QuestManager
     public void Init()
     {
         InitializePlayerQuest();
-        OnEnable();
+        RegistEvent();
     }
 
     void InitializePlayerQuest() // 플레이어 퀘스트 초기화
@@ -50,7 +50,7 @@ public class QuestManager
         }
     }
 
-    void OnEnable()
+    void RegistEvent()
     {
         QuestEvent.UseActionPoint += UseActionPoint;
         QuestEvent.OnLooting += Looting;
