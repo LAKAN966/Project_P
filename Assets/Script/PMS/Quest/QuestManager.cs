@@ -18,8 +18,15 @@ public class QuestManager
         }
     }
 
+    public bool isInit = false;
     public void Init()
     {
+        if (isInit)
+        {
+            return;
+        }
+
+        isInit = true;
         InitializePlayerQuest();
         RegistEvent();
     }

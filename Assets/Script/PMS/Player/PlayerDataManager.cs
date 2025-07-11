@@ -185,7 +185,7 @@ public class PlayerDataManager
     }
     public int NextRecoverTime()
     {
-        if(player.actionPoint >= 0)
+        if(player.actionPoint >= player.maxActionPoint)
         {
             return 0;
         }
@@ -316,6 +316,7 @@ public class PlayerDataManager
 
     public void AddQuestProgress(ConditionType conditionType, int value) // 플레이어 퀘스트 진행도 추적
     {
+        Debug.Log($"[퀘스트 진행도 추가] 호출됨: {conditionType} +{value}");
         foreach (var progress in player.playerQuest)
         {
             QuestData quest = QuestDataManager.Instance.GetQuestID(progress.QuestID);
