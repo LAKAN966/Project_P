@@ -1,13 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using System.IO;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using static UnityEditor.Progress;
-using Unity.VisualScripting;
 
 
 public class ItemListLoader : MonoBehaviour 

@@ -7,28 +7,28 @@ using System;
 [AttributeUsage(AttributeTargets.Method)]
 public class MyButtonAttribute : Attribute { }
 
-[CustomEditor(typeof(MonoBehaviour), true)]
-public class MyButtonEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
+//[CustomEditor(typeof(MonoBehaviour), true)]
+//public class MyButtonEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        base.OnInspectorGUI();
 
-        var methods = target.GetType()
-            .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+//        var methods = target.GetType()
+//            .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-        foreach (var method in methods)
-        {
-            if (method.GetCustomAttribute(typeof(MyButtonAttribute)) != null)
-            {
-                if (GUILayout.Button(method.Name))
-                {
-                    method.Invoke(target, null);
-                }
-            }
-        }
-    }
-}
+//        foreach (var method in methods)
+//        {
+//            if (method.GetCustomAttribute(typeof(MyButtonAttribute)) != null)
+//            {
+//                if (GUILayout.Button(method.Name))
+//                {
+//                    method.Invoke(target, null);
+//                }
+//            }
+//        }
+//    }
+//}
 public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
