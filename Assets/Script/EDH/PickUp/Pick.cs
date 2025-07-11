@@ -27,7 +27,7 @@ public class Pick : MonoBehaviour
     [SerializeField]
     private PickLogic pickLogic; // 뽑기 로직
 
-   private int PickPoint;    // 뽑은 횟수
+    private int PickPoint;    // 뽑은 횟수
 
 
     private void Awake()
@@ -37,6 +37,7 @@ public class Pick : MonoBehaviour
         PickTen.onClick.AddListener(PickTenTimes);      // 10회 뽑기
         RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기
         RePickTen.onClick.AddListener(() => PickTenTimes());     // 10회 다시 뽑기
+
         PlayerCurrencyEvent.OnTicketChange += value => ShowTicketAmountText.text = value.ToString();
         Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
     }
@@ -44,8 +45,8 @@ public class Pick : MonoBehaviour
     private void OnEnable()
     {
 
-        ShowTicketAmountText.text = PlayerDataManager.Instance.player.ticket.ToString();
-        PityCount.text = PickPoint.ToString();                      // 현재 마일리지
+        ShowTicketAmountText.text = PlayerDataManager.Instance.player.ticket.ToString();              // 현재 보유 티켓 수량
+        PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();                      // 현재 마일리지
 
         //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)
     }
@@ -60,11 +61,12 @@ public class Pick : MonoBehaviour
 
             PlayerDataManager.Instance.player.ticket = Math.Max(PlayerDataManager.Instance.player.ticket, 0); // 0검사
             Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
+
             PlayerCurrencyEvent.OnTicketChange -= value => ShowTicketAmountText.text = value.ToString();
-            PickPoint++;
+            PlayerDataManager.Instance.player.pickPoint++;
 
             ShowTicketAmountText.text = PlayerDataManager.Instance.player.ticket.ToString();
-            PityCount.text = PickPoint.ToString();
+            PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();
 
             PickOnePage.SetActive(true);
             pickLogic.DrawOne();
@@ -84,11 +86,12 @@ public class Pick : MonoBehaviour
             PlayerDataManager.Instance.UseTicket(10);
             PlayerDataManager.Instance.player.ticket = Math.Max(PlayerDataManager.Instance.player.ticket, 0); // 예외처리
             Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
+
             PlayerCurrencyEvent.OnTicketChange -= value => ShowTicketAmountText.text = value.ToString();
-            PickPoint += 10;
+            PlayerDataManager.Instance.player.pickPoint += 10;
 
             ShowTicketAmountText.text = PlayerDataManager.Instance.player.ticket.ToString();
-            PityCount.text = PickPoint.ToString();
+            PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();
 
             PickTenPage.SetActive(true);
             pickLogic.DrawTen();
