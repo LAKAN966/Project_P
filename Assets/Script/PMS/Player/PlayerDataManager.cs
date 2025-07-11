@@ -160,7 +160,7 @@ public class PlayerDataManager
         }
     }
 
-    public void RefreshActionPoint()
+    public int RefreshActionPoint()
     {
         long now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         long last = player.lastActionPointTime;
@@ -168,7 +168,7 @@ public class PlayerDataManager
         if (last == 0)
         {
             player.lastActionPointTime = now;
-            return;
+            return 60;
         }
 
         long elapsedSeconds = now - last;
@@ -176,11 +176,25 @@ public class PlayerDataManager
 
         if (recovered > 0)
         {
-            player.actionPoint = Mathf.Min(player.actionPoint + recovered, 100); // 최대치 100과 비교해서 낮은쪽 사용.
+            player.actionPoint = Mathf.Min(player.actionPoint + recovered, player.maxActionPoint); // 최대치 100과 비교해서 낮은쪽 사용.
             player.lastActionPointTime += recovered * 60;
 
             PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
         }
+        return NextRecoverTime();
+    }
+    public int NextRecoverTime()
+    {
+        if(player.actionPoint >= 0)
+        {
+            return 0;
+        }
+
+        long now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        long last = player.lastActionPointTime;
+        long elapsed = now - last;
+
+        return (int)(60 - (elapsed % 60));
     }
 
     public bool UseActionPoint(int amount)
