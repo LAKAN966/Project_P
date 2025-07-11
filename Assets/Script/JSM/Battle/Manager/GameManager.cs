@@ -46,8 +46,8 @@ public class GameManager : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        StageManager.instance.AddReward();
-        StageManager.instance.ClearStage();
+        StageManager.instance.AddReward(WaveManager.Instance.stageID);
+        StageManager.instance.ClearStage(WaveManager.Instance.stageID);
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
