@@ -29,7 +29,7 @@ public class PurchaseSync : MonoBehaviour
     public TMP_Text NotEnoughBoxText;  // 재화 부족 경고 텍스트
     public GameObject NotEnoughBox;    // 재화 부족 경고
     public PurchaseBoxSet purchaseBoxSet;
- 
+
 
     public void Start()
     {
@@ -70,34 +70,35 @@ public class PurchaseSync : MonoBehaviour
             }
         }
         );
-        PurchaseButton.onClick.AddListener (PurchaseItem); // 구매
+        PurchaseButton.onClick.AddListener(PurchaseItem); // 구매
     }
     public void PurchaseItem()
     {
         Debug.Log(PlayerDataManager.Instance.player.gold + "이건 플레이어 골드");
         Debug.Log(_Item.Cost + "아이템 가격");
-        
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
         if (_Item.Cost <= PlayerDataManager.Instance.player.gold)
         {
-                PlayerDataManager.Instance.UseGold(Cost * Amount);
-                if(_Item.ID == 101)    
-                {
-                PlayerDataManager.Instance.AddTicket (Amount);
-                PlayerCurrencyEvent.OnTicketChange.Invoke(Amount);
+            PlayerDataManager.Instance.UseGold(Cost * Amount);
+            if (_Item.ID == 101)
+            {
+                PlayerDataManager.Instance.AddTicket(Amount);
+                InputAmount.text = "1";
                 Debug.Log(PlayerDataManager.Instance.player.ticket);
-                }
-                if (_Item.ID == 102)
-                {
-                    PlayerDataManager.Instance.AddTribute(Amount);
-                }
-                if (_Item.ID == 103)
-                {
-                    PlayerDataManager.Instance.AddBluePrint(Amount);
-                }
-                ShoppingManager.Instance.ShowNowGold();
-                purchaseBoxSet.TabClose();
+            }
+            if (_Item.ID == 102)
+            {
+                PlayerDataManager.Instance.AddTribute(Amount);
+                InputAmount.text = "1";
+            }
+            if (_Item.ID == 103)
+            {
+                PlayerDataManager.Instance.AddBluePrint(Amount);
+                InputAmount.text = "1";
+            }
+            ShoppingManager.Instance.ShowNowGold();
+            purchaseBoxSet.TabClose();
         }
         else
         {

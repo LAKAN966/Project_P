@@ -46,6 +46,8 @@ public class Pick : MonoBehaviour
 
 
         PlayerCurrencyEvent.OnTicketChange += value => ShowTicketAmountText.text = value.ToString();
+        Debug.Log(TicketAmount.ToString()+ "티켓 보유수");
+
         ShowTicketAmountText.text = TicketAmount.ToString();
         PityCount.text = PickPoint.ToString();                      // 현재 마일리지
 
@@ -58,9 +60,12 @@ public class Pick : MonoBehaviour
         Dictionary<int, PickInfo> PickInfo = PickUpListLoader.Instance.GetAllPickList();
         if (TicketAmount >= 1)
         {
-            TicketAmount--; // 1장 소모
-            TicketAmount = Math.Max(TicketAmount, 0); // 0검사
+            TicketAmount --;
+            PlayerDataManager.Instance.UseTicket(TicketAmount);
 
+            TicketAmount = Math.Max(TicketAmount, 0); // 0검사
+            Debug.Log(TicketAmount.ToString() + "티켓 보유수");
+            PlayerCurrencyEvent.OnTicketChange -= value => ShowTicketAmountText.text = value.ToString();
             PickPoint++;
 
             ShowTicketAmountText.text = TicketAmount.ToString();
@@ -72,6 +77,7 @@ public class Pick : MonoBehaviour
         else
         {
             Debug.Log("티켓이 부족합니다");
+            Debug.Log(TicketAmount.ToString() + "티켓 보유수");
         }
     }
 
@@ -80,12 +86,12 @@ public class Pick : MonoBehaviour
         var pickTable = PickUpListLoader.Instance.GetAllPickList();
         if (TicketAmount >= 10)
         {
-            TicketAmount -= 10;// 10장 소모
+            TicketAmount -= 10;
+            PlayerDataManager.Instance.UseTicket(TicketAmount);
             TicketAmount = Math.Max(TicketAmount, 0); // 예외처리
-
-            if (TicketAmount < 0)
-                PickPoint += 0;
-            else PickPoint += 10;
+            Debug.Log(TicketAmount.ToString() + "티켓 보유수");
+            PlayerCurrencyEvent.OnTicketChange -= value => ShowTicketAmountText.text = value.ToString();
+            PickPoint += 10;
 
             ShowTicketAmountText.text = TicketAmount.ToString();
             PityCount.text = PickPoint.ToString();
@@ -96,6 +102,7 @@ public class Pick : MonoBehaviour
         else
         {
             Debug.Log("티켓이 부족합니다");
+            Debug.Log(TicketAmount.ToString() + "티켓 보유수");
         }
     }
 }
