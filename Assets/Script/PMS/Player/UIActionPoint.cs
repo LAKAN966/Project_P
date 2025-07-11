@@ -49,8 +49,9 @@ public class UIActionPoint : MonoBehaviour
             else
             {
                 TimeSpan span = TimeSpan.FromSeconds(nextRecover);
-                timerText.text = $"다음 회복: {span.Minutes:D2}:{span.Seconds:D2}";
+                timerText.text = $"{span.Minutes:D2}:{span.Seconds:D2}";
             }
+            actionPointText.text = $"{player.actionPoint}/{player.maxActionPoint}";
 
             yield return new WaitForSeconds(1f);
         }

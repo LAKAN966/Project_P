@@ -185,7 +185,7 @@ public class PlayerDataManager
     }
     public int NextRecoverTime()
     {
-        if(player.actionPoint >= 0)
+        if(player.actionPoint >= player.maxActionPoint)
         {
             return 0;
         }
