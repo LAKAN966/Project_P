@@ -22,7 +22,7 @@ public class Player
     public List<BuildingState> buildingsList = new();
     public Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();
 
-
+    public int pickPoint = 0;
 
     //private int Gold = 999999; // 골드
     //private int Ticket = 0; // 뽑기 재화
