@@ -6,6 +6,8 @@ using TMPro;
 using Button = UnityEngine.UI.Button;
 using System.ComponentModel;
 using static UnityEditor.Progress;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 
 
 public class PurchaseSync : MonoBehaviour
@@ -78,9 +80,8 @@ public class PurchaseSync : MonoBehaviour
         Debug.Log(_Item.Cost + "아이템 가격");
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
-        if (_Item.Cost <= PlayerDataManager.Instance.player.gold)
+        if (PlayerDataManager.Instance.UseGold(Cost * Amount))
         {
-            PlayerDataManager.Instance.UseGold(Cost * Amount);
             if (_Item.ID == 101)
             {
                 PlayerDataManager.Instance.AddTicket(Amount);

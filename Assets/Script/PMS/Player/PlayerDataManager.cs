@@ -115,7 +115,7 @@ public class PlayerDataManager
     {
         if (player.myUnitIDs.Contains(id))
         {
-            Debug.Log("이미 동일한 유닛이 존재합니다.");
+            Debug.Log("이미 동일한 유닛이 존재합니다."+id);
             return false;
         }
 

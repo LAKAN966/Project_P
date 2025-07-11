@@ -161,18 +161,19 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    public void ClearStage() // 클리어 스테이지 플레이어에 추가. 배틀 끝나고 불러오기.
+    public void ClearStage(int id) // 클리어 스테이지 플레이어에 추가. 배틀 끝나고 불러오기.
     {
-        PlayerDataManager.Instance.ClearStage(selectedStageID);
-        PlayerDataManager.Instance.UseActionPoint(StageDataManager.Instance.GetStageData(selectedStageID).ActionPoint);
+        Debug.Log("???");
+        PlayerDataManager.Instance.ClearStage(id);
+        PlayerDataManager.Instance.UseActionPoint(StageDataManager.Instance.GetStageData(id).ActionPoint);
         QuestEvent.OnMainChapterClear?.Invoke();
     }
 
-    public void AddReward() // 스테이지 클리어 보상
+    public void AddReward(int id) // 스테이지 클리어 보상
     {
-        var stageData = StageDataManager.Instance.GetStageData(selectedStageID);
+        var stageData = StageDataManager.Instance.GetStageData(id);
 
-        bool firstClear = !PlayerDataManager.Instance.HasClearedStage(selectedStageID);
+        bool firstClear = !PlayerDataManager.Instance.HasClearedStage(id);
 
         if (firstClear)
         {
