@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,8 +9,9 @@ public class PickLogic : MonoBehaviour
     public PickSlotSpawner pickSlotSpawner;
     public void DrawOne() //1뽑
     {
-        PickInfo pick = PickRandom();
-        pickSlotSpawner.SpawnCardOne(pick);
+        List<PickInfo> picks = new List<PickInfo>();
+        picks.Add(PickRandom());
+        pickSlotSpawner.SpawnCardOne(PickRandom());
     }
     public void DrawTen()//10뽑
     {
@@ -20,29 +22,25 @@ public class PickLogic : MonoBehaviour
             picks.Add(PickRandom());
         }
         pickSlotSpawner.SpawnCardTen(picks);
-        
+
     }
     public PickInfo PickRandom()// 랜덤뽑기 로직
     {
-        Dictionary<int, PickInfo> pickInfoDict = PickUpListLoader.Instance.GetAllPickList();
-        List<int> keys = pickInfoDict.Keys.ToList();
 
-        int randomKey = keys[Random.Range(0, keys.Count)];
+        List<PickInfo> PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
 
-        PickInfo originalPick = pickInfoDict[randomKey];
+        PickInfo randomPick = PicklistDo[(PicklistDo.Count - 1)]; // -1은 최상단 밸류 명칭 라인.
 
-        Debug.Log(originalPick.ID);
-        Debug.Log(originalPick.Name);
-
-        PickInfo randomPick = new PickInfo
+        PickInfo Result = new PickInfo
         {
-            ID = originalPick.ID,
-            Name = originalPick.Name,
-            IsHero = Random.value < 0.1f
+            ID = randomPick.ID,
+            Name = randomPick.Name,
+            IsHero = UnityEngine.Random.value < 0.1f,
+            IsEnemy = randomPick.IsEnemy
         };
 
-        Debug.Log($"뽑기 결과: {(randomPick.IsHero ? "영웅!" : "일반")}");
-        return randomPick;
+        Debug.Log($"뽑기 결과: {(Result.IsHero ? "영웅!" : "일반")}");
+        return Result;
     }
 }
 

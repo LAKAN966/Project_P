@@ -10,4 +10,5 @@ public class PickInfo
     public bool   IsHero;               //유닛 타입
     public string Uniticon;             //유닛 아이콘
     public int warrant;                 //유닛 증명서 가치.
+    public bool IsEnemy;
 }
