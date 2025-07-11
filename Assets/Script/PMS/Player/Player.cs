@@ -18,6 +18,9 @@ public class Player
     public int maxActionPoint = 100;
     public long lastActionPointTime;
 
+    public long lastDailyQuestTime = 0; // 일일 퀘스트 초기화 시간
+    public long lastWeeklyQuestTime = 0; // 주간 퀘스트 초기화 시간
+
     public List<PlayerQuestData> playerQuest = new();
 
     public List<BuildingState> buildingsList = new();
