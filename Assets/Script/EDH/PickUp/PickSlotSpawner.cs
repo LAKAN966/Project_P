@@ -19,15 +19,20 @@ public class PickSlotSpawner : MonoBehaviour
     public void SpawnCardOne(PickInfo pick) //1개 뽑기 결과 생성
     {
         List<PickInfo> Alliance = new();
+        var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
         foreach (Transform Child in Grid1)
         {
             Destroy(Child.gameObject);
         }
         Debug.Log(pick + "총아이템의 개수");
 
-        if (pick.IsEnemy == false)
+        foreach (PickInfo pickInfo in PicklistDo)
         {
-            Alliance.Add(pick);
+            if (pickInfo.IsEnemy == false)
+            {
+                Debug.Log($"{pickInfo.IsEnemy}, {pickInfo.Name}");
+                Alliance.Add(pickInfo);
+            }
         }
         CreateCard(Alliance, Grid1);
         PlayerDataManager.Instance.AddUnit(pick.ID);
@@ -49,7 +54,8 @@ public class PickSlotSpawner : MonoBehaviour
                 Alliance.Add(pickInfo);
             }
         }
-        CreateCard(Alliance, Grid2);
+        for (int i = 0; i < 10; i++)
+            CreateCard(Alliance, Grid2);
         foreach (PickInfo pick in picks)
         {
             PlayerDataManager.Instance.AddUnit(pick.ID);
@@ -59,11 +65,10 @@ public class PickSlotSpawner : MonoBehaviour
     {
         UnitCardSlot slot = new UnitCardSlot();
         List<PickInfo> RanResult = new();
-        for (int i = 0; i < 10; i++)
-        {
-            int ranindex = Random.Range(0, Alliance.Count);
-            RanResult.Add(Alliance[ranindex]);
-        }
+
+        int ranindex = Random.Range(0, Alliance.Count);
+        RanResult.Add(Alliance[ranindex]);
+        
         foreach (PickInfo pickInfo in RanResult)
         {
             GameObject go = Instantiate(UnitICard, parent); //1
