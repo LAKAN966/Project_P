@@ -6,7 +6,10 @@ public class BattleSpeed : MonoBehaviour
     public TextMeshProUGUI speedLabel;
 
     public int gameSpeed = 1;
-
+    public void Awake()
+    {
+        Time.timeScale = 1f;
+    }
     public void ToggleSpeed()
     {
         switch (gameSpeed)

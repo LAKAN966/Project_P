@@ -19,9 +19,14 @@ public class BuildManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        DontDestroyOnLoad(this);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
 
         for (int i = 0; i < count; i++)
         {
