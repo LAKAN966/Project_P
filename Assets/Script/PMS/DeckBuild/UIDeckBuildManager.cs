@@ -139,7 +139,9 @@ public class UIDeckBuildManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (int unitID in cachedUnitOrder)
+        var sortedUnitID = cachedUnitOrder.OrderBy(id => DeckManager.Instance.CheckInDeck(id)).ToList();
+
+        foreach (int unitID in sortedUnitID)
         {
             var stats = UnitDataManager.Instance.GetStats(unitID);
             if (stats == null) continue;

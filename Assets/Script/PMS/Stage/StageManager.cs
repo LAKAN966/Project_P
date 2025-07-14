@@ -19,6 +19,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private StageNode stageNodePrefab;
     [SerializeField] private Button battleBtn;
     [SerializeField] private GameObject stageInfo;
+    [SerializeField] private GameObject uiStage;
 
     public Action<int> SetStageInfo;
 
@@ -135,7 +136,7 @@ public class StageManager : MonoBehaviour
         selectedStageID = stageID;
         Debug.Log($"스테이지 {stageID} 선택됨");
         stageInfo.SetActive(true);
-
+        uiStage.GetComponent<UIStageInfo>().SetStageInfo(stageID);
         battleBtn.gameObject.SetActive(true);
     }
 
