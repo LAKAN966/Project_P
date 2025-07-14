@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36004b3cbc4d7c4a91d432d99a17112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotID: 0
   buildingID: 0
   slotImage: {fileID: 4030526634167750464}
   nameText: {fileID: 630680837653717900}
@@ -697,7 +698,8 @@ MonoBehaviour:
   buildListUI: {fileID: 0}
   buildGospelUI: {fileID: 0}
   levelUpPanel: {fileID: 0}
-  maxHeight: 500
+  maxHeight: 600
+  Level: 0
 --- !u!114 &5972918704138658293
 MonoBehaviour:
   m_ObjectHideFlags: 0

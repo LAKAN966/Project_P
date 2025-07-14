@@ -76,8 +76,8 @@ public class BuildSlotUI : MonoBehaviour
         {
             if (!nameText.gameObject.activeSelf)
                 nameText.gameObject.SetActive(true);
-
-            nameText.text = BuildManager.Instance.buildings[buildingID - 1].displayName;
+            Debug.Log(buildingID);
+            nameText.text = BuildManager.Instance.GetBuildingData(buildingID).displayName;
         }
 
         if (levelText != null)
