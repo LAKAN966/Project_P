@@ -51,6 +51,9 @@ public class StageDataManager
                 Chapter = int.Parse(tokens[1]),
                 BaseDistance = float.Parse(tokens[2]),
                 EnemyBaseHP = int.Parse(tokens[3]),
+                EnemyUnit1 = int.Parse(tokens[4]),
+                EnemyUnit2 = int.Parse(tokens[5]),
+                
                 StageName = tokens[11],
                 TeaTime = float.Parse(tokens[12]),
                 ResetTime = float.Parse(tokens[13]),
