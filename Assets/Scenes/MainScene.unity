@@ -26116,7 +26116,7 @@ RectTransform:
   m_Father: {fileID: 7533351122171311578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -28264,6 +28264,7 @@ GameObject:
   - component: {fileID: 1840972017226864395}
   - component: {fileID: 9207689705471026988}
   - component: {fileID: 3095338558479087949}
+  - component: {fileID: 9207689705471026989}
   m_Layer: 5
   m_Name: FPSBox
   m_TagString: Untagged
@@ -31360,7 +31361,7 @@ RectTransform:
   m_Father: {fileID: 5776017301442251703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -31516,7 +31517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2970304431837491255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47326,6 +47327,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1749616970589265098}
   m_CullTransparentMesh: 1
+--- !u!114 &9207689705471026989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749616970589265098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e19a2a77801d2e46ac2b965cfa45862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LowFPSbtn: {fileID: 7164149219128014093}
+  HighFPSbtn: {fileID: 4360573719012775773}
+  spriteRendererOne: {fileID: 3927315014924303480}
+  SpriteRendererTwo: {fileID: 7388656591007364147}
 --- !u!1 &9207864367186484929
 GameObject:
   m_ObjectHideFlags: 0
