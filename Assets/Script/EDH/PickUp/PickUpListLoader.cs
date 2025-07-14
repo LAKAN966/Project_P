@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 public class PickUpListLoader : Singleton<PickUpListLoader>
 {
-    private void Start()
+    private void Awake()
     {
         PickUps();
     }
