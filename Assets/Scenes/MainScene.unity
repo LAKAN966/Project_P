@@ -21286,7 +21286,7 @@ AudioSource:
   m_GameObject: {fileID: 1938392141}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 413dc3f4a8314db438372b30fcb2f3eb, type: 2}
   m_audioClip: {fileID: 8300000, guid: 86f926dcdf3290543aa9b17116a6f2b7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -31653,6 +31653,7 @@ GameObject:
   - component: {fileID: 9004452737952850753}
   - component: {fileID: 3267807509905152809}
   - component: {fileID: 8323945115999808882}
+  - component: {fileID: 9004452737952850754}
   m_Layer: 5
   m_Name: SettingPanel
   m_TagString: Untagged
@@ -46648,6 +46649,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9004452737952850754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2966709351446205592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8da92ea386f860044a377ce81c5dcb07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainMixer: {fileID: 24100000, guid: 413dc3f4a8314db438372b30fcb2f3eb, type: 2}
+  BGMslider: {fileID: 1418274548654579772}
+  SFXslider: {fileID: 3741778430698819193}
 --- !u!224 &9017493801126227974
 RectTransform:
   m_ObjectHideFlags: 0

@@ -6,13 +6,11 @@ public class SoundManager : Singleton<SoundManager>
 {
     AudioSource audioSource;
     public AudioClip clip;
-
     
     void Start()
     {
-        audioSource.Play();
-        audioSource.clip = this.clip;
-
         audioSource = GetComponent<AudioSource>();
+        audioSource.clip = this.clip;
+        audioSource.Play();
     }
 }
