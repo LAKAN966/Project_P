@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class GospelManager : MonoBehaviour
 {
-    public Dictionary<int, List<List<GospelData>>> gospelMap = new();//id별 건물의 레이어별 데이터
+    public Dictionary<int, List<List<GospelData>>> gospelMap = new(); // buildID별 레이어 구조
+    private Dictionary<int, GospelData> gospelByID = new(); // gospelID 기준 접근용
 
     public static GospelManager Instance;
 
@@ -29,11 +30,12 @@ public class GospelManager : MonoBehaviour
     public void LoadGospels()
     {
         gospelMap.Clear();
+        gospelByID.Clear();
 
         TextAsset csvFile = Resources.Load<TextAsset>("Data/GospelData");
         if (csvFile == null)
         {
-            Debug.LogError("Resources/Data/Gospels.csv 파일이 존재하지 않습니다.");
+            Debug.LogError("Resources/Data/GospelData.csv 파일이 존재하지 않습니다.");
             return;
         }
 
@@ -53,6 +55,8 @@ public class GospelManager : MonoBehaviour
             int statIndex = int.Parse(parts[6].Trim());
             float effectValue = float.Parse(parts[7].Trim());
 
+            var gospel = new GospelData(id, buildID, order, cost, desc, name, statIndex, effectValue);
+
             if (!gospelMap.ContainsKey(buildID))
                 gospelMap[buildID] = new List<List<GospelData>>();
 
@@ -60,12 +64,12 @@ public class GospelManager : MonoBehaviour
             if (layers.Count == 0 || layers[^1][0].order != order)
                 layers.Add(new List<GospelData>());
 
-            layers[^1].Add(new GospelData(id, buildID, order, cost, desc, name, statIndex, effectValue));
+            layers[^1].Add(gospel);
+            gospelByID[id] = gospel;
         }
 
         Debug.Log($"복음 데이터 로딩 완료: {gospelMap.Count}개 빌딩에 대해 로딩됨");
     }
-
 
     public List<List<GospelData>> GetGospelsByBuildID(int buildID)
     {
@@ -74,7 +78,8 @@ public class GospelManager : MonoBehaviour
 
     public bool IsSelected(int buildID, int gospelID)
     {
-        return PlayerDataManager.Instance.player.selectedGospelIDsByBuildID.ContainsKey(buildID) && PlayerDataManager.Instance.player.selectedGospelIDsByBuildID[buildID].Contains(gospelID);
+        return PlayerDataManager.Instance.player.selectedGospelIDsByBuildID.ContainsKey(buildID) &&
+               PlayerDataManager.Instance.player.selectedGospelIDsByBuildID[buildID].Contains(gospelID);
     }
 
     public int GetCurrentSelectableOrder(int buildID)
@@ -91,19 +96,11 @@ public class GospelManager : MonoBehaviour
         }
         return layers.Count;
     }
+
     public GospelData GetGospelByID(int gospelID)
     {
-        foreach (var buildEntry in gospelMap.Values)
-        {
-            foreach (var layer in buildEntry)
-            {
-                foreach (var gospel in layer)
-                {
-                    if (gospel.id == gospelID)
-                        return gospel;
-                }
-            }
-        }
+        if (gospelByID.TryGetValue(gospelID, out var data))
+            return data;
 
         Debug.LogWarning($"Gospel ID {gospelID}에 해당하는 데이터를 찾을 수 없습니다.");
         return null;
@@ -113,8 +110,13 @@ public class GospelManager : MonoBehaviour
     {
         if (!PlayerDataManager.Instance.player.selectedGospelIDsByBuildID.ContainsKey(buildID))
             PlayerDataManager.Instance.player.selectedGospelIDsByBuildID[buildID] = new HashSet<int>();
+
         PlayerDataManager.Instance.player.selectedGospelIDsByBuildID[buildID].Add(gospelID);
+
         GospelData data = GetGospelByID(gospelID);
-        BuffManager.UpdateBuffStat(BuildManager.Instance.GetBuildingRaceID(buildID), data.statIndex, data.effectValue);
+        if (data != null)
+        {
+            BuffManager.UpdateBuffStat(BuildManager.Instance.GetBuildingRaceID(buildID), data.statIndex, data.effectValue);
+        }
     }
 }

@@ -36,10 +36,6 @@ public class UIController : Singleton<UIController>
         ShowNowGold();
         PlayerCurrencyEvent.OnGoldChange += value => ShowNowGold();
     }
-    private void Update()
-    {
-        
-    }
 
     public void SetButton()
     {
@@ -53,26 +49,39 @@ public class UIController : Singleton<UIController>
     public void UnitManageActive()
     {
         DeckBuild.SetActive(true);
+        Main.SetActive(false);
         UIDeckBuildManager.instance.Init();
     }
     public void OpenStage()
     {
         Stage.SetActive(true);
+        Main.SetActive(false);
         StageManager.instance.Init();
     }
     public void OpenGottcha()
     {
         Gotta.SetActive(true);
+        Main.SetActive(false);
     }
     public void OpenSacredPlace()
     {
         HQ.SetActive(true);
+        Main.SetActive(false);
     }
     public void OpenShop()
     {
         Shop.SetActive(true);
+        Main.SetActive(false);
     }
-
+    public void OnExitBtn()
+    {
+        Main.SetActive(true);
+        Stage.SetActive(false);
+        DeckBuild.SetActive(false);
+        Shop.SetActive(false);
+        HQ.SetActive(false);
+        Gotta.SetActive(false);
+    }
     public void ShowNowGold()
     {
         MainGoldAmount.text = PlayerDataManager.Instance.player.gold.ToString();

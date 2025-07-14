@@ -48,7 +48,6 @@ public class BuildManager : MonoBehaviour
     {
         if (selectedSlot == null) return;
 
-
         BuildingData building = GetBuildingData(buildingIndex);
         selectedSlot.Build(building, 1);
         PlayerDataManager.Instance.player.buildingsList[selectedSlot.slotID].buildingData = building;

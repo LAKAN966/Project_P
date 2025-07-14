@@ -43,9 +43,9 @@ public class UIUnitInfo : MonoBehaviour
                 return;
             }
 
-            nameValueText.text = $": {stats.Name}";
-            hpValueText.text = $": {stats.MaxHP.ToString()}";
-            damageValueText.text = $": {stats.Damage.ToString()}";
+            nameValueText.text = $"이름 : {stats.Name}";
+            hpValueText.text = $"체력 : {stats.MaxHP.ToString()}";
+            damageValueText.text = $"공격력 : {stats.Damage.ToString()}";
         }
 
         else

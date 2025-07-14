@@ -32,8 +32,8 @@ public class BuildingLevelUpUI : MonoBehaviour
 
         buildImg.sprite = buildSlotUI.slotImage.sprite;
         Debug.Log(buildSlotUI.buildingID);
-        moneyTxt.text = $"{PlayerDataManager.Instance.player.gold} / {BuildManager.Instance.buildings[buildSlotUI.buildingID-1].goldList[buildSlotUI.Level-1]}";
-        tributeTxt.text = $"{PlayerDataManager.Instance.player.tribute} / {BuildManager.Instance.buildings[buildSlotUI.buildingID-1].costList[buildSlotUI.Level-1]}";
+        moneyTxt.text = $"{PlayerDataManager.Instance.player.gold} / {BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).goldList[buildSlotUI.Level-1]}";
+        tributeTxt.text = $"{PlayerDataManager.Instance.player.tribute} / {BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).costList[buildSlotUI.Level-1]}";
         currentLevelTxt.text = buildSlotUI.Level.ToString();
         nextLevelTxt.text = (buildSlotUI.Level+1).ToString();
         
@@ -41,16 +41,16 @@ public class BuildingLevelUpUI : MonoBehaviour
         confirmButton.onClick.RemoveAllListeners();
         confirmButton.onClick.AddListener(() =>
         {
-            if (PlayerDataManager.Instance.player.gold < BuildManager.Instance.buildings[buildSlotUI.buildingID].goldList[buildSlotUI.Level - 1]
-             || PlayerDataManager.Instance.player.tribute < BuildManager.Instance.buildings[buildSlotUI.buildingID].costList[buildSlotUI.Level - 1])
+            if (PlayerDataManager.Instance.player.gold < BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).goldList[buildSlotUI.Level - 1]
+             || PlayerDataManager.Instance.player.tribute < BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).costList[buildSlotUI.Level - 1])
             {
                 HQResourceUI.Instance.ShowLackPanel();
                 levelUpPanel.SetActive(false);
                 return;
             }
 
-            PlayerDataManager.Instance.UseGold(BuildManager.Instance.buildings[buildSlotUI.buildingID].goldList[buildSlotUI.Level - 1]);
-            PlayerDataManager.Instance.UseTribute(BuildManager.Instance.buildings[buildSlotUI.buildingID].costList[buildSlotUI.Level - 1]);
+            PlayerDataManager.Instance.UseGold(BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).goldList[buildSlotUI.Level - 1]);
+            PlayerDataManager.Instance.UseTribute(BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).costList[buildSlotUI.Level - 1]);
             HQResourceUI.Instance.UpdateUI();
             buildSlotUI.LevelUp();
             if(buildSlotUI.Level == 5)
