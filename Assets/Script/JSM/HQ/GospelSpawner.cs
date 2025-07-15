@@ -39,6 +39,7 @@ public class GospelSpawner : MonoBehaviour
         if (parent == null) parent = this.transform;
 
         var layeredGospels = GospelManager.Instance.GetGospelsByBuildID(buildID);
+        //Debug.Log(layeredGospels.Count+"+"+buildID);
         int currentSelectableOrder = GospelManager.Instance.GetCurrentSelectableOrder(buildID);
 
         for (int order = layeredGospels.Count - 1; order >= 0; order--)
@@ -77,11 +78,14 @@ public class GospelSpawner : MonoBehaviour
                     slotUI.SetData(gospel, state);
                 }
             }
-            if(BuildManager.Instance.GetOrderLevel(buildID, level)<=order)
+
+            if (order > BuildManager.Instance.GetOrderLevel(buildID, level))
             {
+                int requiredLevel = BuildManager.Instance.GetRequiredLevelForOrder(buildID, order);
                 GameObject lack = Instantiate(LackLevelPanel, container.transform);
-                lack.GetComponentInChildren<TextMeshProUGUI>().text = BuildManager.Instance.GetNextLevel(buildID, order).ToString()+"레벨에 해금됩니다.";
+                lack.GetComponentInChildren<TextMeshProUGUI>().text = $"{requiredLevel}레벨에 해금됩니다.";
             }
+
         }
     }
     public void OnSlotSelected(GospelSlotUI selectedSlot)
