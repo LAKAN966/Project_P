@@ -56,7 +56,7 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
         }
     }
     public void Init(PickInfo pickInfo,CertiSlot certiSlot)
-    { Debug.Log("c");
+    {   Debug.Log("c");
         Info = pickInfo;
         cSlot = certiSlot;
     }

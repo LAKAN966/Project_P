@@ -19,6 +19,7 @@ public class UIController : Singleton<UIController>
     public GameObject PurchaseUIBox;         //구매시 상자창
     public GameObject PurchaseCertiUnitBox;  //유닛 교환시 상자창
     public GameObject DescriptionBox;        //아이템 설명창
+    public GameObject CertiDescriptionBox;   //증명서 유닛 설명창
     public TMP_Text MainGoldAmount;          //골드 표기
     public TMP_Text StoreGoldAmount;         //상점에서 골드 표기   
 
