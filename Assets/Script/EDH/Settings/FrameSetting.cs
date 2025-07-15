@@ -23,7 +23,7 @@ public class FrameSetting : MonoBehaviour
         Debug.Log("나는 초록");
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
-        Debug.Log(Application.targetFrameRate);
+        Debug.Log("현재 프레임" + Application.targetFrameRate);
         SpriteRendererTwo.color = Color.white;
     }
 
@@ -32,7 +32,7 @@ public class FrameSetting : MonoBehaviour
         SpriteRendererTwo.color = Color.green; 
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-        Debug.Log(Application.targetFrameRate);
+        Debug.Log("현재 프레임" + Application.targetFrameRate);
         spriteRendererOne.color = Color.white;
     }
 }
