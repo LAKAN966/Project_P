@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject allyHeroPool;
     public GameObject enemyHeroPool;
     public BattleSpeed battleSpeed;
+    public GameObject touchBlock;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     public void OnBaseDestroyed(bool isEnemyBase)
     {
         gameoverUI.SetActive(true);
+        touchBlock.SetActive(true);
         if (isEnemyBase)
         {//승리
             gameoverUI.GetComponent<GameOverPanel>().Win();
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         StageManager.instance.AddReward(WaveManager.Instance.stageID);
         StageManager.instance.ClearStage(WaveManager.Instance.stageID);
+        UIController.Instance.OpenStage();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

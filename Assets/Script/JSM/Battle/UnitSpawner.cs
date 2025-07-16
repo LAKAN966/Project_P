@@ -35,7 +35,6 @@ public class UnitSpawner : MonoBehaviour
         allySpawnPosition = GetSpawnPosition(false);
         enemySpawnPosition = GetSpawnPosition(true);
 
-        SetButton();
     }
     public void Init(List<UnitStats> normalDeck, UnitStats leaderDeck)
     {

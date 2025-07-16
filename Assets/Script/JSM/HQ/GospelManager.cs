@@ -25,6 +25,7 @@ public class GospelManager : MonoBehaviour
     private void Start()
     {
         LoadGospels();
+        //DebugGospelMap();
     }
 
     public void LoadGospels()
@@ -119,4 +120,26 @@ public class GospelManager : MonoBehaviour
             BuffManager.UpdateBuffStat(BuildManager.Instance.GetBuildingRaceID(buildID), data.statIndex, data.effectValue);
         }
     }
+    public void DebugGospelMap()
+    {
+        foreach (var kvp in gospelMap)
+        {
+            int buildID = kvp.Key;
+            List<List<GospelData>> layers = kvp.Value;
+
+            Debug.Log($"📦 BuildID: {buildID}, 레이어 수: {layers.Count}");
+
+            for (int i = 0; i < layers.Count; i++)
+            {
+                var layer = layers[i];
+                Debug.Log($"  └─ Layer {i} (복음 수: {layer.Count})");
+
+                foreach (var gospel in layer)
+                {
+                    Debug.Log($"      • ID: {gospel.id}, Order: {gospel.order}, Name: {gospel.name}, StatIndex: {gospel.statIndex}, Value: {gospel.effectValue}");
+                }
+            }
+        }
+    }
+
 }

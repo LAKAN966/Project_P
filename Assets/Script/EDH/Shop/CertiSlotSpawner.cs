@@ -1,61 +1,87 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using System.Linq;
-//using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
 
-//public class CertiSlotSpawner : MonoBehaviour
-//{
-//    [SerializeField] private GameObject CertiSlot;
-//    [SerializeField] private Transform Content;
-
-//    private void Start()
-//    {
-//       // SpawnCeriUnitCard();
-//    }
-
-//    public void SpawnCeriUnitCard(List<PickInfo> picks) 
-//    {
-//       // UnitDataManager.Instance.GetStats();
-//        foreach (PickInfo pickInfo in picks)
-//        {
-//            CreateCard(pickInfo, Content);
-//        }
-//    }
+public class CertiSlotSpawner : MonoBehaviour
+{
+    [SerializeField] private GameObject CertiSlot;
+    [SerializeField] private Transform Content;
 
 
-//    //private void CreateCard(PickInfo pick, Transform parent) //카드 슬롯 생성
-//    //{
-//    //    GameObject go = Instantiate(CertiSlot, parent);
-//    //    UnitCardSlot slot = go.GetComponent<UnitCardSlot>();
-//    //    slot.init(pick);
-//    //}
-
-//    public void DrawCard()
-//    {
-//        List<PickInfo> picks = new List<PickInfo>();
-//        for (int i = 0; i < 10; i++)
-//        {
-//            picks.Add(GetAllCertiUnit());
-//        }
-//        SpawnCeriUnitCard(picks);
-//      }
-//    public PickInfo GetAllCertiUnit()
-//    {
-//        Dictionary<int, PickInfo> pickInfoDict = PickUpListLoader.Instance.GetAllPickList();
-//        List<int> keys = pickInfoDict.Keys.ToList();
-//        int randomKey = keys[Random.Range(0, keys.Count)];
+    private void Start()
+    {
+        ShowCertiUnitCard();
+    }
 
 
-//        PickInfo originalPick = pickInfoDict[randomKey];
+    //public void ShowCertiUnitCard() 
+    //{
+    //    List<PickInfo> Alliance = new();
+    //    var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
+    //    //foreach (Transform Child in Content)
+    //    //{
+    //    //    Destroy(Child.gameObject);
+    //    //}
+    //    foreach (PickInfo pickInfo in PicklistDo)
+    //    {
+    //        if (pickInfo.IsEnemy == false)
+    //        {
+    //            Debug.Log($"{pickInfo.IsEnemy}, {pickInfo.Name}");
+    //            Alliance.Add(pickInfo);
+    //        }
+    //    }
+    //    List<PickInfo> picks = new List<PickInfo>();
+    //    //for (int i = 0; i < Alliance.Count; i++)
 
-//        PickInfo randomPick = new PickInfo
-//        {
-//            ID = originalPick.ID,
-//            Name = originalPick.Name,
-//            warrant = originalPick.warrant
-//        };
+    //    while(Alliance.Count > 0) 
+    //    {
+    //        picks.Add(CreateCard(Alliance, Content));
+    //        Debug.Log(Alliance + "존재");
+    //    }
+    //    Debug.Log (CreateCard(PicklistDo, Content) + "카드생성");
+    //}
+    //private PickInfo CreateCard(List<PickInfo> Alliance, Transform parent) //카드 슬롯 생성
+    //{
+    //    CertiSlot slot = new CertiSlot();
+    //    PickInfo RanResult;
 
-       
-//        return randomPick;
-//    }
-//}
+    //    int ranindex = UnityEngine.Random.Range(0, Alliance.Count);
+    //    RanResult = Alliance[ranindex];
+    //    Alliance.Remove(RanResult);
+
+    //    GameObject go = Instantiate(CertiSlot, parent); //1
+    //    slot = go.GetComponent<CertiSlot>(); //2
+    //    slot.init(RanResult); //3
+
+    //    return RanResult;
+    //}
+
+    public void ShowCertiUnitCard()
+    {
+        var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
+
+        List<PickInfo> Alliance = new();
+        foreach (PickInfo pickInfo in PicklistDo)
+        {
+            if (!pickInfo.IsEnemy)
+            {
+                Alliance.Add(pickInfo);
+            }
+        }
+                                                                                                                                                                                                
+        foreach (var pick in Alliance)
+        {
+            CreateCard(pick, Content);
+        }
+    }
+
+    private void CreateCard(PickInfo pickInfo, Transform parent)
+    {
+        GameObject go = Instantiate(CertiSlot, parent);
+        CertiSlot slot = go.GetComponent<CertiSlot>();
+        slot.init(pickInfo);
+    }
+}

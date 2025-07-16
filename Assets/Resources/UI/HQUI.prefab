@@ -2870,7 +2870,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -520.56244, y: 106}
+  m_AnchoredPosition: {x: -0.020935059, y: 106}
   m_SizeDelta: {x: 0, y: 715.8}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &2783237310796247425
@@ -2927,10 +2927,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 4755986212161089998, guid: 38d95eac087f76846bc0711d85a020f2, type: 3}
   parentObject: {fileID: 1384470663408123041}
-  count: 5
   scrollRect: {fileID: 5879119933426431202}
   buildListUI: {fileID: 4708776706699052546}
   buildGospelUI: {fileID: 7479025796298047440}
+  levelUpPanel: {fileID: 0}
 --- !u!1 &2767996209686644223
 GameObject:
   m_ObjectHideFlags: 0
@@ -5904,8 +5904,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5d87cb23c4bec498ef0f70811754b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoldTxt: {fileID: 2661504473453221283}
-  SkullTxt: {fileID: 5953321691150048577}
+  goldTxt: {fileID: 0}
+  skullTxt: {fileID: 0}
+  bluePrintTxt: {fileID: 0}
   targetPanel: {fileID: 8234667762895610460}
 --- !u!1 &7114948879600991432
 GameObject:
@@ -5997,7 +5998,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 4179374192456244838, guid: 7651eb49cb681ab43a8c9b99269ddbc7, type: 3}
   parentObject: {fileID: 4945279024642173657}
-  count: 3
   scrollRect: {fileID: 5645767311430953982}
   confirmPanel: {fileID: 4649215135988966013}
   confirmButton: {fileID: 6621980896375550947}
@@ -6307,9 +6307,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GospelContainerPrefab: {fileID: 3042625125543671682, guid: 2e38b0a7112f7ac4da3f359d5a255850, type: 3}
   GospelSlotPrefab: {fileID: 5690557332254815112, guid: 0cf380b773631f84c87435704d4fdbae, type: 3}
+  LackLevelPanel: {fileID: 0}
   parent: {fileID: 1863451210901999386}
   buildID: 1
   gospelConfirmUI: {fileID: 7892805918022341888}
+  level: 0
 --- !u!1 &7892805918022341888
 GameObject:
   m_ObjectHideFlags: 0
