@@ -46,9 +46,6 @@ public class StageDataManager
 
             string[] tokens = lines[i].Split(',');
 
-            int.TryParse(tokens[23], out int floor);
-            int.TryParse (tokens[24], out int gimicID);
-
             StageData stage = new StageData
             {
                 ID = int.Parse(tokens[0]),
@@ -57,16 +54,18 @@ public class StageDataManager
                 EnemyBaseHP = int.Parse(tokens[3]),
                 EnemyUnit1 = int.Parse(tokens[4]),
                 EnemyUnit2 = int.Parse(tokens[5]),
-
+                EnemyUnit3 = int.TryParse(tokens[6], out int enemyUnit3) ? enemyUnit3 : 0,
                 StageName = tokens[11],
                 TeaTime = float.Parse(tokens[12]),
                 ResetTime = float.Parse(tokens[13]),
-                EnemyHeroID = int.Parse(tokens[14]),
+                EnemyHeroID = int.TryParse(tokens[14], out int enemyHeroID) ? enemyHeroID : 0,
                 StageBG = tokens[15],
                 ActionPoint = int.Parse(tokens[16]),
-                
-                Floor = floor,
-                GimicID = gimicID
+
+                Floor = tokens.Length > 23 && int.TryParse(tokens[23], out var floor) ? floor : -1,
+                GimicID = string.IsNullOrWhiteSpace(tokens[24]) ? new() : tokens[24].Split(';').Where(s => int.TryParse(s, out _)).Select(int.Parse).ToList(),
+                RaceID = tokens.Length > 25 && int.TryParse(tokens[25], out var raceID) ? raceID : -1
+
             };
 
             if (!string.IsNullOrWhiteSpace(tokens[7]))
@@ -81,12 +80,12 @@ public class StageDataManager
             if (!string.IsNullOrWhiteSpace(tokens[10]))
                 stage.repeatRewardAmounts = tokens[10].Split(';').Select(int.Parse).ToList();
 
-            if (floor > 0) towerStageDic[stage.ID] = stage;
+            if (stage.Floor > 0) towerStageDic[stage.ID] = stage;
             else stageDic[stage.ID] = stage;
                 
         }
 
-        Debug.Log($"스테이지 데이터 로딩 완료: {stageDic.Count}개");
+        Debug.Log($"스테이지 데이터 로딩 완료: 스테이지 {stageDic.Count}개, 타워 {towerStageDic.Count}개");
     }
 
 
@@ -96,6 +95,8 @@ public class StageDataManager
         Debug.Log($"스테이지ID {id}에 해당하는 정보를 찾을 올 수 없습니다.");
         return null;
     }
+
+    public Dictionary<int, StageData> GetAllTowerStageData() => towerStageDic;
 
     public Dictionary<int, StageData> GetAllStageData()
     {
