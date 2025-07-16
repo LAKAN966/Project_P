@@ -27,6 +27,7 @@ public class StageDataManager
         }
     }
     private Dictionary<int, StageData> stageDic = new();
+    private Dictionary<int, StageData> towerStageDic = new();
 
     public void LoadStageData()
     {
@@ -45,6 +46,9 @@ public class StageDataManager
 
             string[] tokens = lines[i].Split(',');
 
+            int.TryParse(tokens[23], out int floor);
+            int.TryParse (tokens[24], out int gimicID);
+
             StageData stage = new StageData
             {
                 ID = int.Parse(tokens[0]),
@@ -61,6 +65,8 @@ public class StageDataManager
                 StageBG = tokens[15],
                 ActionPoint = int.Parse(tokens[16]),
                 
+                Floor = floor,
+                GimicID = gimicID
             };
 
             if (!string.IsNullOrWhiteSpace(tokens[7]))
@@ -75,7 +81,9 @@ public class StageDataManager
             if (!string.IsNullOrWhiteSpace(tokens[10]))
                 stage.repeatRewardAmounts = tokens[10].Split(';').Select(int.Parse).ToList();
 
-            stageDic[stage.ID] = stage;
+            if (floor > 0) towerStageDic[stage.ID] = stage;
+            else stageDic[stage.ID] = stage;
+                
         }
 
         Debug.Log($"스테이지 데이터 로딩 완료: {stageDic.Count}개");
