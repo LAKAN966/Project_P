@@ -59,7 +59,8 @@ public class StageDataManager
                 ResetTime = float.Parse(tokens[13]),
                 EnemyHeroID = int.Parse(tokens[14]),
                 StageBG = tokens[15],
-                ActionPoint = int.Parse(tokens[16])
+                ActionPoint = int.Parse(tokens[16]),
+                
             };
 
             if (!string.IsNullOrWhiteSpace(tokens[7]))

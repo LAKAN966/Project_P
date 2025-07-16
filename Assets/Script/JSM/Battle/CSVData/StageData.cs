@@ -23,4 +23,7 @@ public class StageData
     public string StageBG; //스테이지 배경 이름
     public int ActionPoint; //행동력
     public List<string> BGList;
+
+    public int Floor;
+    public int GimicID;
 }
