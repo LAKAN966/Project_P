@@ -28,42 +28,10 @@ public class Player
 
     public int pickPoint = 0;
 
-    //private int Gold = 999999; // 골드
-    //private int Ticket = 0; // 뽑기 재화
-    //private int BluePrint = 99999; // 설계도
-    //private int Tribute = 999999; // 공물
-    //private int Certi = 0; // 뽑기 천장재화
+    public Dictionary<string, int> lastClearFloor = new(); // 마지막 클리어 층
+    public Dictionary<string, int> entryCounts = new(); // 입장 횟수
+    public long towerResetTime = 0; // 입장 초기화 시간
 
-    //public int gold { get => Gold; set => Gold = value; }
-    //public int ticket { get => Ticket; set => Ticket = value; }
-    //public int bluePrint { get => BluePrint; set => BluePrint = value; }
-    //public int tribute { get => Tribute; set => Tribute = value; }
-    //public int certi { get => Certi; set => Certi = value; }
-
-
-    //private List<int> MyUnitIDs = new(); //보유 유닛 정보
-    //private DeckData CurrentDeck = new(); // 덱 정보
-
-    //public List<int> myUnitIDs => MyUnitIDs;
-    //public DeckData currentDeck { get => CurrentDeck; set => CurrentDeck = value; }
-
-
-    //private List<int> ClearedStageIDs = new(); // 클리어 스테이지 정보
-    //public List<int> clearedStageIDs => ClearedStageIDs;
-
-    //private int ActionPoint = 100; // 현재 행동력
-    //private long LastActionPointTime; // 행동력 사용한 마지막 시간
-    //public int actionPoint { get => ActionPoint; set => ActionPoint = value; }
-    //public long lastActionPointTime { get => LastActionPointTime; set => LastActionPointTime = value; }
-
-
-    //private List<PlayerQuestData> PlayerQuest = new(); // 플레이어의 퀘스트 리스트
-    //private List<BuildingState> BuildingsList = new();
-    //private Dictionary<int, HashSet<int>> SelectedGospelIDsByBuildID = new();//id별 선택된 교리 데이터
-
-    //public List<PlayerQuestData> playerQuest => PlayerQuest;
-    //public List<BuildingState> buildingsList => BuildingsList;
-    //public Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID => SelectedGospelIDsByBuildID;
 }
 
 public class PlayerQuestData

@@ -62,6 +62,10 @@ public class StageManager : MonoBehaviour
 
         var stageDataDic = StageDataManager.Instance.GetAllStageData();
         int minChapter = stageDataDic.Values.Min(x => x.Chapter);
+        if(minChapter <= 0)
+        {
+            minChapter = 1;
+        }
         int maxChapter = stageDataDic.Values.Max(x => x.Chapter);
 
         currentChapter = Mathf.Clamp(currentChapter, minChapter, maxChapter);
