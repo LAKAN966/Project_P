@@ -11,8 +11,9 @@ public class BuildingData
     public List<int> goldList;
     public List<int> costList;
     public List<int> orderByLevel;
+    public List<int> raceIDList;
 
-    public BuildingData(int id, string displayName, string imageName, int raceId, int gold, int blueprint, List<int> GoldList ,List<int> CostList, List<int> orderByLevel)
+    public BuildingData(int id, string displayName, string imageName, int raceId, int gold, int blueprint, List<int> GoldList ,List<int> CostList, List<int> orderByLevel, List<int> raceIDList)
     {
         this.id = id;
         this.displayName = displayName;
@@ -23,5 +24,6 @@ public class BuildingData
         this.goldList = GoldList;
         this.costList = CostList;
         this.orderByLevel = orderByLevel;
+        this.raceIDList = raceIDList;
     }
 }

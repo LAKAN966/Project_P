@@ -28,9 +28,7 @@ public class Player
 
     public int pickPoint = 0;
 
-    public Dictionary<string, int> lastClearFloor = new(); // 마지막 클리어 층
-    public Dictionary<string, int> entryCounts = new(); // 입장 횟수
-    public long towerResetTime = 0; // 입장 초기화 시간
+    public PlayerTowerData towerData = new();
 
 }
 
