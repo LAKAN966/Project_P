@@ -40,6 +40,4 @@ public class PurchaseBoxSet : MonoBehaviour
         DescriptionBox.SetActive(true);
         DescriptionBox.GetComponentInChildren<TMP_Text>().text = _Item.Description; // null일경우 넣어주면 안됨.
     }
-
 }
-// 아이템 설명을 item slot의 init 에서 가져와서 Description Box의 Discription TMp Text에 넣어 주고 싶다
