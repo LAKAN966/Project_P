@@ -23,7 +23,7 @@ public class CertiSlot : MonoBehaviour
 
         certiSlot.onClick.AddListener(() =>
         {
-            Debug.Log("a");
+            Debug.Log("버튼 눌림");
             if(certiPurChaseSync == null)
             {
                 certiPurChaseSync = FindObjectOfType<CertiPurChaseSync>();
