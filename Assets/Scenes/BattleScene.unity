@@ -2507,7 +2507,7 @@ MonoBehaviour:
   stageID: 10001
   isPaused: 0
   enemyPool: {fileID: 8054658924490451434}
-  stageCSV: {fileID: 4900000, guid: 4774cb3de2e0abb47b1371fa6de9f85a, type: 3}
+  stageCSV: {fileID: 4900000, guid: 77edec5a5f75ee14e9c650f305335fb4, type: 3}
   waveText: {fileID: 4900000, guid: 078f045398d134d45b07360886161fb6, type: 3}
 --- !u!114 &249876054068631152
 MonoBehaviour:

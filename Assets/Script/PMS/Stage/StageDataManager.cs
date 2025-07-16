@@ -90,7 +90,7 @@ public class StageDataManager
                     towerStageDic[stage.ID] = stage;
                     break;
                 case 2:
-                    goldDic[stage.ID] = stage;
+                    goldDic[stage.Chapter] = stage;
                     break;
             }
         }

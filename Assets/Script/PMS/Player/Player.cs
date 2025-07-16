@@ -44,5 +44,5 @@ public class PlayerQuestData
 public class GoldDungeonData
 {
     public int lastClearStage;  //클리어한 가장 높은 스테이지
-    public int entryCounts;     //보상획득가능 횟수
+    public int entryCounts=3;     //보상획득가능 횟수
 }
