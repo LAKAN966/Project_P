@@ -22,6 +22,7 @@ public class Player
     public long lastWeeklyQuestTime = 0; // 주간 퀘스트 초기화 시간
 
     public List<PlayerQuestData> playerQuest = new();
+    public GoldDungeonData goldDungeonData = new();
 
     public List<BuildingState> buildingsList = new();
     public Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();
@@ -40,4 +41,10 @@ public class PlayerQuestData
     public int CurrentValue; // 퀘스트 데이터의 컨디션 벨류
     public bool IsCompleted; // 퀘스트 완료 여부
     public bool IsReward; // 퀘스트 보상 획득 여부
+}
+
+public class GoldDungeonData
+{
+    public int lastClearStage;  //클리어한 가장 높은 스테이지
+    public int entryCounts;     //보상획득가능 횟수
 }
