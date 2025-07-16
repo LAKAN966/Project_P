@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -5,8 +6,7 @@ public class BattleResourceManager : MonoBehaviour
 {
     public static BattleResourceManager Instance { get; private set; }
 
-    public TMP_Text currentText;
-    public TMP_Text maxText;
+    public TMP_Text moneyText;
 
     public float currentResource = 0f;   // float로 변경
     public int maxResource = 100;
@@ -31,11 +31,10 @@ public class BattleResourceManager : MonoBehaviour
         currentResource = Mathf.Min(currentResource, maxResource);
 
         // 실시간 UI 갱신
-        if (currentText != null)
-            currentText.text = Mathf.FloorToInt(currentResource).ToString();
-
-        if (maxText != null)
-            maxText.text = " / " + maxResource.ToString();
+        if (moneyText != null)
+        {
+            moneyText.text = Mathf.FloorToInt(currentResource).ToString()+ " / " + maxResource.ToString();
+        }
     }
 
     public void Add(int amount)
