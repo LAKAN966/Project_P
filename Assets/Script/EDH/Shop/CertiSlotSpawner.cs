@@ -26,8 +26,8 @@ public class CertiSlotSpawner : MonoBehaviour
             if (!pickInfo.IsEnemy)
             {
                 Alliance.Add(pickInfo);
-                Debug.Log(Alliance + "존재");
             }
+            Debug.Log(Alliance + "존재");
         }
                                                                                                                                                                                                 
         foreach (var pick in Alliance)
