@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +8,6 @@ public class BuildingSlotSpanwer : MonoBehaviour
 {
     public GameObject prefabToSpawn;
     public Transform parentObject;
-    private int count;
     public ScrollRect scrollRect;
 
     public GameObject confirmPanel;
@@ -19,30 +17,36 @@ public class BuildingSlotSpanwer : MonoBehaviour
     public TMP_Text goldText;
     public TMP_Text blueprintText;
 
+    private readonly List<BuildSelectButton> allButtons = new();
+
     private void OnEnable()
     {
-        setBuildingSlots();
+        SetBuildingSlots();
     }
+
     private void OnDisable()
     {
         foreach (Transform child in parentObject)
         {
             Destroy(child.gameObject);
         }
+
+        allButtons.Clear();
     }
-    public void setBuildingSlots()
+
+    public void SetBuildingSlots()
     {
         int index = 0;
 
-        foreach (var pair in BuildManager.Instance.buildingDict.OrderBy(p => p.Value.id)) // id순 정렬
+        foreach (var pair in BuildManager.Instance.buildingDict.OrderBy(p => p.Value.id))
         {
             int buildID = pair.Key;
+            var building = pair.Value;
 
-            // 이미 설치된 건물이면 스킵
+            // 이미 설치된 건물은 제외
             if (PlayerDataManager.Instance.player.buildingsList
                 .Any(b => b.buildingData != null && b.buildingData.id == buildID))
             {
-                Debug.Log(index);
                 index++;
                 continue;
             }
@@ -50,8 +54,8 @@ public class BuildingSlotSpanwer : MonoBehaviour
             GameObject newObj = Instantiate(prefabToSpawn, parentObject);
             newObj.name = $"{prefabToSpawn.name}_{index}";
 
-            var button = newObj.GetComponentInChildren<BuildSelectButton>();
-            button.buildingIndex = buildID; // 고유 ID
+            var button = newObj.GetComponent<BuildSelectButton>();
+            button.buildingIndex = buildID;
             button.buildConfirmPanel = confirmPanel;
             button.confirmButton = confirmButton;
             button.buildListUI = buildListUI;
@@ -59,10 +63,41 @@ public class BuildingSlotSpanwer : MonoBehaviour
             button.goldText = goldText;
             button.blueprintText = blueprintText;
 
+            // raceID + raceIDList 통합
+            button.allIDs = new List<int> { building.raceId };
+            if (building.raceIDList != null)
+                button.allIDs.AddRange(building.raceIDList);
+
+            allButtons.Add(button);
             index++;
         }
 
-        scrollRect.verticalNormalizedPosition = 0f;
+        scrollRect.verticalNormalizedPosition = 1f;
     }
 
+    /// <summary>
+    /// 필터된 ID 목록에 따라 버튼을 보이거나 숨김
+    /// </summary>
+    public void FilterByIDs(List<int> selectedIDs)
+    {
+        foreach (var btn in allButtons)
+        {
+            var buildingIDs = btn.allIDs;
+
+            if (selectedIDs.Count == 0)
+            {
+                btn.gameObject.SetActive(true);
+            }
+            else if (selectedIDs.Count == 1)
+            {
+                btn.gameObject.SetActive(buildingIDs.Contains(selectedIDs[0]));
+            }
+            else
+            {
+                // 모든 선택 ID를 포함하는 빌딩만 표시
+                bool containsAll = selectedIDs.All(id => buildingIDs.Contains(id));
+                btn.gameObject.SetActive(containsAll);
+            }
+        }
+    }
 }
