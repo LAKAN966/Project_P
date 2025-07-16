@@ -18,6 +18,7 @@ public class PurchaseBoxSet : MonoBehaviour
 
 
     public Item _Item;
+    internal CertiSlot _Info;
 
     private void Start()
     {

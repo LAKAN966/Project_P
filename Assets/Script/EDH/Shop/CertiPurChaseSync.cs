@@ -24,30 +24,26 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
     {
         PurchaseButton.onClick.AddListener(PurchaseCertiUnit);
     }
-    
+
     public void PurchaseCertiUnit()
     {
-        
-        int Amount = int.Parse(pick.PityCount.text);
+
+        int Amount = PlayerDataManager.Instance.player.pickPoint;
         int Cost = Info.warrant;
-        if (Amount > Cost)
+        if (Amount >= Cost)
         {
-            PlayerDataManager.UseCerti(Cost);
-            PlayerDataManager.AddUnit(Info.ID);
+            PlayerDataManager.Instance.UseCerti(Cost);
+            PlayerDataManager.Instance.AddUnit(Info.ID);
+            Debug.Log(PlayerDataManager.Instance.AddUnit(Info.ID) + "이 유닛을 구매");
         }
         else NotEnough();
     }
 
     public void NotEnough()
     {
-        int Amount = int.Parse(pick.PityCount.text);
-        int Cost = Info.warrant;
-        if (Amount < Cost)
-        {
-            NotEnoughBoxText.text = "증명서가 부족합니다.";
-            NotEnoughBox.SetActive(true);
-            StartCoroutine(HideNotEnoughBox());
-        }
+        NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "증명서가 부족합니다.";
+        StartCoroutine(HideNotEnoughBox());
 
         IEnumerator HideNotEnoughBox()
         {
@@ -55,8 +51,9 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
             NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
-    public void Init(PickInfo pickInfo,CertiSlot certiSlot)
-    {   Debug.Log("c");
+    public void Init(PickInfo pickInfo, CertiSlot certiSlot)
+    {
+        Debug.Log("c");
         Info = pickInfo;
         cSlot = certiSlot;
     }

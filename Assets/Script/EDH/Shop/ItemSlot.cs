@@ -17,8 +17,6 @@ public class ItemSlot : MonoBehaviour
     [SerializeField] private Button itemSlot;               // 아이템 슬롯
 
     private Item _Item;
-    private ItemListLoader ItemListLoader; // 아이템 리스트 로더
-   
 
     public void init(Item item)
     {
