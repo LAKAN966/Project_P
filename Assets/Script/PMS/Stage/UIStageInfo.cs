@@ -52,7 +52,7 @@ public class UIStageInfo : MonoBehaviour
         if (stage.repeatRewardItemIDs != null && stage.repeatRewardItemIDs.Count > 0)
         {
             int itemID = stage.repeatRewardItemIDs[0];
-            int amount = stage.repeatRewardAmounts[0]; // 단일값이라고 가정
+            int amount = stage.repeatRewardAmounts[0];
             CreateRewardSlot(itemID, amount, repeatRewardParent.transform, rrSlot);
         }
     }
