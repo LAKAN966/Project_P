@@ -17,7 +17,7 @@ public class WaveManager : MonoBehaviour
     private bool triggerActive = false;
     private bool waveStarted = false;
     public bool isPaused = false;
-    private WaveData? pendingWave = null;
+    private WaveData pendingWave = null;
     private int waveCount;
 
     public UnitPool enemyPool;

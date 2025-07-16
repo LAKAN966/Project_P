@@ -37,7 +37,6 @@ Transform:
   - {fileID: 5140122372529821265}
   - {fileID: 4864583015950250457}
   - {fileID: 1014926048902071175}
-  - {fileID: 3937714056256824520}
   - {fileID: 1630805065828480922}
   - {fileID: 4172822969849155614}
   - {fileID: 7898706443570304939}
@@ -356,8 +355,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c774f09a441294eb37496f9ac91fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winUI: {fileID: 0}
-  loseUI: {fileID: 0}
+  gameoverUI: {fileID: 0}
+  allyPool: {fileID: 0}
+  enemyPool: {fileID: 0}
+  allyHeroPool: {fileID: 0}
+  enemyHeroPool: {fileID: 0}
+  battleSpeed: {fileID: 0}
+  touchBlock: {fileID: 0}
 --- !u!1 &744722831881116328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedLabel: {fileID: 8371649391291166727}
+  gameSpeed: 1
 --- !u!1 &2631219386212825776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,9 +1252,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f57b5db2ef82cfb4685989b854cd6db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageCSV: {fileID: 4900000, guid: 9e00e9ffc3d250f4e8c3c21f8e7d3ed2, type: 3}
   stageID: 10001
+  isPaused: 0
   enemyPool: {fileID: 1779418077902913733}
+  stageCSV: {fileID: 4900000, guid: 9e00e9ffc3d250f4e8c3c21f8e7d3ed2, type: 3}
+  waveText: {fileID: 0}
 --- !u!1 &2697203247915896625
 GameObject:
   m_ObjectHideFlags: 0
@@ -4003,7 +4010,6 @@ GameObject:
   - component: {fileID: 8876074458119253379}
   - component: {fileID: 7784236667428270048}
   - component: {fileID: 3148102775231520651}
-  - component: {fileID: 2853845012027457815}
   m_Layer: 5
   m_Name: GiveUpButton
   m_TagString: Untagged
@@ -4113,7 +4119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2853845012027457815}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: ToStage
         m_Mode: 1
@@ -4125,18 +4131,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2853845012027457815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6750008554930405551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f44a75d2ed5a04db0c3ba5b403f4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6792311789044733015
 GameObject:
   m_ObjectHideFlags: 0
@@ -4645,6 +4639,8 @@ MonoBehaviour:
   minX: -20
   maxX: 20
   dragSpeed: 0.01
+  zoomSpeed: 2
+  pivotOffset: 0.8
 --- !u!1 &7353457294541437021
 GameObject:
   m_ObjectHideFlags: 0
@@ -4677,50 +4673,6 @@ Transform:
   - {fileID: 5685376234744487010}
   m_Father: {fileID: 1014926048902071175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8082675365093528832
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3937714056256824520}
-  - component: {fileID: 1563678560609210814}
-  m_Layer: 0
-  m_Name: UnitDataManger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3937714056256824520
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8082675365093528832}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2790126590921337075}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1563678560609210814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8082675365093528832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d949222ee61335c4cbf6f43528991e59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8132556958348753512
 GameObject:
   m_ObjectHideFlags: 0
