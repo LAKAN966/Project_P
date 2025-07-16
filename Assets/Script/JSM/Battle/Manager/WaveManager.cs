@@ -8,6 +8,8 @@ public class WaveManager : MonoBehaviour
     public static WaveManager Instance;
 
     public int stageID;  // 외부에서 설정
+    public int stageType;
+
     public StageData currentStage;
     private List<WaveData> waves = new();
     private List<WaveData> triggerWaves;

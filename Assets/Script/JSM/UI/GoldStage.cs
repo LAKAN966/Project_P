@@ -65,7 +65,7 @@ public class GoldStage : MonoBehaviour
             var normalDeck = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
             var leaderDeck = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
             SceneManager.sceneLoaded -= OnBattleSceneLoaded;
-            BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck);
+            BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck, 2);
         }
     }
 }

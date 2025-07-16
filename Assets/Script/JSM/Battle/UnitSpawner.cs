@@ -42,9 +42,10 @@ public class UnitSpawner : MonoBehaviour
         {
             buttonSettings[i].unitID = normalDeck[i].ID;
         }
-        if (buttonSettings[6] != null)
-            Debug.Log(buttonSettings[6]);
+        if (buttonSettings != null && buttonSettings.Count > 6 && buttonSettings[6] != null && leaderDeck != null)
+        {
             buttonSettings[6].unitID = leaderDeck.ID;
+        }
     }
     private void TrySpawn(SpawnButton data)
     {
