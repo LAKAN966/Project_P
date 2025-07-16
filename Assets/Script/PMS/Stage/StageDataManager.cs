@@ -28,6 +28,7 @@ public class StageDataManager
     }
     private Dictionary<int, StageData> stageDic = new();
     private Dictionary<int, StageData> towerStageDic = new();
+    private Dictionary<int, StageData> goldDic = new();
 
     public void LoadStageData()
     {
@@ -62,7 +63,7 @@ public class StageDataManager
                 StageBG = tokens[15],
                 ActionPoint = int.Parse(tokens[16]),
 
-                Floor = tokens.Length > 23 && int.TryParse(tokens[23], out var floor) ? floor : -1,
+                Type = tokens.Length > 23 && int.TryParse(tokens[23], out var floor) ? floor : -1,
                 GimicID = string.IsNullOrWhiteSpace(tokens[24]) ? new() : tokens[24].Split(';').Where(s => int.TryParse(s, out _)).Select(int.Parse).ToList(),
                 RaceID = tokens.Length > 25 && int.TryParse(tokens[25], out var raceID) ? raceID : -1
 
@@ -80,9 +81,18 @@ public class StageDataManager
             if (!string.IsNullOrWhiteSpace(tokens[10]))
                 stage.repeatRewardAmounts = tokens[10].Split(';').Select(int.Parse).ToList();
 
-            if (stage.Floor > 0) towerStageDic[stage.ID] = stage;
-            else stageDic[stage.ID] = stage;
-                
+            switch (stage.Type)
+            {
+                case 0:
+                    stageDic[stage.ID] = stage;
+                    break;
+                case 1:
+                    towerStageDic[stage.ID] = stage;
+                    break;
+                case 2:
+                    goldDic[stage.ID] = stage;
+                    break;
+            }
         }
 
         Debug.Log($"스테이지 데이터 로딩 완료: 스테이지 {stageDic.Count}개, 타워 {towerStageDic.Count}개");
@@ -96,10 +106,11 @@ public class StageDataManager
         return null;
     }
 
+    
     public Dictionary<int, StageData> GetAllTowerStageData() => towerStageDic;
 
-    public Dictionary<int, StageData> GetAllStageData()
-    {
-        return stageDic;
-    }
+    public Dictionary<int, StageData> GetAllStageData() => stageDic;
+
+    public Dictionary<int, StageData> GetAllGoldStageData() => goldDic;
+   
 }
