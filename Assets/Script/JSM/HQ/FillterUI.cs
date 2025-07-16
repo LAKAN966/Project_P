@@ -1,18 +1,43 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class FillterUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject fillterBtn;       // FillterBtn 프리팹
+    public Transform parent;            // 버튼 부모
+    public BuildingSlotSpanwer spawner; // 슬롯 스크립트 참조
+
+    private Dictionary<int, Toggle> toggles = new();
+
+    private void Awake()
     {
-        
+        var tagData = TagManager.GetAll();
+
+        foreach (var kvp in tagData)
+        {
+            int id = kvp.Key;
+            string name = kvp.Value;
+
+            GameObject go = Instantiate(fillterBtn, parent);
+            FillterBtn btn = go.GetComponent<FillterBtn>();
+
+            btn.id = id;
+            btn.text.text = name;
+            toggles[id] = btn.toggle;
+
+            btn.toggle.onValueChanged.AddListener(_ => OnFilterChanged());
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnFilterChanged()
     {
-        
+        List<int> selectedIDs = toggles
+            .Where(p => p.Value.isOn)
+            .Select(p => p.Key)
+            .ToList();
+
+        spawner.FilterByIDs(selectedIDs);
     }
 }

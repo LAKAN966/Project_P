@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class BuildSelectButton : MonoBehaviour
 {
     public int buildingIndex;
+    public List<int> allIDs = new(); // 이 빌딩이 갖는 모든 ID들
 
     public GameObject buildConfirmPanel; // 확인용 패널
     public Button confirmButton;         // 패널 안의 확인 버튼
@@ -28,6 +29,11 @@ public class BuildSelectButton : MonoBehaviour
         building = BuildManager.Instance.GetBuildingData(buildingIndex);
         img.sprite = BuildManager.Instance.GetBuildingSprite(building.imageName);
         buildConfirmPanel.SetActive(false); // 처음엔 꺼두기
+
+        allIDs.Clear();
+        allIDs.Add(building.raceId);
+        if (building.raceIDList != null)
+            allIDs.AddRange(building.raceIDList);
     }
 
     private void OnClick()
