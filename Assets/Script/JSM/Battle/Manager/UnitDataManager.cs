@@ -63,7 +63,18 @@ public class UnitDataManager
                 SkillID = int.Parse(tokens[18]),
                 isEnemy = bool.Parse(tokens[19]),
                 warrant = int.Parse(tokens[20]),
+                tagId = new List<int>()
             };
+
+            if (!string.IsNullOrWhiteSpace(tokens[21]))
+            {
+                string[] tagParts = tokens[21].Split(';');
+                foreach (var part in tagParts)
+                {
+                    if (int.TryParse(part.Trim(), out int tag))
+                        stat.tagId.Add(tag);
+                }
+            }
 
             unitStatsDict[stat.ID] = stat;
         }

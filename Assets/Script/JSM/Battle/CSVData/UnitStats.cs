@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 [System.Serializable]
 public class UnitStats
 {
@@ -22,4 +23,5 @@ public class UnitStats
     public int SkillID;         //스킬 id
     public bool isEnemy;        //아군적군 구분용
     public int warrant;         //증명서 수
+    public List<int> tagId;     //태그id 리스트
 }
