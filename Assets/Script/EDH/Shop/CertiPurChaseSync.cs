@@ -10,12 +10,11 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
 
     public Button PurchaseButton;   // 아이템 구매 버튼
 
-    public Pick pick;               // 증명서 양
-
     PlayerDataManager PlayerDataManager;
 
     public TMP_Text NotEnoughBoxText;  // 재화 부족 경고 텍스트
     public GameObject NotEnoughBox;    // 재화 부족 경고
+    public GameObject PurchaseCertiUnitBox;   // 구매UI 상자
 
     public CertiSlot cSlot;
     public PickInfo Info;
@@ -35,6 +34,7 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
             PlayerDataManager.Instance.UseCerti(Cost);
             PlayerDataManager.Instance.AddUnit(Info.ID);
             Debug.Log(PlayerDataManager.Instance.AddUnit(Info.ID) + "이 유닛을 구매");
+            PurchaseCertiUnitBox.SetActive(false);
         }
         else NotEnough();
     }
