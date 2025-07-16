@@ -1,12 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 
-public class UIController : Singleton<UIController>
+public class UIController : MonoBehaviour
 {
+    private static UIController instance;
+
+    public static UIController Instance
+    {
+        get
+        { if(instance == null)
+            {
+                instance = new UIController();
+            }
+            return instance;
+        }  
+    }
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     //기본 Ui
     public GameObject Main;         //메인
     public GameObject Stage;        //스테이지
