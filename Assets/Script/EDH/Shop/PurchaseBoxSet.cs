@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class PurchaseBoxSet : MonoBehaviour
 
     public Button PurchaseItemIcon; // 상품 아이콘
     public Button CancelButton;     // 구매 취소 버튼
+    public ItemSlot itemSlot;
 
 
 
@@ -21,8 +23,8 @@ public class PurchaseBoxSet : MonoBehaviour
 
     private void Start()
     {
-        ItemDescriptionText.text = _Item.Description.ToString(); // 아이템 설명 동기화.
-        PurchaseItemIcon.onClick.AddListener(() =>DescriptionBox.SetActive(true));
+        PurchaseItemIcon.onClick.AddListener(DescriptionSet);
+
         CancelButton.onClick.AddListener(TabClose);
     }
 
@@ -31,4 +33,13 @@ public class PurchaseBoxSet : MonoBehaviour
         purchaseUIBox.SetActive(false);
         DescriptionBox.SetActive(false);
     }
+
+    public void DescriptionSet()
+    {
+        Debug.Log("아이템 설명" + _Item.Description);
+        DescriptionBox.SetActive(true);
+        DescriptionBox.GetComponentInChildren<TMP_Text>().text = _Item.Description; // null일경우 넣어주면 안됨.
+    }
+
 }
+// 아이템 설명을 item slot의 init 에서 가져와서 Description Box의 Discription TMp Text에 넣어 주고 싶다
