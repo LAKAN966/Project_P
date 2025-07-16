@@ -15,8 +15,6 @@ public class PurchaseBoxSet : MonoBehaviour
 
     public Button PurchaseItemIcon; // 상품 아이콘
     public Button CancelButton;     // 구매 취소 버튼
-    public ItemSlot itemSlot;
-
 
 
     public Item _Item;
