@@ -24,7 +24,7 @@ public class StageData
     public int ActionPoint; //행동력
     public List<string> BGList;
 
-    public int Floor = -1;
+    public int Type ;
     public List<int> GimicID = new();
-    public int RaceID = -1;
+    public int RaceID ;
 }
