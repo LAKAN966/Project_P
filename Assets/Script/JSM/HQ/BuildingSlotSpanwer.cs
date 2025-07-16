@@ -32,24 +32,37 @@ public class BuildingSlotSpanwer : MonoBehaviour
     }
     public void setBuildingSlots()
     {
-        for (int i = 0; i < BuildManager.Instance.GetBuildingCount(); i++)
+        int index = 0;
+
+        foreach (var pair in BuildManager.Instance.buildingDict.OrderBy(p => p.Value.id)) // id순 정렬
         {
-            int index = BuildManager.Instance.buildings[i].id;
-            if (PlayerDataManager.Instance.player.buildingsList.Any(b => b.buildingData != null && b.buildingData.id == index))
+            int buildID = pair.Key;
+
+            // 이미 설치된 건물이면 스킵
+            if (PlayerDataManager.Instance.player.buildingsList
+                .Any(b => b.buildingData != null && b.buildingData.id == buildID))
             {
-                Debug.Log(i);
+                Debug.Log(index);
+                index++;
                 continue;
             }
+
             GameObject newObj = Instantiate(prefabToSpawn, parentObject);
             newObj.name = $"{prefabToSpawn.name}_{index}";
-            newObj.GetComponentInChildren<BuildSelectButton>().buildingIndex = index;
-            newObj.GetComponentInChildren<BuildSelectButton>().buildConfirmPanel = confirmPanel;
-            newObj.GetComponentInChildren<BuildSelectButton>().confirmButton = confirmButton;
-            newObj.GetComponentInChildren<BuildSelectButton>().buildListUI = buildListUI;
-            newObj.GetComponentInChildren<BuildSelectButton>().buildImg = buildImg;
-            newObj.GetComponentInChildren<BuildSelectButton>().goldText = goldText;
-            newObj.GetComponentInChildren<BuildSelectButton>().blueprintText = blueprintText;
+
+            var button = newObj.GetComponentInChildren<BuildSelectButton>();
+            button.buildingIndex = buildID; // 고유 ID
+            button.buildConfirmPanel = confirmPanel;
+            button.confirmButton = confirmButton;
+            button.buildListUI = buildListUI;
+            button.buildImg = buildImg;
+            button.goldText = goldText;
+            button.blueprintText = blueprintText;
+
+            index++;
         }
+
         scrollRect.verticalNormalizedPosition = 0f;
     }
+
 }

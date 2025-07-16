@@ -23,6 +23,7 @@ public class BattleManager
         Debug.Log(selectedStageID + "스타트 배틀");
         WaveManager.Instance.stageID = selectedStageID;
         UnitSpawner.Instance.Init(normalDeck, leaderDeck);
+        UnitSpawner.Instance.SetButton();
     }
 }
 
