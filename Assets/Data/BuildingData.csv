@@ -1,4 +1,0 @@
-﻿BuildingID,DisplayName,ImageName,RaceID,Gold,Blueprint,LvUpGold1,LvUpGold2,LvUpGold3,LvUpGold4,LvUpCost1,LvUpCost2,LvUpCost3,LvUpCost4,OrderbyLevel
-1,신전,temple_icon,1,100,1,100,101,102,103,1,2,3,4,1;2;3;4;5
-2,요새,fortress_icon,1,101,2,100,201,202,203,1,2,3,4,1;2;3;4;5
-3,마법탑,magic_tower_icon,1,102,3,100,301,302,303,1,2,3,4,1;2;3;4;5

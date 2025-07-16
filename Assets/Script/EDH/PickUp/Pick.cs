@@ -27,27 +27,26 @@ public class Pick : MonoBehaviour
     [SerializeField]
     private PickLogic pickLogic; // 뽑기 로직
 
-   private int TicketAmount; // 티켓 수
-   private int PickPoint;    // 뽑은 횟수
+    private int PickPoint;    // 뽑은 횟수
 
-    
-    private void Start()
+
+    private void Awake()
     {
-        PickOnce.onClick.AddListener(() => PickOneTime());       //  1회 뽑기
-        PickTen.onClick.AddListener(()  => PickTenTimes());      // 10회 뽑기
-
+        PickPoint = 0;
+        PickOnce.onClick.AddListener(PickOneTime);       //  1회 뽑기
+        PickTen.onClick.AddListener(PickTenTimes);      // 10회 뽑기
         RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기
         RePickTen.onClick.AddListener(() => PickTenTimes());     // 10회 다시 뽑기
 
-        
-        PickPoint = 0;
+        PlayerCurrencyEvent.OnTicketChange += value => ShowTicketAmountText.text = value.ToString();
+        Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
+    }
 
-        TicketAmount = PlayerDataManager.Instance.player.ticket;
+    private void OnEnable()
+    {
 
-        ShowTicketAmountText.text = TicketAmount.ToString();        // 현재 티켓 수
-
-        PlayerCurrencyEvent.OnTicketChange += value => ShowTicketAmountText.text = TicketAmount.ToString();
-        PityCount.text = PickPoint.ToString();                      // 현재 마일리지
+        ShowTicketAmountText.text = PlayerDataManager.Instance.player.ticket.ToString();              // 현재 보유 티켓 수량
+        PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();                      // 현재 마일리지
 
         //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)
     }
@@ -56,17 +55,18 @@ public class Pick : MonoBehaviour
     public void PickOneTime()
     {
         Dictionary<int, PickInfo> PickInfo = PickUpListLoader.Instance.GetAllPickList();
-        if (TicketAmount >= 1)
+        if (PlayerDataManager.Instance.player.ticket >= 1)
         {
-            TicketAmount--; // 1장 소모
-            TicketAmount = Math.Max(TicketAmount, 0); // 0검사
+            PlayerDataManager.Instance.UseTicket(1);
 
-            if (TicketAmount < 0)
-                PickPoint += 0;
-            else PickPoint++;
+            PlayerDataManager.Instance.player.ticket = Math.Max(PlayerDataManager.Instance.player.ticket, 0); // 0검사
+            Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
 
-            ShowTicketAmountText.text = TicketAmount.ToString();
-            PityCount.text = PickPoint.ToString();
+            PlayerCurrencyEvent.OnTicketChange -= value => ShowTicketAmountText.text = value.ToString();
+            PlayerDataManager.Instance.player.pickPoint++;
+
+            ShowTicketAmountText.text = PlayerDataManager.Instance.player.ticket.ToString();
+            PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();
 
             PickOnePage.SetActive(true);
             pickLogic.DrawOne();
@@ -74,23 +74,24 @@ public class Pick : MonoBehaviour
         else
         {
             Debug.Log("티켓이 부족합니다");
+            Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
         }
     }
 
     public void PickTenTimes()
     {
         var pickTable = PickUpListLoader.Instance.GetAllPickList();
-        if (TicketAmount >= 10)
+        if (PlayerDataManager.Instance.player.ticket >= 10)
         {
-            TicketAmount -= 10;// 10장 소모
-            TicketAmount = Math.Max(TicketAmount, 0); // 예외처리
+            PlayerDataManager.Instance.UseTicket(10);
+            PlayerDataManager.Instance.player.ticket = Math.Max(PlayerDataManager.Instance.player.ticket, 0); // 예외처리
+            Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
 
-            if (TicketAmount < 0)
-                PickPoint += 0;
-            else PickPoint += 10;
+            PlayerCurrencyEvent.OnTicketChange -= value => ShowTicketAmountText.text = value.ToString();
+            PlayerDataManager.Instance.player.pickPoint += 10;
 
-            ShowTicketAmountText.text = TicketAmount.ToString();
-            PityCount.text = PickPoint.ToString();
+            ShowTicketAmountText.text = PlayerDataManager.Instance.player.ticket.ToString();
+            PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();
 
             PickTenPage.SetActive(true);
             pickLogic.DrawTen();
@@ -98,6 +99,7 @@ public class Pick : MonoBehaviour
         else
         {
             Debug.Log("티켓이 부족합니다");
+            Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
         }
     }
 }

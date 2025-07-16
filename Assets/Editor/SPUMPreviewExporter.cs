@@ -6,8 +6,8 @@ using System.Linq;
 public class SPUMPreviewExporter
 {
     private const int Width = 400;
-    private const int Height = 280;
-    private const float OrthoSize = 0.5f;
+    private const int Height = 400;
+    private const float OrthoSize = 0.6f;
     private const float CameraOffsetY = 0.4f;
 
     [MenuItem("Tools/Export SPUM Preview")]

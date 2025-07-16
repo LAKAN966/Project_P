@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 public class PickUpListLoader : Singleton<PickUpListLoader>
 {
-    private void Start()
+    private void Awake()
     {
         PickUps();
     }
@@ -20,14 +20,14 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
     private Dictionary<int, PickInfo> PickListsDict = new();
     public void PickUps()
     {
-        string path = Path.Combine(Application.dataPath, "Data/UnitData.csv"); // 파일 경로
-
-        if (!File.Exists(path))
+        TextAsset csvFile = Resources.Load<TextAsset>("Data/UnitData"); // 확장자 생략
+        if (csvFile == null)
         {
-            Debug.LogError($"UnitData.csv 파일이 없습니다: {path}");
+            Debug.LogError("Resources/Data/UnitData.csv 파일을 찾을 수 없습니다.");
             return;
         }
-        string[] lines = File.ReadAllLines(path);
+
+        string[] lines = csvFile.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 1; i < lines.Length; i++)
         {
@@ -37,17 +37,20 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
 
             PickInfo pickinfo = new PickInfo
             {
-                ID          =  int.Parse(tokens[0]),    // 유닛 ID
-                Name        = tokens[1],                // 유닛 이름
-                Description = tokens[2],                // 설명
-                IsHero       = bool.Parse(tokens[4]),   // 영웅 여부
-                Uniticon     = tokens[5],
-            }
-            ;
+                ID = int.Parse(tokens[0]),    // 유닛 ID
+                Name = tokens[1],               // 유닛 이름
+                Description = tokens[2],               // 설명
+                IsHero = bool.Parse(tokens[4]),   // 영웅 여부
+                Uniticon = tokens[5],               // 유닛 아이콘
+                IsEnemy = bool.Parse(tokens[19]),  // 적 여부
+            };
+
             PickListsDict[pickinfo.ID] = pickinfo;
         }
+
         Debug.Log($"픽업 데이터 로딩 완료: {PickListsDict.Count}개");
     }
+
 
     public Dictionary<int, PickInfo> GetAllPickList()
     { return PickListsDict; }

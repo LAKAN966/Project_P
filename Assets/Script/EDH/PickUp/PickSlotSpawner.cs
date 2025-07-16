@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -15,31 +16,66 @@ public class PickSlotSpawner : MonoBehaviour
 
     
     
-    public void SpawnCardOne(PickInfo pick) //1개 뽑기 결과 생성
+    public void SpawnCardOne() //1개 뽑기 결과 생성
     {
-       foreach(Transform Child in Grid1)
+        List<PickInfo> Alliance = new();
+        var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
+        foreach (Transform Child in Grid1)
         {
             Destroy(Child.gameObject);
         }
-        Debug.Log(pick + "총아이템의 개수");
-        CreateCard(pick,Grid1);
+
+        foreach (PickInfo pickInfo in PicklistDo)
+        {
+            if (pickInfo.IsEnemy == false)
+            {
+                Debug.Log($"{pickInfo.IsEnemy}, {pickInfo.Name}");
+                Alliance.Add(pickInfo);
+            }
+        }
+        PickInfo pick = CreateCard(Alliance, Grid1);
+        PlayerDataManager.Instance.AddUnit(pick.ID);
     }
-    public void SpawnCardTen(List<PickInfo> picks) //10개 뽑기 결과생성
+
+    public void SpawnCardTen() //10개 뽑기 결과생성
     {
+        List<PickInfo> Alliance = new();
+        var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
         foreach (Transform Child in Grid2)
         {
             Destroy(Child.gameObject);
         }
-        foreach (PickInfo pickInfo in picks)
+        foreach (PickInfo pickInfo in PicklistDo )
         {
-            CreateCard(pickInfo, Grid2);
+            if(pickInfo.IsEnemy == false)
+            {
+                Debug.Log($"{pickInfo.IsEnemy}, {pickInfo.Name}");
+                Alliance.Add(pickInfo);
+            }
+        }
+        List<PickInfo> picks = new List<PickInfo>();
+        for (int i = 0; i < 10; i++)
+        {
+            picks.Add(CreateCard(Alliance, Grid2));
+        }
+        foreach (PickInfo pick in picks)
+        {
+            PlayerDataManager.Instance.AddUnit(pick.ID);
         }
     }
-    private void CreateCard(PickInfo pick, Transform parent) //카드 슬롯 생성
+    private PickInfo CreateCard(List<PickInfo> Alliance, Transform parent) //카드 슬롯 생성
     {
-        GameObject go = Instantiate(UnitICard, parent);
-        UnitCardSlot slot = go.GetComponent<UnitCardSlot>();
-        slot.init(pick);
+        UnitCardSlot slot = new UnitCardSlot();
+        PickInfo RanResult;
+
+        int ranindex = Random.Range(0, Alliance.Count);
+        RanResult = Alliance[ranindex];
+
+        GameObject go = Instantiate(UnitICard, parent); //1
+        slot = go.GetComponent<UnitCardSlot>(); //2
+        slot.init(RanResult); //3
+        
+        return RanResult;
     }
-  
+
 }

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class UnitDataManager
@@ -21,17 +23,16 @@ public class UnitDataManager
     private Dictionary<int, UnitStats> unitStatsDict = new();
 
     private UnitDataManager() { }
-
     private void LoadUnitData()
     {
-        string path = Path.Combine(Application.dataPath, "Data/UnitData.csv");
-        if (!File.Exists(path))
+        TextAsset csvFile = Resources.Load<TextAsset>("Data/UnitData"); // 확장자 없이
+        if (csvFile == null)
         {
-            Debug.LogError($"UnitData.csv 파일이 없습니다: {path}");
+            Debug.LogError("Resources/Data/UnitData.csv 파일을 찾을 수 없습니다.");
             return;
         }
 
-        string[] lines = File.ReadAllLines(path);
+        string[] lines = csvFile.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 1; i < lines.Length; i++)
         {
@@ -70,6 +71,7 @@ public class UnitDataManager
         Debug.Log($"유닛 데이터 로딩 완료: {unitStatsDict.Count}개");
     }
 
+
     public UnitStats GetStats(int id)
     {
         if (unitStatsDict.TryGetValue(id, out var stats)) return stats;
@@ -85,5 +87,4 @@ public class UnitDataManager
         }
         return raceSet.Count;
     }
-
 }

@@ -1,12 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 
-public class UIController : Singleton<UIController>
+public class UIController : MonoBehaviour
 {
+    private static UIController instance;
+
+    public static UIController Instance
+    {
+        get
+        { if(instance == null)
+            {
+                instance = new UIController();
+            }
+            return instance;
+        }  
+    }
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     //기본 Ui
     public GameObject Main;         //메인
     public GameObject Stage;        //스테이지
@@ -17,9 +41,11 @@ public class UIController : Singleton<UIController>
 
     //Pannal
     public GameObject PurchaseUIBox;         //구매시 상자창
+    public GameObject PurchaseCertiUnitBox;  //유닛 교환시 상자창
     public GameObject DescriptionBox;        //아이템 설명창
-    public TMP_Text MainGoldAmount;              //골드 표기
-    public TMP_Text StoreGoldAmount;
+    public GameObject CertiDescriptionBox;   //증명서 유닛 설명창
+    public TMP_Text MainGoldAmount;          //골드 표기
+    public TMP_Text StoreGoldAmount;         //상점에서 골드 표기   
 
     //버튼
     public Button UnitManagementButton;  //덱빌딩
@@ -36,10 +62,6 @@ public class UIController : Singleton<UIController>
         ShowNowGold();
         PlayerCurrencyEvent.OnGoldChange += value => ShowNowGold();
     }
-    private void Update()
-    {
-        
-    }
 
     public void SetButton()
     {
@@ -53,26 +75,39 @@ public class UIController : Singleton<UIController>
     public void UnitManageActive()
     {
         DeckBuild.SetActive(true);
+        Main.SetActive(false);
         UIDeckBuildManager.instance.Init();
     }
     public void OpenStage()
     {
         Stage.SetActive(true);
+        Main.SetActive(false);
         StageManager.instance.Init();
     }
     public void OpenGottcha()
     {
         Gotta.SetActive(true);
+        Main.SetActive(false);
     }
     public void OpenSacredPlace()
     {
         HQ.SetActive(true);
+        Main.SetActive(false);
     }
     public void OpenShop()
     {
         Shop.SetActive(true);
+        Main.SetActive(false);
     }
-
+    public void OnExitBtn()
+    {
+        Main.SetActive(true);
+        Stage.SetActive(false);
+        DeckBuild.SetActive(false);
+        Shop.SetActive(false);
+        HQ.SetActive(false);
+        Gotta.SetActive(false);
+    }
     public void ShowNowGold()
     {
         MainGoldAmount.text = PlayerDataManager.Instance.player.gold.ToString();

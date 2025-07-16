@@ -1,13 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using System.IO;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using static UnityEditor.Progress;
-using Unity.VisualScripting;
+using UnityEngine;
 
 
 public class ItemListLoader : MonoBehaviour 
@@ -47,14 +41,14 @@ public class ItemListLoader : MonoBehaviour
     private Dictionary<int, Item> itemListsDict = new();
     private void LoadItemData()
     {
-        string path = Path.Combine(Application.dataPath, "Data/MarketItemData.csv");
-
-        if (!File.Exists(path))
+        TextAsset csvFile = Resources.Load<TextAsset>("Data/MarketItemData");
+        if (csvFile == null)
         {
-            Debug.LogError($"MarketItemData.csv 파일이 없습니다: {path}");
+            Debug.LogError("MarketItemData.csv 파일이 Resources/Data 폴더에 없습니다.");
             return;
         }
-        string[] lines = File.ReadAllLines(path);
+
+        string[] lines = csvFile.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 1; i < lines.Length; i++)
         {
@@ -67,12 +61,15 @@ public class ItemListLoader : MonoBehaviour
                 ID = int.Parse(tokens[0]),
                 Name = tokens[1],
                 Cost = int.Parse(tokens[2]),
-                //Description = tokens[3]
+                // Description = tokens[3] //
             };
+
             itemListsDict[item.ID] = item;
         }
-        Debug.Log($"유닛 데이터 로딩 완료: {itemListsDict.Count}개");
+
+        Debug.Log($"아이템 데이터 로딩 완료: {itemListsDict.Count}개");
     }
+
     public Dictionary<int, Item> GetAllList()
     { return itemListsDict; }
 }

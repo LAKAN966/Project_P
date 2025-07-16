@@ -46,6 +46,11 @@ public class WorldBG : MonoBehaviour
 
     private Sprite FindSpriteInSubfolders(string spriteName, out int sortingOrder)
     {
+        if (spriteName == null)
+        {
+            sortingOrder = 0;
+            return null;
+        }
         var folderOrder = new Dictionary<string, int>
     {
         { "Sky", -100 },

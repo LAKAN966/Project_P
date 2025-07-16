@@ -24,7 +24,8 @@ public class PlayerDataManager
         }
     }
 
-    public Player player = new();
+    private Player Player = new();
+    public Player player => Player;
 
     public void Save() // 플레이어 데이터 저장
     {
@@ -58,7 +59,7 @@ public class PlayerDataManager
                     if (existID.Exists && existID.Value != null)
                     {
                         string json = existID.Value.ToString();
-                        player = JsonConvert.DeserializeObject<Player>(json);
+                        Player = JsonConvert.DeserializeObject<Player>(json);
                         Debug.Log("플레이어 데이터 불러오기 성공");
                         Debug.Log($"보유 골드 : {player.gold}\n보유 티켓 : {player.ticket}\n보유 행동력 : {player.actionPoint}");
                     }
@@ -114,7 +115,7 @@ public class PlayerDataManager
     {
         if (player.myUnitIDs.Contains(id))
         {
-            Debug.Log("이미 동일한 유닛이 존재합니다.");
+            Debug.Log("이미 동일한 유닛이 존재합니다."+id);
             return false;
         }
 
@@ -159,7 +160,7 @@ public class PlayerDataManager
         }
     }
 
-    public void RefreshActionPoint()
+    public int RefreshActionPoint()
     {
         long now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         long last = player.lastActionPointTime;
@@ -167,7 +168,7 @@ public class PlayerDataManager
         if (last == 0)
         {
             player.lastActionPointTime = now;
-            return;
+            return 60;
         }
 
         long elapsedSeconds = now - last;
@@ -175,11 +176,25 @@ public class PlayerDataManager
 
         if (recovered > 0)
         {
-            player.actionPoint = Mathf.Min(player.actionPoint + recovered, 100); // 최대치 100과 비교해서 낮은쪽 사용.
+            player.actionPoint = Mathf.Min(player.actionPoint + recovered, player.maxActionPoint); // 최대치 100과 비교해서 낮은쪽 사용.
             player.lastActionPointTime += recovered * 60;
 
             PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
         }
+        return NextRecoverTime();
+    }
+    public int NextRecoverTime()
+    {
+        if(player.actionPoint >= player.maxActionPoint)
+        {
+            return 0;
+        }
+
+        long now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        long last = player.lastActionPointTime;
+        long elapsed = now - last;
+
+        return (int)(60 - (elapsed % 60));
     }
 
     public bool UseActionPoint(int amount)
@@ -301,6 +316,7 @@ public class PlayerDataManager
 
     public void AddQuestProgress(ConditionType conditionType, int value) // 플레이어 퀘스트 진행도 추적
     {
+        Debug.Log($"[퀘스트 진행도 추가] 호출됨: {conditionType} +{value}");
         foreach (var progress in player.playerQuest)
         {
             QuestData quest = QuestDataManager.Instance.GetQuestID(progress.QuestID);

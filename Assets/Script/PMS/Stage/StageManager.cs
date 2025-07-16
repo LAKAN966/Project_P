@@ -19,6 +19,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private StageNode stageNodePrefab;
     [SerializeField] private Button battleBtn;
     [SerializeField] private GameObject stageInfo;
+    [SerializeField] private GameObject uiStage;
 
     public Action<int> SetStageInfo;
 
@@ -30,30 +31,27 @@ public class StageManager : MonoBehaviour
 
     public void Awake()
     {
-        if(instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance == this)
+        if(instance != null && instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+        instance = this;
+        StageDataManager.Instance.LoadStageData();
+
+    }
+
+    public void Start()
+    {
     }
 
     public void Init()
     {
-        StageDataManager.Instance.LoadStageData();
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
         battleBtn.onClick.AddListener(OnClickEnterBattle);
 
         battleBtn.gameObject.SetActive(false);
-
-        SetStageInfo = (stageID) =>
-        {
-            stageInfo.SetActive(true);
-        };
 
         UpdateStageUI();
     }
@@ -137,12 +135,8 @@ public class StageManager : MonoBehaviour
     {
         selectedStageID = stageID;
         Debug.Log($"스테이지 {stageID} 선택됨");
-        SetStageInfo?.Invoke(stageID);
-        if (SetStageInfo == null)
-        {
-            Debug.LogWarning("SetStageInfo 델리게이트가 null입니다!");
-        }
-
+        stageInfo.SetActive(true);
+        uiStage.GetComponent<UIStageInfo>().SetStageInfo(stageID);
         battleBtn.gameObject.SetActive(true);
     }
 
@@ -161,25 +155,30 @@ public class StageManager : MonoBehaviour
     {
         if (scene.name == "BattleScene")
         {
-            var normalDeck = DeckManager.Instance.GetAllDataInDeck();
-            var leaderDeck = DeckManager.Instance.GetLeaderDataInDeck();
+            var normalDeck = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
+            var leaderDeck = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
             SceneManager.sceneLoaded -= OnBattleSceneLoaded;
             BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck);
         }
     }
 
-    public void ClearStage() // 클리어 스테이지 플레이어에 추가. 배틀 끝나고 불러오기.
+    public void ClearStage(int id) // 클리어 스테이지 플레이어에 추가. 배틀 끝나고 불러오기.
     {
-        PlayerDataManager.Instance.ClearStage(selectedStageID);
-        PlayerDataManager.Instance.UseActionPoint(StageDataManager.Instance.GetStageData(selectedStageID).ActionPoint);
+        Debug.Log("???");
+        PlayerDataManager.Instance.ClearStage(id);
+        int ap = StageDataManager.Instance.GetStageData(id).ActionPoint;
+        PlayerDataManager.Instance.player.actionPoint -= ap;
+        PlayerCurrencyEvent.OnActionPointChange?.Invoke(PlayerDataManager.Instance.player.actionPoint);
+
+        QuestEvent.UseActionPoint?.Invoke(ap);
         QuestEvent.OnMainChapterClear?.Invoke();
     }
 
-    public void AddReward() // 스테이지 클리어 보상
+    public void AddReward(int id) // 스테이지 클리어 보상
     {
-        var stageData = StageDataManager.Instance.GetStageData(selectedStageID);
+        var stageData = StageDataManager.Instance.GetStageData(id);
 
-        bool firstClear = !PlayerDataManager.Instance.HasClearedStage(selectedStageID);
+        bool firstClear = !PlayerDataManager.Instance.HasClearedStage(id);
 
         if (firstClear)
         {
