@@ -29,6 +29,7 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
 
         int Amount = PlayerDataManager.Instance.player.pickPoint;
         int Cost = Info.warrant;
+
         if (Amount >= Cost)
         {
             PlayerDataManager.Instance.UseCerti(Cost);
@@ -36,19 +37,22 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
             Debug.Log(PlayerDataManager.Instance.AddUnit(Info.ID) + "이 유닛을 구매");
             PurchaseCertiUnitBox.SetActive(false);
         }
-        else NotEnough();
+        else 
+        {
+            NotEnough();
+        }
     }
 
     public void NotEnough()
     {
-        NotEnoughBox.SetActive(true);
+        UIController.Instance.NotEnoughBox.SetActive(true);
         NotEnoughBoxText.text = "증명서가 부족합니다.";
         StartCoroutine(HideNotEnoughBox());
 
         IEnumerator HideNotEnoughBox()
         {
             yield return new WaitForSeconds(3f); // 3초 대기
-            NotEnoughBox.SetActive(false);       // 경고창 비활성화
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
     public void Init(PickInfo pickInfo, CertiSlot certiSlot)
