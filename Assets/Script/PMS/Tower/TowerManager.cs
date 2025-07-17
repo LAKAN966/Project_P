@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TowerManager : MonoBehaviour
+public class TowerManager
 {
-    public static TowerManager instance;
+    private static TowerManager instance;
+    public static TowerManager Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = new TowerManager();
+            }
+            return instance;
+        }
+    }
 
     private const int maxEntryCounts = 3;
     private PlayerTowerData data => PlayerDataManager.Instance.player.towerData;
-
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-    }
 
     public int GetClearedFloor(int raceID)
     {

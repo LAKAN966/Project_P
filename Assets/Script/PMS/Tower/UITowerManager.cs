@@ -8,8 +8,20 @@ public class UITowerManager : MonoBehaviour
 {
     [SerializeField] private GameObject towerParent;
     [SerializeField] private GameObject towerPrefab;
-    [SerializeField] private TextMeshProUGUI entryCounts;
+    [SerializeField] private GameObject towerInfoPanel;
 
+    public static UITowerManager instance;
+
+    public void Awake()
+    {
+        instance = this;
+    }
+
+    public void Init()
+    {
+        this.gameObject.SetActive(true);
+        SetTower();
+    }
     public void SetTower()
     {
         foreach (Transform child in towerParent.transform)
@@ -28,4 +40,11 @@ public class UITowerManager : MonoBehaviour
             slot.Setup(raceID);
         }
     }
+
+    public void SelectTower(int stageID)
+    {
+        towerInfoPanel.SetActive(true);
+        towerInfoPanel.GetComponent<UITowerInfo>().SetTowerInfo(stageID);
+    }
+    
 }

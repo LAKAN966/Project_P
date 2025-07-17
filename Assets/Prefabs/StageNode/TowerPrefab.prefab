@@ -55,6 +55,7 @@ MonoBehaviour:
   towerImg: {fileID: 263204795029485025}
   raceNameText: {fileID: 3257951132647155220}
   floorText: {fileID: 4470423144707229208}
+  btn: {fileID: 2018869345997053955}
 --- !u!114 &2018869345997053955
 MonoBehaviour:
   m_ObjectHideFlags: 0
