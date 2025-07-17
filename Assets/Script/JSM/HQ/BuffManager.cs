@@ -72,7 +72,7 @@ public static class BuffManager
         };
     }
 
-    public static void UpdateBuffStat(int raceID, int statIndex, float value)
+    public static void UpdateBuffStat(int raceID, List<int> statIndex, float value)
     {
         if (!raceBuffTable.ContainsKey(raceID))
         {
@@ -80,21 +80,25 @@ public static class BuffManager
             return;
         }
         var buff = raceBuffTable[raceID];
-        switch (statIndex)
+        value *= 0.01f;
+        foreach( var i in statIndex ) 
         {
-            case 0: buff.Damage = value; break;
-            case 1: buff.MaxHP = value; break;
-            case 2: buff.MoveSpeed = value; break;
-            case 3: buff.AttackRange = value; break;
-            case 4: buff.SpawnInterval = value; break;
-            case 5: buff.Cost = Mathf.RoundToInt(value); break;
-            case 6: buff.Hitback = Mathf.RoundToInt(value); break;
-            case 7: buff.PreDelay = value; break;
-            case 8: buff.PostDelay = value; break;
-            case 9: buff.Size = value; break;
-            default:
-                Debug.LogWarning($"알 수 없는 statIndex: {statIndex}");
-                return;
+            switch (i)
+            {
+                case 0: buff.Damage += value; break;
+                case 1: buff.MaxHP += value; break;
+                case 2: buff.MoveSpeed += value; break;
+                case 3: buff.AttackRange += value; break;
+                case 4: buff.SpawnInterval += value; break;
+                case 5: buff.Cost += Mathf.RoundToInt(value); break;
+                case 6: buff.Hitback += Mathf.RoundToInt(value); break;
+                case 7: buff.PreDelay += value; break;
+                case 8: buff.PostDelay += value; break;
+                case 9: buff.Size += value; break;
+                default:
+                    Debug.LogWarning($"알 수 없는 statIndex: {statIndex}");
+                    return;
+            }
         }
         raceBuffTable[raceID] = buff;
     }
