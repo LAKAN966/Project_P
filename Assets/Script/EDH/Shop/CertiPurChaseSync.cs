@@ -51,7 +51,7 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
 
         IEnumerator HideNotEnoughBox()
         {
-            yield return new WaitForSeconds(3f); // 3초 대기
+            yield return new WaitForSeconds(1f); // 3초 대기
             UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
