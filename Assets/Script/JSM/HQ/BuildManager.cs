@@ -85,7 +85,7 @@ public class BuildManager : MonoBehaviour
             int id = int.Parse(parts[0].Trim());
             string displayName = parts[1].Trim();
             string imageName = parts[2].Trim();
-            int raceId = int.Parse(parts[3].Trim());
+            int raceId = int.TryParse(parts[3].Trim(), out var result) ? result:-1;
             int gold = int.Parse(parts[4].Trim());
             int blueprint = int.Parse(parts[5].Trim());
 
@@ -141,12 +141,11 @@ public class BuildManager : MonoBehaviour
             return -1;
         }
 
-        if (level < 0 || level >= building.orderByLevel.Count)
+        if (level < 1 || level > building.orderByLevel.Count)
         {
             Debug.LogError($"[BuildManager] 잘못된 레벨 접근: {level}, 건물 ID: {id}");
             return -1;
         }
-
         return building.orderByLevel[level-1];
     }
 
