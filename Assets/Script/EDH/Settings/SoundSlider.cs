@@ -16,7 +16,7 @@ public class SoundSlider : MonoBehaviour
     {
         // 슬라이더의 값이 변경될 때 AddListener를 통해 이벤트 구독
         BGMslider.onValueChanged.AddListener(SetBGMVolume);
-        SFXslider.onValueChanged.AddListener(SetBGMVolume);
+        SFXslider.onValueChanged.AddListener(SetSFXVolume);
     }
 
     // Start is called before the first frame update
@@ -30,8 +30,10 @@ public class SoundSlider : MonoBehaviour
             SFXslider.value = PlayerPrefs.GetFloat("Volume");
         }
         else
+        {
             BGMslider.value = 0.5f;     // PlayerPrefs에 Volume이 없을 경우
-        SFXslider.value = 0.5f;
+            SFXslider.value = 0.5f;
+        }
 
         // audioMixer.SetFloat("audioMixer에 설정해놓은 Parameter", float 값)
         // audioMixer에 미리 설정해놓은 parameter 값을 변경하는 코드.
@@ -56,5 +58,4 @@ public class SoundSlider : MonoBehaviour
         // 변경된 Volume 값 저장하기
         PlayerPrefs.SetFloat("Volume", SFXslider.value);
     }
-
 }
