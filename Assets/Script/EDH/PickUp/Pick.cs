@@ -13,6 +13,7 @@ public class Pick : MonoBehaviour
 {
     public TextMeshProUGUI ShowTicketAmountText; // 소유하고 있는 티켓 수
     public TextMeshProUGUI PityCount;            // 모집 마일리지
+    public TMP_Text NotEnoughBoxText;  // 재화 부족 경고 텍스트
 
 
     public Button PickOnce; //  1회 버튼
@@ -73,6 +74,7 @@ public class Pick : MonoBehaviour
         }
         else
         {
+            NotEnough();
             Debug.Log("티켓이 부족합니다");
             Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
         }
@@ -98,8 +100,22 @@ public class Pick : MonoBehaviour
         }
         else
         {
+            NotEnough();
             Debug.Log("티켓이 부족합니다");
             Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
+        }
+    }
+
+    public void NotEnough()
+    {
+        UIController.Instance.NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "티켓이 부족합니다.";
+        StartCoroutine(HideNotEnoughBox());
+
+        IEnumerator HideNotEnoughBox()
+        {
+            yield return new WaitForSeconds(3f); // 3초 대기
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
 }

@@ -2321,6 +2321,7 @@ RectTransform:
   - {fileID: 1316298883}
   - {fileID: 8346349289197097617}
   - {fileID: 2025872315}
+  - {fileID: 1899069746149669515}
   m_Father: {fileID: 962814705}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2350,6 +2351,7 @@ MonoBehaviour:
   PurchaseCertiUnitBox: {fileID: 7139967751578575768}
   DescriptionBox: {fileID: 1113022816734281911}
   CertiDescriptionBox: {fileID: 7139967751578575768}
+  NotEnoughBox: {fileID: 849190910864609948}
   MainGoldAmount: {fileID: 4985314540694094046}
   StoreGoldAmount: {fileID: 1235148378570110702}
   UnitManagementButton: {fileID: 3206102176292615852}
@@ -3150,7 +3152,7 @@ RectTransform:
   m_Father: {fileID: 1125710401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7171,6 +7173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTicketAmountText: {fileID: 436377602}
   PityCount: {fileID: 782394493}
+  NotEnoughBoxText: {fileID: 251978448062658018}
   PickOnce: {fileID: 652350319}
   PickTen: {fileID: 1789948406}
   RePickOne: {fileID: 1416283578}
@@ -9998,7 +10001,7 @@ RectTransform:
   m_Father: {fileID: 963839210}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11054,7 +11057,7 @@ RectTransform:
   m_Father: {fileID: 181150304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -15995,7 +15998,7 @@ RectTransform:
   m_Father: {fileID: 1177462711}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -21765,7 +21768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &101118044383630460
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26320,13 +26323,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 849190910864609948}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6374532676398240911}
-  m_Father: {fileID: 8292215473246939042}
+  m_Father: {fileID: 185618142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -44236,7 +44239,6 @@ RectTransform:
   - {fileID: 2205859657835741574}
   - {fileID: 2958257225420273678}
   - {fileID: 3006371698728470518}
-  - {fileID: 1899069746149669515}
   - {fileID: 1563811100350531494}
   - {fileID: 6368155224844568767}
   m_Father: {fileID: 6278057265089082097}
