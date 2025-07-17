@@ -90,18 +90,23 @@ public class StageDataManager
                     towerStageDic[stage.ID] = stage;
                     break;
                 case 2:
-                    goldDic[stage.ID] = stage;
+                    goldDic[stage.Chapter] = stage;
                     break;
             }
         }
 
-        Debug.Log($"스테이지 데이터 로딩 완료: 스테이지 {stageDic.Count}개, 타워 {towerStageDic.Count}개");
+        Debug.Log($"스테이지 데이터 로딩 완료: 스테이지 {stageDic.Count}개, 타워 {towerStageDic.Count}개, 골드 {goldDic.Count}개");
     }
 
 
     public StageData GetStageData(int id)
     {
-        if (stageDic.ContainsKey(id)) return stageDic[id];
+        if (stageDic.TryGetValue(id, out var data))
+            return data;
+        if (towerStageDic.TryGetValue(id, out data))
+            return data;
+        if (goldDic.TryGetValue(id, out data))
+            return data;
         Debug.Log($"스테이지ID {id}에 해당하는 정보를 찾을 올 수 없습니다.");
         return null;
     }

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -18,19 +19,29 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+
         minSize = cam.orthographicSize*0.7f;
 
         float stageWidth = maxX - minX;
 
-        // 최대 줌 아웃 크기 = 카메라가 좌/우 기지의 앞부분만 보이게 하기 위한 값
-        //maxSize = Mathf.Max(minSize, (stageWidth * 0.5f) / cam.aspect);
-        maxSize = 5.7f;
+        maxSize = Mathf.Min(5.7f, (stageWidth * 0.5f) / cam.aspect);
+
+        setCamLocation();
     }
 
     void Update()
     {
         HandleZoom();
         HandleDrag();
+    }
+    public void setCamLocation()
+    {
+        if (WaveManager.Instance.stageType == 2)
+        {
+            //cam.transform.position += new Vector3(WaveManager.Instance.currentStage.BaseDistance / 2, 0, 0);
+            Destroy(this);
+            return;
+        }
     }
 
     void HandleZoom()
