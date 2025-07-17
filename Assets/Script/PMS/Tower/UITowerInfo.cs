@@ -111,21 +111,6 @@ public class UITowerInfo : MonoBehaviour
 
     private void OnClickEnter()
     {
-        var stage = StageDataManager.Instance.GetStageData(currentStageID);
-        int raceID = stage.RaceID;
-
-        if (!TowerManager.Instance.CanEnterTower(raceID))
-        {
-            Debug.Log("입장 횟수가 부족합니다.");
-            return;
-        }
-
-        bool entered = TowerManager.Instance.EnterTower(raceID);
-        if (entered)
-        {
-            countText.text = $"{TowerManager.Instance.GetEnterCount(raceID)}/{TowerManager.Instance.maxEntryCounts}";
-            //TowerManager.Instance.EnterBattle(currentStageID);
-        }
-
+        TowerManager.Instance.EnterBattle(currentStageID);
     }
 }

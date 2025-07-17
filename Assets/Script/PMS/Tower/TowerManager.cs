@@ -22,6 +22,8 @@ public class TowerManager
     public readonly int maxEntryCounts = 3;
     private PlayerTowerData data => PlayerDataManager.Instance.player.towerData;
 
+    private int currentStageID;
+
     public int GetClearedFloor(int raceID)
     {
         return PlayerDataManager.Instance.player.towerData.lastClearFloor.TryGetValue(raceID, out var floor) ? floor : 0;
@@ -69,6 +71,41 @@ public class TowerManager
         return data.entryCounts[raceID];
     }
 
-    
+    public void EnterBattle(int stageID)
+    {
+        var stage = StageDataManager.Instance.GetStageData(stageID);
+        int raceID = stage.RaceID;
+
+        if (!CanEnterTower(raceID))
+        {
+            Debug.Log("입장 횟수가 부족합니다.");
+            return;
+        }
+
+        bool entered = EnterTower(raceID);
+        if (!entered)
+        {
+            Debug.Log("입장 실패");
+            return;
+        }
+
+        currentStageID = stageID;  // 멤버 변수로 저장
+
+        SceneManager.sceneLoaded += OnBattleSceneLoaded;
+        SceneManager.LoadScene("BattleScene");
+        Debug.Log($"{stageID} 입장");
+    }
+
+    private void OnBattleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "BattleScene")
+        {
+            var normalDeck = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
+            var leaderDeck = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
+            SceneManager.sceneLoaded -= OnBattleSceneLoaded;
+
+            BattleManager.Instance.StartBattle(currentStageID, normalDeck, leaderDeck, 1);
+        }
+    }
 
 }
