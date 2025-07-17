@@ -101,7 +101,12 @@ public class StageDataManager
 
     public StageData GetStageData(int id)
     {
-        if (stageDic.ContainsKey(id)) return stageDic[id];
+        if (stageDic.TryGetValue(id, out var data))
+            return data;
+        if (towerStageDic.TryGetValue(id, out data))
+            return data;
+        if (goldDic.TryGetValue(id, out data))
+            return data;
         Debug.Log($"스테이지ID {id}에 해당하는 정보를 찾을 올 수 없습니다.");
         return null;
     }
