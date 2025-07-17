@@ -11,19 +11,25 @@ public class UITowerInfo : MonoBehaviour
 
     [SerializeField] private GameObject rewardParent;
     [SerializeField] private GameObject rewardPrefab;
-    
+
+    [SerializeField] private TextMeshProUGUI countText;
+    [SerializeField] private Button enterBtn;
+
     private List<int> firstRewardIDs;
     private List<int> firstRewardAmounts;
 
-    public static UITowerInfo instance;
+    private int currentStageID;
 
-    public void Awake()
+    private void Awake()
     {
-        instance = this;
+        enterBtn.onClick.AddListener(OnClickEnter);
     }
+
 
     public void SetTowerInfo(int stageID)
     {
+        currentStageID = stageID;
+
         var stage = StageDataManager.Instance.GetStageData(stageID);
 
         foreach (Transform child in enemyParent.transform)
@@ -72,6 +78,9 @@ public class UITowerInfo : MonoBehaviour
         {
             CreateRewardSlot(firstRewardIDs[i], firstRewardAmounts[i], rewardParent.transform, rewardPrefab);
         }
+
+        int raceID = stage.RaceID;
+        countText.text = $"{TowerManager.Instance.GetEnterCount(raceID)}/{TowerManager.Instance.maxEntryCounts}";
     }
     private void CreateRewardSlot(int itemID, int amount, Transform parent, GameObject slotPrefab)
     {
@@ -98,5 +107,25 @@ public class UITowerInfo : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void OnClickEnter()
+    {
+        var stage = StageDataManager.Instance.GetStageData(currentStageID);
+        int raceID = stage.RaceID;
+
+        if (!TowerManager.Instance.CanEnterTower(raceID))
+        {
+            Debug.Log("입장 횟수가 부족합니다.");
+            return;
+        }
+
+        bool entered = TowerManager.Instance.EnterTower(raceID);
+        if (entered)
+        {
+            countText.text = $"{TowerManager.Instance.GetEnterCount(raceID)}/{TowerManager.Instance.maxEntryCounts}";
+            //TowerManager.Instance.EnterBattle(currentStageID);
+        }
+
     }
 }

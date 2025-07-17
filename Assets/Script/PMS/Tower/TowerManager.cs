@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TowerManager
 {
@@ -18,7 +19,7 @@ public class TowerManager
         }
     }
 
-    private const int maxEntryCounts = 3;
+    public readonly int maxEntryCounts = 3;
     private PlayerTowerData data => PlayerDataManager.Instance.player.towerData;
 
     public int GetClearedFloor(int raceID)
@@ -58,4 +59,16 @@ public class TowerManager
         data.entryCounts[raceID]--;
         return true;
     }
+
+    public int GetEnterCount(int raceID)
+    {
+        if (!data.entryCounts.ContainsKey(raceID))
+        {
+            data.entryCounts[raceID] = maxEntryCounts;
+        }
+        return data.entryCounts[raceID];
+    }
+
+    
+
 }

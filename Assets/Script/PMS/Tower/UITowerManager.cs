@@ -9,6 +9,7 @@ public class UITowerManager : MonoBehaviour
     [SerializeField] private GameObject towerParent;
     [SerializeField] private GameObject towerPrefab;
     [SerializeField] private GameObject towerInfoPanel;
+    
 
     public static UITowerManager instance;
 
