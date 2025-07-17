@@ -530,6 +530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: {fileID: 2025191895}
   m_Time: 0
+  m_Running: 0
 --- !u!1 &278593662
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,6 +2866,7 @@ MonoBehaviour:
   stageID: 10001
   stageType: 0
   isPaused: 0
+  Timer: {fileID: 272034228}
   enemyPool: {fileID: 8054658924490451434}
   stageCSV: {fileID: 4900000, guid: 77edec5a5f75ee14e9c650f305335fb4, type: 3}
   waveText: {fileID: 4900000, guid: 078f045398d134d45b07360886161fb6, type: 3}
@@ -4933,6 +4935,7 @@ MonoBehaviour:
   enemyHeroPool: {fileID: 3724510083998363870}
   battleSpeed: {fileID: 7755898461604125302}
   touchBlock: {fileID: 1659989506}
+  timer: {fileID: 272034232}
 --- !u!222 &2041565869937424086
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4959,7 +4962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 69.29999, y: -63.58}
+  m_AnchoredPosition: {x: 69.30005, y: -63.579956}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2078442345742296232
@@ -5060,7 +5063,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -51.9, y: -55}
+  m_AnchoredPosition: {x: -51.899902, y: -55}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2147081596511126047

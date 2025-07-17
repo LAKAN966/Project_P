@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI timer;
 
     public float m_Time;
-    private bool m_Running=false;
+    public bool m_Running=false;
 
     public void Start()
     {
@@ -22,7 +22,7 @@ public class Timer : MonoBehaviour
         timer.text = $"{displayTime:00.00}";
         if (displayTime >= 60f)
         {
-            m_Running = false;
+            GameManager.Instance.OnBaseDestroyed(false);
         }
     }
 }

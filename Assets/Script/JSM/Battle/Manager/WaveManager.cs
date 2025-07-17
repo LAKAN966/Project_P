@@ -21,6 +21,7 @@ public class WaveManager : MonoBehaviour
     public bool isPaused = false;
     private WaveData pendingWave = null;
     private int waveCount;
+    public GameObject Timer;
 
     public UnitPool enemyPool;
 
@@ -35,6 +36,10 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
+        if (stageType==2)
+        {
+            Timer.SetActive(true);
+        }
         LoadStageAndWave(stageID);
         StartCoroutine(StartWaveAfterTeaTime());
     }
