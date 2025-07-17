@@ -95,7 +95,7 @@ public class StageDataManager
             }
         }
 
-        Debug.Log($"스테이지 데이터 로딩 완료: 스테이지 {stageDic.Count}개, 타워 {towerStageDic.Count}개");
+        Debug.Log($"스테이지 데이터 로딩 완료: 스테이지 {stageDic.Count}개, 타워 {towerStageDic.Count}개, 골드 {goldDic.Count}개");
     }
 
 

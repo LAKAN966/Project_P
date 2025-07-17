@@ -8,6 +8,8 @@ public class WaveManager : MonoBehaviour
     public static WaveManager Instance;
 
     public int stageID;  // 외부에서 설정
+    public int stageType;
+
     public StageData currentStage;
     private List<WaveData> waves = new();
     private List<WaveData> triggerWaves;
@@ -19,6 +21,7 @@ public class WaveManager : MonoBehaviour
     public bool isPaused = false;
     private WaveData pendingWave = null;
     private int waveCount;
+    public GameObject Timer;
 
     public UnitPool enemyPool;
 
@@ -33,6 +36,10 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
+        if (stageType==2)
+        {
+            Timer.SetActive(true);
+        }
         LoadStageAndWave(stageID);
         StartCoroutine(StartWaveAfterTeaTime());
     }

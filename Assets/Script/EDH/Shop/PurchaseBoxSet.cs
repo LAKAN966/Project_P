@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,13 +17,13 @@ public class PurchaseBoxSet : MonoBehaviour
     public Button CancelButton;     // 구매 취소 버튼
 
 
-
     public Item _Item;
+    internal CertiSlot _Info;
 
     private void Start()
     {
-        ItemDescriptionText.text = _Item.Description.ToString(); // 아이템 설명 동기화.
-        PurchaseItemIcon.onClick.AddListener(() =>DescriptionBox.SetActive(true));
+        PurchaseItemIcon.onClick.AddListener(DescriptionSet);
+
         CancelButton.onClick.AddListener(TabClose);
     }
 
@@ -30,5 +31,12 @@ public class PurchaseBoxSet : MonoBehaviour
     {
         purchaseUIBox.SetActive(false);
         DescriptionBox.SetActive(false);
+    }
+
+    public void DescriptionSet()
+    {
+        Debug.Log("아이템 설명" + _Item.Description);
+        DescriptionBox.SetActive(true);
+        DescriptionBox.GetComponentInChildren<TMP_Text>().text = _Item.Description; // null일경우 넣어주면 안됨.
     }
 }

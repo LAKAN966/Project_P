@@ -18,10 +18,11 @@ public class BattleManager
 
     private BattleManager() { }
 
-    public void StartBattle(int selectedStageID, List<UnitStats> normalDeck, UnitStats leaderDeck)
+    public void StartBattle(int selectedStageID, List<UnitStats> normalDeck, UnitStats leaderDeck, int stageType=0)
     {
         Debug.Log(selectedStageID + "스타트 배틀");
         WaveManager.Instance.stageID = selectedStageID;
+        WaveManager.Instance.stageType = stageType;
         UnitSpawner.Instance.Init(normalDeck, leaderDeck);
         UnitSpawner.Instance.SetButton();
     }

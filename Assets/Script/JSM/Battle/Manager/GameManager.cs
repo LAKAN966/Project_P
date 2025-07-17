@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemyHeroPool;
     public BattleSpeed battleSpeed;
     public GameObject touchBlock;
+    public Timer timer;
 
     private void Awake()
     {
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
             allyPool.SetActive(false);
             allyHeroPool.SetActive(false);
         }
-
+        timer.m_Running = false;
         battleSpeed.gameSpeed = 1;
     }
     public void OnClicked()
@@ -48,7 +49,15 @@ public class GameManager : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        StageManager.instance.AddReward(WaveManager.Instance.stageID);
+        if(WaveManager.Instance.stageType != 2 || PlayerDataManager.Instance.player.goldDungeonData.entryCounts > 0)
+        {
+            StageManager.instance.AddReward(WaveManager.Instance.stageID);
+        }
+        if (WaveManager.Instance.stageType == 2)
+        {
+            PlayerDataManager.Instance.player.goldDungeonData.entryCounts--;
+        }
+
         StageManager.instance.ClearStage(WaveManager.Instance.stageID);
         UIController.Instance.OpenStage();
         SceneManager.sceneLoaded -= OnSceneLoaded;
