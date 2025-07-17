@@ -1,6 +1,7 @@
 using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
 
@@ -102,17 +103,14 @@ public class PurchaseSync : MonoBehaviour
     }
     public void NotEnough()
     {
-        if (_Item.Cost > PlayerDataManager.Instance.player.gold)
-        {
-            NotEnoughBoxText.text = "골드가 부족합니다.";
-            NotEnoughBox.SetActive(true);
-            StartCoroutine(HideNotEnoughBox());
-        }
+        UIController.Instance.NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "골드가 부족합니다.";
+        StartCoroutine(HideNotEnoughBox());
 
         IEnumerator HideNotEnoughBox()
         {
             yield return new WaitForSeconds(3f); // 3초 대기
-            NotEnoughBox.SetActive(false);       // 경고창 비활성화
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
 

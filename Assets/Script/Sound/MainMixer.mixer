@@ -36,9 +36,11 @@ AudioMixerController:
   m_UpdateMode: 0
   m_ExposedParameters:
   - guid: 3232d6f6cbc674a4983f9f0163489bb5
-    name: MyExposedParam 1
+    name: BGM
+  - guid: d421663236b034a48b3f8840ea7e5806
+    name: MainMIxer
   - guid: 37ed0f5d807b2e24d91d313e66ad0e65
-    name: MyExposedParam
+    name: SFX
   m_AudioMixerGroupViews:
   - guids:
     - 62edbfacd1028084b9f7dca922657a0c
@@ -57,8 +59,8 @@ AudioMixerGroupController:
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 62edbfacd1028084b9f7dca922657a0c
   m_Children:
-  - {fileID: 1135885822325878732}
   - {fileID: -2339250653451678074}
+  - {fileID: 1135885822325878732}
   m_Volume: d421663236b034a48b3f8840ea7e5806
   m_Pitch: 48eee45695520a74c9c026c2556aa215
   m_Send: 00000000000000000000000000000000
