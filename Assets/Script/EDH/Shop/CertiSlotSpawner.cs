@@ -16,49 +16,6 @@ public class CertiSlotSpawner : MonoBehaviour
         ShowCertiUnitCard();
     }
 
-
-    //public void ShowCertiUnitCard() 
-    //{
-    //    List<PickInfo> Alliance = new();
-    //    var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
-    //    //foreach (Transform Child in Content)
-    //    //{
-    //    //    Destroy(Child.gameObject);
-    //    //}
-    //    foreach (PickInfo pickInfo in PicklistDo)
-    //    {
-    //        if (pickInfo.IsEnemy == false)
-    //        {
-    //            Debug.Log($"{pickInfo.IsEnemy}, {pickInfo.Name}");
-    //            Alliance.Add(pickInfo);
-    //        }
-    //    }
-    //    List<PickInfo> picks = new List<PickInfo>();
-    //    //for (int i = 0; i < Alliance.Count; i++)
-
-    //    while(Alliance.Count > 0) 
-    //    {
-    //        picks.Add(CreateCard(Alliance, Content));
-    //        Debug.Log(Alliance + "존재");
-    //    }
-    //    Debug.Log (CreateCard(PicklistDo, Content) + "카드생성");
-    //}
-    //private PickInfo CreateCard(List<PickInfo> Alliance, Transform parent) //카드 슬롯 생성
-    //{
-    //    CertiSlot slot = new CertiSlot();
-    //    PickInfo RanResult;
-
-    //    int ranindex = UnityEngine.Random.Range(0, Alliance.Count);
-    //    RanResult = Alliance[ranindex];
-    //    Alliance.Remove(RanResult);
-
-    //    GameObject go = Instantiate(CertiSlot, parent); //1
-    //    slot = go.GetComponent<CertiSlot>(); //2
-    //    slot.init(RanResult); //3
-
-    //    return RanResult;
-    //}
-
     public void ShowCertiUnitCard()
     {
         var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
@@ -70,6 +27,7 @@ public class CertiSlotSpawner : MonoBehaviour
             {
                 Alliance.Add(pickInfo);
             }
+            Debug.Log(Alliance.Count + "존재");
         }
                                                                                                                                                                                                 
         foreach (var pick in Alliance)
