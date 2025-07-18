@@ -190,6 +190,11 @@ public class PlayerDataManager
         if (player.actionPoint >= amount)
         {
             player.actionPoint -= amount;
+
+            if (player.actionPoint < player.maxActionPoint)
+            {
+                player.lastActionPointTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            }
             PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
             QuestEvent.UseActionPoint?.Invoke(amount); // 퀘스트 이벤트
             return true;
