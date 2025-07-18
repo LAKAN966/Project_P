@@ -99,6 +99,7 @@ public class UIController : MonoBehaviour
     {
         Shop.SetActive(true);
         Main.SetActive(false);
+        ShoppingManager.Instance.ShowNowCertificate();
     }
     public void OnExitBtn()
     {
