@@ -12,7 +12,7 @@ public class MapManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
-    private void Start()
+    public void MapStart()
     {
         mapLength = WaveManager.Instance.currentStage.BaseDistance;
         InitMap();

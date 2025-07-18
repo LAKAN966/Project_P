@@ -15,9 +15,8 @@ public class SpawnButton : MonoBehaviour
 
     private bool initialized = false;
 
-    private void Start()
+    public void SetSpawnButton()
     {
-        UnitSpawner.Instance.SetButton();
         InitializeUI();
     }
 

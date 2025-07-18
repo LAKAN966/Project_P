@@ -24,7 +24,6 @@ public class BattleManager
         WaveManager.Instance.stageID = selectedStageID;
         WaveManager.Instance.stageType = stageType;
         UnitSpawner.Instance.Init(normalDeck, leaderDeck);
-        UnitSpawner.Instance.SetButton();
     }
 }
 
