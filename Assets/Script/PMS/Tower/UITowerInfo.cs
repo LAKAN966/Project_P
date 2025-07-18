@@ -139,31 +139,6 @@ public class UITowerInfo : MonoBehaviour
         text.text = $"{TagManager.GetNameByID(raceID)} 유닛만\n출전 가능합니다.";
         warningPopup.SetActive(true);
 
-        if (popCoroutine != null)
-        {
-            StopCoroutine(popCoroutine);
-        }
-        popCoroutine = StartCoroutine(HidePopup());
-    }
-
-    private IEnumerator HidePopup()
-    {
-
-        yield return new WaitForSeconds(1f);
-
-        warningPopup.SetActive(false);
-        popCoroutine = null;
-    }
-
-    private void OnEnable()
-    {
-
-        if (popCoroutine != null)
-        {
-            StopCoroutine(popCoroutine);
-        }
-        popCoroutine = StartCoroutine(HidePopup());
-
     }
 
 }
