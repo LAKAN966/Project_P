@@ -173,9 +173,26 @@ public class StageManager : MonoBehaviour
         int ap = StageDataManager.Instance.GetStageData(id).ActionPoint;
         PlayerDataManager.Instance.player.actionPoint -= ap;
         PlayerCurrencyEvent.OnActionPointChange?.Invoke(PlayerDataManager.Instance.player.actionPoint);
-
         QuestEvent.UseActionPoint?.Invoke(ap);
-        QuestEvent.OnMainChapterClear?.Invoke();
+        var stageData = StageDataManager.Instance.GetStageData(id);
+        
+        switch (stageData.Type)
+        {
+            case 0:
+                QuestEvent.OnMainChapterClear?.Invoke();
+                break;
+            case 1:
+                int raceID = stageData.RaceID;
+                if (TowerManager.Instance.CanEnterTower(raceID))
+                {
+                    TowerManager.Instance.DecreaseEntryCount(raceID);
+                }
+                QuestEvent.OnTowerClear?.Invoke();
+                break;
+            case 2:
+                QuestEvent.OnLooting?.Invoke();
+                break;
+        }
     }
 
     public void AddReward(int id) // 스테이지 클리어 보상
