@@ -16,6 +16,8 @@ public class UITowerInfo : MonoBehaviour
     [SerializeField] private Button enterBtn;
     [SerializeField] private Button deckBtn;
 
+    [SerializeField] private GameObject warningPopup;
+
     private List<int> firstRewardIDs;
     private List<int> firstRewardAmounts;
 
@@ -25,6 +27,7 @@ public class UITowerInfo : MonoBehaviour
     {
         enterBtn.onClick.AddListener(OnClickEnter);
         deckBtn.onClick.AddListener(OnclickOpenDeck);
+        warningPopup.SetActive(false);
     }
 
 
