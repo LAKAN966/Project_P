@@ -1,5 +1,5 @@
-ID,Level,BaseDistance,EnemyBaseHP,EnemyUnit1,EnemyUnit2,EnemyUnit3,FirstRewardIDs,RepeatReward,FirstReward1Amount,RepeatRewardAmount,StageName,TeaTime,ResetTime,EnemyHeroID,StageBG,ActionPoint,BackGround1,BackGround2,BackGround3,BackGround4,BackGround5,BackGround6,Type,GimmickID,RaceID
-110001,1,25,100,2002,2001,,101,101,10000,1000,stage1-1,6,16,3001,,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,
+﻿ID,Level,BaseDistance,EnemyBaseHP,EnemyUnit1,EnemyUnit2,EnemyUnit3,FirstRewardIDs,RepeatReward,FirstReward1Amount,RepeatRewardAmount,StageName,TeaTime,ResetTime,EnemyHeroID,StageBG,ActionPoint,BackGround1,BackGround2,BackGround3,BackGround4,BackGround5,BackGround6,Type,GimmickID,RaceID
+110001,1,25,100,2002,2001,,101,101,10000,1000,stage1-1,0,150,,,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,
 110002,1,25,105,2002,2001,,101,101,10000,1000,stage1-2,6,16,3001,,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,
 110003,1,25,110,2002,2001,,101,101,10000,1000,stage1-3,6,16,3001,,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,
 110004,1,25,115,2002,2001,,101,101,10000,1000,stage1-4,6,16,3001,,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,
