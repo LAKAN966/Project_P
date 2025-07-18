@@ -17,7 +17,6 @@ public class SpawnButton : MonoBehaviour
 
     public void Start()
     {
-        //UnitSpawner.Instance.SetButton();
         InitializeUI();
     }
 
@@ -41,7 +40,7 @@ public class SpawnButton : MonoBehaviour
         {
             return;
         }
-        var stats = UnitDataManager.Instance.GetStats(unitID);
+        var stats = BuffManager.ApplyBuff(UnitDataManager.Instance.GetStats(unitID));
         if (stats == null)
         {
             Debug.LogWarning("Stats not found for unitID: " + unitID);
