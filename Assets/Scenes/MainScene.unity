@@ -20136,9 +20136,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldBtn: {fileID: 1922508140}
   mainBtn: {fileID: 1914591823}
+  towerBtn: {fileID: 2409986223290751769}
   goldStage: {fileID: 1858657443606664684}
   mainStage: {fileID: 1481011915}
   infoPanel: {fileID: 745905265}
+  towerPanel: {fileID: 9074868427751409316}
 --- !u!1 &2031853803
 GameObject:
   m_ObjectHideFlags: 0
@@ -28349,9 +28351,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1344843033697742277}
-        m_TargetAssemblyTypeName: UITowerManager, Assembly-CSharp
-        m_MethodName: Init
+      - m_Target: {fileID: 2025872316}
+        m_TargetAssemblyTypeName: StageInit, Assembly-CSharp
+        m_MethodName: OnTowerBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
