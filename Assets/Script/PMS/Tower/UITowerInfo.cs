@@ -14,6 +14,9 @@ public class UITowerInfo : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI countText;
     [SerializeField] private Button enterBtn;
+    [SerializeField] private Button deckBtn;
+
+    [SerializeField] private GameObject warningPopup;
 
     private List<int> firstRewardIDs;
     private List<int> firstRewardAmounts;
@@ -23,6 +26,8 @@ public class UITowerInfo : MonoBehaviour
     private void Awake()
     {
         enterBtn.onClick.AddListener(OnClickEnter);
+        deckBtn.onClick.AddListener(OnclickOpenDeck);
+        warningPopup.SetActive(false);
     }
 
 
@@ -111,6 +116,35 @@ public class UITowerInfo : MonoBehaviour
 
     private void OnClickEnter()
     {
-        TowerManager.Instance.EnterBattle(currentStageID);
+        TowerManager.Instance.EnterBattle(currentStageID, MisMatchRace);
     }
+
+    private void OnclickOpenDeck()
+    {
+        var stageID = StageDataManager.Instance.GetStageData(currentStageID);
+
+        UIDeckBuildManager.instance.deckPanel.SetActive(true);
+        UIDeckBuildManager.instance.SetRaceFilter(stageID.RaceID);
+        UIDeckBuildManager.instance.Init(stageID.RaceID);
+    }
+
+    private void MisMatchRace()
+    {
+        var stageID = StageDataManager.Instance.GetStageData(currentStageID);
+        int raceID = stageID.RaceID;
+
+        TextMeshProUGUI text = warningPopup.GetComponentInChildren<TextMeshProUGUI>();
+        text.text = $"{TagManager.GetNameByID(raceID)} 유닛만\n출전 가능합니다.";
+        warningPopup.SetActive(true);
+
+        StartCoroutine(HidePopup());
+    }
+
+    private IEnumerator HidePopup()
+    {
+        yield return new WaitForSeconds(1f);
+
+        warningPopup.SetActive(false);
+    }
+    
 }

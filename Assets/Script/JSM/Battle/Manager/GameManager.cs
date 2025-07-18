@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         {
             PlayerDataManager.Instance.player.goldDungeonData.entryCounts-=1;
         }
+
         StageManager.instance.ClearStage(WaveManager.Instance.stageID);
         UIController.Instance.OpenStage();
         SceneManager.sceneLoaded -= OnSceneLoaded;
