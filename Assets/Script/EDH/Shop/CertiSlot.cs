@@ -21,6 +21,7 @@ public class CertiSlot : MonoBehaviour
         _Info.Name = pickInfo.Name;
         _Info.ID = pickInfo.ID;
         _Info.warrant = pickInfo.warrant;
+        CertiCost.text = _Info.warrant.ToString();
 
         certiSlot.onClick.RemoveAllListeners();
 

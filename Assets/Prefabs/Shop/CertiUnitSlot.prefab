@@ -380,6 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitIcon: {fileID: 4258965331702477459}
   certiSlot: {fileID: 17692442814355961}
+  CertiCost: {fileID: 5848004981837743495}
   certiPurChaseSync: {fileID: 0}
 --- !u!1 &8985396809139547512
 GameObject:
