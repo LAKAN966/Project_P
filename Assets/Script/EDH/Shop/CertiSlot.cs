@@ -36,6 +36,7 @@ public class CertiSlot : MonoBehaviour
 
             UIController.Instance.PurchaseCertiUnitBox.SetActive(true);
             UIController.Instance.PurchaseCertiUnitBox.GetComponent<CertiPurchaseBoxSet>()._PickInfo = _Info;
+            UIController.Instance.PurchaseCertiUnitBox.GetComponent<CertiPurchaseBoxSet>().SetUnitIcon(UnitIcon.sprite); 
         });
     }
 }
