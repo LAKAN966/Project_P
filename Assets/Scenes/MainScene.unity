@@ -21820,7 +21820,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &31284672079887701
 GameObject:
   m_ObjectHideFlags: 0
@@ -33405,7 +33405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &4085700835755949215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40142,7 +40142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &6035525269850520267
 GameObject:
   m_ObjectHideFlags: 0
@@ -41172,6 +41172,7 @@ MonoBehaviour:
   UnitDescriptionText: {fileID: 4905067961329470118}
   PurchaseCertiUnitBox: {fileID: 7139967751578575768}
   CertiDescriptionBox: {fileID: 7172790121042634901}
+  UnitIcon: {fileID: 0}
   PurchaseItemIcon: {fileID: 5902037606531068719}
   CancelButton: {fileID: 8194845168322338167}
   _PickInfo:
@@ -42982,6 +42983,7 @@ MonoBehaviour:
   UnitDescriptionText: {fileID: 4905067961329470118}
   PurchaseCertiUnitBox: {fileID: 7139967751578575768}
   CertiDescriptionBox: {fileID: 7172790121042634901}
+  UnitIcon: {fileID: 5833770788305928764}
   PurchaseItemIcon: {fileID: 5902037606531068719}
   CancelButton: {fileID: 8194845168322338167}
   _PickInfo:
@@ -47943,7 +47945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8626999369173582583
 MonoBehaviour:
   m_ObjectHideFlags: 0
