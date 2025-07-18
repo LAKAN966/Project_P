@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,7 +102,7 @@ public class TowerManager
         return true;
     }
 
-    public void EnterBattle(int stageID)
+    public void EnterBattle(int stageID, Action raceMatch = null)
     {
         var stage = StageDataManager.Instance.GetStageData(stageID);
         int raceID = stage.RaceID;
@@ -123,6 +124,7 @@ public class TowerManager
         if (!CheckRaceInDeck(raceID))
         {
             Debug.Log($"{TagManager.GetNameByID(raceID)}와 동일한 유닛만 출전할 수 있습니다.");
+            raceMatch?.Invoke();
             return;
         }
 
