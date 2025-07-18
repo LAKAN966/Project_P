@@ -167,9 +167,9 @@ public class StageManager : MonoBehaviour
         Debug.Log("???");
         PlayerDataManager.Instance.ClearStage(id);
         int ap = StageDataManager.Instance.GetStageData(id).ActionPoint;
-        PlayerDataManager.Instance.player.actionPoint -= ap;
-        PlayerCurrencyEvent.OnActionPointChange?.Invoke(PlayerDataManager.Instance.player.actionPoint);
-        QuestEvent.UseActionPoint?.Invoke(ap);
+        PlayerDataManager.Instance.UseActionPoint(ap);
+        
+        
         var stageData = StageDataManager.Instance.GetStageData(id);
         
         switch (stageData.Type)
