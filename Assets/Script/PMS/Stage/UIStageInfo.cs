@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ public class UIStageInfo : MonoBehaviour
     [SerializeField] private GameObject frSlot;
     [SerializeField] private GameObject repeatRewardParent;
     [SerializeField] private GameObject rrSlot;
+
+    [SerializeField] private Button deckBtn;
 
     private List<int> firstRewardIDs;
     private List<int> firstRewardAmounts;
@@ -81,5 +84,10 @@ public class UIStageInfo : MonoBehaviour
                 break;
             }
         }
+    }
+    public void OnClickToDeck()
+    {
+        UIDeckBuildManager.instance.deckPanel.SetActive(true);
+        UIDeckBuildManager.instance.Init();
     }
 }
