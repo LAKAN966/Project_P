@@ -132,6 +132,18 @@ public class PlayerDataManager
         {
             player.clearedStageIDs.Add(stageID);
         }
+
+        var stage = StageDataManager.Instance.GetStageData(stageID);
+        if (stage.Type == 1)
+        {
+            int raceID = stage.RaceID;
+            int floor = stage.Chapter;
+
+            if(!player.towerData.lastClearFloor.ContainsKey(raceID) || player.towerData.lastClearFloor[raceID] < floor)
+            {
+                player.towerData.lastClearFloor[raceID] = floor;
+            }
+        }
     }
 
     public int RefreshActionPoint()
@@ -178,6 +190,11 @@ public class PlayerDataManager
         if (player.actionPoint >= amount)
         {
             player.actionPoint -= amount;
+
+            if (player.actionPoint < player.maxActionPoint)
+            {
+                player.lastActionPointTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            }
             PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
             QuestEvent.UseActionPoint?.Invoke(amount); // 퀘스트 이벤트
             return true;

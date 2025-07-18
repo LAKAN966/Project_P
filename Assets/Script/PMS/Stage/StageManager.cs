@@ -17,7 +17,6 @@ public class StageManager : MonoBehaviour
     [Header("스테이지")]
     [SerializeField] private Transform nodeParent;
     [SerializeField] private StageNode stageNodePrefab;
-    [SerializeField] private Button battleBtn;
     [SerializeField] private GameObject stageInfo;
     [SerializeField] private GameObject uiStage;
 
@@ -49,9 +48,6 @@ public class StageManager : MonoBehaviour
     {
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
-        battleBtn.onClick.AddListener(OnClickEnterBattle);
-
-        battleBtn.gameObject.SetActive(false);
 
         UpdateStageUI();
     }
@@ -141,10 +137,10 @@ public class StageManager : MonoBehaviour
         Debug.Log($"스테이지 {stageID} 선택됨");
         stageInfo.SetActive(true);
         uiStage.GetComponent<UIStageInfo>().SetStageInfo(stageID);
-        battleBtn.gameObject.SetActive(true);
+        
     }
 
-    private void OnClickEnterBattle()
+    public void OnClickEnterBattle()
     {
         if (selectedStageID == -1) return;
 
@@ -171,11 +167,28 @@ public class StageManager : MonoBehaviour
         Debug.Log("???");
         PlayerDataManager.Instance.ClearStage(id);
         int ap = StageDataManager.Instance.GetStageData(id).ActionPoint;
-        PlayerDataManager.Instance.player.actionPoint -= ap;
-        PlayerCurrencyEvent.OnActionPointChange?.Invoke(PlayerDataManager.Instance.player.actionPoint);
-
-        QuestEvent.UseActionPoint?.Invoke(ap);
-        QuestEvent.OnMainChapterClear?.Invoke();
+        PlayerDataManager.Instance.UseActionPoint(ap);
+        
+        
+        var stageData = StageDataManager.Instance.GetStageData(id);
+        
+        switch (stageData.Type)
+        {
+            case 0:
+                QuestEvent.OnMainChapterClear?.Invoke();
+                break;
+            case 1:
+                int raceID = stageData.RaceID;
+                if (TowerManager.Instance.CanEnterTower(raceID))
+                {
+                    TowerManager.Instance.DecreaseEntryCount(raceID);
+                }
+                QuestEvent.OnTowerClear?.Invoke();
+                break;
+            case 2:
+                QuestEvent.OnLooting?.Invoke();
+                break;
+        }
     }
 
     public void AddReward(int id) // 스테이지 클리어 보상

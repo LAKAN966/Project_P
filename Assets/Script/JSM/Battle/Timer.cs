@@ -6,7 +6,7 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     public TextMeshProUGUI timer;
-
+    public float timeLimit=60;
     public float m_Time;
     public bool m_Running=false;
 
@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
         m_Time += Time.deltaTime;
         float displayTime = Mathf.Floor(m_Time * 100f) / 100f;
         timer.text = $"{displayTime:00.00}";
-        if (displayTime >= 60f)
+        if (displayTime >= timeLimit)
         {
             GameManager.Instance.OnBaseDestroyed(false);
         }
