@@ -32,13 +32,14 @@ public class TowerManager
     public StageData GetCurrentFloorStage(int raceID)
     {
         int floor = GetClearedFloor(raceID);
+        int nextFloor = floor + 1;
 
         // 해당 종족의 모든 타워 스테이지 중에서
         var stage = StageDataManager.Instance.GetAllTowerStageData()
             .Values
             .Where(s => s.RaceID == raceID)
             .OrderBy(s => s.Chapter)
-            .FirstOrDefault(s => s.Chapter == (floor > 0 ? floor : 1)); // 클리어 층, 없으면 1층
+            .FirstOrDefault(s => s.Chapter == nextFloor); // 클리어 층, 없으면 1층
 
         return stage;
     }

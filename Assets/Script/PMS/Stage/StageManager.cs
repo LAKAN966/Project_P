@@ -175,7 +175,19 @@ public class StageManager : MonoBehaviour
         PlayerCurrencyEvent.OnActionPointChange?.Invoke(PlayerDataManager.Instance.player.actionPoint);
 
         QuestEvent.UseActionPoint?.Invoke(ap);
-        QuestEvent.OnMainChapterClear?.Invoke();
+        var stageData = StageDataManager.Instance.GetStageData(id);
+        switch (stageData.Type)
+        {
+            case 0:
+                QuestEvent.OnMainChapterClear?.Invoke();
+                break;
+            case 1:
+                QuestEvent.OnTowerClear?.Invoke();
+                break;
+            case 2:
+                QuestEvent.OnLooting?.Invoke();
+                break;
+        }
     }
 
     public void AddReward(int id) // 스테이지 클리어 보상
