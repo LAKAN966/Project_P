@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class GospelManager : MonoBehaviour
@@ -45,7 +47,13 @@ public class GospelManager : MonoBehaviour
         for (int i = 1; i < lines.Length; i++) // skip header
         {
             if (string.IsNullOrWhiteSpace(lines[i])) continue;
-            var parts = lines[i].Split(',');
+
+            List<string> parts = ParseCSVLine(lines[i]);
+            if (parts.Count < 8)
+            {
+                Debug.LogWarning($"CSV 파싱 실패: 줄 {i + 1}");
+                continue;
+            }
 
             int id = int.Parse(parts[0].Trim());
             int buildID = int.Parse(parts[1].Trim());
@@ -53,7 +61,11 @@ public class GospelManager : MonoBehaviour
             int cost = int.Parse(parts[3].Trim());
             string desc = parts[4].Trim();
             string name = parts[5].Trim();
-            int statIndex = int.Parse(parts[6].Trim());
+            List<int> statIndex = parts[6]
+                .Split(';', StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => int.Parse(s.Trim()))
+                .ToList();
+
             float effectValue = float.Parse(parts[7].Trim());
 
             var gospel = new GospelData(id, buildID, order, cost, desc, name, statIndex, effectValue);
@@ -70,6 +82,23 @@ public class GospelManager : MonoBehaviour
         }
 
         Debug.Log($"복음 데이터 로딩 완료: {gospelMap.Count}개 빌딩에 대해 로딩됨");
+    }
+    private static List<string> ParseCSVLine(string line)
+    {
+        var matches = Regex.Matches(line, @"(?<field>[^,""]+|""([^""]|"""")*"")(?=,|$)");
+        List<string> result = new();
+
+        foreach (Match match in matches)
+        {
+            string field = match.Groups["field"].Value;
+            if (field.StartsWith("\"") && field.EndsWith("\""))
+            {
+                field = field[1..^1].Replace("\"\"", "\"");
+            }
+            result.Add(field);
+        }
+
+        return result;
     }
 
     public List<List<GospelData>> GetGospelsByBuildID(int buildID)

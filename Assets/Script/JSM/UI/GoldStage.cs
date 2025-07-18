@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
+
 
 public class GoldStage : MonoBehaviour
 {
@@ -15,14 +17,17 @@ public class GoldStage : MonoBehaviour
     public Dictionary<int, StageData> goldStageData;
     private int currentGoldStage = 1;
 
-    private void Awake()
+    private void Start()
     {
         startButton.onClick.AddListener(OnClickEnterBattle);
         leftButton.onClick.AddListener(OnClickLeft);
         rightButton.onClick.AddListener(OnClickRight);
         goldRewardCount.text = PlayerDataManager.Instance.player.goldDungeonData.entryCounts.ToString()+" / 3";
+        var goldStageDataByType = StageDataManager.Instance.GetAllGoldStageData();
+        goldStageData = goldStageDataByType.Values
+            .ToDictionary(data => data.Chapter, data => data);
         UpdateStageText();
-        goldStageData = StageDataManager.Instance.GetAllGoldStageData();
+        OnChangeLevel();
     }
 
     private void OnClickLeft()
@@ -31,6 +36,7 @@ public class GoldStage : MonoBehaviour
         {
             currentGoldStage--;
             UpdateStageText();
+            OnChangeLevel();
         }
     }
 
@@ -40,6 +46,7 @@ public class GoldStage : MonoBehaviour
         {
             currentGoldStage++;
             UpdateStageText();
+            OnChangeLevel();
         }
     }
 
@@ -67,5 +74,10 @@ public class GoldStage : MonoBehaviour
             SceneManager.sceneLoaded -= OnBattleSceneLoaded;
             BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck, 2);
         }
+    }
+
+    private void OnChangeLevel()
+    {
+        startButton.interactable = (goldStageData[currentGoldStage].ID <= PlayerDataManager.Instance.player.goldDungeonData.lastClearStage + 1) || currentGoldStage == 1 ? true : false;
     }
 }

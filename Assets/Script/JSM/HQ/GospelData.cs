@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 [System.Serializable]
 public class GospelData
 {
@@ -7,10 +8,10 @@ public class GospelData
     public int cost;
     public string description;
     public string name;
-    public int statIndex;
+    public List<int> statIndex;
     public float effectValue;
 
-    public GospelData(int id, int buildID, int order, int cost, string desc, string name, int statIndex, float effectValue)
+    public GospelData(int id, int buildID, int order, int cost, string desc, string name, List<int> statIndex, float effectValue)
     {
         this.id = id;
         this.buildID = buildID;

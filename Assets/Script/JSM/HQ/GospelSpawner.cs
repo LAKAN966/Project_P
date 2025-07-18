@@ -42,13 +42,13 @@ public class GospelSpawner : MonoBehaviour
         //Debug.Log(layeredGospels.Count+"+"+buildID);
         int currentSelectableOrder = GospelManager.Instance.GetCurrentSelectableOrder(buildID);
 
-        for (int order = layeredGospels.Count - 1; order >= 0; order--)
+        for (int order = layeredGospels.Count; order > 0; order--)
         {
-            var layerData = layeredGospels[order];
+            var layerData = layeredGospels[order-1];
 
             GameObject container = Instantiate(GospelContainerPrefab, parent);
             container.name = $"GospelContainer_Order{order}";
-            container.layer = order;
+            container.layer = order+1;
             spawnedContainers.Add(container);
 
             var containerUI = container.GetComponent<GospelContainerUI>();
