@@ -35,13 +35,11 @@ public class Pick : MonoBehaviour
     {
         PickPoint = 0;
         PickOnce.onClick.AddListener(PickOneTime);       //  1회 뽑기
-        PickTen.onClick.AddListener(PickTenTimes);       // 10회 뽑기
+        PickTen.onClick.AddListener(PickTenTimes);      // 10회 뽑기
         RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기
         RePickTen.onClick.AddListener(() => PickTenTimes());     // 10회 다시 뽑기
 
         PlayerCurrencyEvent.OnTicketChange += value => ShowTicketAmountText.text = value.ToString();
-        PlayerCurrencyEvent.OnCertiChange += value => PityCount.text = value.ToString();
-
         Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
     }
 
@@ -49,7 +47,7 @@ public class Pick : MonoBehaviour
     {
 
         ShowTicketAmountText.text = PlayerDataManager.Instance.player.ticket.ToString();              // 현재 보유 티켓 수량
-        PityCount.text = PlayerDataManager.Instance.player.certi.ToString();                      // 현재 마일리지
+        PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();                      // 현재 마일리지
 
         //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)
     }
@@ -66,10 +64,10 @@ public class Pick : MonoBehaviour
             Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
 
             PlayerCurrencyEvent.OnTicketChange -= value => ShowTicketAmountText.text = value.ToString();
-            PlayerDataManager.Instance.player.certi++;
+            PlayerDataManager.Instance.player.pickPoint++;
 
             ShowTicketAmountText.text = PlayerDataManager.Instance.player.ticket.ToString();
-            PityCount.text = PlayerDataManager.Instance.player.certi.ToString();
+            PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();
 
             PickOnePage.SetActive(true);
             pickLogic.DrawOne();
@@ -92,10 +90,10 @@ public class Pick : MonoBehaviour
             Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
 
             PlayerCurrencyEvent.OnTicketChange -= value => ShowTicketAmountText.text = value.ToString();
-            PlayerDataManager.Instance.player.certi += 10;
+            PlayerDataManager.Instance.player.pickPoint += 10;
 
             ShowTicketAmountText.text = PlayerDataManager.Instance.player.ticket.ToString();
-            PityCount.text = PlayerDataManager.Instance.player.certi.ToString();
+            PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();
 
             PickTenPage.SetActive(true);
             pickLogic.DrawTen();

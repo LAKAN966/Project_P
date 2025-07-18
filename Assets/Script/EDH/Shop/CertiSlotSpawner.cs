@@ -27,9 +27,9 @@ public class CertiSlotSpawner : MonoBehaviour
             {
                 Alliance.Add(pickInfo);
             }
+            Debug.Log(Alliance.Count + "존재");
         }
-        Debug.Log(Alliance.Count + "존재");
-
+                                                                                                                                                                                                
         foreach (var pick in Alliance)
         {
             CreateCard(pick, Content);

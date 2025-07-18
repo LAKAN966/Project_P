@@ -14,13 +14,14 @@ public class CertiSlot : MonoBehaviour
     public void init(PickInfo pickInfo)
     {
         var stats = UnitDataManager.Instance.GetStats(pickInfo.ID);
+        //CertiCost.text = pickInfo.warrant.ToString();
         UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
 
         _Info = pickInfo;
         _Info.Name = pickInfo.Name;
         _Info.ID = pickInfo.ID;
         _Info.warrant = pickInfo.warrant;
-        CertiCost.text = _Info.warrant.ToString();
+
         certiSlot.onClick.RemoveAllListeners();
 
         certiSlot.onClick.AddListener(() =>

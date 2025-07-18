@@ -34,6 +34,6 @@ public class ShoppingManager : Singleton<ShoppingManager>
 
     public void ShowNowCertificate()
     {
-        PityCount.text = PlayerDataManager.Instance.player.certi.ToString();
+        PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();
     }
 }
