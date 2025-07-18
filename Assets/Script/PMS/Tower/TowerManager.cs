@@ -11,7 +11,7 @@ public class TowerManager
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new TowerManager();
             }
@@ -52,16 +52,28 @@ public class TowerManager
         return data.entryCounts[raceID] > 0;
     }
 
-    public bool EnterTower(int raceID)
+    public void DecreaseEntryCount(int raceID)
     {
-        if (!CanEnterTower(raceID))
+        if (!data.entryCounts.ContainsKey(raceID))
         {
-            return false;
+            data.entryCounts[raceID] = maxEntryCounts;
         }
-
-        data.entryCounts[raceID]--;
-        return true;
+        if (data.entryCounts[raceID] > 0)
+        {
+            data.entryCounts[raceID]--;
+        }
     }
+
+    //public bool EnterTower(int raceID)
+    //{
+    //    if (!CanEnterTower(raceID))
+    //    {
+    //        return false;
+    //    }
+
+    //    data.entryCounts[raceID]--;
+    //    return true;
+    //}
 
     public int GetEnterCount(int raceID)
     {
@@ -72,6 +84,23 @@ public class TowerManager
         return data.entryCounts[raceID];
     }
 
+    private bool CheckRaceInDeck(int raceID)
+    {
+        var normalUnit = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
+        var leaderUnit = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
+
+        bool hasUnit = (normalUnit != null && normalUnit.Count > 0) || leaderUnit != null;
+        if (!hasUnit) return false;
+
+        if (normalUnit != null && normalUnit.Any(unit => unit.RaceID != raceID))
+            return false;
+
+        if (leaderUnit != null && leaderUnit.RaceID != raceID)
+            return false;
+
+        return true;
+    }
+
     public void EnterBattle(int stageID)
     {
         var stage = StageDataManager.Instance.GetStageData(stageID);
@@ -80,13 +109,20 @@ public class TowerManager
         if (!CanEnterTower(raceID))
         {
             Debug.Log("입장 횟수가 부족합니다.");
+            // 입장 불가 팝업으로
             return;
         }
 
-        bool entered = EnterTower(raceID);
-        if (!entered)
+        //bool entered = EnterTower(raceID);
+        //if (!entered)
+        //{
+        //    Debug.Log("입장 실패");
+        //    return;
+        //}
+
+        if (!CheckRaceInDeck(raceID))
         {
-            Debug.Log("입장 실패");
+            Debug.Log($"{TagManager.GetNameByID(raceID)}와 동일한 유닛만 출전할 수 있습니다.");
             return;
         }
 

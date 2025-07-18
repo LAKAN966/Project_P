@@ -26,6 +26,8 @@ public class UIDeckBuildManager : MonoBehaviour
     [Header("리더 덱 슬롯")]
     [SerializeField] private UIDeckSlot leaderSlot; // 리더 슬롯
 
+    [SerializeField] public GameObject deckPanel;
+
     public List<UIDeckSlot> deckSlotList = new();
     private List<int> cachedUnitOrder = new();
 
@@ -35,7 +37,8 @@ public class UIDeckBuildManager : MonoBehaviour
     [SerializeField] private Toggle normalToggle;
     [SerializeField] private Toggle leaderToggle;
     private UnitFilterType currentFilter = UnitFilterType.All; // 필터
-    
+
+    private int? raceFilter = null;
 
     private void Awake()
     {
@@ -45,8 +48,10 @@ public class UIDeckBuildManager : MonoBehaviour
         }
     }
 
-    public void Init() //테스트용 이닛
+    public void Init(int? filterRaceID = null) //테스트용 이닛
     {
+        raceFilter = filterRaceID;
+
         InitDeckSlots();
         CacheUnitListOrder();
         SetDeckSlots();
@@ -99,13 +104,13 @@ public class UIDeckBuildManager : MonoBehaviour
             }
         }
 
-        if(leaderSlot != null)
+        if (leaderSlot != null)
         {
             if (leaderUnitID.HasValue)
             {
                 var leaderStats = UnitDataManager.Instance.GetStats(leaderUnitID.Value);
 
-                if(leaderStats != null)
+                if (leaderStats != null)
                 {
                     leaderSlot.unitImage.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderStats.ModelName}");
                     leaderSlot.unitImage.color = Color.white;
@@ -146,6 +151,8 @@ public class UIDeckBuildManager : MonoBehaviour
             var stats = UnitDataManager.Instance.GetStats(unitID);
             if (stats == null) continue;
 
+            if (raceFilter.HasValue && stats.RaceID != raceFilter.Value) continue; // 종족 필터. 미궁의 탑을 위함.
+
             switch (currentFilter)
             {
                 case UnitFilterType.Normal:
@@ -170,9 +177,6 @@ public class UIDeckBuildManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public void CacheUnitListOrder()
     {
         var allUnits = PlayerDataManager.Instance.GetAllUnit();
@@ -214,4 +218,11 @@ public class UIDeckBuildManager : MonoBehaviour
 
         SetMyUnitIcons();
     }
+
+    public void SetRaceFilter(int? stageID)
+    {
+        raceFilter = stageID;
+        SetMyUnitIcons();
+    }
+
 }
