@@ -43,6 +43,7 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
                 IsHero = bool.Parse(tokens[4]),   // 영웅 여부
                 Uniticon = tokens[5],               // 유닛 아이콘
                 IsEnemy = bool.Parse(tokens[19]),  // 적 여부
+                warrant = int.Parse(tokens[20]),   //증명서 가격
             };
 
             PickListsDict[pickinfo.ID] = pickinfo;

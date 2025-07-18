@@ -26,8 +26,8 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
 
     public void PurchaseCertiUnit()
     {
-
-        int Amount = PlayerDataManager.Instance.player.pickPoint;
+        Debug.Log(PlayerDataManager.Instance.player.certi + " 현재 마일리지");
+        int Amount = PlayerDataManager.Instance.player.certi;
         int Cost = Info.warrant;
 
         if (Amount >= Cost)
@@ -35,6 +35,7 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
             PlayerDataManager.Instance.UseCerti(Cost);
             PlayerDataManager.Instance.AddUnit(Info.ID);
             Debug.Log(PlayerDataManager.Instance.AddUnit(Info.ID) + "이 유닛을 구매");
+            ShoppingManager.Instance.ShowNowCertificate();
             PurchaseCertiUnitBox.SetActive(false);
         }
         else 
