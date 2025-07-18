@@ -28,6 +28,7 @@ public class PauseBtn : MonoBehaviour
     }
     private void Retreat()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("MainScene");
     }
 }

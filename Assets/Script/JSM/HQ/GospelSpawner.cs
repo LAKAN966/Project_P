@@ -67,7 +67,7 @@ public class GospelSpawner : MonoBehaviour
                 if (slotUI != null)
                 {
                     slotUI.gospelConfirmUI = gospelConfirmUI;
-
+                    Debug.Log(order + " " + currentSelectableOrder+" "+ buildID);
                     GospelState state;
                     if (GospelManager.Instance.IsSelected(buildID, gospel.id))
                         state = GospelState.Selected;
