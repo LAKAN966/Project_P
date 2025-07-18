@@ -46,14 +46,14 @@ public class WorldBG : MonoBehaviour
             return null;
         }
         var folderOrder = new Dictionary<string, int>
-    {
-        { "Sky", -100 },
-        { "Mountain", -99 },
-        { "Middle-Far", -98 },
-        { "Middle-Near", -97 },
-        { "Ground", -96 },
-        { "Foreground", -95 }
-    };
+        {
+            { "Sky", -100 },
+            { "Mountain", -99 },
+            { "Middle-Far", -98 },
+            { "Middle-Near", -97 },
+            { "Ground", -96 },
+            { "Foreground", -95 }
+        };
 
         foreach (var kvp in folderOrder)
         {
@@ -90,6 +90,7 @@ public class WorldBG : MonoBehaviour
 
         foreach (string path in stageData.BGList)
         {
+            if (path == "") continue;
             layers.Add(new WorldParallaxLayer
             {
                 spritePath = path,

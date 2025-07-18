@@ -31,7 +31,5 @@ public class MapManager : MonoBehaviour
         float halfLength = mapLength / 2f;
         float padding = -2f;
         CameraController cam = Camera.main.GetComponent<CameraController>();
-        cam.minX = -halfLength + padding;
-        cam.maxX = halfLength - padding;
     }
 }
