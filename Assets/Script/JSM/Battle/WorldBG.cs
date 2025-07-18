@@ -1,5 +1,6 @@
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class WorldParallaxLayer
@@ -20,30 +21,23 @@ public class WorldBG : MonoBehaviour
 
     private void Start()
     {
-        if (stageID == 0 && WaveManager.Instance != null)
+        StartCoroutine(InitializeStage());
+    }
+
+    private IEnumerator InitializeStage()
+    {
+        // stageID가 0이면 대기
+        if (stageID == 0)
         {
+            yield return new WaitUntil(() =>
+                WaveManager.Instance != null && WaveManager.Instance.stageID != 0);
+
             stageID = WaveManager.Instance.stageID;
         }
 
+        // WaitUntil 이후에 실행됨
         LoadBGListFromStage();
-
-        foreach (var layer in layers)
-        {
-            Sprite sprite = FindSpriteInSubfolders(layer.spritePath, out int sortingOrder);
-            if (sprite == null) continue;
-
-            GameObject go = new GameObject($"BG_{layer.spritePath}", typeof(SpriteRenderer));
-            go.transform.SetParent(parentTransform);
-            go.transform.localPosition = new Vector3(0f, layer.yPosition, 0f);
-
-            SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
-            sr.sprite = sprite;
-            sr.sortingOrder = sortingOrder;
-
-            generatedTiles.Add(go.transform);
-        }
     }
-
     private Sprite FindSpriteInSubfolders(string spriteName, out int sortingOrder)
     {
         if (spriteName == null)
@@ -52,14 +46,14 @@ public class WorldBG : MonoBehaviour
             return null;
         }
         var folderOrder = new Dictionary<string, int>
-    {
-        { "Sky", -100 },
-        { "Mountain", -99 },
-        { "Middle-Far", -98 },
-        { "Middle-Near", -97 },
-        { "Ground", -96 },
-        { "Foreground", -95 }
-    };
+        {
+            { "Sky", -100 },
+            { "Mountain", -99 },
+            { "Middle-Far", -98 },
+            { "Middle-Near", -97 },
+            { "Ground", -96 },
+            { "Foreground", -95 }
+        };
 
         foreach (var kvp in folderOrder)
         {
@@ -96,12 +90,29 @@ public class WorldBG : MonoBehaviour
 
         foreach (string path in stageData.BGList)
         {
+            if (path == "") continue;
             layers.Add(new WorldParallaxLayer
             {
                 spritePath = path,
                 parallaxFactor = 1f,
                 yPosition = 0f
             });
+        }
+
+        foreach (var layer in layers)
+        {
+            Sprite sprite = FindSpriteInSubfolders(layer.spritePath, out int sortingOrder);
+            if (sprite == null) continue;
+
+            GameObject go = new GameObject($"BG_{layer.spritePath}", typeof(SpriteRenderer));
+            go.transform.SetParent(parentTransform);
+            go.transform.localPosition = new Vector3(0f, layer.yPosition, 0f);
+
+            SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+            sr.sprite = sprite;
+            sr.sortingOrder = sortingOrder;
+
+            generatedTiles.Add(go.transform);
         }
     }
 }

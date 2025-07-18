@@ -114,12 +114,15 @@ public class GospelManager : MonoBehaviour
 
     public int GetCurrentSelectableOrder(int buildID)
     {
-        if (!gospelMap.ContainsKey(buildID)) return 0;
+        if (!gospelMap.ContainsKey(buildID))
+        {
+            return 0;
+        }
 
         var layers = gospelMap[buildID];
-        for (int order = 0; order < layers.Count; order++)
+        for (int order = 1; order <= layers.Count; order++)
         {
-            var layer = layers[order];
+            var layer = layers[order-1];
             bool anySelected = layer.Exists(g => IsSelected(buildID, g.id));
             if (!anySelected)
                 return order;
