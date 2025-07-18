@@ -26290,8 +26290,8 @@ RectTransform:
   - {fileID: 5667823514500553611}
   - {fileID: 8265496861328230198}
   - {fileID: 1250004891737556671}
-  - {fileID: 4176168817974628346}
   - {fileID: 404923022517143177}
+  - {fileID: 4176168817974628346}
   m_Father: {fileID: 9111716367200977101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -26801,7 +26801,7 @@ RectTransform:
   m_Father: {fileID: 4093974541588887081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -26882,7 +26882,7 @@ RectTransform:
   m_Father: {fileID: 8781954078497071859}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -33178,7 +33178,7 @@ RectTransform:
   m_Father: {fileID: 6356653616854283980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -33380,7 +33380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4085700835755949215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40117,7 +40117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6035525269850520267
 GameObject:
   m_ObjectHideFlags: 0
@@ -46892,7 +46892,7 @@ MonoBehaviour:
   ItemListLoader: {fileID: 887413516264793367}
   Content: {fileID: 2385506941071638957}
   GoldAmount: {fileID: 1235148378570110702}
-  PityCount: {fileID: 782394493}
+  PityCount: {fileID: 8141967370597781095}
 --- !u!224 &8292215473246939042
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47251,8 +47251,8 @@ MonoBehaviour:
   CertificateStoreBtn: {fileID: 551672935034864912}
   GoldStore: {fileID: 8625014361566437582}
   CertificateStore: {fileID: 4078914856359554905}
-  GoldAmount: {fileID: 0}
-  CertificateAmount: {fileID: 0}
+  GoldAmount: {fileID: 22562387024899943}
+  CertificateAmount: {fileID: 6018588297696862312}
 --- !u!114 &8453955771533455764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47918,7 +47918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &8626999369173582583
 MonoBehaviour:
   m_ObjectHideFlags: 0
