@@ -21,6 +21,8 @@ public class UITowerInfo : MonoBehaviour
     private List<int> firstRewardIDs;
     private List<int> firstRewardAmounts;
 
+    private Coroutine popCoroutine;
+
     private int currentStageID;
 
     private void Awake()
@@ -137,14 +139,31 @@ public class UITowerInfo : MonoBehaviour
         text.text = $"{TagManager.GetNameByID(raceID)} 유닛만\n출전 가능합니다.";
         warningPopup.SetActive(true);
 
-        StartCoroutine(HidePopup());
+        if (popCoroutine != null)
+        {
+            StopCoroutine(popCoroutine);
+        }
+        popCoroutine = StartCoroutine(HidePopup());
     }
 
     private IEnumerator HidePopup()
     {
+
         yield return new WaitForSeconds(1f);
 
         warningPopup.SetActive(false);
+        popCoroutine = null;
     }
-    
+
+    private void OnEnable()
+    {
+
+        if (popCoroutine != null)
+        {
+            StopCoroutine(popCoroutine);
+        }
+        popCoroutine = StartCoroutine(HidePopup());
+
+    }
+
 }
