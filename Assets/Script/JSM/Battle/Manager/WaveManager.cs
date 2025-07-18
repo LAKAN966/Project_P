@@ -26,7 +26,7 @@ public class WaveManager : MonoBehaviour
     public UnitPool enemyPool;
 
     public TextAsset stageCSV;
-    public TextAsset waveText;
+    public TextAsset waveCSV;
 
     private void Awake()
     {
@@ -51,13 +51,13 @@ public class WaveManager : MonoBehaviour
         if (currentStage == null) return;
 
         Debug.Log($"스테이지 로딩: {currentStage.StageName}");
-        if (waveText == null)
+        if (waveCSV == null)
         {
             Debug.LogError($"WaveData.csv 파일이 없습니다: {"Assets/Data/WaveData.csv"}");
             return;
         }
 
-        var allWaves = WaveDataLoader.Load(waveText);
+        var allWaves = WaveDataLoader.Load(waveCSV);
         waves = allWaves.Where(w => w.StageID == id).ToList();
 
         waveCount = 0;
