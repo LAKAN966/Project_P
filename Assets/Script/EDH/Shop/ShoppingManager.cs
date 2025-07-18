@@ -32,8 +32,9 @@ public class ShoppingManager : Singleton<ShoppingManager>
         GoldAmount.text = PlayerDataManager.Instance.player.gold.ToString(); 
     }
 
+    [MyButton]
     public void ShowNowCertificate()
     {
-        PityCount.text = PlayerDataManager.Instance.player.pickPoint.ToString();
+        PityCount.text = PlayerDataManager.Instance.player.certi.ToString();
     }
 }
