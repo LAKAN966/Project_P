@@ -17,7 +17,6 @@ public class StageManager : MonoBehaviour
     [Header("스테이지")]
     [SerializeField] private Transform nodeParent;
     [SerializeField] private StageNode stageNodePrefab;
-    [SerializeField] private Button battleBtn;
     [SerializeField] private GameObject stageInfo;
     [SerializeField] private GameObject uiStage;
 
@@ -49,9 +48,6 @@ public class StageManager : MonoBehaviour
     {
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
-        battleBtn.onClick.AddListener(OnClickEnterBattle);
-
-        battleBtn.gameObject.SetActive(false);
 
         UpdateStageUI();
     }
@@ -141,10 +137,10 @@ public class StageManager : MonoBehaviour
         Debug.Log($"스테이지 {stageID} 선택됨");
         stageInfo.SetActive(true);
         uiStage.GetComponent<UIStageInfo>().SetStageInfo(stageID);
-        battleBtn.gameObject.SetActive(true);
+        
     }
 
-    private void OnClickEnterBattle()
+    public void OnClickEnterBattle()
     {
         if (selectedStageID == -1) return;
 

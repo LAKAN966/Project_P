@@ -17,6 +17,7 @@ public class UIStageInfo : MonoBehaviour
     [SerializeField] private GameObject rrSlot;
 
     [SerializeField] private Button deckBtn;
+    [SerializeField] private Button enterBtn;
 
     private List<int> firstRewardIDs;
     private List<int> firstRewardAmounts;
@@ -89,5 +90,10 @@ public class UIStageInfo : MonoBehaviour
     {
         UIDeckBuildManager.instance.deckPanel.SetActive(true);
         UIDeckBuildManager.instance.Init();
+    }
+
+    public void OnClickEnter()
+    {
+        StageManager.instance.OnClickEnterBattle();
     }
 }

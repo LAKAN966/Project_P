@@ -4509,7 +4509,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 457913073}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1135426243}
+        m_TargetAssemblyTypeName: UIStageInfo, Assembly-CSharp
+        m_MethodName: OnClickEnter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &457913073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5582,6 +5594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 568280490}
+  - component: {fileID: 568280491}
   m_Layer: 5
   m_Name: PopUp
   m_TagString: Untagged
@@ -5610,6 +5623,18 @@ RectTransform:
   m_AnchoredPosition: {x: -510, y: 0}
   m_SizeDelta: {x: 500, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &568280491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568280489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5ef62227d624840b41f6c6713bf36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &597605053
 GameObject:
   m_ObjectHideFlags: 0
@@ -11006,6 +11031,7 @@ MonoBehaviour:
   repeatRewardParent: {fileID: 2078458641}
   rrSlot: {fileID: 6952028933753940915, guid: 282700d865f19d04ea56564945cd6f84, type: 3}
   deckBtn: {fileID: 536494505}
+  enterBtn: {fileID: 457913072}
 --- !u!114 &1135426244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12486,7 +12512,6 @@ MonoBehaviour:
   chapterText: {fileID: 1309217810}
   nodeParent: {fileID: 879360418}
   stageNodePrefab: {fileID: 6501244738930876483, guid: 7f87c68ef28da7147894b637169e1920, type: 3}
-  battleBtn: {fileID: 457913072}
   stageInfo: {fileID: 745905265}
   uiStage: {fileID: 1135426241}
 --- !u!1 &1280803868
