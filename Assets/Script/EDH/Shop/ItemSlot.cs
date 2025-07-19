@@ -24,8 +24,8 @@ public class ItemSlot : MonoBehaviour
         GameObject root = transform.root.gameObject;
         Debug.Log(root.name);
 
-        //var stats = UnitDataManager.Instance.GetStats(item.ID);
-       // ItemIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+        //var stats = UnitDataManager.Instance.GetStats(item.ID);                  // 아이콘 나오면 사용할 예정
+        //ItemIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");  // 아이콘 나오면 사용할 예정
 
         _Item = item;
         ItemNameText.text = item.Name;
@@ -44,8 +44,13 @@ public class ItemSlot : MonoBehaviour
             purchaseSync.Init(_Item,this);
          
             UIController.Instance.PurchaseUIBox.SetActive(true);
-            UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>()._Item = _Item;
-          //  UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>().SetitemIcon(ItemIcon.sprite);
+            ItemSlotSet();
         });
+    }
+
+    public void ItemSlotSet()
+    {
+        UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>()._Item = _Item;
+        //  UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>().SetitemIcon(ItemIcon.sprite);  // 아이콘 나오면 사용할 예정
     }
 }

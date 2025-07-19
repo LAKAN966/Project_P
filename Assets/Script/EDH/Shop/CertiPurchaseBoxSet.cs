@@ -36,7 +36,7 @@ public class CertiPurchaseBoxSet : MonoBehaviour
 
     public void DescriptionSet()
     {
-        Debug.Log("아이템 설명" + _PickInfo.Description);
+        Debug.Log("유닛 설명" + _PickInfo.Description);
         CertiDescriptionBox.SetActive(true);
         CertiDescriptionBox.GetComponentInChildren<TMP_Text>().text = _PickInfo.Description; // null일경우 넣어주면 안됨.
     }
