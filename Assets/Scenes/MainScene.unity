@@ -23746,7 +23746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b970aed8c22039e43a08d00654bb70e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CertiSlot: {fileID: 8756135456785135053, guid: fde0e4a7cc2f146468b868400796223a, type: 3}
+  CertiSlot: {fileID: 5479899069566346989, guid: fde0e4a7cc2f146468b868400796223a, type: 3}
   Content: {fileID: 2330246011961867950}
 --- !u!222 &508957708863600016
 CanvasRenderer:
@@ -24565,7 +24565,7 @@ MonoBehaviour:
     Name: 
     Cost: 0
     Description: 
-    IsAttempt: 0
+    Attempt: 0
     ItemIcon: 
 --- !u!222 &817455038061168807
 CanvasRenderer:
@@ -33938,7 +33938,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &4085700835755949215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38508,8 +38508,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 200, y: 200}
-  m_Spacing: {x: 50, y: 50}
+  m_CellSize: {x: 240, y: 240}
+  m_Spacing: {x: 30, y: 30}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &5487051818457945607
@@ -41688,8 +41688,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 216, y: -50}
-  m_SizeDelta: {x: 600, y: 800}
+  m_AnchoredPosition: {x: 324, y: -50}
+  m_SizeDelta: {x: 840, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6469495715700011761
 MonoBehaviour:
@@ -45732,7 +45732,7 @@ MonoBehaviour:
     Name: 
     Cost: 0
     Description: 
-    IsAttempt: 0
+    Attempt: 0
     ItemIcon: 
 --- !u!224 &7916382941333995362
 RectTransform:
@@ -46754,7 +46754,7 @@ MonoBehaviour:
   NotEnoughBoxText: {fileID: 251978448062658018}
   NotEnoughBox: {fileID: 849190910864609948}
   PurchaseCertiUnitBox: {fileID: 7139967751578575768}
-  cSlot: {fileID: 2951326825099778990, guid: fde0e4a7cc2f146468b868400796223a, type: 3}
+  cSlot: {fileID: 760071108794456954, guid: fde0e4a7cc2f146468b868400796223a, type: 3}
   Info:
     ID: 0
     Name: 
@@ -47452,7 +47452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7408d1b4dcaf7ba4c9a30f4cdba74cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Merchandise: {fileID: 2145491851951070569, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
+  Merchandise: {fileID: 1854690073408689096, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
   ItemListLoader: {fileID: 887413516264793367}
   Content: {fileID: 2385506941071638957}
   GoldAmount: {fileID: 1235148378570110702}
@@ -47699,7 +47699,7 @@ MonoBehaviour:
     Name: 
     Cost: 0
     Description: 
-    IsAttempt: 0
+    Attempt: 0
     ItemIcon: 
   iSlot: {fileID: 1983591378579288477, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
   NotEnoughBoxText: {fileID: 251978448062658018}
@@ -48486,7 +48486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8626999369173582583
 MonoBehaviour:
   m_ObjectHideFlags: 0

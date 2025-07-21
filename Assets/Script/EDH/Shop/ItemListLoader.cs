@@ -50,6 +50,7 @@ public class ItemListLoader : MonoBehaviour
 
         string[] lines = csvFile.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
+        Debug.Log(lines.Length + " 가짓수");
         for (int i = 1; i < lines.Length; i++)
         {
             if (string.IsNullOrWhiteSpace(lines[i])) continue;
@@ -58,17 +59,24 @@ public class ItemListLoader : MonoBehaviour
 
             Item item = new Item
             {
+                //ID = int.Parse(tokens[0]),
+                //Name = tokens[1],
+                //Cost = int.Parse(tokens[2]),
+                //Description = tokens[3],
+                //Attempt  = int.Parse(tokens[4]),
+                //ItemIcon = tokens[5]
                 ID = int.Parse(tokens[0]),
-                Name = tokens[1],
-                Cost = int.Parse(tokens[2]),
-                Description = tokens[3],
-                IsAttempt  = int.Parse(tokens[4]),
-                ItemIcon = tokens[5]
+                Name = "",
+                Cost =3,
+                Description = "",
+                Attempt = 0,
+                ItemIcon = ""
             };
 
             itemListsDict[item.ID] = item;
+            Debug.Log("생성함");
         }
-
+        
         Debug.Log($"아이템 데이터 로딩 완료: {itemListsDict.Count}개");
     }
 

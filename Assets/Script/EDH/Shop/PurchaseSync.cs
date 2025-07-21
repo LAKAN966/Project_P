@@ -73,11 +73,14 @@ public class PurchaseSync : MonoBehaviour
     }
     public void PurchaseItem()
     {
-        if (AtemptLeft == null)
-        {
-            //AtemptLeft = GetComponentInChildren<ItemSlot>();
-        }
-        int Attempt = _Item.IsAttempt;
+        //if (AtemptLeft == null && AtemptTotal ==null)
+        //{
+        //    AtemptLeft = GetComponentInChildren<ItemSlot>().NowAttempt;
+        //    AtemptTotal = GetComponentInChildren<ItemSlot>().TotalAtempt;
+        //}
+        int Attempt = _Item.Attempt;
+        int Attemptleft = _Item.Attempt - 1;
+
 
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
@@ -86,11 +89,12 @@ public class PurchaseSync : MonoBehaviour
             if (_Item.ID == 101)
             {
                 Debug.Log(Attempt + "일반 모집");
-                if (Attempt > 0)
+                if (Attemptleft > 0)
                 {
                     PlayerDataManager.Instance.AddTicket(Amount);
                     InputAmount.text = "1";
                     Debug.Log(PlayerDataManager.Instance.player.ticket);
+                    AtemptLeft.text = (Attempt-1).ToString();
                 }
                 else
                 {
@@ -100,10 +104,11 @@ public class PurchaseSync : MonoBehaviour
             if (_Item.ID == 102)
             {
                 Debug.Log(Attempt + "건설도구");
-                if (Attempt > 0)
+                if (Attemptleft > 0)
                 {
                     PlayerDataManager.Instance.AddTribute(Amount);
                     InputAmount.text = "1";
+                    AtemptLeft.text = (Attempt - 1).ToString();
                 }
                 else
                 {
@@ -113,10 +118,11 @@ public class PurchaseSync : MonoBehaviour
             if (_Item.ID == 103)
             {
                 Debug.Log(Attempt + "설계도");
-                if (Attempt > 0)
+                if (Attemptleft > 0)
                 {
                     PlayerDataManager.Instance.AddBluePrint(Amount);
                     InputAmount.text = "1";
+                    AtemptLeft.text = (Attempt - 1).ToString();
                 }
                 else
                 {
