@@ -60,12 +60,21 @@ public class UnitDataManager
                 ModelName = tokens[15],
                 AttackType = int.Parse(tokens[16]),
                 Size = float.Parse(tokens[17]),
-                SkillID = int.Parse(tokens[18]),
+                SkillID = new List<int>(),
                 isEnemy = bool.Parse(tokens[19]),
                 warrant = int.Parse(tokens[20]),
                 tagId = new List<int>()
             };
 
+            if (!string.IsNullOrWhiteSpace(tokens[18]))
+            {
+                string[] tagParts = tokens[18].Split(';');
+                foreach (var part in tagParts)
+                {
+                    if (int.TryParse(part.Trim(), out int tag))
+                        stat.tagId.Add(tag);
+                }
+            }
             if (!string.IsNullOrWhiteSpace(tokens[21]))
             {
                 string[] tagParts = tokens[21].Split(';');
