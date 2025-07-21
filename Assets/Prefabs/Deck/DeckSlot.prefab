@@ -126,7 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeaderSlot: 0
-  DeckImage: {fileID: 6256882325999758155}
+  deckSlotBG: {fileID: 0}
+  unitImage: {fileID: 0}
   unitData:
     ID: 0
     Name: 
@@ -147,6 +148,9 @@ MonoBehaviour:
     AttackType: 0
     Size: 0
     SkillID: 0
+    isEnemy: 0
+    warrant: 0
+    tagId: 
 --- !u!1 &6895948818114819303
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2886721147100643840
 RectTransform:
   m_ObjectHideFlags: 0
