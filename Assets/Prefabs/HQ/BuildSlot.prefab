@@ -698,10 +698,10 @@ MonoBehaviour:
   buildListUI: {fileID: 0}
   buildGospelUI: {fileID: 0}
   levelUpPanel: {fileID: 0}
-  maxHeight: 300
+  maxHeight: 1000
   maxWidth: 0
-  minHeight: 0
-  minWidth: 0
+  minHeight: 500
+  minWidth: 250
   Level: 0
 --- !u!114 &5972918704138658293
 MonoBehaviour:
