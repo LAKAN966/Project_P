@@ -59,6 +59,7 @@ public class UIUnitInfo : MonoBehaviour
             typeIcon.sprite = typeSprite;
 
             skillBox.SetActive(stats.IsHero);
+            
         }
 
         else

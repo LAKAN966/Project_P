@@ -1600,8 +1600,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 385, y: -48}
-  m_SizeDelta: {x: 300, y: 300}
+  m_AnchoredPosition: {x: 397.6659, y: -48}
+  m_SizeDelta: {x: 355, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &138503432
 GameObject:
@@ -11887,11 +11887,14 @@ MonoBehaviour:
   DescriptionBox: {fileID: 1412298286}
   PurchaseItemIcon: {fileID: 1122664696}
   CancelButton: {fileID: 1665628088}
+  itemIcon: {fileID: 0}
   _Item:
     ID: 0
     Name: 
     Cost: 0
     Description: 
+    Attempt: 0
+    ItemIcon: 
 --- !u!1 &569595365
 GameObject:
   m_ObjectHideFlags: 0
@@ -33485,11 +33488,14 @@ MonoBehaviour:
   DescriptionBox: {fileID: 1412298286}
   PurchaseItemIcon: {fileID: 1122664696}
   CancelButton: {fileID: 1665628088}
+  itemIcon: {fileID: 0}
   _Item:
     ID: 0
     Name: 
     Cost: 0
     Description: 
+    Attempt: 0
+    ItemIcon: 
 --- !u!114 &1482490222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33502,6 +33508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ebd40dbf8bfe84e920481a7f8f15e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AtemptLeft: {fileID: 0}
+  AtemptTotal: {fileID: 0}
   InputAmount: {fileID: 1774464018}
   AddButton: {fileID: 1966852276}
   SubtractButton: {fileID: 213651655}
@@ -33511,6 +33519,8 @@ MonoBehaviour:
     Name: 
     Cost: 0
     Description: 
+    Attempt: 0
+    ItemIcon: 
   iSlot: {fileID: 4887714726959878847, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
   NotEnoughBoxText: {fileID: 2101398037}
   NotEnoughBox: {fileID: 455290448}

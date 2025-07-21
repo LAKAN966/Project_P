@@ -21,4 +21,9 @@ public class UISkillBox : MonoBehaviour
         passiveIcon.sprite = passiveSprite;
         
     }
+
+    public void SetSkill(UnitStats data)
+    {
+
+    }
 }
