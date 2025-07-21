@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
-using Button = UnityEngine.UI.Button;
-using Unity.VisualScripting;
-using TMPro;
 using JetBrains.Annotations;
+using TMPro;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEngine;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
 public class ItemSlot : MonoBehaviour
 {
+    [SerializeField] public Image ItemIcon;                 // 아이템 이미지
     [SerializeField] private TMP_Text ItemCost;             // 아이템 가격
     [SerializeField] private TMP_Text ItemNameText;         // 아이템 이름
-    [SerializeField] private TMP_Text ItemDescription;      // 아이템 설명
     [SerializeField] private PurchaseSync purchaseSync;
     [SerializeField] private Button itemSlot;               // 아이템 슬롯
 
@@ -22,6 +23,9 @@ public class ItemSlot : MonoBehaviour
     {
         GameObject root = transform.root.gameObject;
         Debug.Log(root.name);
+
+        //var stats = UnitDataManager.Instance.GetStats(item.ID);                  // 아이콘 나오면 사용할 예정
+        //ItemIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");  // 아이콘 나오면 사용할 예정
 
         _Item = item;
         ItemNameText.text = item.Name;
@@ -40,7 +44,13 @@ public class ItemSlot : MonoBehaviour
             purchaseSync.Init(_Item,this);
          
             UIController.Instance.PurchaseUIBox.SetActive(true);
-            UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>()._Item = _Item;
+            ItemSlotSet();
         });
+    }
+
+    public void ItemSlotSet()
+    {
+        UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>()._Item = _Item;
+        //  UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>().SetitemIcon(ItemIcon.sprite);  // 아이콘 나오면 사용할 예정
     }
 }
