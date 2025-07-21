@@ -22,7 +22,7 @@ public class Timer : MonoBehaviour
         timer.text = $"{displayTime:00.00}";
         if (displayTime >= timeLimit)
         {
-            GameManager.Instance.OnBaseDestroyed(false);
+            BattleManager.Instance.OnBaseDestroyed(false);
         }
     }
 }

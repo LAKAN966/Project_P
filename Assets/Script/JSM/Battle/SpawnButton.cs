@@ -14,16 +14,13 @@ public class SpawnButton : MonoBehaviour
     public GameObject iconParent;
 
     private bool initialized = false;
-    private UnitStats stats;
+    public UnitStats stats;
 
-    public void Start()
-    {
-        InitializeUI();
-    }
 
-    private void Update()
+    public void Update()
     {
         if (!initialized) return;
+        if (unitID == 0) return;
 
         float remaining = CoolTimeManager.Instance.GetRemainingCooldown(unitID);
         float total = GetCooldown();
@@ -35,13 +32,14 @@ public class SpawnButton : MonoBehaviour
         button.interactable = remaining <= 0f;
     }
 
-    private void InitializeUI()
+    public void InitializeUI()
     {
         if (unitID == 0)
         {
             return;
         }
         stats = BuffManager.ApplyBuff(UnitDataManager.Instance.GetStats(unitID));
+        stats = UnitSpawner.Instance.SetGimmick(stats);
         if (stats == null)
         {
             Debug.LogWarning("Stats not found for unitID: " + unitID);
@@ -74,12 +72,14 @@ public class SpawnButton : MonoBehaviour
             }
         }
 
+        Debug.Log($"{unitID} 세팅!");
+
         initialized = true;
     }
 
     private float GetCooldown()
     {
-        var stats = UnitDataManager.Instance.GetStats(unitID);
         return stats != null ? stats.SpawnInterval : 0f;
     }
+
 }

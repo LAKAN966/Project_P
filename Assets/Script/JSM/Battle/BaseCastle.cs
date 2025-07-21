@@ -64,6 +64,6 @@ public class BaseCastle : MonoBehaviour
 
         Debug.Log(isEnemy ? "완전 승리!!" : "패배..");
         // 게임 종료 처리
-        GameManager.Instance.OnBaseDestroyed(isEnemy);
+        BattleManager.Instance.OnBaseDestroyed(isEnemy);
     }
 }
