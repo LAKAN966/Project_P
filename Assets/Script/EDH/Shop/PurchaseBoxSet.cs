@@ -16,9 +16,8 @@ public class PurchaseBoxSet : MonoBehaviour
     public Button PurchaseItemIcon; // 상품 아이콘
     public Button CancelButton;     // 구매 취소 버튼
 
-
+    public Image itemIcon;
     public Item _Item;
-    internal CertiSlot _Info;
 
     private void Start()
     {
@@ -38,5 +37,9 @@ public class PurchaseBoxSet : MonoBehaviour
         Debug.Log("아이템 설명" + _Item.Description);
         DescriptionBox.SetActive(true);
         DescriptionBox.GetComponentInChildren<TMP_Text>().text = _Item.Description; // null일경우 넣어주면 안됨.
+    }
+    public void SetitemIcon(Sprite sprite)
+    {
+        itemIcon.sprite = sprite;
     }
 }
