@@ -10,8 +10,10 @@ public class PurchaseSync : MonoBehaviour
     private UILoader uILoader;
     private UIManager uiManager;
 
-    public TMP_InputField InputAmount;   // 수량 입력칸
+    [SerializeField] public TMP_Text AtemptLeft;          // 남은 구매횟수 텍스트
+    [SerializeField] public TMP_Text AtemptTotal;         // 구매 가능 횟수 텍스트
 
+    public TMP_InputField InputAmount;   // 수량 입력칸
 
     public Button AddButton;        // 수량 추가 버튼
     public Button SubtractButton;   // 수량 빼기버튼
@@ -71,27 +73,55 @@ public class PurchaseSync : MonoBehaviour
     }
     public void PurchaseItem()
     {
-        Debug.Log(PlayerDataManager.Instance.player.gold + "이건 플레이어 골드");
-        Debug.Log(_Item.Cost + "아이템 가격");
+        if (AtemptLeft == null)
+        {
+            //AtemptLeft = GetComponentInChildren<ItemSlot>();
+        }
+        int Attempt = _Item.IsAttempt;
+
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
         if (PlayerDataManager.Instance.UseGold(Cost * Amount))
         {
             if (_Item.ID == 101)
             {
-                PlayerDataManager.Instance.AddTicket(Amount);
-                InputAmount.text = "1";
-                Debug.Log(PlayerDataManager.Instance.player.ticket);
+                Debug.Log(Attempt + "일반 모집");
+                if (Attempt > 0)
+                {
+                    PlayerDataManager.Instance.AddTicket(Amount);
+                    InputAmount.text = "1";
+                    Debug.Log(PlayerDataManager.Instance.player.ticket);
+                }
+                else
+                {
+                    AtemptNotEnoungh();
+                }
             }
             if (_Item.ID == 102)
             {
-                PlayerDataManager.Instance.AddTribute(Amount);
-                InputAmount.text = "1";
+                Debug.Log(Attempt + "건설도구");
+                if (Attempt > 0)
+                {
+                    PlayerDataManager.Instance.AddTribute(Amount);
+                    InputAmount.text = "1";
+                }
+                else
+                {
+                    AtemptNotEnoungh();
+                }
             }
             if (_Item.ID == 103)
             {
-                PlayerDataManager.Instance.AddBluePrint(Amount);
-                InputAmount.text = "1";
+                Debug.Log(Attempt + "설계도");
+                if (Attempt > 0)
+                {
+                    PlayerDataManager.Instance.AddBluePrint(Amount);
+                    InputAmount.text = "1";
+                }
+                else
+                {
+                    AtemptNotEnoungh();
+                }
             }
             ShoppingManager.Instance.ShowNowGold();
             purchaseBoxSet.TabClose();
@@ -113,6 +143,18 @@ public class PurchaseSync : MonoBehaviour
             UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
+    public void AtemptNotEnoungh()
+    {
+        UIController.Instance.NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "모든 구매 횟수를 모두 사용하셨습니다.";
+        StartCoroutine(HideNotEnoughBox());
+
+        IEnumerator HideNotEnoughBox()
+        {
+            yield return new WaitForSeconds(1f); // 3초 대기
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
+        }
+    }
 
     public void Init(Item item, ItemSlot slot)
     {
@@ -120,6 +162,5 @@ public class PurchaseSync : MonoBehaviour
         _Item = item;
         iSlot = slot;
     }
-
 }
 

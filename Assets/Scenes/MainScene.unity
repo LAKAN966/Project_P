@@ -3685,7 +3685,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 87}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &365538543
 MonoBehaviour:
@@ -3707,7 +3707,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 64c3a69bb13584151ad388b9a34975d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e808b560b0334504dab169c84fa4a2be, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8773,10 +8773,10 @@ RectTransform:
   - {fileID: 1386388772}
   m_Father: {fileID: 995109679}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 42.5, y: 0}
-  m_SizeDelta: {x: 984.77, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -28.445007}
+  m_SizeDelta: {x: -113.999985, y: -175.93}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &888081112
 MonoBehaviour:
@@ -10993,7 +10993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1074047636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15587,7 +15587,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 40.570007, y: -33.81}
+  m_AnchoredPosition: {x: 1094, y: -33.81}
   m_SizeDelta: {x: 78.69995, y: 82.6}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1475875282
@@ -22983,8 +22983,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 163.1, y: 375.6}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 209.29999, y: 378.89993}
+  m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &221877425514339866
 GameObject:
@@ -24565,6 +24565,8 @@ MonoBehaviour:
     Name: 
     Cost: 0
     Description: 
+    IsAttempt: 0
+    ItemIcon: 
 --- !u!222 &817455038061168807
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -35834,8 +35836,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 375.6}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 5.8, y: 378.9}
+  m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4638518017141067229
 MonoBehaviour:
@@ -39701,8 +39703,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 216, y: -50}
-  m_SizeDelta: {x: 600, y: 800}
+  m_AnchoredPosition: {x: 324, y: -50}
+  m_SizeDelta: {x: 840, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &5824939242304601909
 RectTransform:
@@ -41646,7 +41648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c3c28573d70ef40b61d0fb266ba85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemSlot: {fileID: 2145491851951070569, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
+  ItemSlot: {fileID: 1854690073408689096, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
   Content: {fileID: 2385506941071638957}
 --- !u!224 &6449205469341384813
 RectTransform:
@@ -44650,8 +44652,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4636190491776028756}
   - {fileID: 221576022287474783}
+  - {fileID: 4636190491776028756}
   m_Father: {fileID: 6278057265089082097}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -45730,6 +45732,8 @@ MonoBehaviour:
     Name: 
     Cost: 0
     Description: 
+    IsAttempt: 0
+    ItemIcon: 
 --- !u!224 &7916382941333995362
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46373,8 +46377,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 150, y: 150}
-  m_Spacing: {x: 50, y: 50}
+  m_CellSize: {x: 240, y: 240}
+  m_Spacing: {x: 30, y: 30}
   m_Constraint: 1
   m_ConstraintCount: 3
 --- !u!224 &8056594768545014634
@@ -47684,6 +47688,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ebd40dbf8bfe84e920481a7f8f15e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AtemptLeft: {fileID: 0}
+  AtemptTotal: {fileID: 0}
   InputAmount: {fileID: 5966043273891500258}
   AddButton: {fileID: 5563980868846641635}
   SubtractButton: {fileID: 2544929780804581773}
@@ -47693,7 +47699,9 @@ MonoBehaviour:
     Name: 
     Cost: 0
     Description: 
-  iSlot: {fileID: 4887714726959878847, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
+    IsAttempt: 0
+    ItemIcon: 
+  iSlot: {fileID: 1983591378579288477, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
   NotEnoughBoxText: {fileID: 251978448062658018}
   NotEnoughBox: {fileID: 849190910864609948}
   purchaseBoxSet: {fileID: 814234544115064612}
@@ -49845,7 +49853,7 @@ MonoBehaviour:
   m_HorizontalScrollbar: {fileID: 3061184241870580187}
   m_VerticalScrollbar: {fileID: 5764308595623980854}
   m_HorizontalScrollbarVisibility: 1
-  m_VerticalScrollbarVisibility: 2
+  m_VerticalScrollbarVisibility: 0
   m_HorizontalScrollbarSpacing: -3
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
