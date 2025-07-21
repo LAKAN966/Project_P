@@ -31,7 +31,7 @@ public static class BuffManager
                 ModelName = null,
                 AttackType = 1,
                 Size = 1f,
-                SkillID = 1
+                SkillID = null
             };
 
             raceBuffTable[raceID] = buff;
