@@ -73,13 +73,13 @@ public class PurchaseSync : MonoBehaviour
     }
     public void PurchaseItem()
     {
-        //if (AtemptLeft == null && AtemptTotal ==null)
-        //{
-        //    AtemptLeft = GetComponentInChildren<ItemSlot>().NowAttempt;
-        //    AtemptTotal = GetComponentInChildren<ItemSlot>().TotalAtempt;
-        //}
-        int Attempt = _Item.Attempt;
-        int Attemptleft = _Item.Attempt - 1;
+        if (AtemptLeft == null && AtemptTotal == null)
+        {
+            //AtemptLeft = FindObjectOfType<ItemSlot>().NowAttempt;
+            //AtemptTotal = FindObjectOfType<ItemSlot>().TotalAtempt;
+        }
+        //int Attempt = _Item.DailyBuy;
+        //int Attemptleft = _Item.DailyBuy - 1;
 
 
         int Cost = _Item.Cost;
@@ -88,53 +88,54 @@ public class PurchaseSync : MonoBehaviour
         {
             if (_Item.ID == 101)
             {
-                Debug.Log(Attempt + "일반 모집");
-                if (Attemptleft > 0)
-                {
-                    PlayerDataManager.Instance.AddTicket(Amount);
-                    InputAmount.text = "1";
-                    Debug.Log(PlayerDataManager.Instance.player.ticket);
-                    AtemptLeft.text = (Attempt-1).ToString();
-                }
-                else
-                {
-                    AtemptNotEnoungh();
-                }
+                //Debug.Log(Attempt + "일반 모집");
+                //if (Attemptleft > 0)
+                //{
+                PlayerDataManager.Instance.AddTicket(Amount);
+                InputAmount.text = "1";
+                Debug.Log(PlayerDataManager.Instance.player.ticket);
+                // AtemptLeft.text = (Attempt-1).ToString();
             }
-            if (_Item.ID == 102)
+            //else
+            //{
+            //    AtemptNotEnoungh();
+            //}
+        }
+        if (_Item.ID == 102)
+        {
+            //Debug.Log(Attempt + "건설도구");
+            //if (Attemptleft > 0)
             {
-                Debug.Log(Attempt + "건설도구");
-                if (Attemptleft > 0)
-                {
-                    PlayerDataManager.Instance.AddTribute(Amount);
-                    InputAmount.text = "1";
-                    AtemptLeft.text = (Attempt - 1).ToString();
-                }
-                else
-                {
-                    AtemptNotEnoungh();
-                }
+                PlayerDataManager.Instance.AddTribute(Amount);
+                InputAmount.text = "1";
+                //AtemptLeft.text = (Attempt - 1).ToString();
+                //    }
+                //        else
+                //    {
+                //        AtemptNotEnoungh();
+                //    }
             }
             if (_Item.ID == 103)
             {
-                Debug.Log(Attempt + "설계도");
-                if (Attemptleft > 0)
+                //Debug.Log(Attempt + "설계도");
+                //if (Attemptleft > 0)
                 {
                     PlayerDataManager.Instance.AddBluePrint(Amount);
                     InputAmount.text = "1";
-                    AtemptLeft.text = (Attempt - 1).ToString();
+                    //    AtemptLeft.text = (Attempt - 1).ToString();
+                    //}
+                    //else
+                    //{
+                    //    AtemptNotEnoungh();
+                    //}
                 }
-                else
-                {
-                    AtemptNotEnoungh();
-                }
+                ShoppingManager.Instance.ShowNowGold();
+                purchaseBoxSet.TabClose();
             }
-            ShoppingManager.Instance.ShowNowGold();
-            purchaseBoxSet.TabClose();
-        }
-        else
-        {
-            NotEnough();
+            else
+            {
+                NotEnough();
+            }
         }
     }
     public void NotEnough()
