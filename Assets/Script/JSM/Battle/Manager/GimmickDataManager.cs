@@ -15,12 +15,25 @@ public class GimmickData
     }
 }
 
-public static class GimmickDataManager
+public class GimmickDataManager
 {
-    public static Dictionary<int, GimmickData> gimmickDict = new();
-    private static bool isLoaded = false;
+    private static GimmickDataManager instance;
+    public static GimmickDataManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new GimmickDataManager();
+                instance.LoadGimmickData();
+            }
+            return instance;
+        }
+    }
+    public Dictionary<int, GimmickData> gimmickDict = new();
+    private bool isLoaded = false;
 
-    public static void LoadGimmickData()
+    public void LoadGimmickData()
     {
         if (isLoaded) return;
         isLoaded = true;

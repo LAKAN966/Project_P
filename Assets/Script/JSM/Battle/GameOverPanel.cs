@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameOverPanel : MonoBehaviour
 {
-    public TextMeshProUGUI title;
+    public Image title;
     public TextMeshProUGUI description;
     public GameObject rewardPanel;
     public GameObject rewardSlot;
@@ -15,8 +15,8 @@ public class GameOverPanel : MonoBehaviour
 
     public void Win()
     {
+        title.sprite = Resources.Load<Sprite>("Sprites/Image_Victory");
         Debug.Log(WaveManager.Instance.currentStage.StageName);
-        title.text = "VICTORY";
         description.text = "승리 보상";
         rewardItemId = PlayerDataManager.Instance.HasClearedStage(WaveManager.Instance.stageID) ? WaveManager.Instance.currentStage.repeatRewardItemIDs : WaveManager.Instance.currentStage.firstRewardItemIDs;
         rewardItemCount = PlayerDataManager.Instance.HasClearedStage(WaveManager.Instance.stageID) ? WaveManager.Instance.currentStage.repeatRewardAmounts : WaveManager.Instance.currentStage.firstRewardAmounts;
@@ -45,7 +45,7 @@ public class GameOverPanel : MonoBehaviour
     }
     public void Lose()
     {
-        title.text = "DEFEAT";
+        title.sprite = Resources.Load<Sprite>("Sprites/Image_Fail");
         description.text = "전투 패배";
     }
 }
