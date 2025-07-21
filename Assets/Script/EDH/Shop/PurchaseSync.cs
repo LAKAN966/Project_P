@@ -10,9 +10,10 @@ public class PurchaseSync : MonoBehaviour
     private UILoader uILoader;
     private UIManager uiManager;
 
-    public TMP_InputField InputAmount;   // 수량 입력칸
-    public TMP_Text AtemptLeft;          // 남은 구매횟수 텍스트
+    [SerializeField] public TMP_Text AtemptLeft;          // 남은 구매횟수 텍스트
+    [SerializeField] public TMP_Text AtemptTotal;         // 구매 가능 횟수 텍스트
 
+    public TMP_InputField InputAmount;   // 수량 입력칸
 
     public Button AddButton;        // 수량 추가 버튼
     public Button SubtractButton;   // 수량 빼기버튼
@@ -72,7 +73,11 @@ public class PurchaseSync : MonoBehaviour
     }
     public void PurchaseItem()
     {
-        int Atempt = 0;
+        if (AtemptLeft == null)
+        {
+            //AtemptLeft = GetComponentInChildren<ItemSlot>();
+        }
+        int Attempt = _Item.IsAttempt;
 
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
@@ -80,8 +85,8 @@ public class PurchaseSync : MonoBehaviour
         {
             if (_Item.ID == 101)
             {
-                Atempt = 10;
-                if (Atempt>0)
+                Debug.Log(Attempt + "일반 모집");
+                if (Attempt > 0)
                 {
                     PlayerDataManager.Instance.AddTicket(Amount);
                     InputAmount.text = "1";
@@ -94,13 +99,29 @@ public class PurchaseSync : MonoBehaviour
             }
             if (_Item.ID == 102)
             {
-                PlayerDataManager.Instance.AddTribute(Amount);
-                InputAmount.text = "1";
+                Debug.Log(Attempt + "건설도구");
+                if (Attempt > 0)
+                {
+                    PlayerDataManager.Instance.AddTribute(Amount);
+                    InputAmount.text = "1";
+                }
+                else
+                {
+                    AtemptNotEnoungh();
+                }
             }
             if (_Item.ID == 103)
             {
-                PlayerDataManager.Instance.AddBluePrint(Amount);
-                InputAmount.text = "1";
+                Debug.Log(Attempt + "설계도");
+                if (Attempt > 0)
+                {
+                    PlayerDataManager.Instance.AddBluePrint(Amount);
+                    InputAmount.text = "1";
+                }
+                else
+                {
+                    AtemptNotEnoungh();
+                }
             }
             ShoppingManager.Instance.ShowNowGold();
             purchaseBoxSet.TabClose();
