@@ -12,13 +12,20 @@ public class UIUnitInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameValueText;
     [SerializeField] private TextMeshProUGUI hpValueText;
     [SerializeField] private TextMeshProUGUI damageValueText;
-
+    [SerializeField] private TextMeshProUGUI typeText;
+    [SerializeField] private Image hpIcon;
+    [SerializeField] private Image damageIcon;
+    [SerializeField] private Image typeIcon;
+    [SerializeField] private Sprite hpSprite;
+    [SerializeField] private Sprite damageSprite;
+    [SerializeField] private Sprite typeSprite;
 
     [Header("리더 유닛 이미지/정보")]
     [SerializeField] private Image leaderIMG;
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private Image costIcon;
 
+    [SerializeField] private GameObject skillBox;
 
     public static UIUnitInfo instance;
 
@@ -43,9 +50,16 @@ public class UIUnitInfo : MonoBehaviour
                 return;
             }
 
-            nameValueText.text = $"이름 : {stats.Name}";
-            hpValueText.text = $"체력 : {stats.MaxHP.ToString()}";
-            damageValueText.text = $"공격력 : {stats.Damage.ToString()}";
+            nameValueText.text = $"{stats.Name}";
+            hpValueText.text = $"{stats.MaxHP.ToString()}";
+            damageValueText.text = $"{stats.Damage.ToString()}";
+            typeText.text = $"{TagManager.GetNameByID(stats.RaceID)}";
+            hpIcon.sprite = hpSprite;
+            damageIcon.sprite = damageSprite;
+            typeIcon.sprite = typeSprite;
+
+            skillBox.SetActive(stats.IsHero);
+            
         }
 
         else
