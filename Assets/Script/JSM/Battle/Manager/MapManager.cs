@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
@@ -12,11 +13,12 @@ public class MapManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
-    public void MapStart()
+    public IEnumerator MapStart()
     {
         mapLength = WaveManager.Instance.currentStage.BaseDistance;
         InitMap();
         SetupCameraBounds();
+        yield break;
     }
 
     private void InitMap()

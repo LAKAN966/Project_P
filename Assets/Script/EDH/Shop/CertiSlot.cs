@@ -14,7 +14,6 @@ public class CertiSlot : MonoBehaviour
     public void init(PickInfo pickInfo)
     {
         var stats = UnitDataManager.Instance.GetStats(pickInfo.ID);
-        //CertiCost.text = pickInfo.warrant.ToString();
         UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
 
         _Info = pickInfo;
@@ -35,8 +34,13 @@ public class CertiSlot : MonoBehaviour
             CertiPurChaseSync.Instance.Init(pickInfo, this);
 
             UIController.Instance.PurchaseCertiUnitBox.SetActive(true);
-            UIController.Instance.PurchaseCertiUnitBox.GetComponent<CertiPurchaseBoxSet>()._PickInfo = _Info;
-            UIController.Instance.PurchaseCertiUnitBox.GetComponent<CertiPurchaseBoxSet>().SetUnitIcon(UnitIcon.sprite); 
+            CertiSlotSet();
         });
+    }
+
+    public void CertiSlotSet()
+    {
+        UIController.Instance.PurchaseCertiUnitBox.GetComponent<CertiPurchaseBoxSet>()._PickInfo = _Info;
+        UIController.Instance.PurchaseCertiUnitBox.GetComponent<CertiPurchaseBoxSet>().SetUnitIcon(UnitIcon.sprite);
     }
 }

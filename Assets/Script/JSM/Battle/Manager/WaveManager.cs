@@ -22,6 +22,7 @@ public class WaveManager : MonoBehaviour
     private WaveData pendingWave = null;
     private int waveCount;
     public GameObject Timer;
+    public UnitStats Gimmickstats = new UnitStats();
 
     public UnitPool enemyPool;
 
@@ -40,23 +41,15 @@ public class WaveManager : MonoBehaviour
         {
             Timer.SetActive(true);
         }
-        StartCoroutine(LoadThenStartWave());
     }
-    private IEnumerator LoadThenStartWave()
+    public IEnumerator WaitForStageIDThenLoad()
     {
-        yield return StartCoroutine(WaitForStageIDThenLoad());
-        yield return StartCoroutine(StartWaveAfterTeaTime());
-    }
-    private IEnumerator WaitForStageIDThenLoad()
-    {
+        LoadStageAndWave(stageID);
         yield return new WaitUntil(() => stageID > 0);
         Debug.Log(stageID);
 
-        LoadStageAndWave(stageID);
-        UnitSpawner.Instance.SetSpawnPosition();
-        MapManager.Instance.MapStart();
     }
-    private void LoadStageAndWave(int id)
+    public void LoadStageAndWave(int id)
     {
         currentStage = StageDataLoader.LoadByID(stageCSV, id);
         if (currentStage == null) return;
@@ -82,14 +75,14 @@ public class WaveManager : MonoBehaviour
     }
 
 
-    IEnumerator StartWaveAfterTeaTime()
+    public IEnumerator StartWaveAfterTeaTime()
     {
         yield return new WaitForSeconds(currentStage.TeaTime);
         waveStarted = true;
         //GameManager.Instance.OnBaseDestroyed(true);
     }
 
-    void Update()
+    private void Update()
     {
         if (!waveStarted) return;
 
@@ -141,7 +134,6 @@ public class WaveManager : MonoBehaviour
             isPaused = false;
         }
     }
-
     public void TriggerWave()
     {
         Debug.Log("트리거 ON");
@@ -153,5 +145,13 @@ public class WaveManager : MonoBehaviour
             isPaused = false;
         }
         UnitSpawner.Instance.SpawnEnemyHero(currentStage.EnemyHeroID);
+    }
+    public void SetUnitResummonCooldownUp(float value)
+    {
+        Gimmickstats.SpawnInterval = value;
+    }
+    public void SetUnitSummonCostUp(int value)
+    {
+        Gimmickstats.Cost = value;
     }
 }
