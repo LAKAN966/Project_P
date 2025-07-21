@@ -47694,7 +47694,7 @@ MonoBehaviour:
     Name: 
     Cost: 0
     Description: 
-  iSlot: {fileID: 0}
+  iSlot: {fileID: 1983591378579288477, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
   NotEnoughBoxText: {fileID: 251978448062658018}
   NotEnoughBox: {fileID: 849190910864609948}
   purchaseBoxSet: {fileID: 814234544115064612}
