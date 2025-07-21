@@ -16,12 +16,11 @@ public class GimmickManager : MonoBehaviour
     }
     public void ApplyGimmick(int id)
     {
-        if (!GimmickDataManager.gimmickDict.TryGetValue(id, out var data))
+        if (!GimmickDataManager.Instance.gimmickDict.TryGetValue(id, out var data))
         {
             Debug.LogWarning($"[GimmickManager] ID {id} 기믹을 찾을 수 없습니다.");
             return;
         }
-
         switch (data.Name)
         {
             case "TimeLimit": SetTimeLimit(data.EffectValue); break;

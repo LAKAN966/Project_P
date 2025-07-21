@@ -14,6 +14,7 @@ public class SpawnButton : MonoBehaviour
     public GameObject iconParent;
 
     private bool initialized = false;
+    private UnitStats stats;
 
     public void Start()
     {
@@ -40,7 +41,7 @@ public class SpawnButton : MonoBehaviour
         {
             return;
         }
-        var stats = BuffManager.ApplyBuff(UnitDataManager.Instance.GetStats(unitID));
+        stats = BuffManager.ApplyBuff(UnitDataManager.Instance.GetStats(unitID));
         if (stats == null)
         {
             Debug.LogWarning("Stats not found for unitID: " + unitID);

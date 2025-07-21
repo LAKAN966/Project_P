@@ -45,7 +45,10 @@ public static class StageDataLoader
                 {
                     values[17], values[18], values[19],
                     values[20], values[21], values[22]
-                }
+                },
+                Type = TryParseInt(values[23]),
+                GimicID = ParseIntList(values[24]),
+                RaceID = TryParseInt(values[25]),
             };
 
             return data;
