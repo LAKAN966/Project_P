@@ -1,29 +1,82 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class BattleManager
-{
-    private static BattleManager instance;
-    public static BattleManager Instance
+public class BattleManager : MonoBehaviour {
+    public static BattleManager Instance;
+    public GameObject gameoverUI;
+    public GameObject allyPool;
+    public GameObject enemyPool;
+    public GameObject allyHeroPool;
+    public GameObject enemyHeroPool;
+    public BattleSpeed battleSpeed;
+    public GameObject touchBlock;
+    public Timer timer;
+    public bool isWin;
+
+
+    private void Awake()
     {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new BattleManager();
-            }
-            return instance;
-        }
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else
+            Instance = this;
+        gameoverUI.GetComponent<Button>().onClick.AddListener(OnClicked);
     }
 
-    private BattleManager() { }
-
-    public void StartBattle(int selectedStageID, List<UnitStats> normalDeck, UnitStats leaderDeck, int stageType=0)
+    public void StartBattle(int selectedStageID, List<UnitStats> normalDeck, UnitStats leaderDeck, int stageType = 0)
     {
         Debug.Log(selectedStageID + "스타트 배틀");
         WaveManager.Instance.stageID = selectedStageID;
         WaveManager.Instance.stageType = stageType;
         UnitSpawner.Instance.Init(normalDeck, leaderDeck);
+    }
+
+    public void OnBaseDestroyed(bool isEnemyBase)
+    {
+        isWin=isEnemyBase;
+        gameoverUI.SetActive(true);
+        touchBlock.SetActive(true);
+        if (isEnemyBase)
+        {//승리
+            gameoverUI.GetComponent<GameOverPanel>().Win();
+            enemyPool.SetActive(false);
+            enemyHeroPool.SetActive(false);
+        }
+        else
+        {//패배
+            gameoverUI.GetComponent<GameOverPanel>().Lose();
+            allyPool.SetActive(false);
+            allyHeroPool.SetActive(false);
+        }
+        timer.m_Running = false;
+        battleSpeed.gameSpeed = 1;
+    }
+    public void OnClicked()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.LoadScene("MainScene");
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (WaveManager.Instance.stageType == 2)
+        {
+            PlayerDataManager.Instance.player.goldDungeonData.lastClearStage = Mathf.Max(PlayerDataManager.Instance.player.goldDungeonData.lastClearStage, WaveManager.Instance.stageID);
+        }
+        if (WaveManager.Instance.stageType != 2 || PlayerDataManager.Instance.player.goldDungeonData.entryCounts > 0)
+        {
+            StageManager.instance.AddReward(WaveManager.Instance.stageID);
+        }
+        if (WaveManager.Instance.stageType == 2 && PlayerDataManager.Instance.player.goldDungeonData.entryCounts > 0)
+        {
+            PlayerDataManager.Instance.player.goldDungeonData.entryCounts -= 1;
+        }
+
+        if(isWin)
+            StageManager.instance.ClearStage(WaveManager.Instance.stageID);
+        UIController.Instance.OpenStage();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
 

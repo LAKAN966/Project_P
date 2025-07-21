@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Threading.Tasks;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEngine;
 
 public class UnitSpawner : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class UnitSpawner : MonoBehaviour
     public Vector2 enemySpawnPosition;
 
     public static UnitSpawner Instance;
+
 
     [System.Serializable]
     public class ButtonSetting
@@ -30,11 +33,11 @@ public class UnitSpawner : MonoBehaviour
     {
         if (Instance == null) Instance = this;
     }
-    public void SetSpawnPosition()
+    public IEnumerator SetSpawnPosition()
     {
         allySpawnPosition = GetSpawnPosition(false);
         enemySpawnPosition = GetSpawnPosition(true);
-
+        yield break;
     }
     public void Init(List<UnitStats> normalDeck, UnitStats leaderDeck)
     {
@@ -46,18 +49,11 @@ public class UnitSpawner : MonoBehaviour
         {
             buttonSettings[6].unitID = leaderDeck.ID;
         }
-        SetButton();
+        Debug.Log("덱 세팅!");
     }
     private void TrySpawn(SpawnButton data)
     {
-        var stats = UnitDataManager.Instance.GetStats(data.unitID);
-        if (stats == null)
-        {
-            Debug.LogWarning($"알 수 없는 유닛 ID: {data.unitID}");
-            return;
-        }
-        stats = BuffManager.ApplyBuff(stats);
-
+        var stats = data.stats;
         var spawnPos = data.isEnemy ? enemySpawnPosition : allySpawnPosition;
 
         if (BattleResourceManager.Instance.currentResource<stats.Cost)
@@ -135,7 +131,7 @@ public class UnitSpawner : MonoBehaviour
             Debug.LogWarning("[UnitSpawner] 적군 영웅 유닛 풀 부족!");
         }
     }
-    public void SetButton()
+    public IEnumerator SetButton()
     {
         foreach (var setting in buttonSettings)
         {
@@ -146,6 +142,15 @@ public class UnitSpawner : MonoBehaviour
 
             button.button.onClick.RemoveAllListeners();
             button.button.onClick.AddListener(() => TrySpawn(button));
+            button.GetComponent<SpawnButton>().InitializeUI();
         }
+        yield break;
+    }
+    public UnitStats SetGimmick(UnitStats stat)
+    {
+        UnitStats newStat = stat;
+        newStat.SpawnInterval += WaveManager.Instance.Gimmickstats.SpawnInterval;
+        newStat.Cost += WaveManager.Instance.Gimmickstats.Cost;
+        return newStat;
     }
 }

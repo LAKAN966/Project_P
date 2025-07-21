@@ -17,6 +17,9 @@ public class BuildSlotUI : MonoBehaviour
     public GameObject levelUpPanel;
 
     public float maxHeight = 300f;
+    public float maxWidth = 300f;
+    public float minHeight = 300f;
+    public float minWidth = 300f;
 
     public int Level = 0;
 
@@ -59,10 +62,32 @@ public class BuildSlotUI : MonoBehaviour
                 float targetWidth = rt.rect.width;
                 float targetHeight = targetWidth / aspect;
 
-                if (targetHeight > maxHeight)
+                // 최대 높이 제한
+                if (targetHeight > maxHeight && maxHeight!=0)
                 {
                     targetHeight = maxHeight;
                     targetWidth = targetHeight * aspect;
+                }
+
+                // 최대 너비 제한
+                if (targetWidth > maxWidth && maxWidth != 0)
+                {
+                    targetWidth = maxWidth;
+                    targetHeight = targetWidth / aspect;
+                }
+
+                // 최소 높이 제한
+                if (targetHeight < minHeight && minHeight != 0)
+                {
+                    targetHeight = minHeight;
+                    targetWidth = targetHeight * aspect;
+                }
+
+                // 최소 너비 제한
+                if (targetWidth < minWidth && minWidth != 0)
+                {
+                    targetWidth = minWidth;
+                    targetHeight = targetWidth / aspect;
                 }
 
                 if (fitter != null) fitter.aspectMode = AspectRatioFitter.AspectMode.None;
@@ -70,6 +95,7 @@ public class BuildSlotUI : MonoBehaviour
                 rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, targetWidth);
                 rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
             }
+
         }
 
         if (nameText != null)
