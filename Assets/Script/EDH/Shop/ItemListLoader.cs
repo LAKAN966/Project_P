@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 
-public class ItemListLoader : MonoBehaviour 
+public class ItemListLoader : MonoBehaviour
 {
     private static ItemListLoader _instance;
 
@@ -18,7 +19,7 @@ public class ItemListLoader : MonoBehaviour
             }
             return _instance;
         }
-        
+
     }
     void Awake()
     {
@@ -53,31 +54,41 @@ public class ItemListLoader : MonoBehaviour
         Debug.Log(lines.Length + " 가짓수");
         for (int i = 1; i < lines.Length; i++)
         {
+            List<string> parts = ParseCSVLine(lines[i]);
             if (string.IsNullOrWhiteSpace(lines[i])) continue;
-
-            string[] tokens = lines[i].Split(',');
 
             Item item = new Item
             {
-                //ID = int.Parse(tokens[0]),
-                //Name = tokens[1],
-                //Cost = int.Parse(tokens[2]),
-                //Description = tokens[3],
-                //Attempt  = int.Parse(tokens[4]),
-                //ItemIcon = tokens[5]
-                ID = int.Parse(tokens[0]),
-                Name = "",
-                Cost =3,
-                Description = "",
-                Attempt = 0,
-                ItemIcon = ""
+                ID = int.Parse(parts[0]),
+                Name = parts[1],
+                Cost = int.Parse(parts[2]),
+                Description = parts[3].Trim(),
+                DailyBuy = int.Parse(parts[4]),
+                ItemIcon = parts[5]
             };
 
             itemListsDict[item.ID] = item;
             Debug.Log("생성함");
         }
-        
+
         Debug.Log($"아이템 데이터 로딩 완료: {itemListsDict.Count}개");
+    }
+    private static List<string> ParseCSVLine(string line)
+    {
+        var matches = Regex.Matches(line, @"(?<field>[^,""]+|""([^""]|"""")*"")(?=,|$)");
+        List<string> result = new();
+
+        foreach (Match match in matches)
+        {
+            string field = match.Groups["field"].Value;
+            if (field.StartsWith("\"") && field.EndsWith("\""))
+            {
+                field = field[1..^1].Replace("\"\"", "\"");
+            }
+            result.Add(field);
+        }
+
+        return result;
     }
 
     public Dictionary<int, Item> GetAllList()
