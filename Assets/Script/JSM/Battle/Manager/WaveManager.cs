@@ -40,13 +40,24 @@ public class WaveManager : MonoBehaviour
         {
             Timer.SetActive(true);
         }
-        LoadStageAndWave(stageID);
-        StartCoroutine(StartWaveAfterTeaTime());
+        StartCoroutine(LoadThenStartWave());
     }
+    private IEnumerator LoadThenStartWave()
+    {
+        yield return StartCoroutine(WaitForStageIDThenLoad());
+        yield return StartCoroutine(StartWaveAfterTeaTime());
+    }
+    private IEnumerator WaitForStageIDThenLoad()
+    {
+        yield return new WaitUntil(() => stageID > 0);
+        Debug.Log(stageID);
 
+        LoadStageAndWave(stageID);
+        UnitSpawner.Instance.SetSpawnPosition();
+        MapManager.Instance.MapStart();
+    }
     private void LoadStageAndWave(int id)
     {
-
         currentStage = StageDataLoader.LoadByID(stageCSV, id);
         if (currentStage == null) return;
 
@@ -63,6 +74,11 @@ public class WaveManager : MonoBehaviour
         waveCount = 0;
         triggerWaves = waves.Where(w => w.OnTrigger).ToList();
         nonTriggerWaves = waves.Where(w => !w.OnTrigger).ToList();
+
+        foreach(int i in currentStage.GimicID)
+        {
+            GimmickManager.Instance.ApplyGimmick(i);
+        }
     }
 
 

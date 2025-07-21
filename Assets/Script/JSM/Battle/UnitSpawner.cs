@@ -30,7 +30,7 @@ public class UnitSpawner : MonoBehaviour
     {
         if (Instance == null) Instance = this;
     }
-    private void Start()
+    public void SetSpawnPosition()
     {
         allySpawnPosition = GetSpawnPosition(false);
         enemySpawnPosition = GetSpawnPosition(true);
@@ -46,6 +46,7 @@ public class UnitSpawner : MonoBehaviour
         {
             buttonSettings[6].unitID = leaderDeck.ID;
         }
+        SetButton();
     }
     private void TrySpawn(SpawnButton data)
     {
