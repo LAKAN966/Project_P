@@ -275,6 +275,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemCost: {fileID: 2529868877772377548}
   ItemNameText: {fileID: 6932401095111827227}
+  NowAttempt: {fileID: 1500401459252164259}
+  TotalAtempt: {fileID: 7351274864346439830}
   purchaseSync: {fileID: 0}
   itemSlot: {fileID: 4139179688989476585}
 --- !u!1 &3131758843424911262
