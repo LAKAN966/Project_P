@@ -40,20 +40,27 @@ public class UIController : MonoBehaviour
     public GameObject Gotta;        //뽑기
 
     //Pannal
-    public GameObject PurchaseUIBox;         //구매시 상자창
-    public GameObject PurchaseCertiUnitBox;  //유닛 교환시 상자창
-    public GameObject DescriptionBox;        //아이템 설명창
-    public GameObject CertiDescriptionBox;   //증명서 유닛 설명창
-    public GameObject NotEnoughBox;          //재화 부족 경고 창
-    public TMP_Text MainGoldAmount;          //골드 표기
-    public TMP_Text StoreGoldAmount;         //상점에서 골드 표기   
+    public GameObject PurchaseUIBox;         // 구매시 상자창
+    public GameObject PurchaseCertiUnitBox;  // 유닛 교환시 상자창
+    public GameObject DescriptionBox;        // 아이템 설명창
+    public GameObject CertiDescriptionBox;   // 증명서 유닛 설명창
+    public GameObject NotEnoughBox;          // 재화 부족 경고 창
+    public TMP_Text MainGoldAmount;          // 골드 표기
+    public TMP_Text StoreGoldAmount;         // 상점에서 골드 표기   
 
-    //버튼
-    public Button UnitManagementButton;  //덱빌딩
-    public Button SelectStageButton;     //스테이지 선택
-    public Button UnitGotchaBotton;      //유닛 뽑기
-    public Button SacredPlaceButton;     //내실
-    public Button StoreButton;           //상점
+    //열기버튼
+    public Button UnitManagementButton;  // 덱빌딩
+    public Button SelectStageButton;     // 스테이지 선택
+    public Button UnitGotchaBotton;      // 유닛 뽑기
+    public Button SacredPlaceButton;     // 내실
+    public Button StoreButton;           // 상점
+
+    // 닫기 버튼
+    public Button CloseGottcha;         // 뽑기 닫기
+    public Button CloseUnitManage;      // 유닛관리 닫기
+    public Button CloseShop;            // 상점닫기 
+    public Button CloseHQ;              // 전초기지 닫기
+    public Button Closestage;           // 침략 닫기
 
 
     private void Start()
@@ -71,6 +78,13 @@ public class UIController : MonoBehaviour
         UnitGotchaBotton.onClick.AddListener(OpenGottcha);
         SacredPlaceButton.onClick.AddListener(OpenSacredPlace);
         StoreButton.onClick.AddListener(OpenShop);
+
+        //----------------------------------------------------------------
+        CloseGottcha.onClick.AddListener(CloseGottaTab);
+        CloseUnitManage.onClick.AddListener(CloseUnitTab);
+        CloseShop.onClick.AddListener(CloseShopTab);
+        CloseHQ.onClick.AddListener(CloseHQTab);
+        Closestage.onClick.AddListener(CloseStageTab);
     }
 
     public void UnitManageActive()
@@ -120,5 +134,31 @@ public class UIController : MonoBehaviour
     {
         MainGoldAmount.text = PlayerDataManager.Instance.player.gold.ToString();
         StoreGoldAmount.text = PlayerDataManager.Instance.player.gold.ToString();
+    }
+
+    public void CloseGottaTab()
+    {
+        Gotta.SetActive(false);
+        Main.SetActive(true);
+    }
+    public void CloseShopTab()
+    {
+        Shop.SetActive(false);
+        Main.SetActive(true);
+    }
+    public void CloseUnitTab()
+    {
+        DeckBuild.SetActive(false);
+        Main.SetActive(true);
+    }
+    public void CloseHQTab()
+    {
+        HQ.SetActive(false);
+        Main.SetActive(true);
+    }
+    public void CloseStageTab()
+    {
+        Stage.SetActive(false);
+        Main.SetActive(true);
     }
 }
