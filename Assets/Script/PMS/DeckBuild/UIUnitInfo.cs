@@ -58,8 +58,25 @@ public class UIUnitInfo : MonoBehaviour
             damageIcon.sprite = damageSprite;
             typeIcon.sprite = typeSprite;
 
-            skillBox.SetActive(stats.IsHero);
+            skillBox?.SetActive(stats.IsHero);
             
+            if (skillBox != null)
+            {
+                var skillUI = skillBox.GetComponent<UISkillBox>();
+                if(stats.IsHero && skillUI != null)
+                {
+                    skillUI.SetSkill(stats);
+                }
+                else if (!stats.IsHero)
+                {
+                    skillUI.Hide();
+                }
+                else
+                {
+                    Debug.LogWarning("UISkillBox 컴포넌트를 찾을 수 없습니다.");
+                }
+            }
+
         }
 
         else

@@ -72,7 +72,7 @@ public class UnitDataManager
                 foreach (var part in tagParts)
                 {
                     if (int.TryParse(part.Trim(), out int tag))
-                        stat.tagId.Add(tag);
+                        stat.SkillID.Add(tag);
                 }
             }
             if (!string.IsNullOrWhiteSpace(tokens[21]))
