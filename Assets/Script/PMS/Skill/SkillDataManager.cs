@@ -55,7 +55,7 @@ public class SkillDataManager
                     TargetRaceID = int.Parse(tokens[6]),
                 };
                 skillDic[skill.ID] = skill;
-
+                Debug.Log($"스킬 데이터 {skillDic.Count}개 로드 성공");
             }
         }
         catch (FileNotFoundException ex)
