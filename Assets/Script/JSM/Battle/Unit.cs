@@ -266,6 +266,7 @@ public class Unit : MonoBehaviour
         }
         SetState(UnitState.Dead);
 
+        if (isEnemy) BattleResourceManager.Instance.Add(stats.Cost);
         stats = null;
         target = null;
 
@@ -278,7 +279,6 @@ public class Unit : MonoBehaviour
         yield return new WaitForSeconds(deathAnimTime > 0 ? deathAnimTime : 1f);
         spriteRoot.localScale = Vector3.one;
 
-        if(isEnemy)BattleResourceManager.Instance.Add(stats.Cost);
 
         var pool = GetComponentInParent<UnitPool>();
         if (pool != null) pool.ReturnUnit(this);

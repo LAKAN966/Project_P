@@ -20,7 +20,7 @@ public class StageData
     public float TeaTime; //웨이브 시작 전 유예시간
     public float ResetTime; //웨이브 길이
     public int EnemyHeroID; //적 영웅 ID
-    public string StageBG; //스테이지 배경 이름
+    public string CastleSprite; //적 성 이미지
     public int ActionPoint; //행동력
     public List<string> BGList;
 

@@ -60,7 +60,7 @@ public class StageDataManager
                 TeaTime = float.Parse(tokens[12]),
                 ResetTime = float.Parse(tokens[13]),
                 EnemyHeroID = int.TryParse(tokens[14], out int enemyHeroID) ? enemyHeroID : 0,
-                StageBG = tokens[15],
+                CastleSprite = tokens[15],
                 ActionPoint = int.Parse(tokens[16]),
 
                 Type = tokens.Length > 23 && int.TryParse(tokens[23], out var floor) ? floor : -1,
