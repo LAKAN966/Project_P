@@ -2396,7 +2396,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: f319fb9ab0171564ca9e24393b0caa80, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8305,7 +8305,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.89804, y: 66}
-  m_SizeDelta: {x: 1573.7961, y: 665.0726}
+  m_SizeDelta: {x: 1600, y: 700}
   m_Pivot: {x: 0.5, y: 0.39564553}
 --- !u!222 &1117366862219694534
 CanvasRenderer:
@@ -11147,14 +11147,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: c440a03c057f93748825528b04391a8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19851,8 +19851,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -737.10205, y: 0.59661865}
-  m_SizeDelta: {x: -1473.7961, y: -565.0726}
+  m_AnchoredPosition: {x: -737.10205, y: 0.59664917}
+  m_SizeDelta: {x: -1500, y: -600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3333910911403305475
 MonoBehaviour:
@@ -27859,7 +27859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c3c28573d70ef40b61d0fb266ba85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemSlot: {fileID: 1854690073408689096, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
+  ItemSlot: {fileID: 896599320218305861, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
   Content: {fileID: 4370703924525917719}
 --- !u!224 &4519257243730825252
 RectTransform:
@@ -36118,10 +36118,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1112126566359896959}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 732.89795, y: 0.5966034}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 732.89795, y: 0.59658813}
+  m_SizeDelta: {x: -1500, y: -600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6168134330394944320
 CanvasRenderer:
@@ -38320,7 +38320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7408d1b4dcaf7ba4c9a30f4cdba74cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Merchandise: {fileID: 1854690073408689096, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
+  Merchandise: {fileID: 896599320218305861, guid: ff30c33cf38260d43969c8bdded7ac58, type: 3}
   ItemListLoader: {fileID: 622371988574899643}
   Content: {fileID: 4370703924525917719}
   GoldAmount: {fileID: 66297636451847649}
@@ -40993,14 +40993,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6415094, g: 0.6021716, b: 0.6021716, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 88ee1c4cabff05f408fa83c7deca8093, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -41659,7 +41659,7 @@ MonoBehaviour:
   UnitDescriptionText: {fileID: 8008388424527522291}
   PurchaseCertiUnitBox: {fileID: 2609428517977312284}
   CertiDescriptionBox: {fileID: 8065242134296140856}
-  UnitIcon: {fileID: 0}
+  UnitIcon: {fileID: 3021545016770153643}
   PurchaseItemIcon: {fileID: 3617234576899121507}
   CancelButton: {fileID: 2973594521078292316}
   _PickInfo:
@@ -43578,7 +43578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.00003129244, y: -50}
+  m_AnchoredPosition: {x: -0.00003129244, y: -15}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &7665380528901955001

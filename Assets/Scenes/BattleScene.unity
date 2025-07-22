@@ -2867,7 +2867,7 @@ MonoBehaviour:
     ModelName: 
     AttackType: 0
     Size: 0
-    SkillID: 0
+    SkillID: 
     isEnemy: 0
     warrant: 0
     tagId: 
@@ -3004,7 +3004,12 @@ MonoBehaviour:
   resourcePerSecond: 5
   walletLevel: 1
   maxWalletLevel: 8
+  basicLevelUpCost: 50
   levelUpBaseCost: 50
+  basicWallet: 100
+  increaseWallet: 50
+  basicEarn: 5
+  increaseEarn: 20
 --- !u!224 &225077550614719133
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3151,7 +3156,7 @@ MonoBehaviour:
     ModelName: 
     AttackType: 0
     Size: 0
-    SkillID: 0
+    SkillID: 
     isEnemy: 0
     warrant: 0
     tagId: 

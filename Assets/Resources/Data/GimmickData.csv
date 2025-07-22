@@ -1,9 +1,9 @@
 GimmickID,GimmickName,EffectValue
-101,TimeLimit,60
-102,UnitResummonCooldownUp,10
-103,UnitSummonCostUp,5
+101,TimeLimit,200
+102,UnitResummonCooldownUp,1
+103,UnitSummonCostUp,2
 104,LeaderUnitSummonBan,
-202,UnitResummonCooldownUp,12
-203,UnitSummonCostUp,7
-302,UnitResummonCooldownUp,14
-303,UnitSummonCostUp,9
+202,UnitResummonCooldownUp,1.5
+203,UnitSummonCostUp,3
+302,UnitResummonCooldownUp,2.5
+303,UnitSummonCostUp,5
