@@ -13,12 +13,13 @@ public class UIController : MonoBehaviour
     public static UIController Instance
     {
         get
-        { if(instance == null)
+        {
+            if (instance == null)
             {
                 instance = new UIController();
             }
             return instance;
-        }  
+        }
     }
     void Awake()
     {

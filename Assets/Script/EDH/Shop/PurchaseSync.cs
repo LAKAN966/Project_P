@@ -75,11 +75,11 @@ public class PurchaseSync : MonoBehaviour
     {
         if (AtemptLeft == null && AtemptTotal == null)
         {
-            //AtemptLeft = FindObjectOfType<ItemSlot>().NowAttempt;
-            //AtemptTotal = FindObjectOfType<ItemSlot>().TotalAtempt;
+            AtemptLeft = FindObjectOfType<ItemSlot>().NowAttempt;
+            AtemptTotal = FindObjectOfType<ItemSlot>().TotalAtempt;
         }
-        //int Attempt = _Item.DailyBuy;
-        //int Attemptleft = _Item.DailyBuy - 1;
+        int Attempt = _Item.DailyBuy;
+        int Attemptleft = _Item.DailyBuy - 1;
 
 
         int Cost = _Item.Cost;
@@ -88,54 +88,53 @@ public class PurchaseSync : MonoBehaviour
         {
             if (_Item.ID == 101)
             {
-                //Debug.Log(Attempt + "일반 모집");
-                //if (Attemptleft > 0)
-                //{
-                PlayerDataManager.Instance.AddTicket(Amount);
-                InputAmount.text = "1";
-                Debug.Log(PlayerDataManager.Instance.player.ticket);
-                // AtemptLeft.text = (Attempt-1).ToString();
+                Debug.Log(Attempt + "일반 모집");
+                if (Attemptleft > 0)
+                {
+                    PlayerDataManager.Instance.AddTicket(Amount);
+                    InputAmount.text = "1";
+                    Debug.Log(PlayerDataManager.Instance.player.ticket);
+                    AtemptLeft.text = (Attempt - 1).ToString();
+                }
+                else
+                {
+                    AtemptNotEnoungh();
+                }
             }
-            //else
-            //{
-            //    AtemptNotEnoungh();
-            //}
-        }
-        if (_Item.ID == 102)
-        {
-            //Debug.Log(Attempt + "건설도구");
-            //if (Attemptleft > 0)
+            if (_Item.ID == 102)
             {
-                PlayerDataManager.Instance.AddTribute(Amount);
-                InputAmount.text = "1";
-                //AtemptLeft.text = (Attempt - 1).ToString();
-                //    }
-                //        else
-                //    {
-                //        AtemptNotEnoungh();
-                //    }
+                Debug.Log(Attempt + "건설도구");
+                if (Attemptleft > 0)
+                {
+                    PlayerDataManager.Instance.AddTribute(Amount);
+                    InputAmount.text = "1";
+                    AtemptLeft.text = (Attempt - 1).ToString();
+                }
+                else
+                {
+                    AtemptNotEnoungh();
+                }
             }
             if (_Item.ID == 103)
             {
-                //Debug.Log(Attempt + "설계도");
-                //if (Attemptleft > 0)
+                Debug.Log(Attempt + "설계도");
+                if (Attemptleft > 0)
                 {
                     PlayerDataManager.Instance.AddBluePrint(Amount);
                     InputAmount.text = "1";
-                    //    AtemptLeft.text = (Attempt - 1).ToString();
-                    //}
-                    //else
-                    //{
-                    //    AtemptNotEnoungh();
-                    //}
+                    AtemptLeft.text = (Attempt - 1).ToString();
                 }
-                ShoppingManager.Instance.ShowNowGold();
-                purchaseBoxSet.TabClose();
+                else
+                {
+                    AtemptNotEnoungh();
+                }
             }
-            else
-            {
-                NotEnough();
-            }
+            ShoppingManager.Instance.ShowNowGold();
+            purchaseBoxSet.TabClose();
+        }
+        else
+        {
+            NotEnough();
         }
     }
     public void NotEnough()
@@ -170,4 +169,3 @@ public class PurchaseSync : MonoBehaviour
         iSlot = slot;
     }
 }
-
