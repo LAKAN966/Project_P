@@ -99,7 +99,8 @@ public class PurchaseSync : MonoBehaviour
                     PlayerDataManager.Instance.AddTicket(Amount);
                     InputAmount.text = "1";
                     Debug.Log(PlayerDataManager.Instance.player.ticket);
-                    AtemptLeft.text = (Attempt - 1).ToString();
+                    UseAtempt();
+                    Debug.Log(Attemptleft);
                 }
                 else
                 {
@@ -114,6 +115,8 @@ public class PurchaseSync : MonoBehaviour
                     PlayerDataManager.Instance.AddTribute(Amount);
                     InputAmount.text = "1";
                     AtemptLeft.text = (Attempt - 1).ToString();
+                    UseAtempt();
+                    Debug.Log(Attemptleft);
                 }
                 else
                 {
@@ -128,6 +131,8 @@ public class PurchaseSync : MonoBehaviour
                     PlayerDataManager.Instance.AddBluePrint(Amount);
                     InputAmount.text = "1";
                     AtemptLeft.text = (Attempt - 1).ToString();
+                    UseAtempt();
+                    Debug.Log(Attemptleft);
                 }
                 else
                 {
@@ -165,6 +170,14 @@ public class PurchaseSync : MonoBehaviour
             yield return new WaitForSeconds(1f); // 3초 대기
             UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
+    }
+
+    public void UseAtempt()
+    {
+        int Attempt = _Item.DailyBuy;
+        int Attemptleft = _Item.DailyBuy - 1;
+
+        AtemptLeft.text = (Attempt - 1).ToString();
     }
 
     public void Init(Item item, ItemSlot slot)
