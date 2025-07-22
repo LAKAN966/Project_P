@@ -48,6 +48,7 @@ public class UnitSpawner : MonoBehaviour
         if (buttonSettings != null && buttonSettings.Count > 6 && buttonSettings[6] != null && leaderDeck != null)
         {
             buttonSettings[6].unitID = leaderDeck.ID;
+            SkillManager.Instance.SetSkillID(UnitDataManager.Instance.GetStats(buttonSettings[6].unitID).SkillID[0], UnitDataManager.Instance.GetStats(buttonSettings[6].unitID).SkillID[1]);
         }
         Debug.Log("덱 세팅!");
     }

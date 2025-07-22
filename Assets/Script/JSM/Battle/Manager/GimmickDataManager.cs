@@ -67,4 +67,10 @@ public class GimmickDataManager
 
         Debug.Log($"[GimmickManager] 기믹 데이터 {gimmickDict.Count}개 로드 완료");
     }
+    public GimmickData GetGimmick(int id)
+    {
+        if (gimmickDict.TryGetValue(id, out var stats)) return stats;
+        Debug.LogWarning($"ID {id}에 해당하는 유닛 데이터를 찾을 수 없습니다.");
+        return null;
+    }
 }

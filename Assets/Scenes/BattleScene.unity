@@ -4020,9 +4020,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112c205b0452bb54c9b63640c5202dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allySkillID: 0
-  enemySkillID: 0
+  passiveSkillID: 0
+  activeSkillID: 0
   graveSpawnSkill: {fileID: 5827324368503000255}
+  unitpool: {fileID: 2783567027368426782}
+  heroUnitpool: {fileID: 0}
+  spawnBtn: {fileID: 796857727975929798}
+  heroUnitBtn: {fileID: 0}
 --- !u!114 &1119192633816639593
 MonoBehaviour:
   m_ObjectHideFlags: 0
