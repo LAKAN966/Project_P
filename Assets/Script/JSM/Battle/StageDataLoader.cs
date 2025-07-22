@@ -39,7 +39,7 @@ public static class StageDataLoader
                 TeaTime = TryParseFloat(values[12]),
                 ResetTime = TryParseFloat(values[13]),
                 EnemyHeroID = TryParseInt(values[14]),
-                StageBG = values[15],
+                CastleSprite = values[15],
                 ActionPoint = TryParseInt(values[16]),
                 BGList = new List<string>
                 {
