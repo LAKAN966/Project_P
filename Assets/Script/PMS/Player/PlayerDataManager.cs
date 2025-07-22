@@ -153,7 +153,7 @@ public class PlayerDataManager
 
         if (last == 0)
         {
-            player.lastActionPointTime = now;
+            //player.lastActionPointTime = now;
             return 60;
         }
 
@@ -191,7 +191,7 @@ public class PlayerDataManager
         {
             player.actionPoint -= amount;
 
-            if (player.actionPoint < player.maxActionPoint)
+            if (player.actionPoint < player.maxActionPoint && player.lastActionPointTime == 0)
             {
                 player.lastActionPointTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             }

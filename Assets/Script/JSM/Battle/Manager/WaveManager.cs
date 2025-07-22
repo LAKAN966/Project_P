@@ -136,6 +136,7 @@ public class WaveManager : MonoBehaviour
     }
     public void TriggerWave()
     {
+        if (triggerActive) return;
         Debug.Log("트리거 ON");
         if (!triggerActive)
         {

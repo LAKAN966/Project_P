@@ -6,7 +6,7 @@ public class GraveSpawnSkill : MonoBehaviour
     public GameObject gravePrefab;
     public UnitPool allyPool;
     public UnitPool enemyPool;
-    public int zombieUnitID;
+    public int zombieUnitID = 1001;
 
     public void TrySpawnGrave(Unit unit)
     {

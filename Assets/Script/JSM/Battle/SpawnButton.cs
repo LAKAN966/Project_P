@@ -4,7 +4,7 @@ using TMPro;
 
 public class SpawnButton : MonoBehaviour
 {
-     public int unitID;
+    public int unitID;
     [HideInInspector] public bool isEnemy;
     [HideInInspector] public bool isHero;
 
@@ -40,6 +40,7 @@ public class SpawnButton : MonoBehaviour
         }
         stats = BuffManager.ApplyBuff(UnitDataManager.Instance.GetStats(unitID));
         stats = UnitSpawner.Instance.SetGimmick(stats);
+        stats = SkillManager.Instance.OnStartBuff(stats);
         if (stats == null)
         {
             Debug.LogWarning("Stats not found for unitID: " + unitID);
@@ -72,8 +73,6 @@ public class SpawnButton : MonoBehaviour
             }
         }
 
-        Debug.Log($"{unitID} 세팅!");
-
         initialized = true;
     }
 
@@ -81,5 +80,4 @@ public class SpawnButton : MonoBehaviour
     {
         return stats != null ? stats.SpawnInterval : 0f;
     }
-
 }

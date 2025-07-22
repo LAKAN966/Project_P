@@ -34,9 +34,6 @@ public class Unit : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-        if (stats != null) Initialize();
-        else gameObject.SetActive(false);
     }
 
     private void Update()
