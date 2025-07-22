@@ -30,12 +30,17 @@ public class ItemSlot : MonoBehaviour
         Debug.Log(root.name);
 
         var items = ItemListLoader.Instance.GetAllList();               // 아이콘 나오면 사용할 예정
-        //ItemIcon.sprite = Resources.Load<Sprite>($"Sprites/{_Item.ItemIcon}");  // 아이콘 나오면 사용할 예정
+        ItemIcon.sprite = Resources.Load<Sprite>($"Currency");  // 아이콘 나오면 사용할 예정
+        Debug.Log(items.Count);
+
 
         _Item = item;
-        ItemNameText.text = item.Name;
-        ItemCost.text = item.Cost.ToString();
-        TotalAtempt.text = item.DailyBuy.ToString();
+        _Item.Name = item.Name; 
+        _Item.ItemIcon = item.ItemIcon;
+        _Item.DailyBuy = item.DailyBuy;
+         ItemCost.text = _Item.Cost.ToString();
+         TotalAtempt.text = _Item.DailyBuy.ToString();
+         NowAttempt.text = (_Item.DailyBuy - 1).ToString();
         
 
         itemSlot.onClick.RemoveAllListeners();
@@ -58,6 +63,6 @@ public class ItemSlot : MonoBehaviour
     public void ItemSlotSet()
     {
         UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>()._Item = _Item;
-        //UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>().SetitemIcon(ItemIcon.sprite);  // 아이콘 나오면 사용할 예정 
+        UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>().SetitemIcon(ItemIcon.sprite);  // 아이콘 나오면 사용할 예정 
     }
 }
