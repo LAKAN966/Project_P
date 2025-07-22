@@ -38,7 +38,11 @@ public class PurchaseSync : MonoBehaviour
         AddButton.onClick.RemoveAllListeners();
         SubtractButton.onClick.RemoveAllListeners();
         PurchaseButton.onClick.RemoveAllListeners();
-
+        
+        string Attempt = _Item.DailyBuy.ToString();
+        int attemptAmount = int.Parse(Attempt);
+        int Click = 0;
+        string Attemptleft = (attemptAmount - Click - int.Parse(InputAmount.text)).ToString();
         AddButton.onClick.AddListener(() =>
         {
             int amount = int.Parse(InputAmount.text);
@@ -54,6 +58,7 @@ public class PurchaseSync : MonoBehaviour
         );
         SubtractButton.onClick.AddListener(() =>
         {
+            Click++;
             int amount = int.Parse(InputAmount.text);
             Debug.Log(amount);
             if (amount > 1)
