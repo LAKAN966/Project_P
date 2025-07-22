@@ -9,8 +9,11 @@ public class UISkillInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI skillName;
     [SerializeField] private TextMeshProUGUI skillDescription;
 
-    public void ShowSkillInfo(UnitStats data)
+    
+    public void ShowSkillInfo(SkillData data)
     {
+        skillName.text = data.Name;
+        skillDescription.text = data.Description;
         skillInfoPanel.SetActive(true);
     }
 

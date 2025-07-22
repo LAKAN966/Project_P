@@ -6,27 +6,31 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class SkillDataManager
+public class SkillDataManager : MonoBehaviour
 {
-    private static SkillDataManager instance;
-    public static SkillDataManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new SkillDataManager();
-            }
-            return instance;
-        }
-    }
+    public static SkillDataManager Instance { get; private set; }
 
     private Dictionary<int, SkillData> skillDic = new();
 
-    private SkillDataManager()
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        Init();
+    }
+    private void Init()
     {
         LoadSkillData();
     }
+
     private void LoadSkillData()
     {
         try
@@ -55,8 +59,8 @@ public class SkillDataManager
                     TargetRaceID = int.Parse(tokens[6]),
                 };
                 skillDic[skill.ID] = skill;
-                Debug.Log($"스킬 데이터 {skillDic.Count}개 로드 성공");
             }
+            Debug.Log($"스킬 데이터 {skillDic.Count}개 로드 성공");
         }
         catch (FileNotFoundException ex)
         {
