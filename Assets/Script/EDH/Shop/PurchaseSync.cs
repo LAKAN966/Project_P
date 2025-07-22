@@ -132,6 +132,7 @@ public class PurchaseSync : MonoBehaviour
                     InputAmount.text = "1";
                     AtemptLeft.text = (Attempt - 1).ToString();
                     UseAtempt();
+                    //AtemptLeft.text = NowAtempt.ToString();
                     Debug.Log(Attemptleft);
                 }
                 else
@@ -176,8 +177,8 @@ public class PurchaseSync : MonoBehaviour
     {
         int Attempt = _Item.DailyBuy;
         int Attemptleft = _Item.DailyBuy - 1;
-
-        AtemptLeft.text = (Attempt - 1).ToString();
+        int NowAtempt = (Attempt - 1);
+        AtemptLeft.text = NowAtempt.ToString();
     }
 
     public void Init(Item item, ItemSlot slot)
