@@ -28,12 +28,10 @@ public class Pick : MonoBehaviour
     [SerializeField]
     private PickLogic pickLogic; // 뽑기 로직
 
-    private int PickPoint;    // 뽑은 횟수
 
 
     private void Awake()
     {
-        PickPoint = 0;
         PickOnce.onClick.AddListener(PickOneTime);       //  1회 뽑기
         PickTen.onClick.AddListener(PickTenTimes);      // 10회 뽑기
         RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기

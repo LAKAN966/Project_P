@@ -15,12 +15,11 @@ public class ItemSlot : MonoBehaviour
 
     [SerializeField] private TMP_Text ItemCost;             // 아이템 가격
     [SerializeField] private TMP_Text ItemNameText;         // 아이템 이름
-   // [SerializeField] public TMP_Text NowAttempt;           // 남은 아이템 구매 횟수
-    //[SerializeField] public TMP_Text TotalAtempt;          // 아이템 구매 가능 횟수
+    [SerializeField] public TMP_Text NowAttempt;           // 남은 아이템 구매 횟수
+    [SerializeField] public TMP_Text TotalAtempt;          // 아이템 구매 가능 횟수
 
     [SerializeField] private PurchaseSync purchaseSync;
     [SerializeField] private Button itemSlot;               // 아이템 슬롯
-
 
 
     private Item _Item;
@@ -30,13 +29,13 @@ public class ItemSlot : MonoBehaviour
         GameObject root = transform.root.gameObject;
         Debug.Log(root.name);
 
-       // var stats = ItemListLoader.Instance.GetAllList();               // 아이콘 나오면 사용할 예정
-        //ItemIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.itemicon}");  // 아이콘 나오면 사용할 예정
+        var items = ItemListLoader.Instance.GetAllList();               // 아이콘 나오면 사용할 예정
+        //ItemIcon.sprite = Resources.Load<Sprite>($"Sprites/{_Item.ItemIcon}");  // 아이콘 나오면 사용할 예정
 
         _Item = item;
         ItemNameText.text = item.Name;
         ItemCost.text = item.Cost.ToString();
-       // TotalAtempt.text = item.Attempt.ToString();
+        TotalAtempt.text = item.DailyBuy.ToString();
         
 
         itemSlot.onClick.RemoveAllListeners();
@@ -59,6 +58,6 @@ public class ItemSlot : MonoBehaviour
     public void ItemSlotSet()
     {
         UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>()._Item = _Item;
-        UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>().SetitemIcon(ItemIcon.sprite);  // 아이콘 나오면 사용할 예정
+        //UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>().SetitemIcon(ItemIcon.sprite);  // 아이콘 나오면 사용할 예정 
     }
 }
