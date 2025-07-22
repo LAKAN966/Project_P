@@ -5,8 +5,8 @@ using System.Collections;
 
 public class ButtonScaler_Coroutine : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public float pressScale = 0.7f;
-    public float returnTime = 0.3f;
+    public float pressScale = 0.9f;
+    public float returnTime = 0.005f;
 
     private Vector3 originalScale;
     private Image buttonImage;
