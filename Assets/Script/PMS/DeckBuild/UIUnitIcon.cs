@@ -12,6 +12,12 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public CanvasGroup canvasGroup; //캔버스 그룹, 투명도 위함
     public Transform originalParent; //시작 위치
     public UnitStats myStats;
+    public Image slotBG;
+    public GameObject leaderIcon;
+
+    [Header ("유닛 등급 배경")]
+    [SerializeField] private Sprite normalBG;
+    [SerializeField] private Sprite leaderBG;
     
     private void Awake()
     {
@@ -23,6 +29,9 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         myStats = stats;
         costText.text = stats.Cost.ToString();
         iconImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+        
+        slotBG.sprite = stats.IsHero ? leaderBG : normalBG;
+        leaderIcon.SetActive(stats.IsHero);
     }
 
     public UnitStats GetStats()
