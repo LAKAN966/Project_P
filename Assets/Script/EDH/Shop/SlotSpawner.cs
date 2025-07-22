@@ -14,7 +14,7 @@ public class SlotSpawner : MonoBehaviour
 
     public void SpawnSlot()
     {
-        Dictionary<int, Item> items = ItemListLoader.Instance.GetAllList();
+       var items = ItemListLoader.Instance.GetAllList();
 
         Debug.Log(items.Count + "총아이템의 개수");
 
