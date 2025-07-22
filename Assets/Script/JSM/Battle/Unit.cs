@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum UnitState
 {
@@ -141,6 +142,8 @@ public class Unit : MonoBehaviour
             target = enemy.transform;
             SetState(UnitState.Idle);
         }
+        else
+            target = null;
     }
 
     private void TryAttack()
@@ -156,62 +159,73 @@ public class Unit : MonoBehaviour
     }
 
     private IEnumerator AttackRoutine()
+{
+    isAttacking = true;
+    SetState(UnitState.Fighting);
+
+    float attackAnimLength = spumController.GetAnimationLength(PlayerState.ATTACK);
+    yield return new WaitForSeconds(Mathf.Max(stats.PreDelay - attackAnimLength, attackAnimLength));
+
+    // 공통: 위치, 범위, 레이어
+    Vector2 center = transform.position;
+    float radius = stats.AttackRange;
+    int enemyLayer = LayerMask.NameToLayer(isEnemy ? "Ally" : "Enemy");
+    int mask = 1 << enemyLayer;
+
+    // 공통: 범위 내 모든 대상 감지
+    Collider2D[] hits = Physics2D.OverlapCircleAll(center, radius, mask);
+
+    if (stats.IsAOE)
     {
-        isAttacking = true;
-
-        yield return new WaitForSeconds(stats.PreDelay);
-
-        SetState(UnitState.Fighting);
-
-        float attackAnimLength = spumController.GetAnimationLength(PlayerState.ATTACK);
-        yield return new WaitForSeconds(attackAnimLength);
-
-        // 데미지 처리
-        if (stats.IsAOE)
+        // AOE: 모든 대상에게 데미지
+        foreach (var hit in hits)
         {
-            Vector2 center = transform.position;
-            float radius = stats.AttackRange;
-            int enemyLayer = LayerMask.NameToLayer(isEnemy ? "Ally" : "Enemy");
-            int mask = 1 << enemyLayer;
+            ApplyDamage(hit);
+        }
+    }
+    else
+    {
+        // 단일 대상: 가장 가까운 대상 하나만
+        Collider2D closest = null;
+        float minDist = float.MaxValue;
 
-            Collider2D[] hits = Physics2D.OverlapCircleAll(center, radius, mask);
-            foreach (var hit in hits)
+        foreach (var hit in hits)
+        {
+            float dist = Vector2.Distance(center, hit.transform.position);
+            if (dist < minDist)
             {
-                var unit = hit.GetComponent<Unit>();
-                if (unit != null)
-                    unit.TakeDamage(stats.Damage);
-                else
-                {
-                    var castle = target?.GetComponent<BaseCastle>();
-                    if (castle != null)
-                    {
-                        castle.TakeDamage((int)stats.Damage);
-                    }
-                }
+                minDist = dist;
+                closest = hit;
             }
+        }
+
+        if (closest != null)
+        {
+            ApplyDamage(closest);
+        }
+    }
+
+    yield return new WaitForSeconds(stats.PostDelay);
+    SetState(UnitState.Moving);
+    isAttacking = false;
+}
+
+    private void ApplyDamage(Collider2D hit)
+    {
+        var unit = hit.GetComponent<Unit>();
+        if (unit != null)
+        {
+            unit.TakeDamage(stats.Damage);
         }
         else
         {
-            var unit = target?.GetComponent<Unit>();
-            if (unit != null)
+            var castle = hit.GetComponent<BaseCastle>();
+            if (castle != null)
             {
-                unit.TakeDamage(stats.Damage);
-            }
-            else
-            {
-                var castle = target?.GetComponent<BaseCastle>();
-                if (castle != null)
-                {
-                    castle.TakeDamage((int)stats.Damage);
-                }
+                castle.TakeDamage((int)stats.Damage);
             }
         }
-
-        yield return new WaitForSeconds(stats.PostDelay);
-        SetState(UnitState.Moving);
-        isAttacking = false;
     }
-
 
     public void TakeDamage(float amount)
     {
