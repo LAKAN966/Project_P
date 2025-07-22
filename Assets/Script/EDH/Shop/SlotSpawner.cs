@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SlotSpawner : MonoBehaviour
@@ -18,7 +20,7 @@ public class SlotSpawner : MonoBehaviour
 
         Debug.Log(items.Count + "총아이템의 개수");
 
-        foreach(var item in items)
+       foreach (var item in items) 
         {
             GameObject go = Instantiate(ItemSlot, Content);
             ItemSlot slot = go.GetComponent<ItemSlot>();
