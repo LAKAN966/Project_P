@@ -13,12 +13,13 @@ public class UIController : MonoBehaviour
     public static UIController Instance
     {
         get
-        { if(instance == null)
+        {
+            if (instance == null)
             {
                 instance = new UIController();
             }
             return instance;
-        }  
+        }
     }
     void Awake()
     {
@@ -115,21 +116,21 @@ public class UIController : MonoBehaviour
         Main.SetActive(false);
         ShoppingManager.Instance.ShowNowCertificate();
     }
-    //public void OnExitBtn()
-    //{
-    //    if (Stage.activeSelf && DeckBuild.activeSelf)
-    //    {
-    //        DeckBuild.SetActive(false);
-    //        return;
-    //    }
+    public void OnExitBtn()
+    {
+        if (Stage.activeSelf && DeckBuild.activeSelf)
+        {
+            DeckBuild.SetActive(false);
+            return;
+        }
 
-    //    Main.SetActive(true);
-    //    Stage.SetActive(false);
-    //    DeckBuild.SetActive(false);
-    //    Shop.SetActive(false);
-    //    HQ.SetActive(false);
-    //    Gotta.SetActive(false);
-    //}
+        Main.SetActive(true);
+        Stage.SetActive(false);
+        DeckBuild.SetActive(false);
+        Shop.SetActive(false);
+        HQ.SetActive(false);
+        Gotta.SetActive(false);
+    }
     public void ShowNowGold()
     {
         MainGoldAmount.text = PlayerDataManager.Instance.player.gold.ToString();
