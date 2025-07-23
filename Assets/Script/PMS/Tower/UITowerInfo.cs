@@ -16,6 +16,8 @@ public class UITowerInfo : MonoBehaviour
     [SerializeField] private Button enterBtn;
     [SerializeField] private Button deckBtn;
 
+    [SerializeField] private Button gimicBtn;
+
     [SerializeField] private GameObject warningPopup;
 
     private List<int> firstRewardIDs;
@@ -88,6 +90,7 @@ public class UITowerInfo : MonoBehaviour
 
         int raceID = stage.RaceID;
         countText.text = $"{TowerManager.Instance.GetEnterCount(raceID)}/{TowerManager.Instance.maxEntryCounts}";
+        
     }
     private void CreateRewardSlot(int itemID, int amount, Transform parent, GameObject slotPrefab)
     {

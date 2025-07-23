@@ -8,6 +8,7 @@ public class StageNode : MonoBehaviour
 {
     [SerializeField] private Button stageBtn;
     [SerializeField] private TextMeshProUGUI stageNameTxt;
+    [SerializeField] private TextMeshProUGUI clearText;
 
     public int stageID;
 
@@ -23,6 +24,14 @@ public class StageNode : MonoBehaviour
     public void OnClickNode()
     {
         StageManager.instance.SelectStage(stageID);
+    }
+
+    public void SetClear(bool isClear)
+    {
+        if(clearText != null)
+        {
+            clearText.gameObject.SetActive(isClear);
+        }
     }
 
 }
