@@ -38,7 +38,11 @@ public class PurchaseSync : MonoBehaviour
         AddButton.onClick.RemoveAllListeners();
         SubtractButton.onClick.RemoveAllListeners();
         PurchaseButton.onClick.RemoveAllListeners();
-
+        
+        string Attempt = _Item.DailyBuy.ToString();
+        int attemptAmount = int.Parse(Attempt);
+        int Click = 0;
+        string Attemptleft = (attemptAmount - Click - int.Parse(InputAmount.text)).ToString();
         AddButton.onClick.AddListener(() =>
         {
             int amount = int.Parse(InputAmount.text);
@@ -54,6 +58,7 @@ public class PurchaseSync : MonoBehaviour
         );
         SubtractButton.onClick.AddListener(() =>
         {
+            Click++;
             int amount = int.Parse(InputAmount.text);
             Debug.Log(amount);
             if (amount > 1)
@@ -94,7 +99,8 @@ public class PurchaseSync : MonoBehaviour
                     PlayerDataManager.Instance.AddTicket(Amount);
                     InputAmount.text = "1";
                     Debug.Log(PlayerDataManager.Instance.player.ticket);
-                    AtemptLeft.text = (Attempt - 1).ToString();
+                    UseAtempt();
+                    Debug.Log(Attemptleft);
                 }
                 else
                 {
@@ -109,6 +115,8 @@ public class PurchaseSync : MonoBehaviour
                     PlayerDataManager.Instance.AddTribute(Amount);
                     InputAmount.text = "1";
                     AtemptLeft.text = (Attempt - 1).ToString();
+                    UseAtempt();
+                    Debug.Log(Attemptleft);
                 }
                 else
                 {
@@ -123,6 +131,9 @@ public class PurchaseSync : MonoBehaviour
                     PlayerDataManager.Instance.AddBluePrint(Amount);
                     InputAmount.text = "1";
                     AtemptLeft.text = (Attempt - 1).ToString();
+                    UseAtempt();
+                    //AtemptLeft.text = NowAtempt.ToString();
+                    Debug.Log(Attemptleft);
                 }
                 else
                 {
@@ -160,6 +171,14 @@ public class PurchaseSync : MonoBehaviour
             yield return new WaitForSeconds(1f); // 3초 대기
             UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
+    }
+
+    public void UseAtempt()
+    {
+        int Attempt = _Item.DailyBuy;
+        int Attemptleft = _Item.DailyBuy - 1;
+        int NowAtempt = (Attempt - 1);
+        AtemptLeft.text = NowAtempt.ToString();
     }
 
     public void Init(Item item, ItemSlot slot)

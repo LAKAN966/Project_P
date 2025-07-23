@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,12 +17,11 @@ public class SkillDataManager : MonoBehaviour
         {
             Instance = this;
         }
-
         else
         {
             Destroy(gameObject);
         }
-
+        DontDestroyOnLoad(gameObject);
         Init();
     }
     private void Init()

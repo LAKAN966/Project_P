@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -9,6 +10,9 @@ public class SoundSlider : MonoBehaviour
     public AudioMixer MainMixer;
     public Slider BGMslider;
     public Slider SFXslider;
+
+    public TMP_Text BGMAmountTXT;
+    public TMP_Text SFXAmountText;
 
 
 
@@ -49,6 +53,7 @@ public class SoundSlider : MonoBehaviour
         MainMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
         // 변경된 Volume 값 저장하기
         PlayerPrefs.SetFloat("Volume", BGMslider.value);
+        BGMAmountTXT.text = (BGMslider.value*100f).ToString("F0");
     }
 
     public void SetSFXVolume(float volume)
@@ -57,5 +62,6 @@ public class SoundSlider : MonoBehaviour
         MainMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
         // 변경된 Volume 값 저장하기
         PlayerPrefs.SetFloat("Volume", SFXslider.value);
+        SFXAmountText.text = (SFXslider.value*100f).ToString("F0");
     }
 }
