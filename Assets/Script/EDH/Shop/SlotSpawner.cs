@@ -8,7 +8,7 @@ public class SlotSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject ItemSlot;
     [SerializeField] private Transform Content;
-    
+    [SerializeField] private PurchaseSync purchaseSync;
     void Start()
     {
         SpawnSlot();
@@ -24,7 +24,7 @@ public class SlotSpawner : MonoBehaviour
         {
             GameObject go = Instantiate(ItemSlot, Content);
             ItemSlot slot = go.GetComponent<ItemSlot>();
-            slot.init(item.Value);
+            slot.init(item.Value, purchaseSync);
         }
     }
 }
