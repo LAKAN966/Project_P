@@ -53,7 +53,7 @@ public class SoundSlider : MonoBehaviour
         MainMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
         // 변경된 Volume 값 저장하기
         PlayerPrefs.SetFloat("Volume", BGMslider.value);
-        BGMAmountTXT.text = BGMslider.value.ToString();
+        BGMAmountTXT.text = (BGMslider.value*100f).ToString("F0");
     }
 
     public void SetSFXVolume(float volume)
@@ -62,6 +62,6 @@ public class SoundSlider : MonoBehaviour
         MainMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
         // 변경된 Volume 값 저장하기
         PlayerPrefs.SetFloat("Volume", SFXslider.value);
-        SFXAmountText.text = SFXslider.value.ToString();
+        SFXAmountText.text = (SFXslider.value*100f).ToString("F0");
     }
 }
