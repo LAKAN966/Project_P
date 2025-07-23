@@ -44,7 +44,7 @@ public class UIActionPoint : MonoBehaviour
 
             if (player.actionPoint >= 100)
             {
-                timerText.text = "00:00";
+                timerText.text = "MAX";
             }
             else
             {

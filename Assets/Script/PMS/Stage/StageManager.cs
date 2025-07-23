@@ -25,12 +25,12 @@ public class StageManager : MonoBehaviour
     private int currentChapter = 1;
     private int selectedStageID = -1;
 
-    
+
     public static StageManager instance;
 
     public void Awake()
     {
-        if(instance != null && instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
@@ -58,7 +58,7 @@ public class StageManager : MonoBehaviour
 
         var stageDataDic = StageDataManager.Instance.GetAllStageData();
         int minChapter = stageDataDic.Values.Min(x => x.Chapter);
-        if(minChapter <= 0)
+        if (minChapter <= 0)
         {
             minChapter = 1;
         }
@@ -71,7 +71,7 @@ public class StageManager : MonoBehaviour
 
     private void UpdateStageUI()
     {
-        foreach(Transform child in nodeParent)
+        foreach (Transform child in nodeParent)
         {
             Destroy(child.gameObject);
         }
@@ -105,13 +105,16 @@ public class StageManager : MonoBehaviour
             var node = Instantiate(stageNodePrefab, nodeParent);
             node.Init(stage);
 
+            bool isClear = PlayerDataManager.Instance.HasClearedStage(stage.ID);
+            node.SetClear(isClear);
+
             RectTransform nodePosition = node.GetComponent<RectTransform>();
             if (nodePosition != null)
             {
                 float x = marginX + spacingX * i;
                 float y = (i % 2 == 0) ? topY : bottomY;
 
-                if(i == nodeCount - 1)
+                if (i == nodeCount - 1)
                 {
                     y = parentHeight * 0.28f;
                     x += 60;
@@ -119,7 +122,7 @@ public class StageManager : MonoBehaviour
                     nodePosition.sizeDelta *= 1.5f;
 
                     var img = node.GetComponent<Image>();
-                    if(img !=null)
+                    if (img != null)
                     {
                         img.color = Color.red;
                     }
@@ -129,7 +132,7 @@ public class StageManager : MonoBehaviour
             }
         }
     }
-    
+
 
     public void SelectStage(int stageID)
     {
@@ -137,12 +140,18 @@ public class StageManager : MonoBehaviour
         Debug.Log($"스테이지 {stageID} 선택됨");
         stageInfo.SetActive(true);
         uiStage.GetComponent<UIStageInfo>().SetStageInfo(stageID);
-        
+
     }
 
     public void OnClickEnterBattle()
     {
         if (selectedStageID == -1) return;
+
+        if (!CanEnterStage(selectedStageID))
+        {
+            Debug.Log("이전 스테이지를 클리어해야 입장이 가능합니다.");
+            return;
+        }
 
         int stageAP = StageDataManager.Instance.GetStageData(selectedStageID).ActionPoint;
 
@@ -168,10 +177,10 @@ public class StageManager : MonoBehaviour
         PlayerDataManager.Instance.ClearStage(id);
         int ap = StageDataManager.Instance.GetStageData(id).ActionPoint;
         PlayerDataManager.Instance.UseActionPoint(ap);
-        
-        
+
+
         var stageData = StageDataManager.Instance.GetStageData(id);
-        
+
         switch (stageData.Type)
         {
             case 0:
@@ -238,4 +247,33 @@ public class StageManager : MonoBehaviour
 
 
     }
+
+    private bool CanEnterStage(int stageID)
+    {
+        var stageDic = StageDataManager.Instance.GetAllStageData();
+
+        if (!stageDic.TryGetValue(stageID, out var stageData))
+            return false;
+
+        var chapterStage = stageDic.Values
+            .Where(x => x.Chapter == stageData.Chapter)
+            .OrderBy(x => x.ID)
+            .ToList();
+
+        if (chapterStage.First().ID == stageID)
+            return true;
+
+        for (int i = 1; i < chapterStage.Count; i++)
+        {
+            if (chapterStage[i].ID == stageID)
+            {
+                int prevStageID = chapterStage[i - 1].ID;
+                return PlayerDataManager.Instance.HasClearedStage(prevStageID);
+            }
+
+        }
+        return false;
+
+    }
+
 }
