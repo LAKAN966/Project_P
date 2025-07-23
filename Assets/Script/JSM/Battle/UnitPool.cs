@@ -29,7 +29,7 @@ public class UnitPool : MonoBehaviour
             if (!unit.gameObject.activeInHierarchy)
             {
                 unit.stats = stats;
-                unit.transform.position = spawnPos;
+                unit.transform.position = spawnPos + new Vector2(0, -Random.value*0.2f);
                 unit.Initialize();
                 return unit;
             }

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Unity.Collections.AllocatorManager;
 using Button = UnityEngine.UI.Button;
 
 
@@ -10,8 +12,7 @@ public class PurchaseSync : MonoBehaviour
     private UILoader uILoader;
     private UIManager uiManager;
 
-    [SerializeField] public TMP_Text AtemptLeft;          // 남은 구매횟수 텍스트
-    [SerializeField] public TMP_Text AtemptTotal;         // 구매 가능 횟수 텍스트
+    public TMP_Text AtemptTotal;         // 구매 가능 횟수 텍스트
 
     public TMP_InputField InputAmount;   // 수량 입력칸
 
@@ -29,20 +30,19 @@ public class PurchaseSync : MonoBehaviour
     public GameObject NotEnoughBox;    // 재화 부족 경고
     public PurchaseBoxSet purchaseBoxSet;
 
+    private int AttemptLeft;            //남은 구매 수량
 
+    public Action<int> PurchAct { get; set; }
+    
     public void Start()
     {
         InputAmount.text = "1"; // 기본 세팅.
 
-        //버튼 누적 호출 스책 초기화
+        //버튼 누적 호출 스택 초기화
         AddButton.onClick.RemoveAllListeners();
         SubtractButton.onClick.RemoveAllListeners();
         PurchaseButton.onClick.RemoveAllListeners();
         
-        string Attempt = _Item.DailyBuy.ToString();
-        int attemptAmount = int.Parse(Attempt);
-        int Click = 0;
-        string Attemptleft = (attemptAmount - Click - int.Parse(InputAmount.text)).ToString();
         AddButton.onClick.AddListener(() =>
         {
             int amount = int.Parse(InputAmount.text);
@@ -58,7 +58,6 @@ public class PurchaseSync : MonoBehaviour
         );
         SubtractButton.onClick.AddListener(() =>
         {
-            Click++;
             int amount = int.Parse(InputAmount.text);
             Debug.Log(amount);
             if (amount > 1)
@@ -78,29 +77,28 @@ public class PurchaseSync : MonoBehaviour
     }
     public void PurchaseItem()
     {
-        if (AtemptLeft == null && AtemptTotal == null)
-        {
-            AtemptLeft = FindObjectOfType<ItemSlot>().NowAttempt;
-            AtemptTotal = FindObjectOfType<ItemSlot>().TotalAtempt;
-        }
-        int Attempt = _Item.DailyBuy;
-        int Attemptleft = _Item.DailyBuy - 1;
-
+        int Attempt = AttemptLeft;
+        AttemptLeft = _Item.DailyBuy;
+        
 
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
+
         if (PlayerDataManager.Instance.UseGold(Cost * Amount))
         {
             if (_Item.ID == 101)
             {
                 Debug.Log(Attempt + "일반 모집");
-                if (Attemptleft > 0)
+                if (AttemptLeft > 0)
                 {
                     PlayerDataManager.Instance.AddTicket(Amount);
+                    AttemptLeft -= Amount;  
+                    Debug.Log(AttemptLeft + "남은 일반 모집 구매수량");
+
                     InputAmount.text = "1";
-                    Debug.Log(PlayerDataManager.Instance.player.ticket);
-                    UseAtempt();
-                    Debug.Log(Attemptleft);
+
+                    PurchAct.Invoke(Amount);
+                    _Item.DailyBuy = AttemptLeft;
                 }
                 else
                 {
@@ -110,13 +108,14 @@ public class PurchaseSync : MonoBehaviour
             if (_Item.ID == 102)
             {
                 Debug.Log(Attempt + "건설도구");
-                if (Attemptleft > 0)
+                if (AttemptLeft > 0)
                 {
                     PlayerDataManager.Instance.AddTribute(Amount);
+                    AttemptLeft -= Amount;
                     InputAmount.text = "1";
-                    AtemptLeft.text = (Attempt - 1).ToString();
-                    UseAtempt();
-                    Debug.Log(Attemptleft);
+                    Debug.Log(AttemptLeft + "남은 건설도구 구매수량");
+                    PurchAct.Invoke(Amount);
+                    _Item.DailyBuy = AttemptLeft;
                 }
                 else
                 {
@@ -126,14 +125,31 @@ public class PurchaseSync : MonoBehaviour
             if (_Item.ID == 103)
             {
                 Debug.Log(Attempt + "설계도");
-                if (Attemptleft > 0)
+                if (AttemptLeft > 0)
                 {
                     PlayerDataManager.Instance.AddBluePrint(Amount);
+                    AttemptLeft -= Amount;
                     InputAmount.text = "1";
-                    AtemptLeft.text = (Attempt - 1).ToString();
-                    UseAtempt();
-                    //AtemptLeft.text = NowAtempt.ToString();
-                    Debug.Log(Attemptleft);
+                    Debug.Log(AttemptLeft + "남은 설계도 구매수량");
+                    PurchAct.Invoke(Amount);
+                    _Item.DailyBuy = AttemptLeft;
+                }
+                else
+                {
+                    AtemptNotEnoungh();
+                }
+            }
+            if(_Item.ID == 104)
+            {
+                Debug.Log(Attempt + "특수모집");
+                if (AttemptLeft > 0)
+                {
+                    PlayerDataManager.Instance.AddTicket(Amount);
+                    AttemptLeft -= Amount;
+                    InputAmount.text = "1";
+                    Debug.Log(AttemptLeft + "남은 특수모집 구매수량");
+                    PurchAct.Invoke(Amount);
+                    _Item.DailyBuy = AttemptLeft;
                 }
                 else
                 {
@@ -173,18 +189,12 @@ public class PurchaseSync : MonoBehaviour
         }
     }
 
-    public void UseAtempt()
-    {
-        int Attempt = _Item.DailyBuy;
-        int Attemptleft = _Item.DailyBuy - 1;
-        int NowAtempt = (Attempt - 1);
-        AtemptLeft.text = NowAtempt.ToString();
-    }
-
     public void Init(Item item, ItemSlot slot)
     {
         Debug.Log("c");
         _Item = item;
         iSlot = slot;
     }
+
+   
 }

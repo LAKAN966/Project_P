@@ -45,7 +45,7 @@ public class SkillManager : MonoBehaviour
         {
                 case 1:
                 {
-                    if(unit.stats.RaceID == passiveSkillData.TargetRaceID) graveSpawnSkill?.TrySpawnGrave(unit);
+                    if(unit.stats.RaceID == passiveSkillData.TargetRaceID) graveSpawnSkill?.TrySpawnGrave(unit, passiveSkillData.EffectValue[0], passiveSkillData.EffectValue[1]);
                     break;
                 }
         }
@@ -59,7 +59,7 @@ public class SkillManager : MonoBehaviour
         {
             case 2:
                 if (graveSpawnSkill != null)
-                    graveSpawnSkill.ActivateGraves(isEnemy);
+                    graveSpawnSkill.ActivateGraves(isEnemy, activeSkillData.EffectValue[0]);
                 break;
             case 4:
                 BuffSkill();

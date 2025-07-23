@@ -10,13 +10,13 @@ public class GraveObject : MonoBehaviour
     public bool isEnemy;
     private GraveSpawnSkill skillRef;
 
-    public void Init(Vector3 pos, bool isEnemy, GraveSpawnSkill skill)
+    public void Init(Vector3 pos, bool isEnemy, GraveSpawnSkill skill, float time)
     {
         this.spawnPosition = pos;
         this.isEnemy = isEnemy;
         this.skillRef = skill;
         activeGraves.Add(this);
-        StartCoroutine(AutoRemoveAfterSeconds(3f));
+        StartCoroutine(AutoRemoveAfterSeconds(time));
     }
     private IEnumerator AutoRemoveAfterSeconds(float seconds)
     {
