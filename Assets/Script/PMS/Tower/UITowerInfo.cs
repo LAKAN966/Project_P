@@ -16,7 +16,7 @@ public class UITowerInfo : MonoBehaviour
     [SerializeField] private Button enterBtn;
     [SerializeField] private Button deckBtn;
 
-    [SerializeField] private Button gimicBtn;
+    [SerializeField] private Button gimmickBtn;
 
     [SerializeField] private GameObject warningPopup;
 
@@ -32,6 +32,7 @@ public class UITowerInfo : MonoBehaviour
         enterBtn.onClick.AddListener(OnClickEnter);
         deckBtn.onClick.AddListener(OnclickOpenDeck);
         warningPopup.SetActive(false);
+        gimmickBtn.onClick.AddListener(OpenGimmickInfo);
     }
 
 
@@ -91,6 +92,10 @@ public class UITowerInfo : MonoBehaviour
         int raceID = stage.RaceID;
         countText.text = $"{TowerManager.Instance.GetEnterCount(raceID)}/{TowerManager.Instance.maxEntryCounts}";
         
+        if(UIGimmickInfo.Instance != null && UIGimmickInfo.Instance.IsOpen())
+        {
+            UIGimmickInfo.Instance.Close();
+        }
     }
     private void CreateRewardSlot(int itemID, int amount, Transform parent, GameObject slotPrefab)
     {
@@ -144,4 +149,19 @@ public class UITowerInfo : MonoBehaviour
 
     }
 
+    private void OpenGimmickInfo()
+    {
+        var stage = StageDataManager.Instance.GetStageData(currentStageID);
+        var gimmickIDs = stage.GimicID;
+
+        List<string> gimmickNames = new();
+        foreach (var id in gimmickIDs)
+        {
+            var gimmickData = GimmickDataManager.Instance.GetGimmick(id);
+            if (gimmickData != null)
+                gimmickNames.Add(gimmickData.Name);
+        }
+
+        UIGimmickInfo.Instance.Open(gimmickNames);
+    }
 }
