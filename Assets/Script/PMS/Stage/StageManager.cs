@@ -174,7 +174,6 @@ public class StageManager : MonoBehaviour
     public void ClearStage(int id) // 클리어 스테이지 플레이어에 추가. 배틀 끝나고 불러오기.
     {
         Debug.Log("???");
-        PlayerDataManager.Instance.ClearStage(id);
         int ap = StageDataManager.Instance.GetStageData(id).ActionPoint;
         PlayerDataManager.Instance.UseActionPoint(ap);
 
@@ -198,6 +197,8 @@ public class StageManager : MonoBehaviour
                 QuestEvent.OnLooting?.Invoke();
                 break;
         }
+
+        PlayerDataManager.Instance.ClearStage(id);
     }
 
     public void AddReward(int id) // 스테이지 클리어 보상
@@ -242,6 +243,9 @@ public class StageManager : MonoBehaviour
 
             case 103:
                 PlayerDataManager.Instance.AddBluePrint(amount);
+                break;
+            case 104:
+                PlayerDataManager.Instance.AddTribute(amount);
                 break;
         }
 
