@@ -8,15 +8,18 @@ public class GraveSpawnSkill : MonoBehaviour
     public UnitPool enemyPool;
     public int zombieUnitID = 1001;
 
-    public void TrySpawnGrave(Unit unit)
+    public void TrySpawnGrave(Unit unit, int count, int time)
     {
-        Vector3 pos = unit.transform.position;
-        GameObject grave = Instantiate(gravePrefab, pos, Quaternion.identity);
-
-        var graveComp = grave.GetComponent<GraveObject>();
-        if (graveComp != null)
+        Vector3 pos = unit.transform.position + new Vector3(Random.value,0,0);
+        for (int i = 0; i < count; i++)
         {
-            graveComp.Init(pos, unit.isEnemy, this);
+            GameObject grave = Instantiate(gravePrefab, pos, Quaternion.identity);
+
+            var graveComp = grave.GetComponent<GraveObject>();
+            if (graveComp != null)
+            {
+                graveComp.Init(pos, unit.isEnemy, this, time);
+            }
         }
     }
 
@@ -38,15 +41,18 @@ public class GraveSpawnSkill : MonoBehaviour
         }
     }
 
-    public void ActivateGraves(bool isEnemy)
+    public void ActivateGraves(bool isEnemy, int value)
     {
         var graves = GraveObject.GetAllGraves();
 
         foreach (var grave in graves)
         {
-            if (grave != null && grave.isEnemy == isEnemy)
+            for (int i = 0 ; i < value; i++) 
             {
-                grave.ActivateZombie();
+                if (grave != null && grave.isEnemy == isEnemy)
+                {
+                    grave.ActivateZombie();
+                }
             }
         }
     }
