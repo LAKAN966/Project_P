@@ -6548,16 +6548,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource1: {fileID: 1938392143}
   bgmSource2: {fileID: 1938392146}
-  bgmSource3: {fileID: 0}
-  bgmSource4: {fileID: 0}
-  bgmSource5: {fileID: 0}
-  bgmSource6: {fileID: 0}
+  bgmSource3: {fileID: 1938392143}
+  bgmSource4: {fileID: 1938392143}
+  bgmSource5: {fileID: 1938392143}
+  bgmSource6: {fileID: 1938392143}
   clip1: {fileID: 8300000, guid: 6b2bf429172691a4c8d7c80c00bd7069, type: 3}
   clip2: {fileID: 8300000, guid: a027348663a1e744a89082e7f4519c70, type: 3}
-  clip3: {fileID: 0}
-  clip4: {fileID: 0}
-  clip5: {fileID: 0}
-  clip6: {fileID: 0}
+  clip3: {fileID: 8300000, guid: 4aff653d962e1e344a3b990aad7c4974, type: 3}
+  clip4: {fileID: 8300000, guid: 8d0296fb83bf5c74980cc846b49ad4bb, type: 3}
+  clip5: {fileID: 8300000, guid: 1eca44cdb37afa84db57f74f26e68c89, type: 3}
+  clip6: {fileID: 8300000, guid: b07a0c52202691b48a7e8223f4aa0e02, type: 3}
 --- !u!82 &1938392143
 AudioSource:
   m_ObjectHideFlags: 0

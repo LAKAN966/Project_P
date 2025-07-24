@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
     [Header("메인, 스테이지")]
     public AudioSource bgmSource1;  //  메인로비, 스테이지 선택
@@ -70,5 +70,75 @@ public class SoundManager : MonoBehaviour
         bgmSource2.loop = true;
         bgmSource2.Play();
 
+    }
+    public void MainSound()
+    {
+        bgmSource1.clip = clip1;
+        bgmSource1.loop = true;
+        bgmSource1.Play();
+        bgmSource2.Stop();
+        bgmSource3.Stop();
+        bgmSource4.Stop();
+        bgmSource5.Stop();
+        bgmSource6.Stop();
+    }
+    public void SfXSound()
+    {
+        // 두 번째 음악 설정
+        bgmSource2.clip = clip2;
+        bgmSource2.loop = true;
+        bgmSource1.Play();
+        bgmSource2.Play();
+        bgmSource3.Stop();
+        bgmSource4.Stop();
+        bgmSource5.Stop();
+        bgmSource6.Stop();
+    }
+    public void GottchaSound()
+    {
+        // 세 번째 음악 설정
+        bgmSource2.clip = clip3;
+        bgmSource2.loop = true;
+        bgmSource1.Stop();
+        bgmSource2.Stop();
+        bgmSource3.Play();
+        bgmSource4.Stop();
+        bgmSource5.Stop();
+        bgmSource6.Stop();
+    }
+    public void DeckTabSound()
+    {
+        bgmSource2.clip = clip4;
+        bgmSource2.loop = true;
+        bgmSource1.Stop();
+        bgmSource2.Stop();
+        bgmSource3.Stop();
+        bgmSource4.Play();
+        bgmSource5.Stop();
+        bgmSource6.Stop();
+    }
+    public void HQSound()
+    {
+        // 다섯 번째 음악 설정
+        bgmSource2.clip = clip5;
+        bgmSource2.loop = true;
+        bgmSource1.Stop();
+        bgmSource2.Stop();
+        bgmSource3.Stop();
+        bgmSource4.Stop();
+        bgmSource5.Play();
+        bgmSource6.Stop();
+    }
+    public void ShopSound()
+    {
+        // 여섯 번째 음악 설정
+        bgmSource2.clip = clip6;
+        bgmSource2.loop = true;
+        bgmSource1.Stop();
+        bgmSource2.Stop();
+        bgmSource3.Stop();
+        bgmSource4.Stop();
+        bgmSource5.Stop();
+        bgmSource6.Play();
     }
 }

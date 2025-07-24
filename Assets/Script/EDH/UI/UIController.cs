@@ -94,6 +94,7 @@ public class UIController : MonoBehaviour
         DeckBuild.SetActive(true);
         Main.SetActive(false);
         UIDeckBuildManager.instance.Init();
+        SoundManager.Instance.DeckTabSound();
     }
     public void OpenStage()
     {
@@ -105,17 +106,20 @@ public class UIController : MonoBehaviour
     {
         Gotta.SetActive(true);
         Main.SetActive(false);
+        SoundManager.Instance.GottchaSound();
     }
     public void OpenSacredPlace()
     {
         HQ.SetActive(true);
         Main.SetActive(false);
+        SoundManager.Instance.HQSound();
     }
     public void OpenShop()
     {
         Shop.SetActive(true);
         Main.SetActive(false);
         ShoppingManager.Instance.ShowNowCertificate();
+        SoundManager.Instance.ShopSound();
     }
     public void OnExitBtn()
     {
