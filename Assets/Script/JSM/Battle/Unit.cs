@@ -156,56 +156,57 @@ public class Unit : MonoBehaviour
     }
 
     private IEnumerator AttackRoutine()
-{
-    isAttacking = true;
-    SetState(UnitState.Fighting);
-
-    float attackAnimLength = spumController.GetAnimationLength(PlayerState.ATTACK);
-    yield return new WaitForSeconds(Mathf.Max(stats.PreDelay - attackAnimLength, attackAnimLength));
-
-    // 공통: 위치, 범위, 레이어
-    Vector2 center = transform.position;
-    float radius = stats.AttackRange;
-    int enemyLayer = LayerMask.NameToLayer(isEnemy ? "Ally" : "Enemy");
-    int mask = 1 << enemyLayer;
-
-    // 공통: 범위 내 모든 대상 감지
-    Collider2D[] hits = Physics2D.OverlapCircleAll(center, radius, mask);
-
-    if (stats.IsAOE)
     {
-        // AOE: 모든 대상에게 데미지
-        foreach (var hit in hits)
-        {
-            ApplyDamage(hit);
-        }
-    }
-    else
-    {
-        // 단일 대상: 가장 가까운 대상 하나만
-        Collider2D closest = null;
-        float minDist = float.MaxValue;
+        isAttacking = true;
+        float attackAnimLength = spumController.GetAnimationLength(PlayerState.ATTACK);
+        yield return new WaitForSeconds(Mathf.Max(stats.PreDelay - attackAnimLength, 0));
+        SetState(UnitState.Fighting);
 
-        foreach (var hit in hits)
+        yield return new WaitForSeconds(attackAnimLength);
+
+        // 공통: 위치, 범위, 레이어
+        Vector2 center = transform.position;
+        float radius = stats.AttackRange;
+        int enemyLayer = LayerMask.NameToLayer(isEnemy ? "Ally" : "Enemy");
+        int mask = 1 << enemyLayer;
+
+        // 공통: 범위 내 모든 대상 감지
+        Collider2D[] hits = Physics2D.OverlapCircleAll(center, radius, mask);
+
+        if (stats.IsAOE)
         {
-            float dist = Vector2.Distance(center, hit.transform.position);
-            if (dist < minDist)
+            // AOE: 모든 대상에게 데미지
+            foreach (var hit in hits)
             {
-                minDist = dist;
-                closest = hit;
+                ApplyDamage(hit);
+            }
+        }
+        else
+        {
+            // 단일 대상: 가장 가까운 대상 하나만
+            Collider2D closest = null;
+            float minDist = float.MaxValue;
+
+            foreach (var hit in hits)
+            {
+                float dist = Vector2.Distance(center, hit.transform.position);
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    closest = hit;
+                }
+            }
+
+            if (closest != null)
+            {
+                ApplyDamage(closest);
             }
         }
 
-        if (closest != null)
-        {
-            ApplyDamage(closest);
-        }
+        yield return new WaitForSeconds(stats.PostDelay);
+        SetState(UnitState.Moving);
+        isAttacking = false;
     }
-
-    yield return new WaitForSeconds(stats.PostDelay);
-    SetState(UnitState.Moving);
-    isAttacking = false;
-}
 
     private void ApplyDamage(Collider2D hit)
     {

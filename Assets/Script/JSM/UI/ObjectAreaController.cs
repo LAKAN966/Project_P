@@ -26,8 +26,9 @@ public class ObjectAreaController : MonoBehaviour
 
     private readonly List<GameObject> spawnedUnits = new();
 
-    private void OnEnable()
+    public void OnSpawn()
     {
+        Debug.Log("WTF?");
         SetupMovementAreaFromCamera();
         SpawnRandomUnits();
     }

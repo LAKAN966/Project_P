@@ -41,8 +41,8 @@ public class BuildSelectButton : MonoBehaviour
         buildConfirmPanel.SetActive(true);
 
         buildImg.sprite = BuildManager.Instance.GetBuildingSprite(building.imageName);
-        goldText.text = $"{PlayerDataManager.Instance.player.gold} / {building.gold}";
-        blueprintText.text = $"{PlayerDataManager.Instance.player.bluePrint} / {building.blueprint}";
+        goldText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold)} / {NumberFormatter.FormatNumber(building.gold)}";
+        blueprintText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.bluePrint)} / {NumberFormatter.FormatNumber(building.blueprint)}";
 
         confirmButton.onClick.RemoveAllListeners();
         confirmButton.onClick.AddListener(() =>

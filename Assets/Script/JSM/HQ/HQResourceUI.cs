@@ -21,9 +21,9 @@ public class HQResourceUI : MonoBehaviour
     }
     public void UpdateUI()
     {
-        goldTxt.text = PlayerDataManager.Instance.player.gold.ToString();
-        skullTxt.text = PlayerDataManager.Instance.player.tribute.ToString();
-        bluePrintTxt.text = PlayerDataManager.Instance.player.bluePrint.ToString();
+        goldTxt.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
+        skullTxt.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.tribute);
+        bluePrintTxt.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.bluePrint);
     }
     public void ShowLackPanel(float duration = 3f)
     {

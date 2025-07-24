@@ -5,15 +5,21 @@ public class CameraViewportFitter : MonoBehaviour
     public RectTransform targetUIRect; // ObjectAreaPanel
     public Camera renderCamera;        // 대상 카메라
     public float unitsTall = 2f;       // 화면 세로에 보여줄 Unity 단위 높이
-
+    private ObjectAreaController objectAreaController;
     private Vector2 lastSize;
 
-    void Start()
+
+    private void Awake()
+    {
+        objectAreaController = GetComponent<ObjectAreaController>();
+    }
+    private void OnEnable()
     {
         UpdateCameraView();
+        objectAreaController.OnSpawn();
     }
 
-    void Update()
+    private void Update()
     {
         if (targetUIRect == null || renderCamera == null) return;
 
