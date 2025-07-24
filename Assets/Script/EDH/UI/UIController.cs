@@ -47,7 +47,8 @@ public class UIController : MonoBehaviour
     public GameObject CertiDescriptionBox;   // 증명서 유닛 설명창
     public GameObject NotEnoughBox;          // 재화 부족 경고 창
     public TMP_Text MainGoldAmount;          // 골드 표기
-    public TMP_Text StoreGoldAmount;         // 상점에서 골드 표기   
+    public TMP_Text StoreGoldAmount;         // 상점에서 골드 표기
+    public TMP_Text NotEnoughBoxText;        // 재화 부족 경고 텍스트                                             
 
     //열기버튼
     public Button UnitManagementButton;  // 덱빌딩
@@ -93,6 +94,7 @@ public class UIController : MonoBehaviour
         DeckBuild.SetActive(true);
         Main.SetActive(false);
         UIDeckBuildManager.instance.Init();
+        SoundManager.Instance.DeckTabSound();
     }
     public void OpenStage()
     {
@@ -104,17 +106,20 @@ public class UIController : MonoBehaviour
     {
         Gotta.SetActive(true);
         Main.SetActive(false);
+        SoundManager.Instance.GottchaSound();
     }
     public void OpenSacredPlace()
     {
         HQ.SetActive(true);
         Main.SetActive(false);
+        SoundManager.Instance.HQSound();
     }
     public void OpenShop()
     {
         Shop.SetActive(true);
         Main.SetActive(false);
         ShoppingManager.Instance.ShowNowCertificate();
+        SoundManager.Instance.ShopSound();
     }
     public void OnExitBtn()
     {
@@ -141,25 +146,41 @@ public class UIController : MonoBehaviour
     {
         Gotta.SetActive(false);
         Main.SetActive(true);
+        SoundManager.Instance.StopSound();
     }
     public void CloseShopTab()
     {
         Shop.SetActive(false);
         Main.SetActive(true);
+        SoundManager.Instance.StopSound();
     }
     public void CloseUnitTab()
     {
         DeckBuild.SetActive(false);
         Main.SetActive(true);
+        SoundManager.Instance.StopSound();
     }
     public void CloseHQTab()
     {
         HQ.SetActive(false);
         Main.SetActive(true);
+        SoundManager.Instance.StopSound();
     }
     public void CloseStageTab()
     {
         Stage.SetActive(false);
         Main.SetActive(true);
+    }
+    public void AtemptNotEnoungh()
+    {
+        UIController.Instance.NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "모든 구매 횟수를 모두 사용하셨습니다.";
+        StartCoroutine(HideNotEnoughBox());
+
+        IEnumerator HideNotEnoughBox()
+        {
+            yield return new WaitForSeconds(1f); // 3초 대기
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
+        }
     }
 }
