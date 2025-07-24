@@ -32,7 +32,7 @@ public class GospelSlotUI : MonoBehaviour
     {
         gospelData = data;
         nameText.text = data.name;
-        costText.text = data.cost.ToString();
+        costText.text = NumberFormatter.FormatNumber(data.cost);
         state = newState;
         UpdateUIByState();
     }

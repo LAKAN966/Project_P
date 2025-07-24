@@ -32,8 +32,8 @@ public class BuildingLevelUpUI : MonoBehaviour
 
         buildImg.sprite = buildSlotUI.slotImage.sprite;
         Debug.Log(buildSlotUI.buildingID);
-        moneyTxt.text = $"{PlayerDataManager.Instance.player.gold} / {BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).goldList[buildSlotUI.Level-1]}";
-        tributeTxt.text = $"{PlayerDataManager.Instance.player.tribute} / {BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).costList[buildSlotUI.Level-1]}";
+        moneyTxt.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold)} / {NumberFormatter.FormatNumber(BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).goldList[buildSlotUI.Level-1])}";
+        tributeTxt.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.tribute)} / {NumberFormatter.FormatNumber(BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).costList[buildSlotUI.Level-1])}";
         currentLevelTxt.text = buildSlotUI.Level.ToString();
         nextLevelTxt.text = (buildSlotUI.Level+1).ToString();
         

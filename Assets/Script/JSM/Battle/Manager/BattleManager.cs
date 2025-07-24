@@ -10,7 +10,6 @@ public class BattleManager : MonoBehaviour {
     public GameObject enemyPool;
     public GameObject allyHeroPool;
     public GameObject enemyHeroPool;
-    public BattleSpeed battleSpeed;
     public GameObject touchBlock;
     public Timer timer;
     public bool isWin;
@@ -35,7 +34,8 @@ public class BattleManager : MonoBehaviour {
 
     public void OnBaseDestroyed(bool isEnemyBase)
     {
-        isWin=isEnemyBase;
+        Time.timeScale = 1f;
+        isWin =isEnemyBase;
         gameoverUI.SetActive(true);
         touchBlock.SetActive(true);
         if (isEnemyBase)
@@ -51,7 +51,6 @@ public class BattleManager : MonoBehaviour {
             allyHeroPool.SetActive(false);
         }
         timer.m_Running = false;
-        battleSpeed.gameSpeed = 1;
     }
     public void OnClicked()
     {

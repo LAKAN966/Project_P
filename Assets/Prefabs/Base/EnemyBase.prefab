@@ -464,7 +464,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: de079d7ed9bb21840beca708ac95b97a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 048d902522fd92440bc1b507a5bfdba3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -491,6 +491,7 @@ MonoBehaviour:
   hpText: {fileID: 2564198751381854685}
   hpGauge: {fileID: 6001722429543569224}
   hitCollider: {fileID: 6493619281788532277}
+  sprite: {fileID: 6400282432383731359}
 --- !u!61 &6493619281788532277
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -527,7 +528,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3020834, y: 1.3020834}
+    oldSize: {x: 0.4375, y: 0.4375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
