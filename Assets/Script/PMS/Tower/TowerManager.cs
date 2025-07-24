@@ -46,6 +46,8 @@ public class TowerManager
     }
     public bool CanEnterTower(int raceID)
     {
+        ResetEntryCounts();
+
         if (!data.entryCounts.ContainsKey(raceID))
         {
             data.entryCounts[raceID] = maxEntryCounts;
@@ -55,6 +57,8 @@ public class TowerManager
 
     public void DecreaseEntryCount(int raceID)
     {
+        ResetEntryCounts();
+
         if (!data.entryCounts.ContainsKey(raceID))
         {
             data.entryCounts[raceID] = maxEntryCounts;
@@ -78,6 +82,8 @@ public class TowerManager
 
     public int GetEnterCount(int raceID)
     {
+        ResetEntryCounts();
+
         if (!data.entryCounts.ContainsKey(raceID))
         {
             data.entryCounts[raceID] = maxEntryCounts;
@@ -146,5 +152,30 @@ public class TowerManager
             BattleManager.Instance.StartBattle(currentStageID, normalDeck, leaderDeck, 1);
         }
     }
+
+    private void ResetEntryCounts()
+    {
+        if (!NeedsReset()) return;
+
+        foreach (var key in data.entryCounts.Keys.ToList())
+        {
+            data.entryCounts[key] = maxEntryCounts;
+        }
+
+        data.lastResetTime = DateTime.UtcNow.AddHours(9); 
+        Debug.Log("타워 입장 횟수 초기화 완료");
+    }
+    private bool NeedsReset()
+    {
+        DateTime now = DateTime.UtcNow.AddHours(9); 
+        DateTime todayReset = new DateTime(now.Year, now.Month, now.Day, 4, 0, 0);
+
+        if (now < todayReset)
+            todayReset = todayReset.AddDays(-1);
+
+        return data.lastResetTime < todayReset;
+    }
+
+
 
 }
