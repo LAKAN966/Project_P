@@ -9,20 +9,22 @@ using System.Linq;
 
 public class GoldStage : MonoBehaviour
 {
-    public TextMeshProUGUI goldRewardCount;
     public TextMeshProUGUI goldStageLevel;
     public Button leftButton;
     public Button rightButton;
+    public Button infoButton;
     public Button startButton;
     public Dictionary<int, StageData> goldStageData;
+    public GameObject goldInfo;
     private int currentGoldStage = 1;
 
     private void Start()
     {
         startButton.onClick.AddListener(OnClickEnterBattle);
+        infoButton.onClick.AddListener(OnClickInfo);
         leftButton.onClick.AddListener(OnClickLeft);
         rightButton.onClick.AddListener(OnClickRight);
-        goldRewardCount.text = PlayerDataManager.Instance.player.goldDungeonData.entryCounts.ToString()+" / 3";
+        //PlayerDataManager.Instance.player.goldDungeonData.entryCounts.ToString()+" / 3";
         var goldStageDataByType = StageDataManager.Instance.GetAllGoldStageData();
         goldStageData = goldStageDataByType.Values
             .ToDictionary(data => data.Chapter, data => data);
@@ -37,6 +39,7 @@ public class GoldStage : MonoBehaviour
             currentGoldStage--;
             UpdateStageText();
             OnChangeLevel();
+            goldInfo.GetComponent<GoldStageInfo>().SetGoldInfo(goldStageData[currentGoldStage].ID);
         }
     }
 
@@ -47,12 +50,18 @@ public class GoldStage : MonoBehaviour
             currentGoldStage++;
             UpdateStageText();
             OnChangeLevel();
+            goldInfo.GetComponent<GoldStageInfo>().SetGoldInfo(goldStageData[currentGoldStage].ID);
         }
     }
 
     private void UpdateStageText()
     {
         goldStageLevel.text = $"약탈 레벨 {currentGoldStage}";
+    }
+    private void OnClickInfo()
+    {
+        goldInfo.SetActive(true);
+        goldInfo.GetComponent<GoldStageInfo>().SetGoldInfo(goldStageData[currentGoldStage].ID);
     }
     private void OnClickEnterBattle()
     {
