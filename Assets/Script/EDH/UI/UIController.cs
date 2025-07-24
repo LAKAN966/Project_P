@@ -146,26 +146,31 @@ public class UIController : MonoBehaviour
     {
         Gotta.SetActive(false);
         Main.SetActive(true);
+        SoundManager.Instance.StopSound();
     }
     public void CloseShopTab()
     {
         Shop.SetActive(false);
         Main.SetActive(true);
+        SoundManager.Instance.StopSound();
     }
     public void CloseUnitTab()
     {
         DeckBuild.SetActive(false);
         Main.SetActive(true);
+        SoundManager.Instance.StopSound();
     }
     public void CloseHQTab()
     {
         HQ.SetActive(false);
         Main.SetActive(true);
+        SoundManager.Instance.StopSound();
     }
     public void CloseStageTab()
     {
         Stage.SetActive(false);
         Main.SetActive(true);
+        SoundManager.Instance.StopSound();
     }
     public void AtemptNotEnoungh()
     {

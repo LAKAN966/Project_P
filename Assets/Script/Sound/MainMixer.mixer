@@ -122,10 +122,18 @@ AudioMixerController:
   m_ExposedParameters:
   - guid: 3232d6f6cbc674a4983f9f0163489bb5
     name: BGM
+  - guid: 3232d4d18360ea546ad462ac9991274d
+    name: MyExposedParam
+  - guid: 36dbafb554d5c7d47b956e8c1acc3444
+    name: MyExposedParam 2
   - guid: d421663236b034a48b3f8840ea7e5806
     name: MainMIxer
   - guid: 37ed0f5d807b2e24d91d313e66ad0e65
     name: SFX
+  - guid: e50c675b53012c24d97be5f518ac2afd
+    name: MyExposedParam 3
+  - guid: bf30bbf9bd106bd479aa947c6e7e9963
+    name: MyExposedParam 1
   m_AudioMixerGroupViews:
   - guids:
     - 62edbfacd1028084b9f7dca922657a0c
