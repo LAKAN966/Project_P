@@ -1024,7 +1024,7 @@ MonoBehaviour:
   NotEnoughBox: {fileID: 4408721190052596404}
   MainGoldAmount: {fileID: 8144269773962601778}
   StoreGoldAmount: {fileID: 66297636451847649}
-  NotEnoughBoxText: {fileID: 8595309785592346999}
+  NotEnoughBoxText: {fileID: 0}
   UnitManagementButton: {fileID: 2168670215603278242}
   SelectStageButton: {fileID: 4673936019245182871}
   UnitGotchaBotton: {fileID: 9116232387697146937}
