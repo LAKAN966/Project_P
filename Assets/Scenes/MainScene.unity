@@ -1024,6 +1024,7 @@ MonoBehaviour:
   NotEnoughBox: {fileID: 4408721190052596404}
   MainGoldAmount: {fileID: 8144269773962601778}
   StoreGoldAmount: {fileID: 66297636451847649}
+  NotEnoughBoxText: {fileID: 8595309785592346999}
   UnitManagementButton: {fileID: 2168670215603278242}
   SelectStageButton: {fileID: 4673936019245182871}
   UnitGotchaBotton: {fileID: 9116232387697146937}
@@ -6547,8 +6548,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource1: {fileID: 1938392143}
   bgmSource2: {fileID: 1938392146}
+  bgmSource3: {fileID: 0}
+  bgmSource4: {fileID: 0}
+  bgmSource5: {fileID: 0}
+  bgmSource6: {fileID: 0}
   clip1: {fileID: 8300000, guid: 6b2bf429172691a4c8d7c80c00bd7069, type: 3}
   clip2: {fileID: 8300000, guid: a027348663a1e744a89082e7f4519c70, type: 3}
+  clip3: {fileID: 0}
+  clip4: {fileID: 0}
+  clip5: {fileID: 0}
+  clip6: {fileID: 0}
 --- !u!82 &1938392143
 AudioSource:
   m_ObjectHideFlags: 0

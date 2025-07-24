@@ -47,7 +47,8 @@ public class UIController : MonoBehaviour
     public GameObject CertiDescriptionBox;   // 증명서 유닛 설명창
     public GameObject NotEnoughBox;          // 재화 부족 경고 창
     public TMP_Text MainGoldAmount;          // 골드 표기
-    public TMP_Text StoreGoldAmount;         // 상점에서 골드 표기   
+    public TMP_Text StoreGoldAmount;         // 상점에서 골드 표기
+    public TMP_Text NotEnoughBoxText;        // 재화 부족 경고 텍스트                                             
 
     //열기버튼
     public Button UnitManagementButton;  // 덱빌딩
@@ -161,5 +162,17 @@ public class UIController : MonoBehaviour
     {
         Stage.SetActive(false);
         Main.SetActive(true);
+    }
+    public void AtemptNotEnoungh()
+    {
+        UIController.Instance.NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "모든 구매 횟수를 모두 사용하셨습니다.";
+        StartCoroutine(HideNotEnoughBox());
+
+        IEnumerator HideNotEnoughBox()
+        {
+            yield return new WaitForSeconds(1f); // 3초 대기
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
+        }
     }
 }
