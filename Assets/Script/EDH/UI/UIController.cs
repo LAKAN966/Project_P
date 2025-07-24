@@ -170,7 +170,6 @@ public class UIController : MonoBehaviour
     {
         Stage.SetActive(false);
         Main.SetActive(true);
-        SoundManager.Instance.StopSound();
     }
     public void AtemptNotEnoungh()
     {
