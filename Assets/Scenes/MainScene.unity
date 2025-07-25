@@ -6548,12 +6548,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource1: {fileID: 1938392143}
   bgmSource2: {fileID: 1938392146}
-  clip1: {fileID: 8300000, guid: 6b2bf429172691a4c8d7c80c00bd7069, type: 3}
-  clip2: {fileID: 8300000, guid: a027348663a1e744a89082e7f4519c70, type: 3}
-  clip3: {fileID: 8300000, guid: 4aff653d962e1e344a3b990aad7c4974, type: 3}
-  clip4: {fileID: 8300000, guid: 8d0296fb83bf5c74980cc846b49ad4bb, type: 3}
-  clip5: {fileID: 8300000, guid: 1eca44cdb37afa84db57f74f26e68c89, type: 3}
-  clip6: {fileID: 8300000, guid: b07a0c52202691b48a7e8223f4aa0e02, type: 3}
+  bgm:
+  - {fileID: 8300000, guid: 6b2bf429172691a4c8d7c80c00bd7069, type: 3}
+  - {fileID: 8300000, guid: a027348663a1e744a89082e7f4519c70, type: 3}
+  - {fileID: 8300000, guid: 4aff653d962e1e344a3b990aad7c4974, type: 3}
+  - {fileID: 8300000, guid: 8d0296fb83bf5c74980cc846b49ad4bb, type: 3}
+  - {fileID: 8300000, guid: 1eca44cdb37afa84db57f74f26e68c89, type: 3}
+  - {fileID: 8300000, guid: b07a0c52202691b48a7e8223f4aa0e02, type: 3}
+  - {fileID: 8300000, guid: e1f0eb748614ffb4588bb4089038c8f4, type: 3}
+  - {fileID: 8300000, guid: 347446256be1d4840b2c19d4e70bbba1, type: 3}
+  - {fileID: 8300000, guid: 8d763eae58e7fef4a996a51c05828dd3, type: 3}
+  - {fileID: 8300000, guid: 5e46d3946f34b25468efef090f0c8e31, type: 3}
+  sfx: []
 --- !u!82 &1938392143
 AudioSource:
   m_ObjectHideFlags: 0

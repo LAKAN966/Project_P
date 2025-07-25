@@ -49,6 +49,7 @@ public static class StageDataLoader
                 Type = TryParseInt(values[23]),
                 GimicID = ParseIntList(values[24]),
                 RaceID = TryParseInt(values[25]),
+                BGMName = int.Parse(values[26]),
             };
 
             return data;

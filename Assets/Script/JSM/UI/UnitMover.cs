@@ -30,7 +30,6 @@ public class UnitMover : MonoBehaviour
         this.maxMove = maxMove;
         this.minMove = minMove;
         spum = GetComponent<SPUM_Prefabs>();
-        Debug.Log(spum);
         spum.OverrideControllerInit();
         StartCoroutine(MovementLoop());
     }

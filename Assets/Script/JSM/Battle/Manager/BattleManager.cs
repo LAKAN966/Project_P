@@ -30,6 +30,8 @@ public class BattleManager : MonoBehaviour {
         WaveManager.Instance.stageID = selectedStageID;
         WaveManager.Instance.stageType = stageType;
         UnitSpawner.Instance.Init(normalDeck, leaderDeck);
+        Debug.Log(StageDataManager.Instance.GetStageData(selectedStageID).ID);
+        SoundManager.Instance.PlayBGM(StageDataManager.Instance.GetStageData(selectedStageID).BGMName);
     }
 
     public void OnBaseDestroyed(bool isEnemyBase)
