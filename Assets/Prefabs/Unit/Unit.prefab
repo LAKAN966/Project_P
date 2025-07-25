@@ -49,6 +49,7 @@ MonoBehaviour:
   stats:
     ID: 0
     Name: 
+    Description: 
     RaceID: 0
     IsHero: 0
     IsAOE: 0
@@ -63,8 +64,14 @@ MonoBehaviour:
     PostDelay: 0
     ModelName: 
     AttackType: 0
+    Size: 0
+    SkillID: 
+    isEnemy: 0
+    warrant: 0
+    tagId: 
   isEnemy: 0
   spriteRoot: {fileID: 3993383533659920783}
+  effectParticle: {fileID: 325983797190569720, guid: 1ac3f247f1ff2914f8094c7f5ad67c3d, type: 3}
 --- !u!61 &7548277663470892060
 BoxCollider2D:
   m_ObjectHideFlags: 0
