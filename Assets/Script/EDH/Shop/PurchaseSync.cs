@@ -107,143 +107,18 @@ public class PurchaseSync : MonoBehaviour
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
 
-        if ((ItemID)_Item.ID == ItemID.NormalRecruit)
-        {
-            Debug.Log(Attempt + "일반 모집");
-            if (AttemptLeft > 0)
-            {
-                if (int.Parse(InputAmount.text) > _Item.DailyBuy)
-                {
-                    Amount = AttemptLeft;
-                    InputAmount.text = Amount.ToString();
-                }
-                if (PlayerDataManager.Instance.player.gold > int.Parse(InputAmount.text) * Cost)
-                {
-                    PlayerDataManager.Instance.UseGold(Cost * Amount);
-                    PlayerDataManager.Instance.AddTicket(Amount);
-                    AttemptLeft -= Amount;
-                    Debug.Log(AttemptLeft + "남은 일반 모집 구매수량");
-
-                    InputAmount.text = "1";
-
-                    PurchAct.Invoke(Amount);
-                    _Item.DailyBuy = AttemptLeft;
-                }
-                else
-                {
-                    UIController.Instance.GoldNotEnoungh();
-                }
-            }
-            else
-            {
-                UIController.Instance.AtemptNotEnoungh();
-            }
-        }
-        if ((ItemID)_Item.ID == ItemID.BuildTool)
-        {
-            Debug.Log(Attempt + "건설도구");
-            if (AttemptLeft > 0)
-            {
-                if (int.Parse(InputAmount.text) > _Item.DailyBuy)
-                {
-                    Amount = AttemptLeft;
-                    InputAmount.text = Amount.ToString();
-                }
-                if (PlayerDataManager.Instance.player.gold > int.Parse(InputAmount.text) * Cost)
-                {
-                    PlayerDataManager.Instance.UseGold(Cost * Amount);
-                    PlayerDataManager.Instance.AddTribute(Amount);
-                    AttemptLeft -= Amount;
-                    InputAmount.text = "1";
-                    Debug.Log(AttemptLeft + "남은 건설도구 구매수량");
-                    PurchAct.Invoke(Amount);
-                    _Item.DailyBuy = AttemptLeft;
-                }
-                else
-                {
-                    UIController.Instance.GoldNotEnoungh();
-                }
-
-            }
-            else
-            {
-                UIController.Instance.AtemptNotEnoungh();
-            }
-        }
-        if ((ItemID)_Item.ID == ItemID.Blueprint)
-        {
-            Debug.Log(Attempt + "설계도");
-            if (AttemptLeft > 0)
-            {
-                if (int.Parse(InputAmount.text) > _Item.DailyBuy)
-                {
-                    Amount = AttemptLeft;
-                    InputAmount.text = Amount.ToString();
-                }
-                if (PlayerDataManager.Instance.player.gold > int.Parse(InputAmount.text) * Cost)
-                {
-                    PlayerDataManager.Instance.UseGold(Cost * Amount);
-                    PlayerDataManager.Instance.AddBluePrint(Amount);
-                    AttemptLeft -= Amount;
-                    InputAmount.text = "1";
-                    Debug.Log(AttemptLeft + "남은 설계도 구매수량");
-                    PurchAct.Invoke(Amount);
-                    _Item.DailyBuy = AttemptLeft;
-                }
-                else
-                {
-                    UIController.Instance.GoldNotEnoungh();
-                }
-            }
-            else
-            {
-                UIController.Instance.AtemptNotEnoungh();
-            }
-        }
-        if ((ItemID)_Item.ID == ItemID.SpecialRecruit)
-        {
-            Debug.Log(Attempt + "특수모집");
-            if (AttemptLeft > 0)
-            {
-                if (int.Parse(InputAmount.text) > _Item.DailyBuy)
-                {
-                    Amount = AttemptLeft;
-                    InputAmount.text = Amount.ToString();
-                }
-                if (PlayerDataManager.Instance.player.gold > int.Parse(InputAmount.text) * Cost)
-                {
-                    PlayerDataManager.Instance.UseGold(Cost * Amount);
-                    PlayerDataManager.Instance.AddTicket(Amount);
-                    AttemptLeft -= Amount;
-                    InputAmount.text = "1";
-                    Debug.Log(AttemptLeft + "남은 특수모집 구매수량");
-                    PurchAct.Invoke(Amount);
-                    _Item.DailyBuy = AttemptLeft;
-                }
-                else
-                {
-                    UIController.Instance.GoldNotEnoungh();
-                }
-            }
-            else
-            {
-                UIController.Instance.AtemptNotEnoungh();
-            }
-
-        }
-
         if (_Item.ID == (int)ItemID.NormalRecruit)
-            Purchase2(Amount, Cost, PlayerDataManager.Instance.AddTicket);
+            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTicket);
         else if (_Item.ID == (int)ItemID.BuildTool)
-            Purchase2(Amount, Cost, PlayerDataManager.Instance.AddTribute);
+            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTribute);
         else if (_Item.ID == (int)ItemID.Blueprint)
-            Purchase2(Amount, Cost, PlayerDataManager.Instance.AddBluePrint);
+            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddBluePrint);
         else if (_Item.ID == (int)ItemID.SpecialRecruit)
-            Purchase2(Amount, Cost, PlayerDataManager.Instance.AddTicket);
+            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTicket);
         ShoppingManager.Instance.ShowNowGold();
         purchaseBoxSet.TabClose();
     }
-    public void Purchase2(int amount, int cost, Action<int> ItemsP)
+    public void PurchaseLogic(int amount, int cost, Action<int> ItemsP)
     {
         AttemptLeft = _Item.DailyBuy;
         int Attempt = AttemptLeft;
