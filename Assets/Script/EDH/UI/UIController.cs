@@ -138,8 +138,8 @@ public class UIController : MonoBehaviour
     }
     public void ShowNowGold()
     {
-        MainGoldAmount.text = PlayerDataManager.Instance.player.gold.ToString();
-        StoreGoldAmount.text = PlayerDataManager.Instance.player.gold.ToString();
+        MainGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
+        StoreGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
     }
 
     public void CloseGottaTab()
