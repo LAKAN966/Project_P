@@ -31,6 +31,8 @@ public class Unit : MonoBehaviour
     private readonly HashSet<int> triggeredHitbackZones = new();
     private Coroutine attackCoroutine;
 
+    public GameObject effectParticle;
+
     private void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -225,12 +227,26 @@ public class Unit : MonoBehaviour
         }
     }
 
+    private void HitEffect()
+    {
+        if(effectParticle == null)
+        {
+            return;
+        }
+
+        Vector3 pos = transform.position + new Vector3(0, 1f, 0);
+        GameObject obj = Instantiate(effectParticle, pos, Quaternion.Euler(90,0,0));
+        Destroy(obj, 1f);
+    }
+
     public void TakeDamage(float amount)
     {
         if (stats == null || state is UnitState.Hitback or UnitState.Dead) return;
 
         float oldHP = currentHP;
         currentHP -= amount;
+
+        HitEffect();
 
         if (currentHP <= 0)
         {

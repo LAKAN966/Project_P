@@ -13602,6 +13602,8 @@ MonoBehaviour:
   towerParent: {fileID: 8965495860802808255}
   towerPrefab: {fileID: 952022916192010401, guid: 885a616470241fe4d90cfd3391647f2d, type: 3}
   towerInfoPanel: {fileID: 5008006957701177523}
+  nextBtn: {fileID: 0}
+  prevBtn: {fileID: 0}
 --- !u!114 &918263997440854131
 MonoBehaviour:
   m_ObjectHideFlags: 0
