@@ -123,6 +123,7 @@ public class UIController : MonoBehaviour
     }
     public void OnExitBtn()
     {
+        Debug.Log(Stage.activeSelf + " " + DeckBuild.activeSelf);
         if (Stage.activeSelf && DeckBuild.activeSelf)
         {
             DeckBuild.SetActive(false);
