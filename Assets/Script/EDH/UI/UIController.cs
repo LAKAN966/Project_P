@@ -71,6 +71,7 @@ public class UIController : MonoBehaviour
         SetButton();
         ShowNowGold();
         PlayerCurrencyEvent.OnGoldChange += value => ShowNowGold();
+        SoundManager.Instance.PlayBGM(0);
     }
 
     public void SetButton()
@@ -81,12 +82,11 @@ public class UIController : MonoBehaviour
         SacredPlaceButton.onClick.AddListener(OpenSacredPlace);
         StoreButton.onClick.AddListener(OpenShop);
 
-        //----------------------------------------------------------------
-        CloseGottcha.onClick.AddListener(CloseGottaTab);
-        CloseUnitManage.onClick.AddListener(CloseUnitTab);
-        CloseShop.onClick.AddListener(CloseShopTab);
-        CloseHQ.onClick.AddListener(CloseHQTab);
-        Closestage.onClick.AddListener(CloseStageTab);
+        CloseGottcha.onClick.AddListener(OnExitBtn);
+        CloseUnitManage.onClick.AddListener(OnExitBtn);
+        CloseShop.onClick.AddListener(OnExitBtn);
+        CloseHQ.onClick.AddListener(OnExitBtn);
+        Closestage.onClick.AddListener(OnExitBtn);
     }
 
     public void UnitManageActive()
@@ -94,7 +94,7 @@ public class UIController : MonoBehaviour
         DeckBuild.SetActive(true);
         Main.SetActive(false);
         UIDeckBuildManager.instance.Init();
-        SoundManager.Instance.DeckTabSound();
+        SoundManager.Instance.PlayBGM(3);
     }
     public void OpenStage()
     {
@@ -106,20 +106,20 @@ public class UIController : MonoBehaviour
     {
         Gotta.SetActive(true);
         Main.SetActive(false);
-        SoundManager.Instance.GottchaSound();
+        SoundManager.Instance.PlayBGM(2);
     }
     public void OpenSacredPlace()
     {
         HQ.SetActive(true);
         Main.SetActive(false);
-        SoundManager.Instance.HQSound();
+        SoundManager.Instance.PlayBGM(4);
     }
     public void OpenShop()
     {
         Shop.SetActive(true);
         Main.SetActive(false);
         ShoppingManager.Instance.ShowNowCertificate();
-        SoundManager.Instance.ShopSound();
+        SoundManager.Instance.PlayBGM(5);
     }
     public void OnExitBtn()
     {
@@ -135,6 +135,7 @@ public class UIController : MonoBehaviour
         Shop.SetActive(false);
         HQ.SetActive(false);
         Gotta.SetActive(false);
+        SoundManager.Instance.PlayBGM(0);
     }
     public void ShowNowGold()
     {
@@ -146,25 +147,21 @@ public class UIController : MonoBehaviour
     {
         Gotta.SetActive(false);
         Main.SetActive(true);
-        SoundManager.Instance.StopSound();
     }
     public void CloseShopTab()
     {
         Shop.SetActive(false);
         Main.SetActive(true);
-        SoundManager.Instance.StopSound();
     }
     public void CloseUnitTab()
     {
         DeckBuild.SetActive(false);
         Main.SetActive(true);
-        SoundManager.Instance.StopSound();
     }
     public void CloseHQTab()
     {
         HQ.SetActive(false);
         Main.SetActive(true);
-        SoundManager.Instance.StopSound();
     }
     public void CloseStageTab()
     {

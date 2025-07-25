@@ -65,7 +65,8 @@ public class StageDataManager
 
                 Type = tokens.Length > 23 && int.TryParse(tokens[23], out var floor) ? floor : -1,
                 GimicID = string.IsNullOrWhiteSpace(tokens[24]) ? new() : tokens[24].Split(';').Where(s => int.TryParse(s, out _)).Select(int.Parse).ToList(),
-                RaceID = tokens.Length > 25 && int.TryParse(tokens[25], out var raceID) ? raceID : -1
+                RaceID = tokens.Length > 25 && int.TryParse(tokens[25], out var raceID) ? raceID : -1,
+                BGMName = int.Parse(tokens[26]),
 
             };
 

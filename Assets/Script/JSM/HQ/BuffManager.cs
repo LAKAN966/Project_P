@@ -3,11 +3,9 @@ using UnityEngine;
 
 public static class BuffManager
 {
-    private static Dictionary<int, UnitStats> raceBuffTable = new();
-
     public static void InitBuffs(int raceCount)
     {
-        raceBuffTable.Clear();
+        PlayerDataManager.Instance.player.raceBuffTable.Clear();
 
         for (int raceID = 0; raceID < raceCount; raceID++)
         {
@@ -34,13 +32,13 @@ public static class BuffManager
                 SkillID = null
             };
 
-            raceBuffTable[raceID] = buff;
+            PlayerDataManager.Instance.player.raceBuffTable[raceID] = buff;
         }
     }
 
     public static UnitStats GetBuff(int raceID)
     {
-        return raceBuffTable.TryGetValue(raceID, out var buff) ? buff : null;
+        return PlayerDataManager.Instance.player.raceBuffTable.TryGetValue(raceID, out var buff) ? buff : null;
     }
 
     public static UnitStats ApplyBuff(UnitStats baseStats)
@@ -74,12 +72,12 @@ public static class BuffManager
 
     public static void UpdateBuffStat(int raceID, List<int> statIndex, float value)
     {
-        if (!raceBuffTable.ContainsKey(raceID))
+        if (!PlayerDataManager.Instance.player.raceBuffTable.ContainsKey(raceID))
         {
             Debug.LogWarning($"Race ID {raceID}에 대한 버프가 존재하지 않습니다.");
             return;
         }
-        var buff = raceBuffTable[raceID];
+        var buff = PlayerDataManager.Instance.player.raceBuffTable[raceID];
         value *= 0.01f;
         foreach( var i in statIndex ) 
         {
@@ -100,6 +98,6 @@ public static class BuffManager
                     return;
             }
         }
-        raceBuffTable[raceID] = buff;
+        PlayerDataManager.Instance.player.raceBuffTable[raceID] = buff;
     }
 }

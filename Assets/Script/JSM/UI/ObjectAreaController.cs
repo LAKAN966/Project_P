@@ -28,7 +28,6 @@ public class ObjectAreaController : MonoBehaviour
 
     public void OnSpawn()
     {
-        Debug.Log("WTF?");
         SetupMovementAreaFromCamera();
         SpawnRandomUnits();
     }

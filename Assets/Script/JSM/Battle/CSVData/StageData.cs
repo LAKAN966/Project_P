@@ -27,4 +27,5 @@ public class StageData
     public int Type ;
     public List<int> GimicID = new();
     public int RaceID ;
+    public int BGMName;//브금 번호
 }
