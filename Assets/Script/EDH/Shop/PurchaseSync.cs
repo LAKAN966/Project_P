@@ -12,8 +12,6 @@ public class PurchaseSync : MonoBehaviour
     private UILoader uILoader;
     private UIManager uiManager;
 
-    public TMP_Text AtemptTotal;         // 구매 가능 횟수 텍스트
-
     public TMP_InputField InputAmount;   // 수량 입력칸
 
     public Button AddButton;        // 수량 추가 버튼
@@ -31,6 +29,7 @@ public class PurchaseSync : MonoBehaviour
     public PurchaseBoxSet purchaseBoxSet;
 
     private int AttemptLeft;            //남은 구매 수량
+    int click = 0;
 
     public Action<int> PurchAct { get; set; }
 
@@ -45,35 +44,46 @@ public class PurchaseSync : MonoBehaviour
 
         AddButton.onClick.AddListener(() =>
         {
-            int amount = int.Parse(InputAmount.text);
-            Debug.Log(amount);
-            if (amount >= 1)
+            Add();
+            click++;
+            if (click >=6)
             {
-                amount += 1;
-                InputAmount.text = amount.ToString();
+              AddButton.interactable = false;
+              AddButton.interactable = true;
             }
-            else
-            { Debug.Log("s"); }
-        }
-        );
-        SubtractButton.onClick.AddListener(() =>
-        {
-            int amount = int.Parse(InputAmount.text);
-            Debug.Log(amount);
-            if (amount > 1)
-            {
-                amount -= 1;
-                InputAmount.text = amount.ToString();
-            }
-            else { Debug.Log("s"); }
-
-            if (amount < 0)
-            {
-                Debug.Log("f");
-            }
-        }
-        );
+        });
+        
+        SubtractButton.onClick.AddListener(Subttract);
+       
         PurchaseButton.onClick.AddListener(PurchaseItem); // 구매
+    }
+    public void Add()
+    {
+        int amount = int.Parse(InputAmount.text);
+        Debug.Log(amount);
+        if (amount >= 1)
+        {
+            amount += 1;
+            InputAmount.text = amount.ToString();
+        }
+        else
+        { Debug.Log("더하기"); }
+    }
+    public void Subttract()
+    {
+        int amount = int.Parse(InputAmount.text);
+        Debug.Log(amount);
+        if (amount > 1)
+        {
+            amount -= 1;
+            InputAmount.text = amount.ToString();
+        }
+        else { Debug.Log("s"); }
+
+        if (amount < 0)
+        {
+            Debug.Log("");
+        }
     }
     public void PurchaseItem()
     {
@@ -92,17 +102,24 @@ public class PurchaseSync : MonoBehaviour
                 if (int.Parse(InputAmount.text) > _Item.DailyBuy)
                 {
                     Amount = AttemptLeft;
+                    InputAmount.text = Amount.ToString();
                 }
-                PlayerDataManager.Instance.UseGold(Cost * Amount);
-                PlayerDataManager.Instance.AddTicket(Amount);
-                AttemptLeft -= Amount;
-                Debug.Log(AttemptLeft + "남은 일반 모집 구매수량");
+                if (PlayerDataManager.Instance.player.gold > int.Parse(InputAmount.text) * Cost)
+                {
+                    PlayerDataManager.Instance.UseGold(Cost * Amount);
+                    PlayerDataManager.Instance.AddTicket(Amount);
+                    AttemptLeft -= Amount;
+                    Debug.Log(AttemptLeft + "남은 일반 모집 구매수량");
 
-                InputAmount.text = "1";
+                    InputAmount.text = "1";
 
-                PurchAct.Invoke(Amount);
-                _Item.DailyBuy = AttemptLeft;
-
+                    PurchAct.Invoke(Amount);
+                    _Item.DailyBuy = AttemptLeft;
+                }
+                else
+                {
+                    UIController.Instance.GoldNotEnoungh();
+                }
             }
             else
             {
@@ -117,6 +134,7 @@ public class PurchaseSync : MonoBehaviour
                 if (int.Parse(InputAmount.text) > _Item.DailyBuy)
                 {
                     Amount = AttemptLeft;
+                    InputAmount.text = Amount.ToString();
                 }
                 PlayerDataManager.Instance.UseGold(Cost * Amount);
                 PlayerDataManager.Instance.AddTribute(Amount);
@@ -139,6 +157,7 @@ public class PurchaseSync : MonoBehaviour
                 if (int.Parse(InputAmount.text) > _Item.DailyBuy)
                 {
                     Amount = AttemptLeft;
+                    InputAmount.text = Amount.ToString();
                 }
                 PlayerDataManager.Instance.UseGold(Cost * Amount);
                 PlayerDataManager.Instance.AddBluePrint(Amount);
@@ -160,6 +179,7 @@ public class PurchaseSync : MonoBehaviour
                     if (int.Parse(InputAmount.text) > _Item.DailyBuy)
                     {
                         Amount = AttemptLeft;
+                        InputAmount.text = Amount.ToString();
                     }
                     PlayerDataManager.Instance.UseGold(Cost * Amount);
                     PlayerDataManager.Instance.AddTicket(Amount);
