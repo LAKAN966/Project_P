@@ -1,5 +1,5 @@
 ﻿ID,Name,Discription,RaceID,IsHero,IsAOE,AttackRange,Damage,MaxHP,MoveSpeed,SpawnInterval,Cost,Hitback,PreDelay,PostDelay,ModelName,AttackType,Size,SkillId,isEnemy,warrant,ShopPrice,TagID
-1001,Zombie,,0,FALSE,FALSE,1,5,15,2,5,10,1,3,3,Undead_01,0,1,0,FALSE,1,100,11
+1001,Zombie,,0,FALSE,FALSE,1,5,15,2,5,10,1,2,2,Undead_01,0,1,0,FALSE,1,100,11
 1002,TankZombie,,0,FALSE,FALSE,1,2,40,2,10,15,2,3,5,Undead_02,0,1,0,FALSE,1,100,10;12
 1003,BattleZombie,,0,FALSE,FALSE,1,8,30,1.5,20,40,1,3,3,Undead_03,0,1,0,FALSE,1,100,12
 1004,UndeadBowman,,0,FALSE,FALSE,4,5,15,2,10,15,1,2,2,Undead_04,2,1,0,FALSE,1,100,5;11
