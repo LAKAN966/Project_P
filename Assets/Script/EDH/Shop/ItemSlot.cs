@@ -32,8 +32,8 @@ public class ItemSlot : MonoBehaviour
         Debug.Log(GetItems(item).Count +"들어온 갯수");
 
         ItemNameText.text = item.Name;
-        ItemCost.text = _Item.Cost.ToString();
-        TotalAtempt.text = _Item.DailyBuy.ToString();
+        ItemCost.text = NumberFormatter.FormatNumber(_Item.Cost);
+        TotalAtempt.text = NumberFormatter.FormatNumber(_Item.DailyBuy);
 
         itemSlot.onClick.RemoveAllListeners();
 
