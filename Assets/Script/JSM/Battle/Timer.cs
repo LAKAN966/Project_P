@@ -17,12 +17,25 @@ public class Timer : MonoBehaviour
     public void FixedUpdate()
     {
         if (!m_Running) return;
+
         m_Time += Time.deltaTime;
-        float displayTime = Mathf.Floor(m_Time * 100f) / 100f;
-        timer.text = $"{displayTime:00.00}";
-        if (displayTime >= timeLimit)
+        float remainingTime = Mathf.Max(0f, timeLimit - m_Time);
+
+        if (remainingTime >= 60f)
+        {
+            int minutes = Mathf.FloorToInt(remainingTime / 60f);
+            float seconds = remainingTime % 60f;
+            timer.text = $"{minutes:00}:{seconds:00}";
+        }
+        else
+        {
+            timer.text = $"{remainingTime:00.00}";
+        }
+
+        if (remainingTime <= 0f)
         {
             BattleManager.Instance.OnBaseDestroyed(false);
         }
     }
+
 }
