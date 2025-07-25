@@ -4,8 +4,8 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     public float mapLength;
-    public Transform allyBasePrefab;
-    public Transform enemyBasePrefab;
+    public GameObject allyBasePrefab;
+    public GameObject enemyBasePrefab;
     public Transform mapRoot;
     public static MapManager Instance;
     private void Awake()
@@ -24,8 +24,8 @@ public class MapManager : MonoBehaviour
     private void InitMap()
     {
         float halfLength = mapLength / 2f;
-        Instantiate(allyBasePrefab, new Vector3(-halfLength, -1.0f, 0), Quaternion.identity, mapRoot);
-        Instantiate(enemyBasePrefab, new Vector3(halfLength, -1.0f, 0), Quaternion.identity, mapRoot);
+        GameObject allyBase = Instantiate(allyBasePrefab, new Vector3(-halfLength, -1.0f, 0), Quaternion.identity, mapRoot);
+        GameObject enemyBase = Instantiate(enemyBasePrefab, new Vector3(halfLength, -1.0f, 0), Quaternion.identity, mapRoot);
     }
 
     private void SetupCameraBounds()

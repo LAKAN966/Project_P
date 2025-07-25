@@ -16,13 +16,15 @@ public class BaseCastle : MonoBehaviour
 
     private bool isDestroyed = false;
 
-    public System.Action OnDamaged;
+    public SpriteRenderer sprite;
 
     private void Start()
     {
+        Debug.Log(isEnemy);
         SetMaxHP();
         currentHP = maxHP;
         UpdateUI();
+        sprite.sprite = isEnemy ? Resources.Load<Sprite>($"Sprites/{WaveManager.Instance.currentStage.CastleSprite}") : Resources.Load<Sprite>("Sprites/Castle_Ally");
     }
     public void SetMaxHP()
     {

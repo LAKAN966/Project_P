@@ -7610,8 +7610,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapLength: 30
-  allyBasePrefab: {fileID: 6273530744656011160, guid: d960b4a009667f84dbd819bc61c29b58, type: 3}
-  enemyBasePrefab: {fileID: 7396413583946123852, guid: 71ec81e5c8196a248a52d56a27e8f5cf, type: 3}
+  allyBasePrefab: {fileID: 7807464348728221535, guid: d960b4a009667f84dbd819bc61c29b58, type: 3}
+  enemyBasePrefab: {fileID: 6147123998442859217, guid: 71ec81e5c8196a248a52d56a27e8f5cf, type: 3}
   mapRoot: {fileID: 8747005396980886184}
 --- !u!222 &4900794699928823827
 CanvasRenderer:
@@ -10846,7 +10846,6 @@ MonoBehaviour:
   enemyPool: {fileID: 2908216218921979682}
   allyHeroPool: {fileID: 5475202174798675063}
   enemyHeroPool: {fileID: 3724510083998363870}
-  battleSpeed: {fileID: 7755898461604125302}
   touchBlock: {fileID: 1659989506}
   timer: {fileID: 272034232}
   isWin: 0
