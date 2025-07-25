@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UITowerManager : MonoBehaviour
 {
     [SerializeField] private GameObject towerParent;
     [SerializeField] private GameObject towerPrefab;
     [SerializeField] private GameObject towerInfoPanel;
-    
+
+    [SerializeField] private Button nextBtn;
+    [SerializeField] private Button prevBtn;
+
+    private List<int> raceID;
+    private int currentPage = 0;
+    private int towerPerPage = 3;
 
     public static UITowerManager instance;
 
@@ -21,25 +28,50 @@ public class UITowerManager : MonoBehaviour
     public void Init()
     {
         this.gameObject.SetActive(true);
-        SetTower();
-    }
-    public void SetTower()
-    {
-        foreach (Transform child in towerParent.transform)
-            Destroy(child.gameObject);
-
         List<int> raceIDs = StageDataManager.Instance.GetAllTowerStageData()
             .Values
             .Select(s => s.RaceID)
             .Distinct()
             .ToList();
 
-        foreach(int raceID in raceIDs)
+        currentPage = 0;
+
+        SetTower();
+
+        nextBtn.onClick.RemoveAllListeners();
+        prevBtn.onClick.RemoveAllListeners();
+        nextBtn.onClick.AddListener(NextPage);
+        prevBtn.onClick.AddListener(PrevPage);
+    }
+    public void SetTower()
+    {
+        foreach (Transform child in towerParent.transform)
+            Destroy(child.gameObject);
+
+        int startIndex = currentPage * towerPerPage;
+        int endIndex = Mathf.Min(startIndex + towerPerPage, raceID.Count);
+
+        for (int i = startIndex; i < endIndex; i++)
         {
             GameObject go = Instantiate(towerPrefab, towerParent.transform);
             UITowerSlot slot = go.GetComponent<UITowerSlot>();
-            slot.Setup(raceID);
+            slot.Setup(raceID[i]);
         }
+
+        prevBtn.interactable = currentPage > 0;
+        nextBtn.interactable = endIndex < raceID.Count;
+    }
+
+    private void NextPage()
+    {
+        currentPage++;
+        SetTower();
+    }
+
+    private void PrevPage()
+    {
+        currentPage--;
+        SetTower();
     }
 
     public void SelectTower(int stageID)
