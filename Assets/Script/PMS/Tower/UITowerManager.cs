@@ -14,7 +14,7 @@ public class UITowerManager : MonoBehaviour
     [SerializeField] private Button nextBtn;
     [SerializeField] private Button prevBtn;
 
-    private List<int> raceID;
+    private List<int> raceIDs;
     private int currentPage = 0;
     private int towerPerPage = 3;
 
@@ -28,7 +28,7 @@ public class UITowerManager : MonoBehaviour
     public void Init()
     {
         this.gameObject.SetActive(true);
-        List<int> raceIDs = StageDataManager.Instance.GetAllTowerStageData()
+        raceIDs = StageDataManager.Instance.GetAllTowerStageData()
             .Values
             .Select(s => s.RaceID)
             .Distinct()
@@ -49,17 +49,17 @@ public class UITowerManager : MonoBehaviour
             Destroy(child.gameObject);
 
         int startIndex = currentPage * towerPerPage;
-        int endIndex = Mathf.Min(startIndex + towerPerPage, raceID.Count);
+        int endIndex = Mathf.Min(startIndex + towerPerPage, raceIDs.Count);
 
         for (int i = startIndex; i < endIndex; i++)
         {
             GameObject go = Instantiate(towerPrefab, towerParent.transform);
             UITowerSlot slot = go.GetComponent<UITowerSlot>();
-            slot.Setup(raceID[i]);
+            slot.Setup(raceIDs[i]);
         }
 
         prevBtn.interactable = currentPage > 0;
-        nextBtn.interactable = endIndex < raceID.Count;
+        nextBtn.interactable = endIndex < raceIDs.Count;
     }
 
     private void NextPage()
