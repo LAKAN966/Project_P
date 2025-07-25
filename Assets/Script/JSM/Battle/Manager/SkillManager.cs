@@ -83,7 +83,8 @@ public class SkillManager : MonoBehaviour
                 Debug.LogWarning($"정의되지 않은 스킬 ID: {passiveSkillID}");
                 break;
         }
-        SetSkillPanel();
+        if(passiveSkillID != 0)
+            SetSkillPanel();
         return stat;
     }
 
