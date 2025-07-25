@@ -3161,7 +3161,7 @@ MonoBehaviour:
     warrant: 0
     tagId: 
   enemyPool: {fileID: 8054658924490451434}
-  stageCSV: {fileID: 4900000, guid: 77edec5a5f75ee14e9c650f305335fb4, type: 3}
+  stageCSV: {fileID: 4900000, guid: 70f68e7cfe599234d850b82d62f802fe, type: 3}
   waveCSV: {fileID: 4900000, guid: 0739d348630b7044e9d71a2834b8f688, type: 3}
 --- !u!114 &249876054068631152
 MonoBehaviour:
@@ -10426,7 +10426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentTransform: {fileID: 4370630921926924095}
   stageID: 0
-  stageDataCSV: {fileID: 4900000, guid: 77edec5a5f75ee14e9c650f305335fb4, type: 3}
+  stageDataCSV: {fileID: 4900000, guid: 70f68e7cfe599234d850b82d62f802fe, type: 3}
   layers: []
 --- !u!114 &7742799021315102669
 MonoBehaviour:
