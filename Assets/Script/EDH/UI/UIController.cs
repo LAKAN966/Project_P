@@ -138,8 +138,8 @@ public class UIController : MonoBehaviour
     }
     public void ShowNowGold()
     {
-        MainGoldAmount.text = PlayerDataManager.Instance.player.gold.ToString();
-        StoreGoldAmount.text = PlayerDataManager.Instance.player.gold.ToString();
+        MainGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
+        StoreGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
     }
 
     public void CloseGottaTab()
@@ -175,6 +175,30 @@ public class UIController : MonoBehaviour
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
         NotEnoughBoxText.text = "모든 구매 횟수를 모두 사용하셨습니다.";
+        StartCoroutine(HideNotEnoughBox());
+
+        IEnumerator HideNotEnoughBox()
+        {
+            yield return new WaitForSeconds(1f); // 3초 대기
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
+        }
+    }
+    public void GoldNotEnoungh()
+    {
+        UIController.Instance.NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "골드가 부족합니다.";
+        StartCoroutine(HideNotEnoughBox());
+
+        IEnumerator HideNotEnoughBox()
+        {
+            yield return new WaitForSeconds(1f); // 3초 대기
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
+        }
+    }
+    public void CertiNotEnoungh()
+    {
+        UIController.Instance.NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "증명서가 부족합니다.";
         StartCoroutine(HideNotEnoughBox());
 
         IEnumerator HideNotEnoughBox()
