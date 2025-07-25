@@ -6592,7 +6592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68ca8016b5938047989b48bf067861f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmSource: {fileID: 0}
+  bgmSource: {fileID: 1938392143}
   bgm:
   - {fileID: 8300000, guid: 6b2bf429172691a4c8d7c80c00bd7069, type: 3}
   - {fileID: 8300000, guid: a027348663a1e744a89082e7f4519c70, type: 3}
