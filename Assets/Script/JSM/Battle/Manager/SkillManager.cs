@@ -6,6 +6,8 @@ public class SkillManager : MonoBehaviour
 {
     public static SkillManager Instance { get; private set; }
 
+    public GameObject skillPanel;
+
     [Header("스킬 ID")]
     public int passiveSkillID = 0;
     public int activeSkillID = 0;
@@ -81,6 +83,7 @@ public class SkillManager : MonoBehaviour
                 Debug.LogWarning($"정의되지 않은 스킬 ID: {passiveSkillID}");
                 break;
         }
+        SetSkillPanel();
         return stat;
     }
 
@@ -137,4 +140,11 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    private void SetSkillPanel()
+    {
+        skillPanel.SetActive(passiveSkillData != null);
+        var skillcs = skillPanel.GetComponent<SkillPanel>();
+        skillcs.skillName.text = passiveSkillData.Name;
+        skillcs.skillDescription.text = passiveSkillData.Description;
+    }
 }
