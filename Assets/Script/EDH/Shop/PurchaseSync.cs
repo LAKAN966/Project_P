@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static Unity.Collections.AllocatorManager;
-using Button = UnityEngine.UI.Button;
+using UnityEngine.UI;
 
 public enum ItemID
 {
@@ -27,8 +25,6 @@ public class PurchaseSync : MonoBehaviour
 
     public Button PurchaseButton;   // 아이템 구매 버튼
 
-    private GameObject PurchaseUIBox; // 아이템 구매 
-
     public Item _Item;
     public ItemSlot iSlot;
 
@@ -37,7 +33,6 @@ public class PurchaseSync : MonoBehaviour
     public PurchaseBoxSet purchaseBoxSet;
 
     private int AttemptLeft;            //남은 구매 수량
-    int click = 0;
 
     public Action<int> PurchAct { get; set; }
 
@@ -50,18 +45,8 @@ public class PurchaseSync : MonoBehaviour
         SubtractButton.onClick.RemoveAllListeners();
         PurchaseButton.onClick.RemoveAllListeners();
 
-        AddButton.onClick.AddListener(() =>
-        {
-            Add();
-            click++;
-            if (click >= 6)
-            {
-                AddButton.interactable = false;
-                AddButton.interactable = true;
-            }
-        });
-
-        SubtractButton.onClick.AddListener(Subttract);
+        AddButton.onClick.AddListener(Add);            // 더하기 
+        SubtractButton.onClick.AddListener(Subttract); // 빼기
 
         PurchaseButton.onClick.AddListener(PurchaseItem); // 구매
     }
@@ -72,13 +57,12 @@ public class PurchaseSync : MonoBehaviour
 
         if (amount < maxAmount)
         {
-            amount ++;
+            amount++;
             InputAmount.text = amount.ToString();
 
             if (amount > maxAmount)// 최대치일때
                 AddButton.interactable = false;
         }
-
         if (amount > 1)
             SubtractButton.interactable = true;
     }
@@ -92,11 +76,6 @@ public class PurchaseSync : MonoBehaviour
             InputAmount.text = amount.ToString();
         }
         else { Debug.Log("s"); }
-
-        if (amount < 0)
-        {
-            Debug.Log("");
-        }
     }
     public void PurchaseItem()
     {
@@ -107,13 +86,13 @@ public class PurchaseSync : MonoBehaviour
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
 
-        if (_Item.ID == (int)ItemID.NormalRecruit)
+        if ((ItemID)_Item.ID == ItemID.NormalRecruit)
             PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTicket);
-        else if (_Item.ID == (int)ItemID.BuildTool)
+        else if ((ItemID)_Item.ID == ItemID.BuildTool)
             PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTribute);
-        else if (_Item.ID == (int)ItemID.Blueprint)
+        else if ((ItemID)_Item.ID == ItemID.Blueprint)
             PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddBluePrint);
-        else if (_Item.ID == (int)ItemID.SpecialRecruit)
+        else if ((ItemID)_Item.ID == ItemID.SpecialRecruit)
             PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTicket);
         ShoppingManager.Instance.ShowNowGold();
         purchaseBoxSet.TabClose();
@@ -136,7 +115,7 @@ public class PurchaseSync : MonoBehaviour
             if (PlayerDataManager.Instance.player.gold > int.Parse(InputAmount.text) * Cost)
             {
                 PlayerDataManager.Instance.UseGold(Cost * Amount);
-                PlayerDataManager.Instance.AddTicket(Amount);
+                ItemsP.Invoke(Amount);
                 AttemptLeft -= Amount;
                 InputAmount.text = "1";
                 PurchAct.Invoke(Amount);
