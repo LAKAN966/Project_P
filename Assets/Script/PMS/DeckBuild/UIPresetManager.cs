@@ -33,18 +33,6 @@ public class UIPresetManager : MonoBehaviour
         }
     }
 
-    public void SavePreset(int index)
-    {
-        if (DeckManager.Instance.SaveCurrentDeckToPreset(index))
-        {
-            Debug.Log($"프리셋 {index + 1} 저장 완료");
-        }
-        else
-        {
-            Debug.LogWarning($"프리셋 {index + 1} 저장 실패");
-        }
-    }
-
     public void RefreshUI()
     {
         var player = PlayerDataManager.Instance.player;
@@ -62,14 +50,10 @@ public class UIPresetManager : MonoBehaviour
     {
         if (index < 0 || index >= presetDecks.Length) return;
 
-        // 임시 덱을 현재 덱에 반영
-        PlayerDataManager.Instance.player.currentDeck = presetDecks[index].GetTempDeckData().Clone();
+        var newDeck = presetDecks[index].GetTempDeckData().Clone();
+        PlayerDataManager.Instance.player.preset[index] = newDeck;
 
-        // DeckManager 통해 프리셋 저장
-        if (DeckManager.Instance.SaveCurrentDeckToPreset(index))
-        {
-            Debug.Log($"프리셋 {index + 1} 저장 완료");
-        }
+        Debug.Log($"프리셋 {index + 1} 저장 완료");
     }
 
     public void OnClickLoadPresetToCurrentDeck(int index)
@@ -78,7 +62,6 @@ public class UIPresetManager : MonoBehaviour
 
         if (success)
         {
-            // 현재 덱 UI 갱신
             if (UIDeckBuildManager.instance != null)
             {
                 UIDeckBuildManager.instance.SetDeckSlots();
