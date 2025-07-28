@@ -13,7 +13,10 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public Transform originalParent; //시작 위치
     public UnitStats myStats;
     public Image slotBG;
-    public GameObject leaderIcon;
+    public Image raceIcon;
+
+    [SerializeField] private Sprite undeadSprite;
+    [SerializeField] private Sprite crawlerSprite;
 
     [Header ("유닛 등급 배경")]
     [SerializeField] private Sprite normalBG;
@@ -33,7 +36,21 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         iconImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
         
         slotBG.sprite = stats.IsHero ? leaderBG : normalBG;
-        leaderIcon.SetActive(stats.IsHero);
+        SetRaceIcon(stats);
+    }
+
+    public void SetRaceIcon(UnitStats stats)
+    {
+        var raceID = stats.RaceID;
+        switch (raceID)
+        {
+            case 0:
+                raceIcon.sprite = undeadSprite;
+                break;
+            case 1:
+                raceIcon.sprite = crawlerSprite;
+                break;
+        }
     }
 
     public UnitStats GetStats()

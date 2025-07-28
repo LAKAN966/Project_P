@@ -349,7 +349,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b934104850da24bdfb744ef9f5f9050f, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -613,11 +613,13 @@ MonoBehaviour:
     ModelName: 
     AttackType: 0
     Size: 0
-    SkillID: 0
+    SkillID: 
     isEnemy: 0
     warrant: 0
     tagId: 
   slotBG: {fileID: 4241054551965303717}
-  leaderIcon: {fileID: 6651208266516553152}
+  raceIcon: {fileID: 3588037565786625279}
+  undeadSprite: {fileID: 21300000, guid: 2bedb257933e15646baffff4c26612d1, type: 3}
+  crawlerSprite: {fileID: 21300000, guid: d89dba56eb755aa46af3991972d0d84e, type: 3}
   normalBG: {fileID: 21300000, guid: 3026bdf54eaed49719f720e54ff38df8, type: 3}
   leaderBG: {fileID: 21300000, guid: 2b1f02e3eb4ae4521a7a84c7a22d978a, type: 3}
