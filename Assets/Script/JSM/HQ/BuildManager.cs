@@ -111,8 +111,9 @@ public class BuildManager : MonoBehaviour
                 foreach (var raw in rawValues)
                     raceIDList.Add(int.TryParse(raw.Trim(), out int val) ? val : 0);
             }
+            string desc = parts[16].Trim();
 
-            buildingDict[id] = new BuildingData(id, displayName, imageName, raceId, gold, blueprint, goldList, costList, orderByLevel, raceIDList);
+            buildingDict[id] = new BuildingData(id, displayName, imageName, raceId, gold, blueprint, goldList, costList, orderByLevel, raceIDList, desc);
         }
 
         Debug.Log($"[BuildManager] 건물 데이터 로딩 완료: {buildingDict.Count}개");
@@ -135,6 +136,10 @@ public class BuildManager : MonoBehaviour
 
     public int GetOrderLevel(int id, int level)
     {
+        if(level == 0)
+        {
+            return -1;
+        }
         if (!buildingDict.TryGetValue(id, out var building))
         {
             Debug.LogError($"[BuildManager] ID {id}에 해당하는 건물이 없습니다.");

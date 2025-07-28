@@ -6,7 +6,8 @@ public enum GospelState
 {
     Available,   // 선택 가능
     Locked,      // 선택 불가
-    Selected     // 이미 선택됨
+    Selected,     // 이미 선택됨
+    ToShow          //선택 가능, 건설 불가
 }
 public class GospelSlotUI : MonoBehaviour
 {
@@ -19,10 +20,9 @@ public class GospelSlotUI : MonoBehaviour
     private GospelData gospelData;
     private GospelState state;
 
-    public GameObject gospelConfirmUI;
     public GospelSpawner gospelSpawner;
     public GospelContainerUI containerUI;
-
+    public GospelConfirmUI confirmUI;
 
     private void Awake()
     {
@@ -38,16 +38,17 @@ public class GospelSlotUI : MonoBehaviour
     }
     private void OnClick()
     {
-        if (gospelConfirmUI != null && gospelData != null)
+        if (confirmUI.gameObject != null && gospelData != null)
         {
-            gospelConfirmUI.SetActive(true);
-            gospelConfirmUI.GetComponent<GospelConfirmUI>().Show(gospelData);
-            gospelConfirmUI.GetComponent<GospelConfirmUI>().confirmBtn.onClick.AddListener(ConfirmBuild);
-            gospelConfirmUI.GetComponent<GospelConfirmUI>().cancleBtn.onClick.AddListener(CancleBuild);
+            confirmUI.gameObject.SetActive(true);
+            confirmUI.OnOpen(gospelData, state != GospelState.Available);
+            confirmUI.confirmBtn.onClick.AddListener(ConfirmBuild);
+            confirmUI.cancleBtn.onClick.AddListener(CancleBuild);
         }
     }
     private void UpdateUIByState()
     {
+        Debug.Log("업데이트!");
         switch (state)
         {
             case GospelState.Locked:
@@ -60,6 +61,10 @@ public class GospelSlotUI : MonoBehaviour
                 break;
             case GospelState.Selected:
                 SelectedImg.SetActive(true);
+                canvasGroup.alpha = 1f;
+                break;
+            case GospelState.ToShow:
+                SelectedImg.SetActive(false);
                 canvasGroup.alpha = 1f;
                 break;
         }
@@ -81,17 +86,17 @@ public class GospelSlotUI : MonoBehaviour
 
         gospelSpawner.OnSlotSelected(this);
 
-        if (gospelConfirmUI != null && gospelData != null)
-        {
-            gospelConfirmUI.SetActive(true);
-            gospelConfirmUI.GetComponent<GospelConfirmUI>().Show(gospelData);
-        }
+        //if (confirmUI.gameObject != null && gospelData != null)
+        //{
+        //    confirmUI.gameObject.SetActive(true);
+        //    confirmUI.OnOpen(gospelData);
+        //}
         CancleBuild();
     }
     public void CancleBuild()
     {
-        gospelConfirmUI.GetComponent<GospelConfirmUI>().confirmBtn.onClick.RemoveListener(ConfirmBuild);
-        gospelConfirmUI.GetComponent<GospelConfirmUI>().cancleBtn.onClick.RemoveListener(CancleBuild);
-        gospelConfirmUI.SetActive(false);
+        confirmUI.confirmBtn.onClick.RemoveListener(ConfirmBuild);
+        confirmUI.cancleBtn.onClick.RemoveListener(CancleBuild);
+        confirmUI.gameObject.SetActive(false);
     }
 }

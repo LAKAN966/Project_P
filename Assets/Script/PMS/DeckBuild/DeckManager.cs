@@ -51,7 +51,7 @@ public class DeckManager
         if (index < 0 || index >= PlayerData.preset.Count) return false;
 
         PlayerData.currentPresetIndex = index;
-        PlayerData.currentDeck = CloneDeck(PlayerData.preset[index]); // **현재 덱에 프리셋 적용**
+        PlayerData.currentDeck = CloneDeck(PlayerData.preset[index]);
         return true;
     }
 
@@ -59,7 +59,7 @@ public class DeckManager
     {
         if (index < 0 || index >= PlayerData.preset.Count) return false;
 
-        PlayerData.preset[index] = CloneDeck(PlayerData.currentDeck); // **프리셋에 현재 덱 저장**
+        PlayerData.preset[index] = CloneDeck(PlayerData.currentDeck);
         return true;
     }
 
