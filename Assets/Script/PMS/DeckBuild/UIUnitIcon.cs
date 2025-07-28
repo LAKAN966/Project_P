@@ -18,7 +18,9 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     [Header ("유닛 등급 배경")]
     [SerializeField] private Sprite normalBG;
     [SerializeField] private Sprite leaderBG;
-    
+
+    private bool isDropped = false;
+
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -45,6 +47,7 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         transform.SetParent(transform.root); // 캔버스 루트로 옮겨서 가장 위에 보이게
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.3f; // 드래그 중 반투명
+        isDropped = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -54,13 +57,33 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.SetParent(originalParent);
+        if (!isDropped)
+        {
+            transform.SetParent(originalParent);
+            transform.localPosition = Vector3.zero;
+        }
+        else
+        {
+            transform.SetParent(originalParent);
+            transform.localPosition = Vector3.zero;
+        }
+
         canvasGroup.blocksRaycasts = true;
-        transform.localPosition = Vector3.zero; // 드롭 안된 경우 원래 자리로 돌아감
-        canvasGroup.alpha = 1f; // 드롭후 다시 원래대로
-        UIDeckBuildManager.instance.SetMyUnitIcons();
-        UIDeckBuildManager.instance.SetDeckSlots();
+        canvasGroup.alpha = 1f;
+
+        if (UIDeckBuildManager.instance != null && UIDeckBuildManager.instance.deckPanel.activeSelf)
+        {
+            UIDeckBuildManager.instance.SetMyUnitIcons();
+            UIDeckBuildManager.instance.SetDeckSlots();
+        }
+        isDropped = false;
     }
+
+    public void SetDropped()
+    {
+        isDropped = true;
+    }
+
 
     public void SetDisabled()
     {
