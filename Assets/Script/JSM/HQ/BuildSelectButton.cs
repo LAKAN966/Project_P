@@ -13,9 +13,12 @@ public class BuildSelectButton : MonoBehaviour
     public Button confirmButton;         // 패널 안의 확인 버튼
     public GameObject buildListUI;
     public Image buildImg;
+    public Button buildingGospelBtn;
+    public TMP_Text desc;
     public TMP_Text goldText;
     public TMP_Text blueprintText;
     private BuildingData building;
+    public GameObject buildGospelUI;
 
     public Image img;
 
@@ -41,6 +44,8 @@ public class BuildSelectButton : MonoBehaviour
         buildConfirmPanel.SetActive(true);
 
         buildImg.sprite = BuildManager.Instance.GetBuildingSprite(building.imageName);
+        buildingGospelBtn.onClick.AddListener(ShowGospel);
+        desc.text = building.description;
         goldText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold)} / {NumberFormatter.FormatNumber(building.gold)}";
         blueprintText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.bluePrint)} / {NumberFormatter.FormatNumber(building.blueprint)}";
 
@@ -61,5 +66,12 @@ public class BuildSelectButton : MonoBehaviour
             buildConfirmPanel.SetActive(false);
             buildListUI.SetActive(false);
         });
+    }
+    public void ShowGospel()
+    {
+        var goseplspawner = buildGospelUI.GetComponentInChildren<GospelSpawner>();
+        goseplspawner.buildID = building.id;
+        goseplspawner.toShow = true;
+        buildGospelUI.SetActive(true);
     }
 }

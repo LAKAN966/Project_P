@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class BuildingData
 {
@@ -12,8 +13,9 @@ public class BuildingData
     public List<int> costList;
     public List<int> orderByLevel;
     public List<int> raceIDList;
+    public string description;
 
-    public BuildingData(int id, string displayName, string imageName, int raceId, int gold, int blueprint, List<int> GoldList ,List<int> CostList, List<int> orderByLevel, List<int> raceIDList)
+    public BuildingData(int id, string displayName, string imageName, int raceId, int gold, int blueprint, List<int> GoldList ,List<int> CostList, List<int> orderByLevel, List<int> raceIDList, string description)
     {
         this.id = id;
         this.displayName = displayName;
@@ -25,5 +27,6 @@ public class BuildingData
         this.costList = CostList;
         this.orderByLevel = orderByLevel;
         this.raceIDList = raceIDList;
+        this.description = description;
     }
 }

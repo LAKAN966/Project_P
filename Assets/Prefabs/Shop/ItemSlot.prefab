@@ -143,7 +143,6 @@ MonoBehaviour:
   ItemCost: {fileID: 652195741667631295}
   ItemNameText: {fileID: 3295454994560850951}
   TotalAtempt: {fileID: 944147029395951347}
-  purchaseSync: {fileID: 0}
   itemSlot: {fileID: 5580433426667484417}
 --- !u!1 &5527547487489138741
 GameObject:
@@ -203,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.735849, g: 0.6927531, b: 0.5241189, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
