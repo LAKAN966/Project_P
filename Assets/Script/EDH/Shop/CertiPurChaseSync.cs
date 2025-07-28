@@ -37,6 +37,7 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
             Debug.Log(PlayerDataManager.Instance.AddUnit(Info.ID) + "이 유닛을 구매");
             ShoppingManager.Instance.ShowNowCertificate();
             PurchaseCertiUnitBox.SetActive(false);
+            SFXManager.Instance.PlaySFX(0);
         }
         else 
         {

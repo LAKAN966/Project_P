@@ -95,24 +95,28 @@ public class UIController : MonoBehaviour
         Main.SetActive(false);
         UIDeckBuildManager.instance.Init();
         SoundManager.Instance.PlayBGM(3);
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void OpenStage()
     {
         Stage.SetActive(true);
         Main.SetActive(false);
         StageManager.instance.Init();
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void OpenGottcha()
     {
         Gotta.SetActive(true);
         Main.SetActive(false);
         SoundManager.Instance.PlayBGM(2);
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void OpenSacredPlace()
     {
         HQ.SetActive(true);
         Main.SetActive(false);
         SoundManager.Instance.PlayBGM(4);
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void OpenShop()
     {
@@ -120,6 +124,7 @@ public class UIController : MonoBehaviour
         Main.SetActive(false);
         ShoppingManager.Instance.ShowNowCertificate();
         SoundManager.Instance.PlayBGM(5);
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void OnExitBtn()
     {
@@ -137,6 +142,7 @@ public class UIController : MonoBehaviour
         HQ.SetActive(false);
         Gotta.SetActive(false);
         SoundManager.Instance.PlayBGM(0);
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void ShowNowGold()
     {
@@ -148,6 +154,7 @@ public class UIController : MonoBehaviour
     {
         Gotta.SetActive(false);
         Main.SetActive(true);
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void CloseShopTab()
     {
@@ -155,21 +162,25 @@ public class UIController : MonoBehaviour
         Main.SetActive(true);
         DescriptionBox.SetActive(false);
         CertiDescriptionBox.SetActive(false);
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void CloseUnitTab()
     {
         DeckBuild.SetActive(false);
         Main.SetActive(true);
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void CloseHQTab()
     {
         HQ.SetActive(false);
         Main.SetActive(true);
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void CloseStageTab()
     {
         Stage.SetActive(false);
         Main.SetActive(true);
+        SFXManager.Instance.PlaySFX(0); // 버튼
     }
     public void AtemptNotEnoungh() //구매 가능 횟수 부족 알림
     {

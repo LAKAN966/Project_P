@@ -30,6 +30,7 @@ public class PurchaseBoxSet : MonoBehaviour
     {
         purchaseUIBox.SetActive(false);
         DescriptionBox.SetActive(false);
+        SFXManager.Instance.PlaySFX(0);
     }
 
     public void DescriptionSet()

@@ -25,6 +25,7 @@ public class BookMarkSet : MonoBehaviour
         GoldAmount.SetActive(true);
         CertificateStore.SetActive(false);
         CertificateAmount.SetActive(false);
+        SFXManager.Instance.PlaySFX(0);
     }
 
     public void CertificateStoreSet()
@@ -33,5 +34,6 @@ public class BookMarkSet : MonoBehaviour
         CertificateAmount.SetActive(true);
         GoldStore.SetActive(false);
         GoldAmount.SetActive(false);
+        SFXManager.Instance.PlaySFX(0);
     }
 }

@@ -72,6 +72,7 @@ public class Pick : MonoBehaviour
         {
             UIController.Instance.TicketNotEnoungh();
         }
+        SFXManager.Instance.PlaySFX(0);
     }
 
     public void PickTenTimes()
@@ -96,7 +97,6 @@ public class Pick : MonoBehaviour
         {
             UIController.Instance.TicketNotEnoungh();
         }
+        SFXManager.Instance.PlaySFX(0);
     }
-
- 
 }
