@@ -21,7 +21,46 @@ public class DeckManager
         }
     }
 
-    private DeckData CurrentDeck => PlayerDataManager.Instance.player.currentDeck;
+    private Player PlayerData => PlayerDataManager.Instance.player;
+    private DeckData CurrentDeck
+    {
+        get
+        {
+            if(PlayerData.currentDeck.Count == 0)
+            {
+                PlayerData.currentDeck.Add(new DeckData());
+            }
+            return PlayerData.currentDeck[PlayerData.currentPresetIndex];
+        }
+    }
+
+    public bool AddPreset()
+    {
+        if (PlayerData.currentDeck.Count >= 3) return false; // 프리셋 최대 개수 제한. 일단 3개
+        PlayerData.currentDeck.Add(new DeckData());
+        return true;
+    }
+
+    public bool RemovePreset(int index)
+    {
+        if (index < 0 || index >= PlayerData.currentDeck.Count) return false;
+
+        PlayerData.currentDeck.RemoveAt(index);
+
+        if (PlayerData.currentPresetIndex >= PlayerData.currentDeck.Count)
+        {
+            PlayerData.currentPresetIndex = PlayerData.currentDeck.Count - 1;
+        }
+        return true;
+    }
+
+    public bool SwitchPreset(int index)
+    {
+        if (index < 0 || index >= PlayerData.currentDeck.Count) return false;
+        PlayerData.currentPresetIndex = index;
+        return true;
+    }
+
 
     public bool TryAddUnitToDeck(int myUnitID) // 덱에 배치할 유닛이 리더유닛인지 아닌지 확인 후 맞는 함수 호출.
     {

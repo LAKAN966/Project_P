@@ -11,7 +11,8 @@ public class Player
     public int certi = 0;
 
     public List<int> myUnitIDs = new();
-    public DeckData currentDeck = new();
+    public List<DeckData> currentDeck = new();
+    public int currentPresetIndex = 0;
     public List<int> clearedStageIDs = new();
 
     public int actionPoint = 100;
