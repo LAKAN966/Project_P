@@ -35,6 +35,7 @@ public class CertiSlot : MonoBehaviour
 
             UIController.Instance.PurchaseCertiUnitBox.SetActive(true);
             CertiSlotSet();
+            SFXManager.Instance.PlaySFX(0);
         });
     }
 

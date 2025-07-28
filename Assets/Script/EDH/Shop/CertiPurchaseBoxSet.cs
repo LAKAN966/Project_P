@@ -23,7 +23,7 @@ public class CertiPurchaseBoxSet : MonoBehaviour
     void Start()
     {
         PurchaseItemIcon.onClick.AddListener(DescriptionSet);
-
+        SFXManager.Instance.PlaySFX(0);
         CancelButton.onClick.AddListener(TabClose);
     }
 
@@ -32,6 +32,7 @@ public class CertiPurchaseBoxSet : MonoBehaviour
     {
         PurchaseCertiUnitBox.SetActive(false);
         CertiDescriptionBox.SetActive(false);
+        SFXManager.Instance.PlaySFX(0);
     }
 
     public void DescriptionSet()

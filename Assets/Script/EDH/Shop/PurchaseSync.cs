@@ -65,6 +65,7 @@ public class PurchaseSync : MonoBehaviour
         }
         if (amount > 1)
             SubtractButton.interactable = true;
+        SFXManager.Instance.PlaySFX(0);
     }
     public void Subttract()
     {
@@ -76,6 +77,7 @@ public class PurchaseSync : MonoBehaviour
             InputAmount.text = amount.ToString();
         }
         else { Debug.Log("s"); }
+        SFXManager.Instance.PlaySFX(0);
     }
     public void PurchaseItem()
     {
@@ -96,6 +98,7 @@ public class PurchaseSync : MonoBehaviour
             PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTicket);
         ShoppingManager.Instance.ShowNowGold();
         purchaseBoxSet.TabClose();
+        SFXManager.Instance.PlaySFX(0);
     }
     public void PurchaseLogic(int amount, int cost, Action<int> ItemsP)
     {

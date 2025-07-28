@@ -9,6 +9,12 @@ public class Intro : MonoBehaviour
     public Button EnterGameButton;
     void Start()
     {
-        EnterGameButton.onClick.AddListener(() => SceneManager.LoadScene("MainScene"));
+        EnterGameButton.onClick.AddListener(EnterGame);
+    }
+
+    public void EnterGame()
+    {
+        SceneManager.LoadScene("MainScene");
+        SFXManager.Instance.PlaySFX(0);
     }
 }
