@@ -18,11 +18,15 @@ public class UIPresetManager : MonoBehaviour
     {
         panel.SetActive(true);
         RefreshUI();
+        UIDeckBuildManager.instance.SetMode(DeckMode.Preset);
+        UIDeckBuildManager.instance.SetMyUnitIcons();
     }
 
     public void ClosePanel()
     {
         panel.SetActive(false);
+        UIDeckBuildManager.instance.SetMode(DeckMode.DeckBuild);
+        UIDeckBuildManager.instance.SetMyUnitIcons();
         foreach (var preset in presetDecks)
         {
             preset.ClearAll();

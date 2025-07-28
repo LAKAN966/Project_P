@@ -95,4 +95,10 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         UIUnitInfo.instance.ShowInfo(myStats);
     }
+
+    public void UpdateInteractable(bool disabled)
+    {
+        canvasGroup.alpha = disabled ? 0.5f : 1f;
+        this.enabled = !disabled;
+    }
 }

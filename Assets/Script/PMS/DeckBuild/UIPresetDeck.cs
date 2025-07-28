@@ -88,4 +88,9 @@ public class UIPresetDeck : MonoBehaviour
         tempDeck.RemoveUnit(stats.ID);
         RefreshUI();
     }
+
+    public bool ContainsUnit(int unitID)
+    {
+        return tempDeck.Contains(unitID);
+    }
 }
