@@ -35,14 +35,12 @@ public class Pick : MonoBehaviour
         RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기
         RePickTen.onClick.AddListener(() => PickTenTimes());     // 10회 다시 뽑기
 
-        PlayerCurrencyEvent.OnTicketChange += value => ShowTicketAmountText.text = value.ToString();
         Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
     }
 
     private void OnEnable()
     {
-
-        ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);          // 현재 보유 티켓 수량
+        ShowTicketAmountText.text = "보유 티켓 : " + NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);          // 현재 보유 티켓 수량
         PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);                      // 현재 마일리지
 
         //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)
@@ -59,10 +57,9 @@ public class Pick : MonoBehaviour
             PlayerDataManager.Instance.player.ticket = Math.Max(PlayerDataManager.Instance.player.ticket, 0); // 0검사
             Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
 
-            PlayerCurrencyEvent.OnTicketChange -= value => ShowTicketAmountText.text = value.ToString();
             PlayerDataManager.Instance.player.certi++;
 
-            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
+            ShowTicketAmountText.text = "보유 티켓 : " + NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
             PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
 
             PickOnePage.SetActive(true);
@@ -84,10 +81,9 @@ public class Pick : MonoBehaviour
             PlayerDataManager.Instance.player.ticket = Math.Max(PlayerDataManager.Instance.player.ticket, 0); // 예외처리
             Debug.Log(NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket) + "티켓 보유수");
 
-            PlayerCurrencyEvent.OnTicketChange -= value => ShowTicketAmountText.text = value.ToString();
             PlayerDataManager.Instance.player.certi += 10;
 
-            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
+            ShowTicketAmountText.text = "보유 티켓 : " + NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
             PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
 
             PickTenPage.SetActive(true);

@@ -10,10 +10,14 @@ public class GospelConfirmUI : MonoBehaviour
     public TMP_Text descText;
     public Button confirmBtn;
     public Button cancleBtn;
-    public void Show(GospelData data)
+    public Button showCancleBtn;
+    public void OnOpen(GospelData data, bool show=false)
     {
         nameText.text = data.name;
         costText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.tribute)}/{NumberFormatter.FormatNumber(data.cost)}";
         descText.text = data.description;
+        confirmBtn.gameObject.SetActive(!show);
+        cancleBtn.gameObject.SetActive(!show);
+        showCancleBtn.gameObject.SetActive(show);
     }
 }

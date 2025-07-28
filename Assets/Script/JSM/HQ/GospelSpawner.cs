@@ -11,6 +11,7 @@ public class GospelSpawner : MonoBehaviour
     public int buildID;
     public GameObject gospelConfirmUI;
     public int level;
+    public bool toShow = false;
 
     private readonly List<GameObject> spawnedContainers = new();
 
@@ -52,26 +53,33 @@ public class GospelSpawner : MonoBehaviour
             spawnedContainers.Add(container);
 
             var containerUI = container.GetComponent<GospelContainerUI>();
-            if (containerUI != null)
-                containerUI.SetInteractable(order == currentSelectableOrder);
+            //if (!toShow && containerUI != null)
+            //    containerUI.SetInteractable(order == currentSelectableOrder);
 
+            if (!toShow && order > BuildManager.Instance.GetOrderLevel(buildID, level))
+            {
+                int requiredLevel = BuildManager.Instance.GetRequiredLevelForOrder(buildID, order);
+                GameObject lack = Instantiate(LackLevelPanel, container.transform);
+                lack.GetComponentInChildren<TextMeshProUGUI>().text = $"{requiredLevel}레벨에 해금됩니다.";
+            }
             foreach (var gospel in layerData)
             {
                 GameObject slot = Instantiate(GospelSlotPrefab, container.transform);
                 slot.name = $"GospelSlot_{gospel.id}";
-                slot.GetComponent<GospelSlotUI>().gospelSpawner = this;
-                slot.GetComponent<GospelSlotUI>().containerUI = container.GetComponent<GospelContainerUI>();
-                container.GetComponent<GospelContainerUI>().AddSlot(slot.GetComponent<GospelSlotUI>());
-
                 var slotUI = slot.GetComponent<GospelSlotUI>();
+                slotUI.gospelSpawner = this;
+                slotUI.containerUI = containerUI;
+                slotUI.containerUI.AddSlot(slotUI);
+
                 if (slotUI != null)
                 {
-                    slotUI.gospelConfirmUI = gospelConfirmUI;
-                    Debug.Log(order + " " + currentSelectableOrder+" "+ buildID);
+                    slotUI.confirmUI = gospelConfirmUI.GetComponent<GospelConfirmUI>();
                     GospelState state;
-                    if (GospelManager.Instance.IsSelected(buildID, gospel.id))
+                    if (toShow)
+                        state = GospelState.ToShow;
+                    else if (GospelManager.Instance.IsSelected(buildID, gospel.id))
                         state = GospelState.Selected;
-                    else if (order < currentSelectableOrder)
+                    else if (order != currentSelectableOrder)
                         state = GospelState.Locked;
                     else
                         state = GospelState.Available;
@@ -79,12 +87,6 @@ public class GospelSpawner : MonoBehaviour
                 }
             }
 
-            if (order > BuildManager.Instance.GetOrderLevel(buildID, level))
-            {
-                int requiredLevel = BuildManager.Instance.GetRequiredLevelForOrder(buildID, order);
-                GameObject lack = Instantiate(LackLevelPanel, container.transform);
-                lack.GetComponentInChildren<TextMeshProUGUI>().text = $"{requiredLevel}레벨에 해금됩니다.";
-            }
 
         }
     }

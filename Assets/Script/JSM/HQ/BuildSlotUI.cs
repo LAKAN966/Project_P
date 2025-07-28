@@ -23,13 +23,16 @@ public class BuildSlotUI : MonoBehaviour
 
     public int Level = 0;
 
+
     public void Select()
     {
         BuildManager.Instance.SelectSlot(this);
         if (Level > 0)
         {
-            buildGospelUI.GetComponentInChildren<GospelSpawner>().buildID = buildingID;
-            buildGospelUI.GetComponentInChildren<GospelSpawner>().level = Level;
+            var goseplspawner = buildGospelUI.GetComponentInChildren<GospelSpawner>();
+            goseplspawner.buildID = buildingID;
+            goseplspawner.level = Level;
+            goseplspawner.toShow = false;
             buildGospelUI.SetActive(true);
         }
         else

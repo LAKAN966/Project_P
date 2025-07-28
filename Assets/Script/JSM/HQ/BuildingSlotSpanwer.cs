@@ -14,8 +14,11 @@ public class BuildingSlotSpanwer : MonoBehaviour
     public Button confirmButton;
     public GameObject buildListUI;
     public Image buildImg;
+    public Button buildingGospelBtn;
+    public TMP_Text buildDesc;
     public TMP_Text goldText;
     public TMP_Text blueprintText;
+    public GameObject buildGospelUI;
 
     private readonly List<BuildSelectButton> allButtons = new();
 
@@ -58,10 +61,13 @@ public class BuildingSlotSpanwer : MonoBehaviour
             button.buildingIndex = buildID;
             button.buildConfirmPanel = confirmPanel;
             button.confirmButton = confirmButton;
+            button.buildingGospelBtn = buildingGospelBtn;
             button.buildListUI = buildListUI;
             button.buildImg = buildImg;
+            button.desc = buildDesc;
             button.goldText = goldText;
             button.blueprintText = blueprintText;
+            button.buildGospelUI = buildGospelUI;
 
             // raceID + raceIDList 통합
             button.allIDs = new List<int> { building.raceId };
