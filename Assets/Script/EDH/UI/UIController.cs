@@ -207,7 +207,7 @@ public class UIController : MonoBehaviour
             UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
-    public void TicketNotEnoungh() // 증명서 부족 알림
+    public void TicketNotEnoungh() // 티켓 부족 알림
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
         NotEnoughBoxText.text = "티켓이 부족합니다.";
