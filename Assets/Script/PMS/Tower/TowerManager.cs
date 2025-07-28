@@ -93,10 +93,10 @@ public class TowerManager
 
     private bool CheckRaceInDeck(int raceID)
     {
-        var deck = PlayerDataManager.Instance.player.currentDeck[PlayerDataManager.Instance.player.currentPresetIndex];
+        //var deck = PlayerDataManager.Instance.player.currentDeck[PlayerDataManager.Instance.player.currentPresetIndex];
 
-        var normalUnit = deck.GetAllNormalUnit();
-        var leaderUnit = deck.GetLeaderUnitInDeck();
+        var normalUnit = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
+        var leaderUnit = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
 
         bool hasUnit = (normalUnit != null && normalUnit.Count > 0) || leaderUnit != null;
         if (!hasUnit) return false;
@@ -147,10 +147,10 @@ public class TowerManager
     {
         if (scene.name == "BattleScene")
         {
-            var deck = PlayerDataManager.Instance.player.currentDeck[PlayerDataManager.Instance.player.currentPresetIndex];
+            //var deck = PlayerDataManager.Instance.player.currentDeck[PlayerDataManager.Instance.player.currentPresetIndex];
 
-            var normalDeck = deck.GetAllNormalUnit();
-            var leaderDeck = deck.GetLeaderUnitInDeck();
+            var normalDeck = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
+            var leaderDeck = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
             SceneManager.sceneLoaded -= OnBattleSceneLoaded;
 
             BattleManager.Instance.StartBattle(currentStageID, normalDeck, leaderDeck, 1);

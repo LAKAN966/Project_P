@@ -14,6 +14,23 @@ public class DeckData
     public List<DeckList> deckList = new(); // 덱 리스트 만들기. 일반 유닛.
     public DeckList leaderUnit; // 리더 유닛.
 
+    public DeckData Clone()
+    {
+        DeckData newDeck = new DeckData();
+
+        foreach (var unit in deckList)
+        {
+            newDeck.deckList.Add(new DeckList { myUnitID = unit.myUnitID });
+        }
+
+        if (leaderUnit != null)
+        {
+            newDeck.leaderUnit = new DeckList { myUnitID = leaderUnit.myUnitID };
+        }
+
+        return newDeck;
+    }
+
     public bool Contains(int myUnitID) // 덱 리스트에서 아이디 값으로 확인 함수.
     {
         return deckList.Any(unit => unit.myUnitID == myUnitID) || (leaderUnit != null && leaderUnit.myUnitID == myUnitID);

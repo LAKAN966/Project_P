@@ -22,43 +22,61 @@ public class DeckManager
     }
 
     private Player PlayerData => PlayerDataManager.Instance.player;
-    private DeckData CurrentDeck
-    {
-        get
-        {
-            if(PlayerData.currentDeck.Count == 0)
-            {
-                PlayerData.currentDeck.Add(new DeckData());
-            }
-            return PlayerData.currentDeck[PlayerData.currentPresetIndex];
-        }
-    }
+    private DeckData CurrentDeck => PlayerData.currentDeck;
+
+
 
     public bool AddPreset()
     {
-        if (PlayerData.currentDeck.Count >= 3) return false; // 프리셋 최대 개수 제한. 일단 3개
-        PlayerData.currentDeck.Add(new DeckData());
+        if (PlayerData.preset.Count >= 3) return false;
+        PlayerData.preset.Add(new DeckData());
         return true;
     }
 
     public bool RemovePreset(int index)
     {
-        if (index < 0 || index >= PlayerData.currentDeck.Count) return false;
+        if (index < 0 || index >= PlayerData.preset.Count) return false;
 
-        PlayerData.currentDeck.RemoveAt(index);
+        PlayerData.preset.RemoveAt(index);
 
-        if (PlayerData.currentPresetIndex >= PlayerData.currentDeck.Count)
+        if (PlayerData.currentPresetIndex >= PlayerData.preset.Count)
         {
-            PlayerData.currentPresetIndex = PlayerData.currentDeck.Count - 1;
+            PlayerData.currentPresetIndex = PlayerData.preset.Count - 1;
         }
         return true;
     }
 
     public bool SwitchPreset(int index)
     {
-        if (index < 0 || index >= PlayerData.currentDeck.Count) return false;
+        if (index < 0 || index >= PlayerData.preset.Count) return false;
+
         PlayerData.currentPresetIndex = index;
+        PlayerData.currentDeck = CloneDeck(PlayerData.preset[index]); // **현재 덱에 프리셋 적용**
         return true;
+    }
+
+    public bool SaveCurrentDeckToPreset(int index)
+    {
+        if (index < 0 || index >= PlayerData.preset.Count) return false;
+
+        PlayerData.preset[index] = CloneDeck(PlayerData.currentDeck); // **프리셋에 현재 덱 저장**
+        return true;
+    }
+
+    private DeckData CloneDeck(DeckData source)
+    {
+        DeckData newDeck = new DeckData();
+        foreach (var unit in source.deckList)
+        {
+            newDeck.deckList.Add(new DeckList { myUnitID = unit.myUnitID });
+        }
+
+        if (source.leaderUnit != null)
+        {
+            newDeck.leaderUnit = new DeckList { myUnitID = source.leaderUnit.myUnitID };
+        }
+
+        return newDeck;
     }
 
 

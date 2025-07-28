@@ -13,6 +13,12 @@ public enum UnitFilterType
     Leader
 }
 
+public enum DeckMode
+{
+    DeckBuild,
+    Preset
+}
+
 public class UIDeckBuildManager : MonoBehaviour
 {
     [Header("보유 유닛 슬롯")]
@@ -39,6 +45,9 @@ public class UIDeckBuildManager : MonoBehaviour
     private UnitFilterType currentFilter = UnitFilterType.All; // 필터
 
     private int? raceFilter = null;
+
+    private DeckMode currentMode = DeckMode.DeckBuild;
+    private UIPresetDeck currentPresetDeck;
 
     private void Awake()
     {
@@ -144,7 +153,20 @@ public class UIDeckBuildManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        var sortedUnitID = cachedUnitOrder.OrderBy(id => DeckManager.Instance.CheckInDeck(id)).ToList();
+        List<int> sortedUnitID;
+
+        if (currentMode == DeckMode.DeckBuild)
+        {
+            sortedUnitID = cachedUnitOrder.OrderBy(id => DeckManager.Instance.CheckInDeck(id)).ToList();
+        }
+        else if (currentMode == DeckMode.Preset && currentPresetDeck != null)
+        {
+            sortedUnitID = cachedUnitOrder.OrderBy(id => currentPresetDeck.ContainsUnit(id)).ToList();
+        }
+        else
+        {
+            sortedUnitID = cachedUnitOrder;
+        }
 
         foreach (int unitID in sortedUnitID)
         {
@@ -170,7 +192,17 @@ public class UIDeckBuildManager : MonoBehaviour
             var unitIcon = iconGO.GetComponent<UIUnitIcon>();
             unitIcon.Setup(stats);
 
-            if (DeckManager.Instance.CheckInDeck(stats.ID))
+            bool shouldDisable = false;
+            if (currentMode == DeckMode.DeckBuild)
+            {
+                shouldDisable = DeckManager.Instance.CheckInDeck(stats.ID);
+            }
+            else if (currentMode == DeckMode.Preset && currentPresetDeck != null)
+            {
+                shouldDisable = currentPresetDeck.ContainsUnit(stats.ID);
+            }
+
+            if (shouldDisable)
             {
                 unitIcon.SetDisabled();
             }
@@ -223,6 +255,12 @@ public class UIDeckBuildManager : MonoBehaviour
     {
         raceFilter = stageID;
         SetMyUnitIcons();
+    }
+
+    public void SetMode(DeckMode mode, UIPresetDeck presetDeck = null)
+    {
+        currentMode = mode;
+        currentPresetDeck = presetDeck;
     }
 
 }

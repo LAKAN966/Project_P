@@ -11,7 +11,8 @@ public class Player
     public int certi = 0;
 
     public List<int> myUnitIDs = new();
-    public List<DeckData> currentDeck = new();
+    public DeckData currentDeck = new();
+    public List<DeckData> preset = new List<DeckData>();
     public int currentPresetIndex = 0;
     public List<int> clearedStageIDs = new();
 
@@ -35,6 +36,10 @@ public class Player
 
     public Player()
     {
+        for(int i = 0; i<3; i++)
+        {
+            preset.Add(new DeckData());
+        }
         AddUnit(1001);
         AddUnit(1002);
 
