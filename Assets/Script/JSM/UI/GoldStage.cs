@@ -92,8 +92,10 @@ public class GoldStage : MonoBehaviour
         int selectedStageID = goldStageData[currentGoldStage].ID;
         if (scene.name == "BattleScene")
         {
-            var normalDeck = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
-            var leaderDeck = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
+            var deck = PlayerDataManager.Instance.player.currentDeck[PlayerDataManager.Instance.player.currentPresetIndex];
+
+            var normalDeck = deck.GetAllNormalUnit();
+            var leaderDeck = deck.GetLeaderUnitInDeck();
             SceneManager.sceneLoaded -= OnBattleSceneLoaded;
             BattleManager.Instance.StartBattle(selectedStageID, normalDeck, leaderDeck, 2);
         }
