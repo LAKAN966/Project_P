@@ -123,6 +123,7 @@ public class UIController : MonoBehaviour
     }
     public void OnExitBtn()
     {
+        Debug.Log(Stage.activeSelf + " " + DeckBuild.activeSelf);
         if (Stage.activeSelf && DeckBuild.activeSelf)
         {
             DeckBuild.SetActive(false);
@@ -152,6 +153,8 @@ public class UIController : MonoBehaviour
     {
         Shop.SetActive(false);
         Main.SetActive(true);
+        DescriptionBox.SetActive(false);
+        CertiDescriptionBox.SetActive(false);
     }
     public void CloseUnitTab()
     {
@@ -168,7 +171,7 @@ public class UIController : MonoBehaviour
         Stage.SetActive(false);
         Main.SetActive(true);
     }
-    public void AtemptNotEnoungh()
+    public void AtemptNotEnoungh() //구매 가능 횟수 부족 알림
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
         NotEnoughBoxText.text = "모든 구매 횟수를 모두 사용하셨습니다.";
@@ -180,7 +183,7 @@ public class UIController : MonoBehaviour
             UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
-    public void GoldNotEnoungh()
+    public void GoldNotEnoungh() // 골드 부족 알림
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
         NotEnoughBoxText.text = "골드가 부족합니다.";
@@ -192,7 +195,7 @@ public class UIController : MonoBehaviour
             UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
-    public void CertiNotEnoungh()
+    public void CertiNotEnoungh() // 증명서 부족 알림
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
         NotEnoughBoxText.text = "증명서가 부족합니다.";

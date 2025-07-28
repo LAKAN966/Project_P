@@ -28,6 +28,20 @@ public class GoldStage : MonoBehaviour
         var goldStageDataByType = StageDataManager.Instance.GetAllGoldStageData();
         goldStageData = goldStageDataByType.Values
             .ToDictionary(data => data.Chapter, data => data);
+        int targetID = PlayerDataManager.Instance.player.goldDungeonData.lastClearStage;
+
+        // 1. 해당 ID를 가진 항목의 Key 찾기
+        var match = goldStageData.FirstOrDefault(pair => pair.Value.ID == targetID);
+
+        if (EqualityComparer<KeyValuePair<int, StageData>>.Default.Equals(match, default))
+        {
+            currentGoldStage = 1;
+        }
+        else
+        {
+            int key = match.Key;
+            currentGoldStage = goldStageData.ContainsKey(key + 1) ? key + 1 : key;
+        }
         UpdateStageText();
         OnChangeLevel();
     }
