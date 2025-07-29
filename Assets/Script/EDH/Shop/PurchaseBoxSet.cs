@@ -11,7 +11,6 @@ public class PurchaseBoxSet : MonoBehaviour
     public TMP_Text ItemDescriptionText; // 아이템 설명 텍스트
 
     public GameObject purchaseUIBox;   // 구매UI 상자
-    public GameObject DescriptionBox;  // 아이템 설명 창
 
     public Button PurchaseItemIcon; // 상품 아이콘
     public Button CancelButton;     // 구매 취소 버튼
@@ -21,26 +20,23 @@ public class PurchaseBoxSet : MonoBehaviour
 
     private void Start()
     {
-        PurchaseItemIcon.onClick.AddListener(DescriptionSet);
-
         CancelButton.onClick.AddListener(TabClose);
     }
 
     public void TabClose()
     {
         purchaseUIBox.SetActive(false);
-        DescriptionBox.SetActive(false);
         SFXManager.Instance.PlaySFX(0);
     }
 
     public void DescriptionSet()
     {
         Debug.Log("아이템 설명" + _Item.Description);
-        DescriptionBox.SetActive(true);
-        DescriptionBox.GetComponentInChildren<TMP_Text>().text = _Item.Description; // null일경우 넣어주면 안됨.
+        ItemDescriptionText.text = _Item.Description; // null일경우 넣어주면 안됨.
     }
     public void SetitemIcon(Sprite sprite)
     {
         itemIcon.sprite = sprite;
+        DescriptionSet();
     }
 }

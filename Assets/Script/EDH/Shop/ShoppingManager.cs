@@ -23,17 +23,16 @@ public class ShoppingManager : Singleton<ShoppingManager>
         {
             Instantiate(ItemListLoader);
         }
-        UIController.Instance.DescriptionBox.SetActive(false);
         UIController.Instance.PurchaseUIBox.SetActive(false);
     }
 
     public void ShowNowGold()
     {
-        GoldAmount.text = PlayerDataManager.Instance.player.gold.ToString(); 
+        GoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold); 
     }
 
     public void ShowNowCertificate()
     {
-        PityCount.text = PlayerDataManager.Instance.player.certi.ToString();
+        PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
     }
 }

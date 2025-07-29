@@ -40,7 +40,7 @@ public class Pick : MonoBehaviour
 
     private void OnEnable()
     {
-        ShowTicketAmountText.text = "보유 티켓 : " + NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);          // 현재 보유 티켓 수량
+        ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);          // 현재 보유 티켓 수량
         PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);                      // 현재 마일리지
 
         //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)
@@ -59,7 +59,7 @@ public class Pick : MonoBehaviour
 
             PlayerDataManager.Instance.player.certi++;
 
-            ShowTicketAmountText.text = "보유 티켓 : " + NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
             PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
 
             PickOnePage.SetActive(true);
@@ -83,7 +83,7 @@ public class Pick : MonoBehaviour
 
             PlayerDataManager.Instance.player.certi += 10;
 
-            ShowTicketAmountText.text = "보유 티켓 : " + NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
             PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
 
             PickTenPage.SetActive(true);
