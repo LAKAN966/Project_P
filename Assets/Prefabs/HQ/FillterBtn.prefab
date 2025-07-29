@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggle: {fileID: 6125150345344209097}
   text: {fileID: 8503057123383885359}
+  id: 0
 --- !u!1 &6814254728858298926
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,8 +159,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC5B8\uB370\uB4DC"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8728abdc993f6f14d88b82d8d59400a4, type: 2}
-  m_sharedMaterial: {fileID: 4804673219077872049, guid: 8728abdc993f6f14d88b82d8d59400a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8576e48e0ed201a4a9f4eb1885002579, type: 2}
+  m_sharedMaterial: {fileID: 5634874284504290513, guid: 8576e48e0ed201a4a9f4eb1885002579, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -183,12 +184,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.35
+  m_fontSize: 26
   m_fontSizeBase: 23.8
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 26
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
