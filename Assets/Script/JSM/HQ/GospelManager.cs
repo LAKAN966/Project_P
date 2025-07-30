@@ -127,7 +127,7 @@ public class GospelManager : MonoBehaviour
             if (!anySelected)
                 return order;
         }
-        return layers.Count;
+        return layers.Count+1;
     }
 
     public GospelData GetGospelByID(int gospelID)

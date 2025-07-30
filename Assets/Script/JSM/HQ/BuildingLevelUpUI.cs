@@ -31,7 +31,6 @@ public class BuildingLevelUpUI : MonoBehaviour
         levelUpPanel.SetActive(true);
 
         buildImg.sprite = buildSlotUI.slotImage.sprite;
-        Debug.Log(buildSlotUI.buildingID);
         moneyTxt.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold)} / {NumberFormatter.FormatNumber(BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).goldList[buildSlotUI.Level-1])}";
         tributeTxt.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.tribute)} / {NumberFormatter.FormatNumber(BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).costList[buildSlotUI.Level-1])}";
         currentLevelTxt.text = buildSlotUI.Level.ToString();

@@ -42,11 +42,11 @@ public class GospelSpawner : MonoBehaviour
         var layeredGospels = GospelManager.Instance.GetGospelsByBuildID(buildID);
         //Debug.Log(layeredGospels.Count+"+"+buildID);
         int currentSelectableOrder = GospelManager.Instance.GetCurrentSelectableOrder(buildID);
-
+        //Debug.Log(currentSelectableOrder);
         for (int order = layeredGospels.Count; order > 0; order--)
         {
             var layerData = layeredGospels[order-1];
-
+            bool islocked = false;
             GameObject container = Instantiate(GospelContainerPrefab, parent);
             container.name = $"GospelContainer_Order{order}";
             container.layer = order+1;
@@ -61,6 +61,7 @@ public class GospelSpawner : MonoBehaviour
                 int requiredLevel = BuildManager.Instance.GetRequiredLevelForOrder(buildID, order);
                 GameObject lack = Instantiate(LackLevelPanel, container.transform);
                 lack.GetComponentInChildren<TextMeshProUGUI>().text = $"{requiredLevel}레벨에 해금됩니다.";
+                islocked = true;
             }
             foreach (var gospel in layerData)
             {
@@ -79,7 +80,7 @@ public class GospelSpawner : MonoBehaviour
                         state = GospelState.ToShow;
                     else if (GospelManager.Instance.IsSelected(buildID, gospel.id))
                         state = GospelState.Selected;
-                    else if (order != currentSelectableOrder)
+                    else if (order != currentSelectableOrder||islocked)
                         state = GospelState.Locked;
                     else
                         state = GospelState.Available;
