@@ -15,6 +15,7 @@ public class BuildingSlotSpanwer : MonoBehaviour
     public GameObject buildListUI;
     public Image buildImg;
     public Button buildingGospelBtn;
+    public TMP_Text buildName;
     public TMP_Text buildDesc;
     public TMP_Text goldText;
     public TMP_Text blueprintText;
@@ -65,6 +66,7 @@ public class BuildingSlotSpanwer : MonoBehaviour
             button.buildListUI = buildListUI;
             button.buildImg = buildImg;
             button.desc = buildDesc;
+            button.buildingName = buildName;
             button.goldText = goldText;
             button.blueprintText = blueprintText;
             button.buildGospelUI = buildGospelUI;

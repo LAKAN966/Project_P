@@ -15,6 +15,7 @@ public class BuildSelectButton : MonoBehaviour
     public Image buildImg;
     public Button buildingGospelBtn;
     public TMP_Text desc;
+    public TMP_Text buildingName;
     public TMP_Text goldText;
     public TMP_Text blueprintText;
     private BuildingData building;
@@ -46,6 +47,7 @@ public class BuildSelectButton : MonoBehaviour
         buildImg.sprite = BuildManager.Instance.GetBuildingSprite(building.imageName);
         buildingGospelBtn.onClick.AddListener(ShowGospel);
         desc.text = building.description;
+        buildingName.text = building.displayName;
         goldText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold)} / {NumberFormatter.FormatNumber(building.gold)}";
         blueprintText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.bluePrint)} / {NumberFormatter.FormatNumber(building.blueprint)}";
 

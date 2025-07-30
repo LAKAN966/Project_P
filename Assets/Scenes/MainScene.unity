@@ -787,7 +787,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 210.07}
-  m_SizeDelta: {x: 390, y: 50}
+  m_SizeDelta: {x: 490, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &108544304
 MonoBehaviour:
@@ -11604,7 +11604,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1378465370}
+      - m_Target: {fileID: 6469267531663866058}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -12173,6 +12173,7 @@ MonoBehaviour:
   buildListUI: {fileID: 3052138461620105322}
   buildImg: {fileID: 9128961146377048456}
   buildingGospelBtn: {fileID: 5999677715808019166}
+  buildName: {fileID: 1724769816}
   buildDesc: {fileID: 9090597690844480099}
   goldText: {fileID: 3722628593756628784}
   blueprintText: {fileID: 7585544756306658605}
@@ -27201,7 +27202,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 202, y: 0.16500092}
-  m_SizeDelta: {x: 270, y: 89.67}
+  m_SizeDelta: {x: 300, y: 89.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &2559490582840844945
 Transform:
@@ -65647,7 +65648,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 201.99994, y: 0.16500092}
-  m_SizeDelta: {x: 270, y: 89.67}
+  m_SizeDelta: {x: 300, y: 89.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &9056382004600755874
 MonoBehaviour:
