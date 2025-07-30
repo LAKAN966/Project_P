@@ -6086,6 +6086,7 @@ GameObject:
   - component: {fileID: 264371286}
   - component: {fileID: 264371288}
   - component: {fileID: 264371287}
+  - component: {fileID: 264371289}
   m_Layer: 5
   m_Name: PresetBtn3
   m_TagString: Untagged
@@ -6151,6 +6152,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264371285}
   m_CullTransparentMesh: 1
+--- !u!114 &264371289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264371285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b847fae662a01e0448bea8236241c2f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDuration: 0.5
 --- !u!1 &275336827
 GameObject:
   m_ObjectHideFlags: 0
@@ -39619,6 +39633,7 @@ GameObject:
   - component: {fileID: 1536412323}
   - component: {fileID: 1536412325}
   - component: {fileID: 1536412324}
+  - component: {fileID: 1536412327}
   m_Layer: 5
   m_Name: PresetBtn1
   m_TagString: Untagged
@@ -39684,6 +39699,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1536412322}
   m_CullTransparentMesh: 1
+--- !u!114 &1536412327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536412322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b847fae662a01e0448bea8236241c2f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDuration: 0.5
 --- !u!1 &1538307797
 GameObject:
   m_ObjectHideFlags: 0
@@ -51027,6 +51055,7 @@ MonoBehaviour:
   buildListUI: {fileID: 670281729}
   buildImg: {fileID: 179208203}
   buildingGospelBtn: {fileID: 0}
+  buildName: {fileID: 0}
   buildDesc: {fileID: 0}
   goldText: {fileID: 871709568}
   blueprintText: {fileID: 193452613}
@@ -54438,6 +54467,7 @@ GameObject:
   - component: {fileID: 2130665109}
   - component: {fileID: 2130665111}
   - component: {fileID: 2130665110}
+  - component: {fileID: 2130665112}
   m_Layer: 5
   m_Name: PresetBtn2
   m_TagString: Untagged
@@ -54503,6 +54533,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130665108}
   m_CullTransparentMesh: 1
+--- !u!114 &2130665112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130665108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b847fae662a01e0448bea8236241c2f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDuration: 0.5
 --- !u!1 &2135509861
 GameObject:
   m_ObjectHideFlags: 0
