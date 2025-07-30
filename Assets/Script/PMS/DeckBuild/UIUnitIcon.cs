@@ -19,9 +19,7 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     [SerializeField] private Sprite undeadSprite;
     [SerializeField] private Sprite crawlerSprite;
 
-    [Header ("유닛 종족 배경")]
-    [SerializeField] private Sprite undeadBG;
-    [SerializeField] private Sprite crawlerBG;
+    [SerializeField] private GameObject selectedMark;
 
     private bool isDropped = false;
 
@@ -133,12 +131,17 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        UIUnitInfo.instance.ShowInfo(myStats);
+        UIDeckBuildManager.instance.SelectedUnitIcon(this);
     }
 
     public void UpdateInteractable(bool disabled)
     {
         canvasGroup.alpha = disabled ? 0.5f : 1f;
         this.enabled = !disabled;
+    }
+
+    public void SetSelected(bool selected)
+    {
+        selectedMark.SetActive(selected);
     }
 }

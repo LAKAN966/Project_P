@@ -48,6 +48,8 @@ public class UIDeckBuildManager : MonoBehaviour
     [SerializeField] private Image undeadBtnImg;
     [SerializeField] private Image crawlerBtnImg;
 
+    private UIUnitIcon selectedIcon;
+
     private UnitFilterType currentFilter = UnitFilterType.All; // 필터
 
     private int? raceFilter = null;
@@ -314,9 +316,22 @@ public class UIDeckBuildManager : MonoBehaviour
 
     private void SetButtonAlpha(Image img, float alpha)
     {
-        Color c = img.color;
-        c.a = alpha;
-        img.color = c;
+        Color color = img.color;
+        color.a = alpha;
+        img.color = color;
+    }
+
+    public void SelectedUnitIcon(UIUnitIcon icon)
+    {
+        if (selectedIcon != null)
+        {
+            selectedIcon.SetSelected(false);
+        }
+
+        selectedIcon = icon;
+        selectedIcon.SetSelected(true);
+
+        UIUnitInfo.instance.ShowInfo(icon.GetStats());
     }
 
 }
