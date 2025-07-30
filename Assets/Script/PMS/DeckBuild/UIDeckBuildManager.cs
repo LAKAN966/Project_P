@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public enum UnitFilterType
 {
     All,
-    Normal,
-    Leader
+    Undead,
+    Crawler
 }
 
 public enum DeckMode
@@ -40,8 +40,14 @@ public class UIDeckBuildManager : MonoBehaviour
     public static UIDeckBuildManager instance;
 
     [Header("필터")]
-    [SerializeField] private Toggle normalToggle;
-    [SerializeField] private Toggle leaderToggle;
+    [SerializeField] private Button allBtn;
+    [SerializeField] private Button undeadBtn;
+    [SerializeField] private Button crawlerBtn;
+
+    [SerializeField] private Image allBtnImg;
+    [SerializeField] private Image undeadBtnImg;
+    [SerializeField] private Image crawlerBtnImg;
+
     private UnitFilterType currentFilter = UnitFilterType.All; // 필터
 
     private int? raceFilter = null;
@@ -57,15 +63,27 @@ public class UIDeckBuildManager : MonoBehaviour
         }
     }
 
-    public void Init(int? filterRaceID = null) //테스트용 이닛
+    public void Init() //테스트용 이닛
     {
-        raceFilter = filterRaceID;
+        //raceFilter = filterRaceID;
+        currentFilter = UnitFilterType.All;
 
-        InitDeckSlots();
+        //InitDeckSlots();
         CacheUnitListOrder();
         SetDeckSlots();
         SetMyUnitIcons();
         UIUnitInfo.instance.ClearInfo();
+
+        allBtn.onClick.RemoveAllListeners();
+        undeadBtn.onClick.RemoveAllListeners();
+        crawlerBtn.onClick.RemoveAllListeners();
+
+        allBtn.onClick.AddListener(() => OnClickFilter(UnitFilterType.All));
+        undeadBtn.onClick.AddListener(() => OnClickFilter(UnitFilterType.Undead));
+        crawlerBtn.onClick.AddListener(() => OnClickFilter(UnitFilterType.Crawler));
+
+        UpdateFilterUI();
+
     }
 
     public void InitDeckSlots() // 시작할 때 덱 슬롯 만들기. 처음에만 쓰면됨.
@@ -125,12 +143,12 @@ public class UIDeckBuildManager : MonoBehaviour
                     leaderSlot.unitImage.color = Color.white;
                     leaderSlot.unitData = leaderStats;
 
-                    UIUnitInfo.instance.ShowleaderInfo(leaderStats);
+                    //UIUnitInfo.instance.ShowleaderInfo(leaderStats);
                 }
 
                 else
                 {
-                    UIUnitInfo.instance.ShowleaderInfo(null);
+                    //UIUnitInfo.instance.ShowleaderInfo(null);
                 }
             }
 
@@ -140,7 +158,7 @@ public class UIDeckBuildManager : MonoBehaviour
                 leaderSlot.unitImage.sprite = null;
                 leaderSlot.unitImage.color = new Color(1, 1, 1, 0);
 
-                UIUnitInfo.instance.ShowleaderInfo(null);
+                // UIUnitInfo.instance.ShowleaderInfo(null);
             }
         }
     }
@@ -177,13 +195,13 @@ public class UIDeckBuildManager : MonoBehaviour
 
             switch (currentFilter)
             {
-                case UnitFilterType.Normal:
-                    if (stats.IsHero) continue;
+                case UnitFilterType.Undead:
+                    if (stats.RaceID != 0) continue;
                     break;
-                case UnitFilterType.Leader:
-                    if (!stats.IsHero) continue;
+                case UnitFilterType.Crawler:
+                    if (stats.RaceID != 1) continue;
                     break;
-                case UnitFilterType.All: // 모두 표시
+                case UnitFilterType.All:
                     break;
             }
 
@@ -219,48 +237,86 @@ public class UIDeckBuildManager : MonoBehaviour
             .ToList();
     }
 
-    public void OnToggleNormal(bool isOn)
-    {
-        RefreshFilter();
-    }
+    //public void OnToggleUndead(bool isOn)
+    //{
+    //    if (isOn)
+    //    {
+    //        RefreshFilter();
 
-    public void OnToggleLeader(bool isOn)
-    {
-        RefreshFilter();
-    }
+    //    }
 
-    public void RefreshFilter()
-    {
-        bool normalOn = normalToggle.isOn;
-        bool leaderOn = leaderToggle.isOn;
+    //}
 
-        if (normalOn && !leaderOn)
-        {
-            currentFilter = UnitFilterType.Normal;
-        }
-        else if (!normalOn && leaderOn)
-        {
-            currentFilter = UnitFilterType.Leader;
-        }
+    //public void OnToggleCrawler(bool isOn)
+    //{
+    //    if (isOn)
+    //    {
+    //        RefreshFilter();
 
-        else
-        {
-            currentFilter = UnitFilterType.All;
-        }
+    //    }
+    //}
 
-        SetMyUnitIcons();
-    }
+    //public void RefreshFilter()
+    //{
+    //    bool undeadOn = undeadToggle.isOn;
+    //    bool crawlerOn = crawlerToggle.isOn;
 
-    public void SetRaceFilter(int? stageID)
-    {
-        raceFilter = stageID;
-        SetMyUnitIcons();
-    }
+    //    if (undeadOn && !crawlerOn)
+    //    {
+    //        currentFilter = UnitFilterType.Undead;
+    //    }
+    //    else if (!undeadOn && crawlerOn)
+    //    {
+    //        currentFilter = UnitFilterType.Crawler;
+    //    }
+
+    //    else
+    //    {
+    //        currentFilter = UnitFilterType.All;
+    //    }
+
+    //    SetMyUnitIcons();
+    //}
+
+    //public void SetRaceFilter(int? stageID)
+    //{
+    //    raceFilter = stageID;
+    //    SetMyUnitIcons();
+    //}
 
     public void SetMode(DeckMode mode, UIPresetDeck presetDeck = null)
     {
         currentMode = mode;
         currentPresetDeck = presetDeck;
+    }
+
+    private void OnClickFilter(UnitFilterType selected)
+    {
+        if (currentFilter == selected)
+        {
+            currentFilter = UnitFilterType.All;
+        }
+        else
+        {
+            currentFilter = selected;
+        }
+
+        UpdateFilterUI();
+        SetMyUnitIcons();
+    }
+
+    private void UpdateFilterUI()
+    {
+        SetButtonAlpha(allBtnImg, currentFilter == UnitFilterType.All ? 1f : 0.5f);
+        SetButtonAlpha(undeadBtnImg, currentFilter == UnitFilterType.Undead ? 1f : 0.5f);
+        SetButtonAlpha(crawlerBtnImg, currentFilter == UnitFilterType.Crawler ? 1f : 0.5f);
+    }
+
+    private void SetButtonAlpha(Image img, float alpha)
+    {
+        Color c = img.color;
+        c.a = alpha;
+        img.color = c;
     }
 
 }

@@ -35,7 +35,10 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         myStats = stats;
         costText.text = stats.Cost.ToString();
         iconImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
-        //leaderMark.SetActive()
+        
+        bool leader = stats.IsHero ? true : false;
+
+        leaderMark.SetActive(leader);
 
         SetRaceIcon(stats);
         SetRaceColor(stats);

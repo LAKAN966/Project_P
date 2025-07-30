@@ -10,9 +10,12 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     public Image deckSlotBG;
     public Image unitImage;
     public UnitStats unitData;
+    public GameObject leaderMark;
 
     private float lastClickTime = 0f;
     private float doubleClickThreshold = 0.3f;
+
+
 
     public void OnDrop(PointerEventData eventData)
     {
