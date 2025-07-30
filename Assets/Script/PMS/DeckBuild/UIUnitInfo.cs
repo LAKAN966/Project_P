@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class UIUnitInfo : MonoBehaviour
 {
     [Header("이미지/정보")]
-    [SerializeField] private Image infoImage;
-    [SerializeField] private GameObject infoPannel;
+    [SerializeField] private GameObject infoImage;
+    [SerializeField] private GameObject infoStats;
+    [SerializeField] private GameObject infoName;
     [SerializeField] private TextMeshProUGUI nameValueText;
     [SerializeField] private TextMeshProUGUI hpValueText;
     [SerializeField] private TextMeshProUGUI damageValueText;
@@ -39,9 +40,10 @@ public class UIUnitInfo : MonoBehaviour
         if (stats != null)
         {
             infoImage.gameObject.SetActive(true);
-            infoPannel.gameObject.SetActive(true);
+            infoStats.gameObject.SetActive(true);
+            infoName.gameObject.SetActive(true);
 
-            infoImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+            infoImage.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
             if (stats == null)
             {
                 nameValueText.text = "";
@@ -82,7 +84,8 @@ public class UIUnitInfo : MonoBehaviour
         else
         {
             infoImage.gameObject.SetActive(false);
-            infoPannel.gameObject.SetActive(false);
+            infoStats.gameObject.SetActive(false);
+            infoName.gameObject.SetActive(false);
         }
     }
 
@@ -108,10 +111,10 @@ public class UIUnitInfo : MonoBehaviour
 
     public void ClearInfo()
     {
-        infoImage.sprite = null;
-        infoPannel.gameObject.SetActive(false);
-
+        //infoImage.sprite = null;
         infoImage.gameObject.SetActive(false);
+        infoStats.gameObject.SetActive(false);
+        infoName.gameObject.SetActive(false);
     }
 
 

@@ -63,7 +63,7 @@ public class DeckManager
         return true;
     }
 
-    private DeckData CloneDeck(DeckData source)
+    public DeckData CloneDeck(DeckData source)
     {
         DeckData newDeck = new DeckData();
         foreach (var unit in source.deckList)
