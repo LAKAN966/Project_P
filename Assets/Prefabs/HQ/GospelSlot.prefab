@@ -247,9 +247,9 @@ MonoBehaviour:
   canvasGroup: {fileID: 5697229764099239523}
   nameText: {fileID: 1992917698756810156}
   costText: {fileID: 8133937703801243712}
-  gospelConfirmUI: {fileID: 0}
   gospelSpawner: {fileID: 0}
   containerUI: {fileID: 0}
+  confirmUI: {fileID: 0}
 --- !u!114 &1457876677612747272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,8 +373,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 999
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 90f30f04fb2192744803af509420a469, type: 2}
+  m_sharedMaterial: {fileID: 5625860348697742433, guid: 90f30f04fb2192744803af509420a469, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.3
+  m_fontSize: 28.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -507,8 +507,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8728abdc993f6f14d88b82d8d59400a4, type: 2}
-  m_sharedMaterial: {fileID: 4804673219077872049, guid: 8728abdc993f6f14d88b82d8d59400a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 90f30f04fb2192744803af509420a469, type: 2}
+  m_sharedMaterial: {fileID: 5625860348697742433, guid: 90f30f04fb2192744803af509420a469, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -532,7 +532,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.35
+  m_fontSize: 31.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
