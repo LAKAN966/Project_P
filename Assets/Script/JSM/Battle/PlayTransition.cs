@@ -15,6 +15,7 @@ public class SceneIntroEffect : MonoBehaviour
         // 2. 화면 왼쪽 밖으로 이동 애니메이션
         float endX = -Screen.width - blackPanel.rect.width;
         blackPanel.DOAnchorPosX(endX, moveDuration)
-            .SetEase(Ease.InOutQuad);
+            .SetEase(Ease.InOutQuad)
+            .SetUpdate(true);
     }
 }

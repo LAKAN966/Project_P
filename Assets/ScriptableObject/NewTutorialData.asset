@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68174126d60b7144999626317cc22b39, type: 3}
+  m_Name: NewTutorialData
+  m_EditorClassIdentifier: 
+  steps:
+  - npcName: "\uC601\uCD98"
+    dialogue: "j\u012Bnti\u0101n"
+    triggerEventName: 
+    effectID: 0
+  - npcName: "\uC601\uCD98"
+    dialogue: "m\xEDngti\u0101n"
+    triggerEventName: 
+    effectID: 0
+  - npcName: "\uC601\uCD98"
+    dialogue: "q\u012Bd\xE0i m\u011Biti\u0101n"
+    triggerEventName: 
+    effectID: 1
+  - npcName: "\uC601\uCD98"
+    dialogue: "b\xF9 x\u016By\xE0o y\u01D2ngyu\u01CEn"
+    triggerEventName: 
+    effectID: 0
