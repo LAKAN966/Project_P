@@ -8,7 +8,8 @@ public class CertiSlot : MonoBehaviour
     [SerializeField] private Button certiSlot;                  // 증명서 유닛 슬롯
     [SerializeField] private TMP_Text CertiCost;
     [SerializeField] private CertiPurChaseSync certiPurChaseSync;
-
+    [SerializeField] private TextMeshProUGUI certiName;
+    [SerializeField] private TextMeshProUGUI certiDesc;
     private PickInfo _Info;
 
     public void init(PickInfo pickInfo)
@@ -17,11 +18,11 @@ public class CertiSlot : MonoBehaviour
         UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
 
         _Info = pickInfo;
-        _Info.Name = pickInfo.Name;
-        _Info.ID = pickInfo.ID;
-        _Info.warrant = pickInfo.warrant;
+        //_Info.Name = pickInfo.Name;
+        //_Info.ID = pickInfo.ID;
+        //_Info.warrant = pickInfo.warrant;
         CertiCost.text = _Info.warrant.ToString();
-
+        certiName.text = _Info.Name;
         certiSlot.onClick.RemoveAllListeners();
 
         certiSlot.onClick.AddListener(() =>

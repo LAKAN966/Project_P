@@ -19,6 +19,7 @@ public class PurchaseSync : MonoBehaviour
     private UIManager uiManager;
 
     public TMP_InputField InputAmount;   // 수량 입력칸
+    public TextMeshProUGUI totalCost;
 
     public Button AddButton;        // 수량 추가 버튼
     public Button SubtractButton;   // 수량 빼기버튼
@@ -65,6 +66,7 @@ public class PurchaseSync : MonoBehaviour
         }
         if (amount > 1)
             SubtractButton.interactable = true;
+        UpdateTotal();
         SFXManager.Instance.PlaySFX(0);
     }
     public void Subttract()
@@ -77,6 +79,7 @@ public class PurchaseSync : MonoBehaviour
             InputAmount.text = amount.ToString();
         }
         else { Debug.Log("s"); }
+        UpdateTotal();
         SFXManager.Instance.PlaySFX(0);
     }
     public void PurchaseItem()
@@ -139,5 +142,10 @@ public class PurchaseSync : MonoBehaviour
         Debug.Log("c");
         _Item = item;
         iSlot = slot;
+        UpdateTotal();
+    }
+    public void UpdateTotal()
+    {
+        totalCost.text = NumberFormatter.FormatNumber((int.Parse(InputAmount.text)*_Item.Cost));
     }
 }
