@@ -21,8 +21,8 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     [SerializeField] private GameObject selectedMark;
 
-    [SerializeField] private Image tagIcon1;
-    [SerializeField] private Image tagIcon2;
+    //[SerializeField] private Image tagIcon1;
+    //[SerializeField] private Image tagIcon2;
 
     private bool isDropped = false;
 
@@ -43,7 +43,7 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         SetRaceIcon(stats);
         SetRaceColor(stats);
-        SetTagIcon(stats);
+        //SetTagIcon(stats);
     }
     
     void SetRaceColor(UnitStats stats)
@@ -76,47 +76,47 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 break;
         }
     }
-    void SetTagIcon(UnitStats stats)
-    {
-        if (stats.tagId == null || stats.tagId.Count == 0)
-        {
-            tagIcon1.gameObject.SetActive(false);
-            tagIcon2.gameObject.SetActive(false);
-            return;
-        }
+    //void SetTagIcon(UnitStats stats)
+    //{
+    //    if (stats.tagId == null || stats.tagId.Count == 0)
+    //    {
+    //        tagIcon1.gameObject.SetActive(false);
+    //        tagIcon2.gameObject.SetActive(false);
+    //        return;
+    //    }
 
-        if (stats.tagId.Count >= 1)
-        {
-            var tagSprite1 = Resources.Load<Sprite>($"Tags/Tag_{stats.tagId[0]}");
-            if (tagSprite1 != null)
-            {
-                tagIcon1.sprite = tagSprite1;
-                tagIcon1.gameObject.SetActive(true);
-            }
-            else
-            {
-                tagIcon1.gameObject.SetActive(false);
-            }
-        }
+    //    if (stats.tagId.Count >= 1)
+    //    {
+    //        var tagSprite1 = Resources.Load<Sprite>($"Tags/Tag_{stats.tagId[0]}");
+    //        if (tagSprite1 != null)
+    //        {
+    //            tagIcon1.sprite = tagSprite1;
+    //            tagIcon1.gameObject.SetActive(true);
+    //        }
+    //        else
+    //        {
+    //            tagIcon1.gameObject.SetActive(false);
+    //        }
+    //    }
 
-        if (stats.tagId.Count >= 2)
-        {
-            var tagSprite2 = Resources.Load<Sprite>($"Tags/Tag_{stats.tagId[1]}");
-            if (tagSprite2 != null)
-            {
-                tagIcon2.sprite = tagSprite2;
-                tagIcon2.gameObject.SetActive(true);
-            }
-            else
-            {
-                tagIcon2.gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            tagIcon2.gameObject.SetActive(false);
-        }
-    }
+    //    if (stats.tagId.Count >= 2)
+    //    {
+    //        var tagSprite2 = Resources.Load<Sprite>($"Tags/Tag_{stats.tagId[1]}");
+    //        if (tagSprite2 != null)
+    //        {
+    //            tagIcon2.sprite = tagSprite2;
+    //            tagIcon2.gameObject.SetActive(true);
+    //        }
+    //        else
+    //        {
+    //            tagIcon2.gameObject.SetActive(false);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        tagIcon2.gameObject.SetActive(false);
+    //    }
+    //}
 
 
     public UnitStats GetStats()

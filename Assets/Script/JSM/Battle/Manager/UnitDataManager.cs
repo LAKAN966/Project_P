@@ -75,9 +75,9 @@ public class UnitDataManager
                         stat.SkillID.Add(tag);
                 }
             }
-            if (!string.IsNullOrWhiteSpace(tokens[21]))
+            if (!string.IsNullOrWhiteSpace(tokens[22]))
             {
-                string[] tagParts = tokens[21].Split(';');
+                string[] tagParts = tokens[22].Split(';');
                 foreach (var part in tagParts)
                 {
                     if (int.TryParse(part.Trim(), out int tag))

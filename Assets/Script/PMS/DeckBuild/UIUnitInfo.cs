@@ -21,11 +21,16 @@ public class UIUnitInfo : MonoBehaviour
     [SerializeField] private Sprite damageSprite;
     [SerializeField] private Sprite typeSprite;
 
+    [Header("태그")]
+    [SerializeField] private Transform tagParent;
+    [SerializeField] private GameObject tagIconPrefab;
+
     //[Header("리더 유닛 이미지/정보")]
     //[SerializeField] private Image leaderIMG;
     //[SerializeField] private TextMeshProUGUI costText;
     //[SerializeField] private Image costIcon;
 
+    [Header("스킬")]
     [SerializeField] private GameObject skillBox;
 
     public static UIUnitInfo instance;
@@ -59,7 +64,7 @@ public class UIUnitInfo : MonoBehaviour
             hpIcon.sprite = hpSprite;
             damageIcon.sprite = damageSprite;
             typeIcon.sprite = typeSprite;
-
+            SetTagIcon(stats);
             skillBox?.SetActive(stats.IsHero);
             
             if (skillBox != null)
@@ -83,9 +88,10 @@ public class UIUnitInfo : MonoBehaviour
 
         else
         {
-            infoImage.gameObject.SetActive(false);
-            infoStats.gameObject.SetActive(false);
-            infoName.gameObject.SetActive(false);
+            ClearInfo();
+            //infoImage.gameObject.SetActive(false);
+            //infoStats.gameObject.SetActive(false);
+            //infoName.gameObject.SetActive(false);
         }
     }
 
@@ -115,8 +121,32 @@ public class UIUnitInfo : MonoBehaviour
         infoImage.gameObject.SetActive(false);
         infoStats.gameObject.SetActive(false);
         infoName.gameObject.SetActive(false);
+        tagParent.gameObject.SetActive(false);
     }
 
+    void SetTagIcon(UnitStats stats)
+    {
+        tagParent.gameObject.SetActive(true);
+
+        foreach (Transform child in tagParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        if (stats.tagId == null || stats.tagId.Count == 0)
+            return;
+
+        foreach (int tagId in stats.tagId)
+        {
+            Sprite tagSprite = Resources.Load<Sprite>($"Tags/Tag_{tagId}");
+            if (tagSprite != null)
+            {
+                GameObject tagIconObj = Instantiate(tagIconPrefab, tagParent);
+                Image iconImage = tagIconObj.GetComponentInChildren<Image>();
+                iconImage.sprite = tagSprite;
+            }
+        }
+    }
 
 
 }
