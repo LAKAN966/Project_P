@@ -19,6 +19,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private StageNode stageNodePrefab;
     [SerializeField] private GameObject stageInfo;
     [SerializeField] private GameObject uiStage;
+    [SerializeField] private GameObject pannel;
 
     public Action<int> SetStageInfo;
 
@@ -136,6 +137,11 @@ public class StageManager : MonoBehaviour
 
     public void SelectStage(int stageID)
     {
+        if (!CanEnterStage(stageID))
+        {
+            PopUp();
+            return;
+        }
         selectedStageID = stageID;
         Debug.Log($"스테이지 {stageID} 선택됨");
         stageInfo.SetActive(true);
@@ -280,6 +286,13 @@ public class StageManager : MonoBehaviour
         }
         return false;
 
+    }
+
+    void PopUp()
+    {
+        TextMeshProUGUI text = pannel.GetComponentInChildren<TextMeshProUGUI>();
+        text.text = $"이전 스테이지를 클리어해야 입장할 수 있습니다.";
+        pannel.SetActive(true);
     }
 
 }

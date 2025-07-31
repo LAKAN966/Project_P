@@ -8,7 +8,7 @@ public class StageNode : MonoBehaviour
 {
     [SerializeField] private Button stageBtn;
     [SerializeField] private TextMeshProUGUI stageNameTxt;
-    [SerializeField] private TextMeshProUGUI clearText;
+    [SerializeField] private GameObject clearText;
 
     public int stageID;
 
