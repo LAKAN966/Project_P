@@ -124,6 +124,7 @@ public class UIDeckBuildManager : MonoBehaviour
                 slot.unitImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
                 slot.unitImage.color = Color.white;
                 slot.unitData = stats;
+                slot.SetRaceIcon(stats);
 
                 //UIUnitInfo.instance.ShowInfo(stats);
             }
@@ -132,6 +133,9 @@ public class UIDeckBuildManager : MonoBehaviour
                 slot.unitImage.sprite = null;
                 slot.unitImage.color = new Color(1, 1, 1, 0);
                 slot.unitData = null;
+
+                slot.raceIcon.sprite = null;
+                slot.raceIcon.color = new Color(1, 1, 1, 0);
 
                 //UIUnitInfo.instance.ShowInfo(null);
             }
@@ -148,7 +152,7 @@ public class UIDeckBuildManager : MonoBehaviour
                     leaderSlot.unitImage.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderStats.ModelName}");
                     leaderSlot.unitImage.color = Color.white;
                     leaderSlot.unitData = leaderStats;
-
+                    leaderSlot.SetRaceIcon(leaderStats);
                     //UIUnitInfo.instance.ShowleaderInfo(leaderStats);
                 }
 
@@ -163,6 +167,9 @@ public class UIDeckBuildManager : MonoBehaviour
                 leaderSlot.unitData = null;
                 leaderSlot.unitImage.sprite = null;
                 leaderSlot.unitImage.color = new Color(1, 1, 1, 0);
+
+                leaderSlot.raceIcon.sprite = null;
+                leaderSlot.raceIcon.color = new Color(1, 1, 1, 0);
 
                 // UIUnitInfo.instance.ShowleaderInfo(null);
             }

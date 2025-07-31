@@ -12,9 +12,36 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     public UnitStats unitData;
     public GameObject leaderMark;
 
+    [Header("종족")]
+    [SerializeField] public Image raceIcon;
+    [SerializeField] public Sprite undeadSprite;
+    [SerializeField] public Sprite crawlerSprite;
+
     private float lastClickTime = 0f;
     private float doubleClickThreshold = 0.3f;
 
+
+    public void SetRaceIcon(UnitStats stats)
+    {
+        var raceID = stats.RaceID;
+        switch (raceID)
+        {
+            case 0:
+                raceIcon.sprite = undeadSprite;
+                break;
+            case 1:
+                raceIcon.sprite = crawlerSprite;
+                break;
+            default:
+                raceIcon.sprite = null;
+                raceIcon.color = new Color(1, 1, 1, 0);
+                break;
+        }
+
+        Color color = raceIcon.color;
+        color.a = 1f;
+        raceIcon.color = color;
+    }
 
 
     public void OnDrop(PointerEventData eventData)
@@ -54,6 +81,7 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         UIDeckBuildManager.instance.SetMyUnitIcons();
         UIDeckBuildManager.instance.SetDeckSlots();
         UIUnitInfo.instance.ShowInfo(unitData);
+        
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -78,6 +106,13 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             UIDeckBuildManager.instance.SetMyUnitIcons();
             UIDeckBuildManager.instance.SetDeckSlots();
             UIUnitInfo.instance.ShowInfo(null);
+
+            unitData = null;
+            unitImage.sprite = null;
+            unitImage.color = new Color(1, 1, 1, 0);
+
+            raceIcon.sprite = null;
+            raceIcon.color = new Color(1, 1, 1, 0);
 
         }
         lastClickTime = Time.time;

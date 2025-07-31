@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2417512398023388114}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7490333576012776094
 CanvasRenderer:
@@ -148,7 +148,11 @@ MonoBehaviour:
     ModelName: 
     AttackType: 0
     Size: 0
-    SkillID: 0
+    SkillID: 
+    isEnemy: 0
+    warrant: 0
+    tagId: 
+  leaderMark: {fileID: 0}
 --- !u!222 &7262284093296286737
 CanvasRenderer:
   m_ObjectHideFlags: 0
