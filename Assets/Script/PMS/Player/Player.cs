@@ -42,9 +42,14 @@ public class Player
         }
 
         currentPresetIndex = 0;
+
         currentDeck = DeckManager.Instance.CloneDeck(preset[0]);
+
         AddUnit(1001);
         AddUnit(1002);
+
+        preset[0].deckList.Add(new DeckList { myUnitID = 1001 });
+        preset[0].deckList.Add(new DeckList { myUnitID = 1002 });
 
     }
 
