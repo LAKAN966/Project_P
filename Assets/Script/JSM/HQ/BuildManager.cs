@@ -34,7 +34,9 @@ public class BuildManager : MonoBehaviour
             PlayerDataManager.Instance.player.buildingsList.Add(new BuildingState { buildingData = null, level = 0 });
         }
 
-        BuffManager.InitBuffs(UnitDataManager.Instance.GetRaceCount());//버프 초기화 함수, 플레이어 데이터 저장시 위치 바꿔야함
+        TagManager.LoadCSV();
+        RaceManager.LoadCSV();
+        //BuffManager.InitBuffs();//버프 초기화 함수, 플레이어 데이터 저장시 위치 바꿔야함
     }
 
     private void Start()

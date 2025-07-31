@@ -55,7 +55,7 @@ public class UIUnitInfo : MonoBehaviour
             nameValueText.text = $"{stats.Name}";
             hpValueText.text = $"{stats.MaxHP.ToString()}";
             damageValueText.text = $"{stats.Damage.ToString()}";
-            typeText.text = $"{TagManager.GetNameByID(stats.RaceID)}";
+            typeText.text = $"{RaceManager.GetNameByID(stats.RaceID)}";
             hpIcon.sprite = hpSprite;
             damageIcon.sprite = damageSprite;
             typeIcon.sprite = typeSprite;

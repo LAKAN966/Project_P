@@ -27,7 +27,7 @@ public class UITowerSlot : MonoBehaviour
         }
 
         //towerImg.sprite = 
-        raceNameText.text = TagManager.GetNameByID(raceID);
+        raceNameText.text = RaceManager.GetNameByID(raceID);
         floorText.text = $"{stage.Chapter}층";
         GetColorByRaceID(raceID);
         btn.onClick.RemoveAllListeners();

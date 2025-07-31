@@ -13,7 +13,7 @@ public class FillterUI : MonoBehaviour
 
     private void Awake()
     {
-        var tagData = TagManager.GetAll();
+        var tagData = RaceManager.GetAll();
 
         foreach (var kvp in tagData)
         {

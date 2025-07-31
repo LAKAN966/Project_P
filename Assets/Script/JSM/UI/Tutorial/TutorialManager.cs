@@ -46,7 +46,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(InitTutorial());
+        //StartCoroutine(InitTutorial());
     }
 
     private IEnumerator InitTutorial()

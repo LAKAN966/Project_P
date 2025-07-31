@@ -3,20 +3,17 @@ using UnityEngine;
 
 public static class BuffManager
 {
-    public static void InitBuffs(int raceCount)
+    public static void InitBuffs()
     {
         PlayerDataManager.Instance.player.raceBuffTable.Clear();
 
-        for (int raceID = 0; raceID < raceCount; raceID++)
+        foreach (int raceID in RaceManager.GetAll().Keys)
         {
             UnitStats buff = new UnitStats
             {
                 ID = raceID,
-                Name = null,
-                Description = null,
                 RaceID = raceID,
-                IsHero = false,
-                IsAOE = false,
+                Name = RaceManager.GetNameByID(raceID),
                 AttackRange = 1f,
                 Damage = 1f,
                 MaxHP = 1f,
@@ -26,10 +23,9 @@ public static class BuffManager
                 Hitback = 1,
                 PreDelay = 1f,
                 PostDelay = 1f,
-                ModelName = null,
                 AttackType = 1,
                 Size = 1f,
-                SkillID = null
+                tagId = null,
             };
 
             PlayerDataManager.Instance.player.raceBuffTable[raceID] = buff;
