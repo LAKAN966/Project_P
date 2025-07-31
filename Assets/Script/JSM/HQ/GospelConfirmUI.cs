@@ -15,6 +15,7 @@ public class GospelConfirmUI : MonoBehaviour
     {
         nameText.text = data.name;
         costText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.tribute)}/{NumberFormatter.FormatNumber(data.cost)}";
+        costText.color = PlayerDataManager.Instance.player.tribute < data.cost ? Color.red : Color.black;
         descText.text = data.description;
         confirmBtn.gameObject.SetActive(!show);
         cancleBtn.gameObject.SetActive(!show);

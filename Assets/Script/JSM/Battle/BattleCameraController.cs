@@ -1,7 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 
-public class CameraController : MonoBehaviour
+public class BattleCameraController : CameraController
 {
     public float minX;
     public float maxX;
@@ -14,12 +15,9 @@ public class CameraController : MonoBehaviour
     private float maxSize;     // 줌 아웃 한계
 
     private Vector3 lastMousePos;
-    private Camera cam;
 
     void Start()
     {
-        cam = Camera.main;
-
         minSize = cam.orthographicSize*0.7f;
 
         float stageWidth = maxX - minX;
@@ -31,6 +29,8 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        if ((this as CameraController).IsFocusing) return;
+
         HandleZoom();
         HandleDrag();
     }

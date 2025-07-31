@@ -2,26 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SimpleData
-{
-    public int ID;
-    public string Name;
-}
 
 public class TagManager
 {
     private static Dictionary<int, string> dataMap;
 
-    static TagManager()
-    {
-        LoadCSV();
-    }
-
-    private static void LoadCSV()
+    public static void LoadCSV()
     {
         dataMap = new Dictionary<int, string>();
 
-        TextAsset csvFile = Resources.Load<TextAsset>("Data/EnumID");
+        TextAsset csvFile = Resources.Load<TextAsset>("Data/TagData");
         if (csvFile == null)
         {
             Debug.LogError("EnumID.csv 파일을 찾을 수 없습니다.");
@@ -30,7 +20,7 @@ public class TagManager
 
         string[] lines = csvFile.text.Split(new[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
 
-        for (int i = 1; i < lines.Length; i++) // 첫 줄은 헤더
+        for (int i = 1; i < lines.Length; i++)
         {
             string[] tokens = lines[i].Split(',');
             if (tokens.Length < 2) continue;
@@ -41,6 +31,7 @@ public class TagManager
                 dataMap[id] = name;
             }
         }
+        Debug.Log($"태그 {dataMap.Count}개 로드됨");
     }
 
     public static string GetNameByID(int id)
@@ -51,5 +42,9 @@ public class TagManager
     public static Dictionary<int, string> GetAll()
     {
         return dataMap;
+    }
+    public static int GetCount()
+    {
+        return dataMap.Count;
     }
 }

@@ -144,7 +144,7 @@ public class UITowerInfo : MonoBehaviour
         int raceID = stageID.RaceID;
 
         TextMeshProUGUI text = warningPopup.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = $"{TagManager.GetNameByID(raceID)} 유닛만\n출전 가능합니다.";
+        text.text = $"{RaceManager.GetNameByID(raceID)} 유닛만\n출전 가능합니다.";
         warningPopup.SetActive(true);
 
     }
