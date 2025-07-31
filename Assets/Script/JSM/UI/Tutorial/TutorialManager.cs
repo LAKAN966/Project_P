@@ -56,13 +56,27 @@ public class TutorialManager : MonoBehaviour
         var tutorialDeck = new DeckData();
         tutorialDeck.AddNormalUnit(1001);
         tutorialDeck.AddNormalUnit(1002);
-
         var clonedDeck = DeckManager.Instance.CloneDeck(tutorialDeck);
 
         PlayerDataManager.Instance.player.currentDeck = clonedDeck;
-        
+        SceneManager.LoadScene("MainScene");
+        SceneManager.sceneLoaded += OnBattleSceneLoaded;//씬 로드 후에 실행되게 설정
         SceneManager.LoadScene("BattleScene");
+        Debug.Log($"튜토리얼 입장");
         StartCoroutine(InitTutorial());
+    }
+
+    private void OnBattleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "BattleScene")
+        {
+            //var deck = PlayerDataManager.Instance.player.currentDeck[PlayerDataManager.Instance.player.currentPresetIndex];
+
+            var normalDeck = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
+            var leaderDeck = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
+            SceneManager.sceneLoaded -= OnBattleSceneLoaded;
+            BattleManager.Instance.StartBattle(110001, normalDeck, leaderDeck);
+        }
     }
 
     private IEnumerator InitTutorial()
@@ -317,10 +331,4 @@ public class TutorialManager : MonoBehaviour
         maskRect.anchoredPosition = localPos;
         maskRect.sizeDelta = screenSize + new Vector2(margin * 2f, margin * 2f);
     }
-
-
-
-
-
-
 }
