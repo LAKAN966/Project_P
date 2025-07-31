@@ -8,4 +8,6 @@ public class TutorialStep
     public string triggerEventName;
 
     public int effectID;
+    public bool dialogUp;
+    public string highlightTarget;
 }

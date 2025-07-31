@@ -15,9 +15,16 @@ public class BattleCameraController : CameraController
     private float maxSize;     // 줌 아웃 한계
 
     private Vector3 lastMousePos;
+    private Vector3 initialCamPosition;
+
+    private Vector3 savedCamPosition;
+    private float savedCamSize;
+    private bool hasSavedCamera = false;
+
 
     void Start()
     {
+        initialCamPosition = cam.transform.position;
         minSize = cam.orthographicSize*0.7f;
 
         float stageWidth = maxX - minX;
@@ -30,7 +37,7 @@ public class BattleCameraController : CameraController
     void Update()
     {
         if ((this as CameraController).IsFocusing) return;
-
+        if (TutorialManager.Instance.isPlaying) return;
         HandleZoom();
         HandleDrag();
     }
@@ -44,7 +51,7 @@ public class BattleCameraController : CameraController
         }
     }
 
-    void HandleZoom()
+    public void HandleZoom()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (Mathf.Abs(scroll) < 0.01f) return;
@@ -62,7 +69,7 @@ public class BattleCameraController : CameraController
         ClampCameraPosition();
     }
 
-    void HandleDrag()
+    public void HandleDrag()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -91,4 +98,47 @@ public class BattleCameraController : CameraController
         float clampedX = Mathf.Clamp(cam.transform.position.x, leftLimit, rightLimit);
         cam.transform.position = new Vector3(clampedX, cam.transform.position.y, cam.transform.position.z);
     }
+    public void FocusLeftMax()
+    {
+        SaveCameraState();
+        cam.orthographicSize = minSize;
+        ClampCameraPosition();
+
+        float halfView = cam.orthographicSize * cam.aspect;
+        float leftLimit = minX + halfView;
+
+        cam.transform.position = new Vector3(leftLimit, initialCamPosition.y, initialCamPosition.z);
+    }
+
+    public void FocusRightMax()
+    {
+        cam.orthographicSize = minSize;
+        ClampCameraPosition();
+
+        float halfView = cam.orthographicSize * cam.aspect;
+        float rightLimit = maxX - halfView;
+
+        cam.transform.position = new Vector3(rightLimit, initialCamPosition.y, initialCamPosition.z);
+    }
+    public void SaveCameraState()
+    {
+        savedCamPosition = cam.transform.position;
+        savedCamSize = cam.orthographicSize;
+        hasSavedCamera = true;
+    }
+    public void RestoreCameraState()
+    {
+        if (!hasSavedCamera)
+        {
+            Debug.LogWarning("카메라 상태가 저장되지 않았습니다.");
+            return;
+        }
+
+        cam.transform.position = savedCamPosition;
+        cam.orthographicSize = savedCamSize;
+
+        ClampCameraPosition(); // 혹시 범위를 넘어갈 경우 보정
+    }
+
+
 }
