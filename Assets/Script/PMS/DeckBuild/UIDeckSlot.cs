@@ -50,6 +50,7 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
 
         unitData = unitStats;
+        DeckManager.Instance.SaveCurrentDeckToPreset();
         UIDeckBuildManager.instance.SetMyUnitIcons();
         UIDeckBuildManager.instance.SetDeckSlots();
         UIUnitInfo.instance.ShowInfo(unitData);
@@ -73,6 +74,7 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             unitImage.sprite = null;
             unitImage.color = new Color(1, 1, 1, 0);
 
+            DeckManager.Instance.SaveCurrentDeckToPreset();
             UIDeckBuildManager.instance.SetMyUnitIcons();
             UIDeckBuildManager.instance.SetDeckSlots();
             UIUnitInfo.instance.ShowInfo(null);

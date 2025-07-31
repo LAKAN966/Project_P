@@ -1,76 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class UIPresetManager : MonoBehaviour
 {
-    [SerializeField] private GameObject panel;
-    [SerializeField] private UIPresetDeck[] presetDecks; // 프리셋 3개
+    [SerializeField] private List<Button> presetBtn; 
+    [SerializeField] private List<Image> presetBtnImg;
+    [SerializeField] private List<PresetMover> presetMover;
 
-    public static UIPresetManager Instance;
-
+    public static UIPresetManager instance;
+    private int prevIndex = -1;
+    private bool isSwitching = false;
     private void Awake()
     {
-        Instance = this;
+        instance = this;
     }
 
-    public void OpenPanel()
+    public void OnClickPresetBtn(int index)
     {
-        panel.SetActive(true);
-        RefreshUI();
-        UIDeckBuildManager.instance.SetMode(DeckMode.Preset);
-        UIDeckBuildManager.instance.SetMyUnitIcons();
-    }
+        if (isSwitching || index == PlayerDataManager.Instance.player.currentPresetIndex) return;
+        isSwitching = true;
 
-    public void ClosePanel()
-    {
-        panel.SetActive(false);
-        UIDeckBuildManager.instance.SetMode(DeckMode.DeckBuild);
-        UIDeckBuildManager.instance.SetMyUnitIcons();
-        foreach (var preset in presetDecks)
-        {
-            preset.ClearAll();
-        }
-    }
-
-    public void RefreshUI()
-    {
-        var player = PlayerDataManager.Instance.player;
-
-        for (int i = 0; i < presetDecks.Length; i++)
-        {
-            if (i < player.preset.Count)
-                presetDecks[i].SetDeck(player.preset[i]);
-            else
-                presetDecks[i].ClearAll();
-        }
-    }
-
-    public void OnClickSavePreset(int index)
-    {
-        if (index < 0 || index >= presetDecks.Length) return;
-
-        var newDeck = presetDecks[index].GetTempDeckData().Clone();
-        PlayerDataManager.Instance.player.preset[index] = newDeck;
-
-        Debug.Log($"프리셋 {index + 1} 저장 완료");
-    }
-
-    public void OnClickLoadPresetToCurrentDeck(int index)
-    {
         bool success = DeckManager.Instance.SwitchPreset(index);
 
         if (success)
         {
-            if (UIDeckBuildManager.instance != null)
+            UIDeckBuildManager.instance.SetDeckSlots();
+            UIDeckBuildManager.instance.SetMyUnitIcons();
+
+            if(prevIndex != -1 && prevIndex != index)
             {
-                UIDeckBuildManager.instance.SetDeckSlots();
+                presetMover[prevIndex].MoveBackDelay();
             }
-            Debug.Log($"프리셋 {index + 1}을 현재 덱으로 불러왔습니다.");
+
+            presetMover[index].MoveRight();
+            StartCoroutine(SwitchAfterDelay(index, 0.5f));
         }
+
         else
         {
-            Debug.LogWarning($"프리셋 {index + 1} 불러오기 실패");
+            isSwitching = false;
         }
+    }
+
+    private IEnumerator SwitchAfterDelay(int newIndex, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        prevIndex = newIndex;
+        UpdatePresetBtn();
+        isSwitching = false;
+    }
+
+    public void UpdatePresetBtn()
+    {
+        int currentIndex = PlayerDataManager.Instance.player.currentPresetIndex;
+
+        for (int i = 0; i < presetBtnImg.Count; i++)
+        {
+            float alpha = (i == currentIndex) ? 1f : 0.5f;
+            SetButtonAlpha(presetBtnImg[i], alpha);
+        }
+    }
+
+    private void SetButtonAlpha(Image img, float alpha)
+    {
+        Color color = img.color;
+        color.a = alpha;
+        img.color = color;
     }
 }
