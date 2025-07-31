@@ -115,6 +115,8 @@ public class UIDeckBuildManager : MonoBehaviour
     {
         var normalUnitIDs = DeckManager.Instance.GetAllNormalUnit();
         var leaderUnitID = DeckManager.Instance.GetLeaderUnit();
+        Debug.Log("현재 덱 유닛 수: " + normalUnitIDs.Count);
+        Debug.Log("덱 유닛 목록: " + string.Join(",", normalUnitIDs));
 
         for (int i = 0; i < deckSlotList.Count; i++)
         {

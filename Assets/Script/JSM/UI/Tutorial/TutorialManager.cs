@@ -56,8 +56,9 @@ public class TutorialManager : MonoBehaviour
         var tutorialDeck = new DeckData();
         tutorialDeck.AddNormalUnit(1001);
         tutorialDeck.AddNormalUnit(1002);
+        var clonedDeck = DeckManager.Instance.CloneDeck(tutorialDeck);
 
-        PlayerDataManager.Instance.player.currentDeck = tutorialDeck;
+        PlayerDataManager.Instance.player.currentDeck = clonedDeck;
         SceneManager.LoadScene("MainScene");
         SceneManager.sceneLoaded += OnBattleSceneLoaded;//씬 로드 후에 실행되게 설정
         SceneManager.LoadScene("BattleScene");

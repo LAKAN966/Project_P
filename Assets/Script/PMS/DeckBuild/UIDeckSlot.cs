@@ -97,22 +97,17 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         if (Time.time - lastClickTime < doubleClickThreshold)
         {
             DeckManager.Instance.RemoveFromDeck(unitData.ID);
+            DeckManager.Instance.SaveCurrentDeckToPreset();
 
             unitData = null;
             unitImage.sprite = null;
             unitImage.color = new Color(1, 1, 1, 0);
+            raceIcon.sprite = null;
+            raceIcon.color = new Color(1, 1, 1, 0);
 
-            DeckManager.Instance.SaveCurrentDeckToPreset();
             UIDeckBuildManager.instance.SetMyUnitIcons();
             UIDeckBuildManager.instance.SetDeckSlots();
             UIUnitInfo.instance.ShowInfo(null);
-
-            unitData = null;
-            unitImage.sprite = null;
-            unitImage.color = new Color(1, 1, 1, 0);
-
-            raceIcon.sprite = null;
-            raceIcon.color = new Color(1, 1, 1, 0);
 
         }
         lastClickTime = Time.time;

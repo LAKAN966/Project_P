@@ -7326,6 +7326,7 @@ GameObject:
   - component: {fileID: 1328163650}
   - component: {fileID: 1328163652}
   - component: {fileID: 1328163651}
+  - component: {fileID: 1328163653}
   m_Layer: 5
   m_Name: BuildCostUIBG
   m_TagString: Untagged
@@ -7392,6 +7393,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328163649}
   m_CullTransparentMesh: 1
+--- !u!114 &1328163653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328163649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7a366fe8af72b4e8ec1310f2a711b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionPointText: {fileID: 6307650079164670220}
 --- !u!1 &1333551243
 GameObject:
   m_ObjectHideFlags: 0
@@ -8790,6 +8804,7 @@ GameObject:
   - component: {fileID: 1595136972}
   - component: {fileID: 1595136974}
   - component: {fileID: 1595136973}
+  - component: {fileID: 1595136975}
   m_Layer: 5
   m_Name: ActivePointCost
   m_TagString: Untagged
@@ -8856,6 +8871,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595136971}
   m_CullTransparentMesh: 1
+--- !u!114 &1595136975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595136971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7a366fe8af72b4e8ec1310f2a711b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionPointText: {fileID: 918263997440854131}
 --- !u!1 &1603439124
 GameObject:
   m_ObjectHideFlags: 0
@@ -37622,13 +37650,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6625537064147105405}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e7a366fe8af72b4e8ec1310f2a711b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actionPointText: {fileID: 6307650079164670220}
-  timerText: {fileID: 3830580799780776989}
 --- !u!1 &4451039498999120367
 GameObject:
   m_ObjectHideFlags: 0
@@ -37718,7 +37745,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6625537064147105405}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -39861,13 +39888,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6214782142726822175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e7a366fe8af72b4e8ec1310f2a711b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actionPointText: {fileID: 918263997440854131}
-  timerText: {fileID: 1196345748927749914}
 --- !u!114 &4906811784864197241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47080,7 +47106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6221645876956481892
 GameObject:
   m_ObjectHideFlags: 0
@@ -55108,7 +55134,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6214782142726822175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
