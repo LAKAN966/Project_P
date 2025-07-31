@@ -21,10 +21,10 @@ public class UIUnitInfo : MonoBehaviour
     [SerializeField] private Sprite damageSprite;
     [SerializeField] private Sprite typeSprite;
 
-    [Header("리더 유닛 이미지/정보")]
-    [SerializeField] private Image leaderIMG;
-    [SerializeField] private TextMeshProUGUI costText;
-    [SerializeField] private Image costIcon;
+    //[Header("리더 유닛 이미지/정보")]
+    //[SerializeField] private Image leaderIMG;
+    //[SerializeField] private TextMeshProUGUI costText;
+    //[SerializeField] private Image costIcon;
 
     [SerializeField] private GameObject skillBox;
 
@@ -89,25 +89,25 @@ public class UIUnitInfo : MonoBehaviour
         }
     }
 
-    public void ShowleaderInfo(UnitStats stats)
-    {
-        if (stats != null)
-        {
-            leaderIMG.gameObject.SetActive(true);
-            costText.gameObject.SetActive(true);
-            costIcon.gameObject.SetActive(true);
+    //public void ShowleaderInfo(UnitStats stats)
+    //{
+    //    if (stats != null)
+    //    {
+    //        leaderIMG.gameObject.SetActive(true);
+    //        costText.gameObject.SetActive(true);
+    //        costIcon.gameObject.SetActive(true);
 
-            leaderIMG.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
-            costText.text = stats.Cost.ToString();
-        }
+    //        leaderIMG.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+    //        costText.text = stats.Cost.ToString();
+    //    }
 
-        else
-        {
-            leaderIMG.gameObject.SetActive(false);
-            costText.gameObject.SetActive(false);
-            costIcon.gameObject.SetActive(false);
-        }
-    }
+    //    else
+    //    {
+    //        leaderIMG.gameObject.SetActive(false);
+    //        costText.gameObject.SetActive(false);
+    //        costIcon.gameObject.SetActive(false);
+    //    }
+    //}
 
     public void ClearInfo()
     {
