@@ -34,21 +34,12 @@ public class TutorialManager : MonoBehaviour
 
     public bool isPlaying = false;
     private bool hasPlayedNpcIntro = false;
+
     private void Awake()
     {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void OnEnable()
-    {
-        //SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        //SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public void StartTuto()
@@ -60,7 +51,7 @@ public class TutorialManager : MonoBehaviour
 
         PlayerDataManager.Instance.player.currentDeck = clonedDeck;
         SceneManager.LoadScene("MainScene");
-        SceneManager.sceneLoaded += OnBattleSceneLoaded;//씬 로드 후에 실행되게 설정
+        SceneManager.sceneLoaded += OnBattleSceneLoaded;
         SceneManager.LoadScene("BattleScene");
         Debug.Log($"튜토리얼 입장");
         StartCoroutine(InitTutorial());
@@ -70,8 +61,6 @@ public class TutorialManager : MonoBehaviour
     {
         if (scene.name == "BattleScene")
         {
-            //var deck = PlayerDataManager.Instance.player.currentDeck[PlayerDataManager.Instance.player.currentPresetIndex];
-
             var normalDeck = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
             var leaderDeck = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
             SceneManager.sceneLoaded -= OnBattleSceneLoaded;
@@ -95,22 +84,6 @@ public class TutorialManager : MonoBehaviour
         Debug.Log(cameraController);
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        AssignCamera();
-
-        if (scene.name == "BattleScene")
-        {
-            StartCoroutine(HandleBattleSceneLoaded());
-        }
-    }
-
-    private IEnumerator HandleBattleSceneLoaded()
-    {
-        yield return new WaitForSeconds(2f);
-        Time.timeScale = 0f;
-    }
-
     public void StartTutorial()
     {
         currentStepIndex = 0;
@@ -122,10 +95,10 @@ public class TutorialManager : MonoBehaviour
     {
         var step = tutorialData.steps[currentStepIndex];
 
-        if (!string.IsNullOrEmpty(step.triggerEventName))
+        // 🎯 triggerEventName은 effectID가 6이 아닐 때만 적용
+        if (!string.IsNullOrEmpty(step.triggerEventName) && step.effectID != 6)
         {
             tutorialCanvas.gameObject.SetActive(false);
-            // 트리거가 필요한 경우: 대기만 하고 대화창 생성 안함
             Debug.Log($"[튜토리얼] 트리거 '{step.triggerEventName}' 대기 중...");
             return;
         }
@@ -146,9 +119,7 @@ public class TutorialManager : MonoBehaviour
         nextButton = dialogueBoxInstance.transform.Find("NextButton")?.GetComponent<Button>();
 
         if (step.dialogUp)
-        {
-            MoveToTopCenter(panel,200);
-        }
+            MoveToTopCenter(panel, 200);
 
         npcNameText.text = step.npcName;
         dialogueText.text = step.dialogue;
@@ -163,17 +134,17 @@ public class TutorialManager : MonoBehaviour
             if (!hasPlayedNpcIntro)
             {
                 hasPlayedNpcIntro = true;
-                yield return dialog.PlayNpcIntroAnimationWithYield(); // 애니메이션 끝날 때까지 대기
+                yield return dialog.PlayNpcIntroAnimationWithYield();
             }
             else
             {
-                dialog.ShowDialogInstant(); // 즉시 보여줌
+                dialog.ShowDialogInstant();
             }
         }
 
-        yield return HandleStepEffects(step.effectID,step.highlightTarget);
+        yield return HandleStepEffects(step.effectID, step.highlightTarget);
 
-        if (string.IsNullOrEmpty(step.triggerEventName))
+        if (step.effectID != 6 && string.IsNullOrEmpty(step.triggerEventName))
         {
             nextButton.interactable = true;
         }
@@ -182,92 +153,68 @@ public class TutorialManager : MonoBehaviour
     public void MoveToTopCenter(GameObject uiObject, float offsetY = 0f)
     {
         RectTransform targetRect = uiObject.GetComponent<RectTransform>();
-        if (targetRect == null)
-        {
-            Debug.LogWarning("해당 오브젝트에 RectTransform이 없습니다.");
-            return;
-        }
+        if (targetRect == null) return;
 
-        // 1. 피벗과 앵커를 화면 위 중앙으로 설정
         targetRect.pivot = new Vector2(0.5f, 1f);
         targetRect.anchorMin = new Vector2(0.5f, 1f);
         targetRect.anchorMax = new Vector2(0.5f, 1f);
-
-        // 2. 위치 설정 (offsetY 만큼 아래로 내리기 가능)
         targetRect.anchoredPosition = new Vector2(0f, -offsetY);
     }
-
 
     private IEnumerator HandleStepEffects(int effectID, string target)
     {
         maskPanel.SetActive(false);
         blackImage.SetActive(false);
         blockImage.SetActive(false);
-        GameObject button;
+
         switch (effectID)
         {
-            case 0:
-                // 아무 연출 없음
-                if (target == "EnemyHealth")
-                {
-                    BattleCameraController camController = FindObjectOfType<BattleCameraController>();
-                    if (camController != null)
-                    {
-                        camController.FocusRightMax();
-                    }
-                }
-                if (target == "AllyHealth")
-                {
-                    BattleCameraController camController = FindObjectOfType<BattleCameraController>();
-                    if (camController != null)
-                    {
-                        camController.FocusLeftMax();
-                    }
-                }
+            case 0://연출 없음
+                blockImage.SetActive(true);
+                var cam = FindObjectOfType<BattleCameraController>();
+                if (target == "EnemyHealth") cam?.FocusRightMax();
+                else if (target == "AllyHealth") cam?.FocusLeftMax();
                 break;
-            case 1:
+
+            case 1://target 하이라이트
                 maskPanel.SetActive(true);
-                button = GameObject.Find(target);
-                if (button != null)
-                {
-                    HighlightUI(button);
-                    Debug.Log("하이라이트 연출");
-                }
-                
+                GameObject button = GameObject.Find(target);
+                if (button != null) HighlightUI(button);
                 break;
-            case 2:
-                // 씬 전환
+
+            case 2://배틀신 이동
                 SceneManager.LoadScene("BattleScene");
                 break;
 
-            case 3:
+            case 3://검은 화면
                 blackImage.SetActive(true);
                 break;
-            case 4:
+
+            case 4://배틀 카메라 되돌리기(1번만씀)
                 blockImage.SetActive(true);
-                break;
-            case 5:
-                blockImage.SetActive(true);
-                FindObjectOfType<BattleCameraController>().RestoreCameraState();
+                FindObjectOfType<BattleCameraController>()?.RestoreCameraState();
                 break;
 
+            case 5://메인신 이동
+                SceneManager.LoadScene("MainScene");
+                break;
+
+            case 6:// 대화창은 그대로, 타겟 이벤트 실행되면 다음으로 넘어감
+                //TutorialManager.Instance.OnEventTriggered(이벤트이름);이 실행되면 다음으로 넘어감
+                Debug.Log("[튜토리얼] effectID 6: 이벤트 '" + target + "' 대기 중");
+                break;
         }
 
         yield return null;
     }
 
-
     public void NextStep()
     {
-        Debug.Log("실행!");
         var dialogPanel = dialogueBoxInstance?.GetComponent<DialogPanel>();
-        if (dialogPanel != null)
+        if (dialogPanel != null && dialogPanel.IsNpcAnimating())
         {
-            if (dialogPanel.IsNpcAnimating())
-            {
-                dialogPanel.ForceFinishAnimation();
-                return;
-            }
+            dialogPanel.ForceFinishAnimation();
+            return;
         }
 
         currentStepIndex++;
@@ -277,12 +224,19 @@ public class TutorialManager : MonoBehaviour
             EndTutorial();
     }
 
-
     public void OnEventTriggered(string eventName)
     {
         var step = tutorialData.steps[currentStepIndex];
-        if (step.triggerEventName == eventName)
+        if (step.effectID == 6 && step.highlightTarget == eventName)
+        {
+            Debug.Log($"[튜토리얼] 이벤트 '{eventName}' 수신됨, 다음 단계로");
             NextStep();
+        }
+        else if (step.triggerEventName == eventName)
+        {
+            Debug.Log($"[튜토리얼] 트리거 '{eventName}' 수신됨, 다음 단계로");
+            NextStep();
+        }
     }
 
     private void EndTutorial()
@@ -291,6 +245,7 @@ public class TutorialManager : MonoBehaviour
             Destroy(dialogueBoxInstance);
         Debug.Log("튜토리얼 완료");
     }
+
     public void HighlightUI(GameObject targetUI)
     {
         RectTransform targetRect = targetUI.GetComponent<RectTransform>();
@@ -298,35 +253,26 @@ public class TutorialManager : MonoBehaviour
         Canvas maskCanvas = maskPanel.GetComponentInParent<Canvas>();
         Canvas targetCanvas = targetUI.GetComponentInParent<Canvas>();
 
-        if (targetRect == null || maskRect == null || targetCanvas == null || maskCanvas == null)
-        {
-            Debug.LogWarning("RectTransform 또는 Canvas 누락");
-            return;
-        }
+        if (targetRect == null || maskRect == null || targetCanvas == null || maskCanvas == null) return;
 
         Camera targetCamera = targetCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : targetCanvas.worldCamera;
         Camera maskCamera = maskCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : maskCanvas.worldCamera;
 
-        // 📍 1. 타겟의 월드 코너 → 스크린 좌표로 변환
         Vector3[] corners = new Vector3[4];
-        targetRect.GetWorldCorners(corners); // 0: 좌하, 2: 우상
+        targetRect.GetWorldCorners(corners);
 
         Vector2 screenMin = RectTransformUtility.WorldToScreenPoint(targetCamera, corners[0]);
         Vector2 screenMax = RectTransformUtility.WorldToScreenPoint(targetCamera, corners[2]);
-
         Vector2 screenCenter = (screenMin + screenMax) * 0.5f;
         Vector2 screenSize = screenMax - screenMin;
 
-        // 📍 2. 마스크 캔버스 기준 로컬 좌표로 변환 (화면 기준으로 위치 계산)
-        Vector2 localPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             maskCanvas.GetComponent<RectTransform>(),
             screenCenter,
             maskCamera,
-            out localPos
+            out Vector2 localPos
         );
 
-        // 📍 3. 적용
         float margin = 5f;
         maskRect.anchoredPosition = localPos;
         maskRect.sizeDelta = screenSize + new Vector2(margin * 2f, margin * 2f);
