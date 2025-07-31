@@ -60,10 +60,12 @@ public class UIDeckBuildManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null && instance != this)
         {
-            instance = this;
+            Destroy(gameObject);
+            return;
         }
+        instance = this;
     }
 
     public void Init()
