@@ -49,7 +49,9 @@ public class BuildSelectButton : MonoBehaviour
         desc.text = building.description;
         buildingName.text = building.displayName;
         goldText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold)} / {NumberFormatter.FormatNumber(building.gold)}";
+        goldText.color = PlayerDataManager.Instance.player.gold < building.gold ? Color.red : Color.black;
         blueprintText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.bluePrint)} / {NumberFormatter.FormatNumber(building.blueprint)}";
+        blueprintText.color = PlayerDataManager.Instance.player.bluePrint < building.blueprint ? Color.red : Color.black;
 
         confirmButton.onClick.RemoveAllListeners();
         confirmButton.onClick.AddListener(() =>

@@ -29,6 +29,7 @@ public class Player
     public List<BuildingState> buildingsList = new();
     public Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();
     public Dictionary<int, UnitStats> raceBuffTable = new();
+    public Dictionary<int, UnitStats> tagBuffTable = new();
 
     //public int pickPoint = 0;
 

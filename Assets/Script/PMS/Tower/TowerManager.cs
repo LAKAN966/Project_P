@@ -131,7 +131,7 @@ public class TowerManager
 
         if (!CheckRaceInDeck(raceID))
         {
-            Debug.Log($"{TagManager.GetNameByID(raceID)}와 동일한 유닛만 출전할 수 있습니다.");
+            Debug.Log($"{RaceManager.GetNameByID(raceID)}와 동일한 유닛만 출전할 수 있습니다.");
             raceMatch?.Invoke();
             return;
         }
