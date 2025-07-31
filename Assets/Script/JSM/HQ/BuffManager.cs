@@ -5,15 +5,14 @@ public static class BuffManager
 {
     public static void InitBuffs()
     {
-        PlayerDataManager.Instance.player.raceBuffTable.Clear();
+        PlayerDataManager.Instance.player.buildingBuffs.Clear();
 
-        foreach (int raceID in RaceManager.GetAll().Keys)
+        foreach (int buildingID in BuildManager.Instance.buildingDict.Keys)
         {
             UnitStats buff = new UnitStats
             {
-                ID = raceID,
-                RaceID = raceID,
-                Name = RaceManager.GetNameByID(raceID),
+                ID = buildingID,
+                RaceID = BuildManager.Instance.buildingDict[buildingID].raceId,
                 AttackRange = 1f,
                 Damage = 1f,
                 MaxHP = 1f,
@@ -25,60 +24,50 @@ public static class BuffManager
                 PostDelay = 1f,
                 AttackType = 1,
                 Size = 1f,
-                tagId = null,
+                tagId = BuildManager.Instance.buildingDict[buildingID].raceIDList,
             };
 
-            PlayerDataManager.Instance.player.raceBuffTable[raceID] = buff;
-        }
-
-        PlayerDataManager.Instance.player.tagBuffTable.Clear();
-
-        foreach (int tagID in TagManager.GetAll().Keys)
-        {
-            UnitStats buff = new UnitStats
-            {
-                ID = tagID,
-                RaceID = tagID,
-                Name = RaceManager.GetNameByID(tagID),
-                AttackRange = 1f,
-                Damage = 1f,
-                MaxHP = 1f,
-                MoveSpeed = 1f,
-                SpawnInterval = 1f,
-                Cost = 1,
-                Hitback = 1,
-                PreDelay = 1f,
-                PostDelay = 1f,
-                AttackType = 1,
-                Size = 1f,
-            };
-
-            PlayerDataManager.Instance.player.tagBuffTable[tagID] = buff;
+            PlayerDataManager.Instance.player.buildingBuffs[buildingID] = buff;
         }
     }
 
     public static UnitStats GetBuff(UnitStats baseStats)
     {
-        GetRaceBuff()
-    }
-
-    public static UnitStats GetRaceBuff(int raceID)
-    {
-        return PlayerDataManager.Instance.player.raceBuffTable.TryGetValue(raceID, out var buff) ? buff : null;
-    }
-
-    public static Dictionary<int, UnitStats> GetTagBuff(List<int> tagID)
-    {
-        Dictionary<int, UnitStats> list = new Dictionary<int, UnitStats>();
-        foreach(int i in tagID) 
+        UnitStats totalBuff = new UnitStats
         {
-            list[i] = PlayerDataManager.Instance.player.tagBuffTable.TryGetValue(i, out var buff) ? buff : null;
+            // 초기값은 모두 1로 설정
+            AttackRange = 1f,
+            Damage = 1f,
+            MaxHP = 1f,
+            MoveSpeed = 1f,
+            SpawnInterval = 1f,
+            Cost = 1,
+            Hitback = 1,
+            PreDelay = 1f,
+            PostDelay = 1f,
+            AttackType = 1,
+            Size = 1f
+        };
+
+        var buildingBuffs = PlayerDataManager.Instance.player.buildingBuffs;
+
+        foreach (var buff in buildingBuffs.Values)
+        {
+            bool matchRace = buff.RaceID == baseStats.RaceID;
+            bool matchTag = buff.tagId != null && baseStats.tagId != null &&
+                            buff.tagId.Exists(tag => baseStats.tagId.Contains(tag));
+
+            if (matchRace || matchTag)
+            {
+                ApplyBuff(ref totalBuff, buff);
+            }
         }
 
-        return list;
+        return totalBuff;
     }
 
-    public static UnitStats ApplyBuff(UnitStats baseStats)
+
+    public static UnitStats ApplyBuff(UnitStats baseStats)//곱연산
     {
         var buff = GetBuff(baseStats);
         if (buff == null) return baseStats;
@@ -106,15 +95,29 @@ public static class BuffManager
             SkillID = baseStats.SkillID
         };
     }
-
-    public static void UpdateBuffStat(int raceID, List<int> statIndex, float value)
+    private static void ApplyBuff(ref UnitStats total, UnitStats add)//합연산
     {
-        if (!PlayerDataManager.Instance.player.raceBuffTable.ContainsKey(raceID))
+        total.AttackRange += add.AttackRange - 1f;
+        total.Damage += add.Damage - 1f;
+        total.MaxHP += add.MaxHP - 1f;
+        total.MoveSpeed += add.MoveSpeed - 1f;
+        total.SpawnInterval += add.SpawnInterval - 1f;
+        total.Cost += add.Cost - 1;
+        total.Hitback += add.Hitback - 1;
+        total.PreDelay += add.PreDelay - 1f;
+        total.PostDelay += add.PostDelay - 1f;
+        total.AttackType += add.AttackType - 1;
+        total.Size += add.Size - 1f;
+    }
+
+    public static void UpdateBuffStat(int buildingID, List<int> statIndex, float value)
+    {
+        if (!PlayerDataManager.Instance.player.buildingBuffs.ContainsKey(buildingID))
         {
-            Debug.LogWarning($"Race ID {raceID}에 대한 버프가 존재하지 않습니다.");
+            Debug.LogWarning($"Race ID {buildingID}에 대한 버프가 존재하지 않습니다.");
             return;
         }
-        var buff = PlayerDataManager.Instance.player.raceBuffTable[raceID];
+        var buff = PlayerDataManager.Instance.player.buildingBuffs[buildingID];
         value *= 0.01f;
         foreach( var i in statIndex ) 
         {
@@ -135,6 +138,6 @@ public static class BuffManager
                     return;
             }
         }
-        PlayerDataManager.Instance.player.raceBuffTable[raceID] = buff;
+        PlayerDataManager.Instance.player.buildingBuffs[buildingID] = buff;
     }
 }
