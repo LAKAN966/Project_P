@@ -57,7 +57,10 @@ public class TutorialManager : MonoBehaviour
         tutorialDeck.AddNormalUnit(1001);
         tutorialDeck.AddNormalUnit(1002);
 
-        PlayerDataManager.Instance.player.currentDeck = tutorialDeck;
+        var clonedDeck = DeckManager.Instance.CloneDeck(tutorialDeck);
+
+        PlayerDataManager.Instance.player.currentDeck = clonedDeck;
+        
         SceneManager.LoadScene("BattleScene");
         StartCoroutine(InitTutorial());
     }
