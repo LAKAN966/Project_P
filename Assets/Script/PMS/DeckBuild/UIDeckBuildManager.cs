@@ -13,11 +13,11 @@ public enum UnitFilterType
     Crawler
 }
 
-public enum DeckMode
-{
-    DeckBuild,
-    Preset
-}
+//public enum DeckMode
+//{
+//    DeckBuild,
+//    Preset
+//}
 
 public class UIDeckBuildManager : MonoBehaviour
 {
@@ -54,8 +54,9 @@ public class UIDeckBuildManager : MonoBehaviour
 
     private int? raceFilter = null;
 
-    private DeckMode currentMode = DeckMode.DeckBuild;
-    private UIPresetDeck currentPresetDeck;
+    //private DeckMode currentMode = DeckMode.DeckBuild;
+    //private UIPresetDeck currentPresetDeck;
+    
 
     private void Awake()
     {
@@ -65,8 +66,11 @@ public class UIDeckBuildManager : MonoBehaviour
         }
     }
 
-    public void Init() //테스트용 이닛
+    public void Init()
     {
+        int currentIndex = PlayerDataManager.Instance.player.currentPresetIndex;
+        DeckManager.Instance.SwitchPreset(currentIndex);
+
         //raceFilter = filterRaceID;
         currentFilter = UnitFilterType.All;
 
@@ -85,7 +89,7 @@ public class UIDeckBuildManager : MonoBehaviour
         crawlerBtn.onClick.AddListener(() => OnClickFilter(UnitFilterType.Crawler));
 
         UpdateFilterUI();
-
+        UIPresetManager.instance.UpdatePresetBtn();
     }
 
     public void InitDeckSlots() // 시작할 때 덱 슬롯 만들기. 처음에만 쓰면됨.
@@ -173,20 +177,21 @@ public class UIDeckBuildManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        List<int> sortedUnitID;
 
-        if (currentMode == DeckMode.DeckBuild)
-        {
-            sortedUnitID = cachedUnitOrder.OrderBy(id => DeckManager.Instance.CheckInDeck(id)).ToList();
-        }
-        else if (currentMode == DeckMode.Preset && currentPresetDeck != null)
-        {
-            sortedUnitID = cachedUnitOrder.OrderBy(id => currentPresetDeck.ContainsUnit(id)).ToList();
-        }
-        else
-        {
-            sortedUnitID = cachedUnitOrder;
-        }
+
+        //if (currentMode == DeckMode.DeckBuild)
+        //{
+        //    sortedUnitID = cachedUnitOrder.OrderBy(id => DeckManager.Instance.CheckInDeck(id)).ToList();
+        //}
+        //else if (currentMode == DeckMode.Preset && currentPresetDeck != null)
+        //{
+        //    sortedUnitID = cachedUnitOrder.OrderBy(id => currentPresetDeck.ContainsUnit(id)).ToList();
+        //}
+        //else
+        //{
+        //    sortedUnitID = cachedUnitOrder;
+        //}
+        List<int> sortedUnitID = cachedUnitOrder;
 
         foreach (int unitID in sortedUnitID)
         {
@@ -212,15 +217,15 @@ public class UIDeckBuildManager : MonoBehaviour
             var unitIcon = iconGO.GetComponent<UIUnitIcon>();
             unitIcon.Setup(stats);
 
-            bool shouldDisable = false;
-            if (currentMode == DeckMode.DeckBuild)
-            {
-                shouldDisable = DeckManager.Instance.CheckInDeck(stats.ID);
-            }
-            else if (currentMode == DeckMode.Preset && currentPresetDeck != null)
-            {
-                shouldDisable = currentPresetDeck.ContainsUnit(stats.ID);
-            }
+            bool shouldDisable = DeckManager.Instance.CheckInDeck(stats.ID);
+            //if (currentDeck != DeckMode.DeckBuild)
+            //{
+            //    shouldDisable = DeckManager.Instance.CheckInDeck(stats.ID);
+            //}
+            //else if (currentMode == DeckMode.Preset && currentPresetDeck != null)
+            //{
+            //    shouldDisable = currentPresetDeck.ContainsUnit(stats.ID);
+            //}
 
             if (shouldDisable)
             {
@@ -286,11 +291,11 @@ public class UIDeckBuildManager : MonoBehaviour
     //    SetMyUnitIcons();
     //}
 
-    public void SetMode(DeckMode mode, UIPresetDeck presetDeck = null)
-    {
-        currentMode = mode;
-        currentPresetDeck = presetDeck;
-    }
+    //public void SetMode(DeckMode mode, UIPresetDeck presetDeck = null)
+    //{
+    //    currentMode = mode;
+    //    currentPresetDeck = presetDeck;
+    //}
 
     private void OnClickFilter(UnitFilterType selected)
     {

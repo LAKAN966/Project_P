@@ -6,8 +6,6 @@ using UnityEditor;
 
 public class DeckManager
 {
-    //public DeckData currentDeck = new();
-
     private static DeckManager instance;
     public static DeckManager Instance
     {
@@ -24,6 +22,8 @@ public class DeckManager
     private Player PlayerData => PlayerDataManager.Instance.player;
     private DeckData CurrentDeck => PlayerData.currentDeck;
 
+    public DeckData currentDeck = new DeckData();
+    private List<DeckData> presets = new();
 
 
     public bool AddPreset()
@@ -55,12 +55,10 @@ public class DeckManager
         return true;
     }
 
-    public bool SaveCurrentDeckToPreset(int index)
+    public void SaveCurrentDeckToPreset()
     {
-        if (index < 0 || index >= PlayerData.preset.Count) return false;
-
+        int index = PlayerData.currentPresetIndex;
         PlayerData.preset[index] = CloneDeck(PlayerData.currentDeck);
-        return true;
     }
 
     public DeckData CloneDeck(DeckData source)
