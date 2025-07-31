@@ -34,9 +34,13 @@ public class UIUnitInfo : MonoBehaviour
     [SerializeField] private GameObject skillBox;
 
     public static UIUnitInfo instance;
-
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         instance = this;
     }
 

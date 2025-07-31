@@ -47,10 +47,6 @@ public class Player
 
         AddUnit(1001);
         AddUnit(1002);
-
-        preset[0].deckList.Add(new DeckList { myUnitID = 1001 });
-        preset[0].deckList.Add(new DeckList { myUnitID = 1002 });
-
     }
 
     public void AddUnit(int unitID)
