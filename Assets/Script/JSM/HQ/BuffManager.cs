@@ -30,16 +30,57 @@ public static class BuffManager
 
             PlayerDataManager.Instance.player.raceBuffTable[raceID] = buff;
         }
+
+        PlayerDataManager.Instance.player.tagBuffTable.Clear();
+
+        foreach (int tagID in TagManager.GetAll().Keys)
+        {
+            UnitStats buff = new UnitStats
+            {
+                ID = tagID,
+                RaceID = tagID,
+                Name = RaceManager.GetNameByID(tagID),
+                AttackRange = 1f,
+                Damage = 1f,
+                MaxHP = 1f,
+                MoveSpeed = 1f,
+                SpawnInterval = 1f,
+                Cost = 1,
+                Hitback = 1,
+                PreDelay = 1f,
+                PostDelay = 1f,
+                AttackType = 1,
+                Size = 1f,
+            };
+
+            PlayerDataManager.Instance.player.tagBuffTable[tagID] = buff;
+        }
     }
 
-    public static UnitStats GetBuff(int raceID)
+    public static UnitStats GetBuff(UnitStats baseStats)
+    {
+        GetRaceBuff()
+    }
+
+    public static UnitStats GetRaceBuff(int raceID)
     {
         return PlayerDataManager.Instance.player.raceBuffTable.TryGetValue(raceID, out var buff) ? buff : null;
     }
 
+    public static Dictionary<int, UnitStats> GetTagBuff(List<int> tagID)
+    {
+        Dictionary<int, UnitStats> list = new Dictionary<int, UnitStats>();
+        foreach(int i in tagID) 
+        {
+            list[i] = PlayerDataManager.Instance.player.tagBuffTable.TryGetValue(i, out var buff) ? buff : null;
+        }
+
+        return list;
+    }
+
     public static UnitStats ApplyBuff(UnitStats baseStats)
     {
-        var buff = GetBuff(baseStats.RaceID);
+        var buff = GetBuff(baseStats);
         if (buff == null) return baseStats;
 
         return new UnitStats
