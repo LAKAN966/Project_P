@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UIActionPoint : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI actionPointText;
-    [SerializeField] private TextMeshProUGUI timerText;
+   // [SerializeField] private TextMeshProUGUI timerText;
     
 
     private Player player => PlayerDataManager.Instance.player;
@@ -44,12 +44,12 @@ public class UIActionPoint : MonoBehaviour
 
             if (player.actionPoint >= 100)
             {
-                timerText.text = "MAX";
+                //timerText.text = "MAX";
             }
             else
             {
                 TimeSpan span = TimeSpan.FromSeconds(nextRecover);
-                timerText.text = $"{span.Minutes:D2}:{span.Seconds:D2}";
+                //timerText.text = $"{span.Minutes:D2}:{span.Seconds:D2}";
             }
             actionPointText.text = $"{player.actionPoint}/{player.maxActionPoint}";
 
