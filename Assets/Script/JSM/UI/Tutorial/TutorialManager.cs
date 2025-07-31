@@ -62,6 +62,7 @@ public class TutorialManager : MonoBehaviour
     private void AssignCamera()
     {
         cameraController = FindObjectOfType<CameraController>();
+        Debug.Log(cameraController);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -142,6 +143,7 @@ public class TutorialManager : MonoBehaviour
 
             case 1:
                 GameObject button = GameObject.Find("StoreButton");
+                Debug.Log("줌!"+button);
                 if (button != null)
                     cameraController?.FocusOn(button.transform, 4f);
                 break;

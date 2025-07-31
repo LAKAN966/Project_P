@@ -29,6 +29,8 @@ public class BattleCameraController : CameraController
 
     void Update()
     {
+        if ((this as CameraController).IsFocusing) return;
+
         HandleZoom();
         HandleDrag();
     }
