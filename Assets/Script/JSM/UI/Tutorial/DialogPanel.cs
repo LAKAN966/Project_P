@@ -18,7 +18,7 @@ public class DialogPanel : MonoBehaviour
     private void Awake()
     {
         originalNpcPos = npc.transform.localPosition;
-        dialog.SetActive(false); // 초기에는 숨김
+        //dialog.SetActive(false); // 초기에는 숨김
     }
 
     public IEnumerator PlayNpcIntroAnimationWithYield()
@@ -30,7 +30,7 @@ public class DialogPanel : MonoBehaviour
             .SetUpdate(true);
 
         yield return t.WaitForCompletion(); // DOTween 확장기능 사용
-        dialog.SetActive(true);
+        //dialog.SetActive(true);
     }
 
 
