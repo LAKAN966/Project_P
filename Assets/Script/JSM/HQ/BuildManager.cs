@@ -126,11 +126,6 @@ public class BuildManager : MonoBehaviour
         return Resources.Load<Sprite>($"Sprites/{imageName}");
     }
 
-    public int GetBuildingRaceID(int id)
-    {
-        return buildingDict.TryGetValue(id, out var building) ? building.raceId : -1;
-    }
-
     public int GetBuildingCount()
     {
         return buildingDict.Count;
