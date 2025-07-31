@@ -48,7 +48,6 @@ public class GospelSlotUI : MonoBehaviour
     }
     private void UpdateUIByState()
     {
-        Debug.Log("업데이트!");
         switch (state)
         {
             case GospelState.Locked:
