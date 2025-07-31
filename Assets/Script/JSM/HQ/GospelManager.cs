@@ -149,7 +149,7 @@ public class GospelManager : MonoBehaviour
         GospelData data = GetGospelByID(gospelID);
         if (data != null)
         {
-            BuffManager.UpdateBuffStat(BuildManager.Instance.GetBuildingRaceID(buildID), data.statIndex, data.effectValue);
+            BuffManager.UpdateBuffStat(buildID, data.statIndex, data.effectValue);
         }
     }
     public void DebugGospelMap()
