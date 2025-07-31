@@ -126,62 +126,74 @@ MonoBehaviour:
     dialogue: "\uBB50... \uC54C\uB824\uC918\uC57C \uD560\uAC83\uB4E4\uC740 \uC804\uBD80
       \uC54C\uB824\uC92C\uB2E4"
     triggerEventName: 
-    effectID: 4
+    effectID: 0
     dialogUp: 0
     highlightTarget: 
   - npcName: "\uC774\uB300\uD638"
     dialogue: "\uC9C0\uAE08\uBD80\uD130\uB294 \uC54C\uC544\uC11C \uC798..."
     triggerEventName: 
-    effectID: 4
+    effectID: 0
     dialogUp: 0
     highlightTarget: 
   - npcName: "\uC774\uB300\uD638"
     dialogue: "\uBB50...? \uC774\uAE30\uB294\uBC95...?"
     triggerEventName: 
-    effectID: 4
+    effectID: 0
     dialogUp: 0
     highlightTarget: 
   - npcName: "\uC774\uB300\uD638"
     dialogue: ...
     triggerEventName: 
-    effectID: 4
+    effectID: 0
     dialogUp: 0
     highlightTarget: 
   - npcName: "\uC774\uB300\uD638"
     dialogue: "\uC778\uAC04\uB4E4\uC744 \uC0C1\uB300\uB85C \uC120\uC804\uD3EC\uACE0\uB97C
       \uD55C \uB9C8\uC655\uC8FC\uC81C\uC5D0 \uC774\uAE30\uB294\uBC95\uC744 \uBB3C\uC5B4\uBCF4\uB2E4\uB2C8"
     triggerEventName: 
-    effectID: 4
+    effectID: 0
     dialogUp: 0
     highlightTarget: 
   - npcName: "\uC774\uB300\uD638"
     dialogue: "\uC801\uB4E4\uC774 \uB108\uC758 \uAE30\uC9C0\uB97C \uD30C\uAD34\uD558\uAE30
       \uC804\uC5D0"
     triggerEventName: 
-    effectID: 4
+    effectID: 0
     dialogUp: 0
     highlightTarget: AllyHealth
   - npcName: "\uC774\uB300\uD638"
     dialogue: "\uC801\uC758 \uAE30\uC9C0\uB97C \uD30C\uAD34 \uD574\uB77C"
     triggerEventName: 
-    effectID: 4
+    effectID: 0
     dialogUp: 0
     highlightTarget: EnemyHealth
   - npcName: "\uC774\uB300\uD638"
     dialogue: ...
     triggerEventName: 
-    effectID: 5
-    dialogUp: 0
-    highlightTarget: 
-  - npcName: "\uC774\uB300\uD638"
-    dialogue: "\uD558... \uD53C\uACE4\uD558\uAD70, \uD589\uC6B4\uC744 \uBE48\uB2E4"
-    triggerEventName: 
     effectID: 4
     dialogUp: 0
     highlightTarget: 
   - npcName: "\uC774\uB300\uD638"
     dialogue: "\uD558... \uD53C\uACE4\uD558\uAD70, \uD589\uC6B4\uC744 \uBE48\uB2E4"
-    triggerEventName: voiVittu
+    triggerEventName: 
+    effectID: 0
+    dialogUp: 0
+    highlightTarget: 
+  - npcName: "\uC774\uB300\uD638"
+    dialogue: "\uC6CC\uD504"
+    triggerEventName: battleOver
+    effectID: 0
+    dialogUp: 0
+    highlightTarget: 
+  - npcName: "\uC774\uB300\uD638"
+    dialogue: adfadsf
+    triggerEventName: 
+    effectID: 0
+    dialogUp: 0
+    highlightTarget: 
+  - npcName: "\uC774\uB300\uD638"
+    dialogue: adsfasdfsd
+    triggerEventName: 
     effectID: 0
     dialogUp: 0
     highlightTarget: 
