@@ -53,6 +53,11 @@ public class TutorialManager : MonoBehaviour
 
     public void StartTuto()
     {
+        var tutorialDeck = new DeckData();
+        tutorialDeck.AddNormalUnit(1001);
+        tutorialDeck.AddNormalUnit(1002);
+
+        PlayerDataManager.Instance.player.currentDeck = tutorialDeck;
         SceneManager.LoadScene("BattleScene");
         StartCoroutine(InitTutorial());
     }
