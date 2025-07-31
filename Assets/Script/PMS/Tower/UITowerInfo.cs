@@ -131,11 +131,11 @@ public class UITowerInfo : MonoBehaviour
 
     private void OnclickOpenDeck()
     {
-        var stageID = StageDataManager.Instance.GetStageData(currentStageID);
+        //var stageID = StageDataManager.Instance.GetStageData(currentStageID);
 
         UIDeckBuildManager.instance.deckPanel.SetActive(true);
-        UIDeckBuildManager.instance.SetRaceFilter(stageID.RaceID);
-        UIDeckBuildManager.instance.Init(stageID.RaceID);
+        //UIDeckBuildManager.instance.SetRaceFilter(stageID.RaceID);
+        UIDeckBuildManager.instance.Init();
     }
 
     private void MisMatchRace()

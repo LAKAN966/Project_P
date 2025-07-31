@@ -13,7 +13,7 @@ public class Player
     public List<int> myUnitIDs = new();
     public DeckData currentDeck = new();
     public List<DeckData> preset = new List<DeckData>();
-    public int currentPresetIndex = 0;
+    public int currentPresetIndex;
     public List<int> clearedStageIDs = new();
 
     public int actionPoint = 100;
@@ -40,6 +40,9 @@ public class Player
         {
             preset.Add(new DeckData());
         }
+
+        currentPresetIndex = 0;
+        currentDeck = DeckManager.Instance.CloneDeck(preset[0]);
         AddUnit(1001);
         AddUnit(1002);
 

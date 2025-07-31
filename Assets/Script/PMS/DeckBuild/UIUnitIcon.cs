@@ -14,13 +14,12 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public UnitStats myStats;
     public Image slotBG;
     public Image raceIcon;
+    public GameObject leaderMark;
 
     [SerializeField] private Sprite undeadSprite;
     [SerializeField] private Sprite crawlerSprite;
 
-    [Header ("유닛 등급 배경")]
-    [SerializeField] private Sprite normalBG;
-    [SerializeField] private Sprite leaderBG;
+    [SerializeField] private GameObject selectedMark;
 
     private bool isDropped = false;
 
@@ -35,9 +34,31 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         costText.text = stats.Cost.ToString();
         iconImage.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
         
-        slotBG.sprite = stats.IsHero ? leaderBG : normalBG;
+        bool leader = stats.IsHero ? true : false;
+
+        leaderMark.SetActive(leader);
+
         SetRaceIcon(stats);
+        SetRaceColor(stats);
     }
+    
+    void SetRaceColor(UnitStats stats)
+    {
+        var raceID = stats.RaceID;
+        switch (raceID)
+        {
+            case 0:
+                //slotBG.color = Color.white;
+                slotBG.color = new Color32(0x66, 0x87, 0xE9, 0xFF);
+                //slotBG.color = new Color32(0x9E, 0xA5, 0xEE, 0xFF);
+                break;
+            case 1:
+                slotBG.color = new Color32(0x78, 0xB6, 0xFF, 0xFF);
+                break;
+        }
+
+    }
+        
 
     public void SetRaceIcon(UnitStats stats)
     {
@@ -110,12 +131,17 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        UIUnitInfo.instance.ShowInfo(myStats);
+        UIDeckBuildManager.instance.SelectedUnitIcon(this);
     }
 
     public void UpdateInteractable(bool disabled)
     {
         canvasGroup.alpha = disabled ? 0.5f : 1f;
         this.enabled = !disabled;
+    }
+
+    public void SetSelected(bool selected)
+    {
+        selectedMark.SetActive(selected);
     }
 }
