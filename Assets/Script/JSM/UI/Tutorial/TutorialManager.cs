@@ -1,10 +1,11 @@
 using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class TutorialManager : MonoBehaviour
     private TMP_Text npcNameText;
     private TMP_Text dialogueText;
     private Button nextButton;
+    private Button nextButton2;
+
+    private readonly Dictionary<string, Action> triggerActions = new();
 
     private CameraController cameraController;
     private int currentStepIndex;
@@ -89,6 +93,8 @@ public class TutorialManager : MonoBehaviour
         currentStepIndex = 0;
         blackImage.SetActive(true);
         ShowCurrentStep();
+        RegisterTriggerActions();
+        nextButton2 = maskPanel?.GetComponent<Button>();
     }
 
     private void ShowCurrentStep()
@@ -113,6 +119,13 @@ public class TutorialManager : MonoBehaviour
             Destroy(dialogueBoxInstance);
 
         dialogueBoxInstance = Instantiate(dialogueBoxPrefab, tutorialCanvas.transform);
+        if (nextButton != null)
+        {
+            nextButton.onClick.RemoveAllListeners();
+            nextButton.gameObject.SetActive(true);
+            nextButton.interactable = false;
+        }
+
         panel = dialogueBoxInstance.transform.Find("Panel").gameObject;
         npcNameText = dialogueBoxInstance.transform.Find("Panel/Name/NameText")?.GetComponent<TextMeshProUGUI>();
         dialogueText = dialogueBoxInstance.transform.Find("Panel/Dialog/DialogText")?.GetComponent<TextMeshProUGUI>();
@@ -127,6 +140,7 @@ public class TutorialManager : MonoBehaviour
         nextButton.onClick.RemoveAllListeners();
         nextButton.onClick.AddListener(NextStep);
         nextButton.interactable = false;
+        nextButton2?.onClick.RemoveAllListeners();
 
         var dialog = dialogueBoxInstance.GetComponent<DialogPanel>();
         if (dialog != null)
@@ -142,7 +156,7 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        yield return HandleStepEffects(step.effectID, step.highlightTarget);
+        yield return HandleStepEffects(step);
 
         if (step.effectID != 6 && string.IsNullOrEmpty(step.triggerEventName))
         {
@@ -161,8 +175,10 @@ public class TutorialManager : MonoBehaviour
         targetRect.anchoredPosition = new Vector2(0f, -offsetY);
     }
 
-    private IEnumerator HandleStepEffects(int effectID, string target)
+    private IEnumerator HandleStepEffects(TutorialStep step)
     {
+        int effectID = step.effectID;
+        string target = step.highlightTarget;
         maskPanel.SetActive(false);
         blackImage.SetActive(false);
         blockImage.SetActive(false);
@@ -199,9 +215,30 @@ public class TutorialManager : MonoBehaviour
                 SceneManager.LoadScene("MainScene");
                 break;
 
-            case 6:// 대화창은 그대로, 타겟 이벤트 실행되면 다음으로 넘어감
-                //TutorialManager.Instance.OnEventTriggered(이벤트이름);이 실행되면 다음으로 넘어감
-                Debug.Log("[튜토리얼] effectID 6: 이벤트 '" + target + "' 대기 중");
+            case 6:
+                maskPanel.SetActive(true);
+                GameObject highlightTarget = GameObject.Find(target);
+                if (highlightTarget != null)
+                    HighlightUI(highlightTarget);
+
+                nextButton2.onClick.RemoveAllListeners();
+
+                nextButton2.onClick.AddListener(() =>
+                {
+                    if (!string.IsNullOrEmpty(step.triggerEventName) && triggerActions.TryGetValue(step.triggerEventName, out var action))
+                    {
+                        Debug.Log($"[튜토리얼] triggerEventName 실행: {step.triggerEventName}");
+                        action.Invoke();
+                    }
+
+                    NextStep();
+                });
+
+                nextButton2.gameObject.SetActive(true);
+                if (nextButton != null) nextButton.gameObject.SetActive(false);
+                break;
+            case 7:
+                UIController.Instance.OnExitBtn();
                 break;
         }
 
@@ -243,6 +280,9 @@ public class TutorialManager : MonoBehaviour
     {
         if (dialogueBoxInstance != null)
             Destroy(dialogueBoxInstance);
+        maskPanel.SetActive(false);
+        blackImage.SetActive(false);
+        blockImage.SetActive(false);
         Debug.Log("튜토리얼 완료");
     }
 
@@ -276,5 +316,45 @@ public class TutorialManager : MonoBehaviour
         float margin = 5f;
         maskRect.anchoredPosition = localPos;
         maskRect.sizeDelta = screenSize + new Vector2(margin * 2f, margin * 2f);
+    }
+    private void RegisterTriggerActions()
+    {
+        triggerActions.Clear();
+
+        triggerActions["Gottcha"] = () => UIController.Instance.OpenGottcha();
+        triggerActions["Gottcha10"] = () =>
+        {
+            GameObject gottchaObj = GameObject.Find("Gottcha");
+            if (gottchaObj == null)
+            {
+                Debug.LogError("[튜토리얼] 'Gottcha' 오브젝트를 찾을 수 없습니다.");
+                return;
+            }
+
+            Pick pickComponent = gottchaObj.GetComponent<Pick>();
+            if (pickComponent == null)
+            {
+                Debug.LogError("[튜토리얼] 'Gottcha' 오브젝트에 Pick 컴포넌트가 없습니다.");
+                return;
+            }
+            PlayerDataManager.Instance.player.ticket += 10;
+            Debug.Log("[튜토리얼] Pick.PickTenTimes() 실행");
+            pickComponent.PickTenTimes();
+        };
+        triggerActions["Gottcha10Exit"] = () =>
+        {
+            GameObject pickTenPage = GameObject.Find("PickTenPage");
+            if (pickTenPage != null)
+            {
+                pickTenPage.SetActive(false);
+                Debug.Log("[튜토리얼] PickTenPage 오브젝트 비활성화됨");
+            }
+            else
+            {
+                Debug.LogWarning("PickTenPage 오브젝트를 찾을 수 없습니다.");
+            }
+            UIController.Instance.OnExitBtn();
+        };
+        triggerActions["UnitManage"] = () => UIController.Instance.UnitManageActive();
     }
 }

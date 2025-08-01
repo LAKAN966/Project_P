@@ -71,6 +71,7 @@ public class UIController : MonoBehaviour
         ShowNowGold();
         PlayerCurrencyEvent.OnGoldChange += value => ShowNowGold();
         SoundManager.Instance.PlayBGM(0);
+        TutorialManager.Instance.OnEventTriggered("battleOver");
     }
 
     public void SetButton()
