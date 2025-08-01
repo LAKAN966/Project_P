@@ -469,6 +469,6 @@ MonoBehaviour:
   - npcName: "\uC774\uB300\uD638"
     dialogue: "\uD6C4... \uC720\uB2DB \uD3B8\uC131 \uC124\uBA85\uC740 \uC5EC\uAE30\uAE4C\uC9C0\uB2E4"
     triggerEventName: 
-    effectID: 0
+    effectID: 7
     dialogUp: 0
     highlightTarget: 

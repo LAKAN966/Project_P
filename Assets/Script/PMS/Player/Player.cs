@@ -29,7 +29,7 @@ public class Player
     public List<BuildingState> buildingsList = new();
     public Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();
     public Dictionary<int, UnitStats> buildingBuffs = new();
-
+    public List<bool> tutorialDone = new List<bool>() { false, false, false, false };
     //public int pickPoint = 0;
 
     public PlayerTowerData towerData = new();

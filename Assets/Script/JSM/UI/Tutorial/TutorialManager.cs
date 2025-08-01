@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using System;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ public class TutorialManager : MonoBehaviour
     public static TutorialManager Instance { get; private set; }
 
     [Header("설정")]
-    public TutorialData tutorialData;
+    public List<TutorialData> tutorialDataList;
     public Canvas tutorialCanvas;
     public AssetReferenceGameObject dialogueBoxReference;
 
@@ -38,6 +39,10 @@ public class TutorialManager : MonoBehaviour
 
     public bool isPlaying = false;
     private bool hasPlayedNpcIntro = false;
+    private TutorialData tutorialData;
+    private AsyncOperationHandle<GameObject> handle;
+
+    private AsyncOperationHandle<GameObject> dialogueBoxHandle;
 
     private void Awake()
     {
@@ -46,20 +51,34 @@ public class TutorialManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void StartTuto()
+    public void StartTuto(int i)
     {
-        var tutorialDeck = new DeckData();
-        tutorialDeck.AddNormalUnit(1001);
-        tutorialDeck.AddNormalUnit(1002);
-        var clonedDeck = DeckManager.Instance.CloneDeck(tutorialDeck);
+        if (isPlaying)
+        {
+            Debug.LogWarning("튜토리얼이 이미 진행 중입니다.");
+            return;
+        }
 
-        PlayerDataManager.Instance.player.currentDeck = clonedDeck;
-        SceneManager.LoadScene("MainScene");
-        SceneManager.sceneLoaded += OnBattleSceneLoaded;
-        SceneManager.LoadScene("BattleScene");
-        Debug.Log($"튜토리얼 입장");
+        isPlaying = true;
+        tutorialData = tutorialDataList[i];
+
+        if (i == 0)
+        {
+            var tutorialDeck = new DeckData();
+            tutorialDeck.AddNormalUnit(1001);
+            tutorialDeck.AddNormalUnit(1002);
+            var clonedDeck = DeckManager.Instance.CloneDeck(tutorialDeck);
+
+            PlayerDataManager.Instance.player.currentDeck = clonedDeck;
+            SceneManager.LoadScene("MainScene");
+            SceneManager.sceneLoaded += OnBattleSceneLoaded;
+            SceneManager.LoadScene("BattleScene");
+            Debug.Log($"튜토리얼 입장");
+        }
+
         StartCoroutine(InitTutorial());
     }
+
 
     private void OnBattleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -72,15 +91,34 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+
     private IEnumerator InitTutorial()
     {
-        var handle = dialogueBoxReference.LoadAssetAsync();
-        yield return handle;
-        dialogueBoxPrefab = handle.Result;
-        dialogPanel = dialogueBoxPrefab.GetComponent<DialogPanel>();
+        if (dialogueBoxInstance != null)
+        {
+            Destroy(dialogueBoxInstance); // 혹시 남아 있으면 제거
+            Addressables.ReleaseInstance(dialogueBoxInstance);
+            dialogueBoxInstance = null;
+        }
+
+        dialogueBoxHandle = dialogueBoxReference.InstantiateAsync(tutorialCanvas.transform);
+        yield return dialogueBoxHandle;
+
+        if (dialogueBoxHandle.Status != AsyncOperationStatus.Succeeded)
+        {
+            Debug.LogError("튜토리얼 프리팹 로드 실패");
+            yield break;
+        }
+
+        dialogueBoxInstance = dialogueBoxHandle.Result;
+        dialogueBoxInstance.SetActive(false); // 처음엔 숨김
+        dialogPanel = dialogueBoxInstance.GetComponent<DialogPanel>();
+
         AssignCamera();
         StartTutorial();
     }
+
+
 
     private void AssignCamera()
     {
@@ -90,15 +128,22 @@ public class TutorialManager : MonoBehaviour
 
     public void StartTutorial()
     {
+        Debug.Log("튜토리얼 시작!");
         currentStepIndex = 0;
+        hasPlayedNpcIntro = false;
+
         blackImage.SetActive(true);
         ShowCurrentStep();
         RegisterTriggerActions();
-        nextButton2 = maskPanel?.GetComponent<Button>();
     }
 
     private void ShowCurrentStep()
     {
+        if(tutorialData.steps.Count <= 0)
+        {
+            EndTutorial();
+            return;
+        }
         var step = tutorialData.steps[currentStepIndex];
 
         // 🎯 triggerEventName은 effectID가 6이 아닐 때만 적용
@@ -115,10 +160,14 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator PlayStep(TutorialStep step)
     {
-        if (dialogueBoxInstance != null)
-            Destroy(dialogueBoxInstance);
+        if (dialogueBoxInstance == null)
+        {
+            Debug.LogError("dialogueBoxInstance is null");
+            yield break;
+        }
 
-        dialogueBoxInstance = Instantiate(dialogueBoxPrefab, tutorialCanvas.transform);
+        dialogueBoxInstance.SetActive(true); // 재활용
+
         if (nextButton != null)
         {
             nextButton.onClick.RemoveAllListeners();
@@ -130,6 +179,7 @@ public class TutorialManager : MonoBehaviour
         npcNameText = dialogueBoxInstance.transform.Find("Panel/Name/NameText")?.GetComponent<TextMeshProUGUI>();
         dialogueText = dialogueBoxInstance.transform.Find("Panel/Dialog/DialogText")?.GetComponent<TextMeshProUGUI>();
         nextButton = dialogueBoxInstance.transform.Find("NextButton")?.GetComponent<Button>();
+        nextButton2 = maskPanel.GetComponent<Button>();
 
         if (step.dialogUp)
             MoveToTopCenter(panel, 200);
@@ -163,6 +213,7 @@ public class TutorialManager : MonoBehaviour
             nextButton.interactable = true;
         }
     }
+
 
     public void MoveToTopCenter(GameObject uiObject, float offsetY = 0f)
     {
@@ -216,6 +267,7 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case 6:
+                blockImage.SetActive(true);
                 maskPanel.SetActive(true);
                 GameObject highlightTarget = GameObject.Find(target);
                 if (highlightTarget != null)
@@ -278,13 +330,21 @@ public class TutorialManager : MonoBehaviour
 
     private void EndTutorial()
     {
-        if (dialogueBoxInstance != null)
-            Destroy(dialogueBoxInstance);
         maskPanel.SetActive(false);
         blackImage.SetActive(false);
         blockImage.SetActive(false);
+        isPlaying = false;
+
+        if (dialogueBoxInstance != null)
+        {
+            Addressables.ReleaseInstance(dialogueBoxInstance);
+            dialogueBoxInstance = null;
+        }
+
         Debug.Log("튜토리얼 완료");
     }
+
+
 
     public void HighlightUI(GameObject targetUI)
     {

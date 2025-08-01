@@ -154,9 +154,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1056543598}
   - {fileID: 735905403}
   - {fileID: 572291756}
-  - {fileID: 1056543598}
   m_Father: {fileID: 805367604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -341,6 +341,7 @@ GameObject:
   - component: {fileID: 167833982}
   - component: {fileID: 167833984}
   - component: {fileID: 167833983}
+  - component: {fileID: 167833985}
   m_Layer: 0
   m_Name: MaskedImage
   m_TagString: Untagged
@@ -405,6 +406,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167833981}
   m_CullTransparentMesh: 1
+--- !u!114 &167833985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167833981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21b9680e607e7d4dbdabe10488a472a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &379768630
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,7 +817,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7327c47bcf5b8de40af7d155ccab09b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialData: {fileID: 11400000, guid: 6cf121fd2cd087b44846aadc16ec81b6, type: 2}
+  tutorialDataList:
+  - {fileID: 11400000, guid: 6cf121fd2cd087b44846aadc16ec81b6, type: 2}
+  - {fileID: 11400000, guid: 18c059e30aee983468723706ca9fc3ce, type: 2}
+  - {fileID: 11400000, guid: 10aca058dacfc304e94bd977f8322107, type: 2}
+  - {fileID: 11400000, guid: e737ec9276b846446862c8b32fd203b8, type: 2}
   tutorialCanvas: {fileID: 8856484}
   dialogueBoxReference:
     m_AssetGUID: d274621e537d2c84cbf27e560f6fabff
@@ -1776,7 +1793,7 @@ MonoBehaviour:
       - m_Target: {fileID: 805367603}
         m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
         m_MethodName: StartTuto
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
