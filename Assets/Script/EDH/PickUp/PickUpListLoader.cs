@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -33,7 +34,7 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
         {
             if (string.IsNullOrWhiteSpace(lines[i])) continue;
 
-            string[] tokens = lines[i].Split(',');
+            List<string> tokens = ParseCSVLine(lines[i]);
 
             PickInfo pickinfo = new PickInfo
             {
@@ -51,7 +52,23 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
 
         Debug.Log($"픽업 데이터 로딩 완료: {PickListsDict.Count}개");
     }
+    private static List<string> ParseCSVLine(string line)
+    {
+        var matches = Regex.Matches(line, @"(?<field>[^,""]+|""([^""]|"""")*"")(?=,|$)");
+        List<string> result = new();
 
+        foreach (Match match in matches)
+        {
+            string field = match.Groups["field"].Value;
+            if (field.StartsWith("\"") && field.EndsWith("\""))
+            {
+                field = field[1..^1].Replace("\"\"", "\"");
+            }
+            result.Add(field);
+        }
+
+        return result;
+    }
 
     public Dictionary<int, PickInfo> GetAllPickList()
     { return PickListsDict; }
