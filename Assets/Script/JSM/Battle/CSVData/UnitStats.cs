@@ -23,6 +23,7 @@ public class UnitStats
     public List<int> SkillID;   //스킬 id
     public bool isEnemy;        //아군적군 구분용
     public int warrant;         //증명서 수
+    public int shopPrice;       //상점 가격
     public List<int> tagId;     //태그id 리스트
 
 }

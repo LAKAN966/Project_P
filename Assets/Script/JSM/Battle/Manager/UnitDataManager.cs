@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
@@ -38,33 +39,39 @@ public class UnitDataManager
         {
             if (string.IsNullOrWhiteSpace(lines[i])) continue;
 
-            string[] tokens = lines[i].Split(',');
-
+            List<string> tokens = ParseCSVLine(lines[i]);
+            if (tokens.Count < 23)
+            {
+                Debug.LogWarning($"라인 {i}의 필드 수가 부족합니다. ({tokens.Count}개): {lines[i]}");
+                continue;
+            }
             UnitStats stat = new UnitStats
             {
-                ID = int.Parse(tokens[0]),
-                Name = tokens[1],
-                Description = tokens[2],
-                RaceID = int.Parse(tokens[3]),
-                IsHero = bool.Parse(tokens[4]),
-                IsAOE = bool.Parse(tokens[5]),
-                AttackRange = float.Parse(tokens[6]),
-                Damage = float.Parse(tokens[7]),
-                MaxHP = float.Parse(tokens[8]),
-                MoveSpeed = float.Parse(tokens[9]),
-                SpawnInterval = float.Parse(tokens[10]),
-                Cost = int.Parse(tokens[11]),
-                Hitback = int.Parse(tokens[12]),
-                PreDelay = float.Parse(tokens[13]),
-                PostDelay = float.Parse(tokens[14]),
-                ModelName = tokens[15],
-                AttackType = int.Parse(tokens[16]),
-                Size = float.Parse(tokens[17]),
-                SkillID = new List<int>(),
-                isEnemy = bool.Parse(tokens[19]),
-                warrant = int.Parse(tokens[20]),
+                ID = int.Parse(tokens[0].Trim()),
+                Name = tokens[1].Trim(),
+                Description = tokens[2].Trim(),
+                RaceID = int.Parse(tokens[3].Trim()),
+                IsHero = bool.Parse(tokens[4].Trim()),
+                IsAOE = bool.Parse(tokens[5].Trim()),
+                AttackRange = float.Parse(tokens[6].Trim()),
+                Damage = float.Parse(tokens[7].Trim()),
+                MaxHP = float.Parse(tokens[8].Trim()),
+                MoveSpeed = float.Parse(tokens[9].Trim()),
+                SpawnInterval = float.Parse(tokens[10].Trim()),
+                Cost = int.Parse(tokens[11].Trim()),
+                Hitback = int.Parse(tokens[12].Trim()),
+                PreDelay = float.Parse(tokens[13].Trim()),
+                PostDelay = float.Parse(tokens[14].Trim()),
+                ModelName = tokens[15].Trim(),
+                AttackType = int.Parse(tokens[16].Trim()),
+                Size = float.Parse(tokens[17].Trim()),
+                SkillID = ParseIntList(tokens[18].Trim()),
+                isEnemy = bool.Parse(tokens[19].Trim()),
+                warrant = int.Parse(tokens[20].Trim()),
+                shopPrice = int.Parse(tokens[21].Trim()),
                 tagId = new List<int>()
             };
+
 
             if (!string.IsNullOrWhiteSpace(tokens[18]))
             {
@@ -75,22 +82,53 @@ public class UnitDataManager
                         stat.SkillID.Add(tag);
                 }
             }
-            if (!string.IsNullOrWhiteSpace(tokens[22]))
+            if (tokens.Count > 22 && !string.IsNullOrWhiteSpace(tokens[22]))
             {
                 string[] tagParts = tokens[22].Split(';');
                 foreach (var part in tagParts)
                 {
-                    if (int.TryParse(part.Trim(), out int tag))
+                    string trimmed = part.Trim();
+                    if (!string.IsNullOrEmpty(trimmed) && int.TryParse(trimmed, out int tag))
                         stat.tagId.Add(tag);
                 }
             }
 
             unitStatsDict[stat.ID] = stat;
+            Debug.Log(stat.tagId[0]);
         }
 
         Debug.Log($"유닛 데이터 로딩 완료: {unitStatsDict.Count}개");
+        PickUpListLoader.Instance.PickUps();
     }
+    private static List<string> ParseCSVLine(string line)
+    {
+        var matches = Regex.Matches(line, @"(?<field>[^,""]+|""([^""]|"""")*"")(?=,|$)");
+        List<string> result = new();
 
+        foreach (Match match in matches)
+        {
+            string field = match.Groups["field"].Value;
+            if (field.StartsWith("\"") && field.EndsWith("\""))
+            {
+                field = field[1..^1].Replace("\"\"", "\"");
+            }
+            result.Add(field);
+        }
+
+        return result;
+    }
+    private List<int> ParseIntList(string s)
+    {
+        List<int> list = new();
+        if (string.IsNullOrWhiteSpace(s)) return list;
+
+        foreach (var part in s.Split(';'))
+        {
+            if (int.TryParse(part.Trim(), out var val))
+                list.Add(val);
+        }
+        return list;
+    }
 
     public UnitStats GetStats(int id)
     {
