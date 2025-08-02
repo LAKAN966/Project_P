@@ -183,6 +183,8 @@ public class TutorialManager : MonoBehaviour
 
         if (step.dialogUp)
             MoveToTopCenter(panel, 200);
+        else
+            MoveToBottomCenter(panel, 100);
 
         npcNameText.text = step.npcName;
         dialogueText.text = step.dialogue;
@@ -224,6 +226,17 @@ public class TutorialManager : MonoBehaviour
         targetRect.anchorMin = new Vector2(0.5f, 1f);
         targetRect.anchorMax = new Vector2(0.5f, 1f);
         targetRect.anchoredPosition = new Vector2(0f, -offsetY);
+    }
+
+    public void MoveToBottomCenter(GameObject uiObject, float offsetY = 0f)
+    {
+        RectTransform targetRect = uiObject.GetComponent<RectTransform>();
+        if (targetRect == null) return;
+
+        targetRect.pivot = new Vector2(0.5f, 0f);
+        targetRect.anchorMin = new Vector2(0.5f, 0f);
+        targetRect.anchorMax = new Vector2(0.5f, 0f);
+        targetRect.anchoredPosition = new Vector2(0f, offsetY);
     }
 
     private IEnumerator HandleStepEffects(TutorialStep step)
