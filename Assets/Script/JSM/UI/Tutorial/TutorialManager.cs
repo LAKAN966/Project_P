@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -429,5 +430,40 @@ public class TutorialManager : MonoBehaviour
             UIController.Instance.OnExitBtn();
         };
         triggerActions["UnitManage"] = () => UIController.Instance.UnitManageActive();
+        triggerActions["BuildSlot"] = () => 
+        {
+            GameObject BuildSlot = GameObject.Find("BuildSlot_0");
+            if (BuildSlot == null)
+            {
+                Debug.LogError("[튜토리얼] 'BuildSlot_0' 오브젝트를 찾을 수 없습니다.");
+                return;
+            }
+            BuildSlotUI buildSlot = BuildSlot.GetComponent<BuildSlotUI>();
+            if (buildSlot == null)
+            {
+                Debug.LogError("[튜토리얼] 'buildSlot' 오브젝트를 찾을 수 없습니다.");
+                return;
+            }
+            buildSlot.Select();
+        };
+        triggerActions["BuildGrave"] = () => 
+        {
+            GameObject BuildGrave = GameObject.Find("BuildMenuSlot_0");
+            BuildSelectButton buildGrave = BuildGrave.GetComponent<BuildSelectButton>();
+            buildGrave.buildConfirmPanel.SetActive(true);
+            NextStep();
+        };
+        triggerActions["TouchBuildIcon"] = () => 
+        {
+
+
+        };
+        triggerActions["TouchSpell"] = () => { };
+        triggerActions["TouchBuildConfirm"] = () => { };
+        triggerActions["TouchGrave"] = () => { };
+        triggerActions["ConfirmExit"] = () => { };
+        triggerActions["LevelUp"] = () => { };
+        triggerActions["LevelUpExit"] = () => { };
+
     }
 }
