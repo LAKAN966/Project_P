@@ -71,6 +71,7 @@ public class UIController : MonoBehaviour
         ShowNowGold();
         PlayerCurrencyEvent.OnGoldChange += value => ShowNowGold();
         SoundManager.Instance.PlayBGM(0);
+        TutorialManager.Instance.OnEventTriggered("battleOver");
     }
 
     public void SetButton()
@@ -102,6 +103,7 @@ public class UIController : MonoBehaviour
         Main.SetActive(false);
         StageManager.instance.Init();
         SFXManager.Instance.PlaySFX(0); // 버튼
+        if (!PlayerDataManager.Instance.player.tutorialDone[3])TutorialManager.Instance.StartTuto(3);
     }
     public void OpenGottcha()
     {
@@ -116,6 +118,7 @@ public class UIController : MonoBehaviour
         Main.SetActive(false);
         SoundManager.Instance.PlayBGM(4);
         SFXManager.Instance.PlaySFX(0); // 버튼
+        if (!PlayerDataManager.Instance.player.tutorialDone[2]) TutorialManager.Instance.StartTuto(2);
     }
     public void OpenShop()
     {
@@ -124,6 +127,7 @@ public class UIController : MonoBehaviour
         ShoppingManager.Instance.ShowNowCertificate();
         SoundManager.Instance.PlayBGM(5);
         SFXManager.Instance.PlaySFX(0); // 버튼
+        if (!PlayerDataManager.Instance.player.tutorialDone[1]) TutorialManager.Instance.StartTuto(1);
     }
     public void OnExitBtn()
     {
