@@ -3547,6 +3547,7 @@ MonoBehaviour:
     SkillID: 
     isEnemy: 0
     warrant: 0
+    shopPrice: 0
     tagId: 
 --- !u!114 &85921872856909673
 MonoBehaviour:
@@ -3836,6 +3837,7 @@ MonoBehaviour:
     SkillID: 
     isEnemy: 0
     warrant: 0
+    shopPrice: 0
     tagId: 
   enemyPool: {fileID: 8054658924490451434}
   stageCSV: {fileID: 4900000, guid: 70f68e7cfe599234d850b82d62f802fe, type: 3}
@@ -7309,9 +7311,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 225077550614719133}
-  - {fileID: 1501725326}
   - {fileID: 690194295}
+  - {fileID: 1501725326}
+  - {fileID: 225077550614719133}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
