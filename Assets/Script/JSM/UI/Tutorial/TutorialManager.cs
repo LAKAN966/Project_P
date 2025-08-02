@@ -1,17 +1,19 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
 
     [Header("설정")]
-    public TutorialData tutorialData;
+    public List<TutorialData> tutorialDataList;
     public Canvas tutorialCanvas;
     public AssetReferenceGameObject dialogueBoxReference;
 
@@ -28,12 +30,19 @@ public class TutorialManager : MonoBehaviour
     private TMP_Text npcNameText;
     private TMP_Text dialogueText;
     private Button nextButton;
+    private Button nextButton2;
+
+    private readonly Dictionary<string, Action> triggerActions = new();
 
     private CameraController cameraController;
     private int currentStepIndex;
 
     public bool isPlaying = false;
     private bool hasPlayedNpcIntro = false;
+    private TutorialData tutorialData;
+    private AsyncOperationHandle<GameObject> handle;
+
+    private AsyncOperationHandle<GameObject> dialogueBoxHandle;
 
     private void Awake()
     {
@@ -42,20 +51,34 @@ public class TutorialManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void StartTuto()
+    public void StartTuto(int i)
     {
-        var tutorialDeck = new DeckData();
-        tutorialDeck.AddNormalUnit(1001);
-        tutorialDeck.AddNormalUnit(1002);
-        var clonedDeck = DeckManager.Instance.CloneDeck(tutorialDeck);
+        if (isPlaying)
+        {
+            Debug.LogWarning("튜토리얼이 이미 진행 중입니다.");
+            return;
+        }
 
-        PlayerDataManager.Instance.player.currentDeck = clonedDeck;
-        SceneManager.LoadScene("MainScene");
-        SceneManager.sceneLoaded += OnBattleSceneLoaded;
-        SceneManager.LoadScene("BattleScene");
-        Debug.Log($"튜토리얼 입장");
+        isPlaying = true;
+        tutorialData = tutorialDataList[i];
+
+        if (i == 0)
+        {
+            var tutorialDeck = new DeckData();
+            tutorialDeck.AddNormalUnit(1001);
+            tutorialDeck.AddNormalUnit(1002);
+            var clonedDeck = DeckManager.Instance.CloneDeck(tutorialDeck);
+
+            PlayerDataManager.Instance.player.currentDeck = clonedDeck;
+            SceneManager.LoadScene("MainScene");
+            SceneManager.sceneLoaded += OnBattleSceneLoaded;
+            SceneManager.LoadScene("BattleScene");
+            Debug.Log($"튜토리얼 입장");
+        }
+
         StartCoroutine(InitTutorial());
     }
+
 
     private void OnBattleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -68,15 +91,34 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+
     private IEnumerator InitTutorial()
     {
-        var handle = dialogueBoxReference.LoadAssetAsync();
-        yield return handle;
-        dialogueBoxPrefab = handle.Result;
-        dialogPanel = dialogueBoxPrefab.GetComponent<DialogPanel>();
+        if (dialogueBoxInstance != null)
+        {
+            Destroy(dialogueBoxInstance); // 혹시 남아 있으면 제거
+            Addressables.ReleaseInstance(dialogueBoxInstance);
+            dialogueBoxInstance = null;
+        }
+
+        dialogueBoxHandle = dialogueBoxReference.InstantiateAsync(tutorialCanvas.transform);
+        yield return dialogueBoxHandle;
+
+        if (dialogueBoxHandle.Status != AsyncOperationStatus.Succeeded)
+        {
+            Debug.LogError("튜토리얼 프리팹 로드 실패");
+            yield break;
+        }
+
+        dialogueBoxInstance = dialogueBoxHandle.Result;
+        dialogueBoxInstance.SetActive(false); // 처음엔 숨김
+        dialogPanel = dialogueBoxInstance.GetComponent<DialogPanel>();
+
         AssignCamera();
         StartTutorial();
     }
+
+
 
     private void AssignCamera()
     {
@@ -86,13 +128,22 @@ public class TutorialManager : MonoBehaviour
 
     public void StartTutorial()
     {
+        Debug.Log("튜토리얼 시작!");
         currentStepIndex = 0;
+        hasPlayedNpcIntro = false;
+
         blackImage.SetActive(true);
         ShowCurrentStep();
+        RegisterTriggerActions();
     }
 
     private void ShowCurrentStep()
     {
+        if(tutorialData.steps.Count <= 0)
+        {
+            EndTutorial();
+            return;
+        }
         var step = tutorialData.steps[currentStepIndex];
 
         // 🎯 triggerEventName은 effectID가 6이 아닐 때만 적용
@@ -109,17 +160,31 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator PlayStep(TutorialStep step)
     {
-        if (dialogueBoxInstance != null)
-            Destroy(dialogueBoxInstance);
+        if (dialogueBoxInstance == null)
+        {
+            Debug.LogError("dialogueBoxInstance is null");
+            yield break;
+        }
 
-        dialogueBoxInstance = Instantiate(dialogueBoxPrefab, tutorialCanvas.transform);
+        dialogueBoxInstance.SetActive(true); // 재활용
+
+        if (nextButton != null)
+        {
+            nextButton.onClick.RemoveAllListeners();
+            nextButton.gameObject.SetActive(true);
+            nextButton.interactable = false;
+        }
+
         panel = dialogueBoxInstance.transform.Find("Panel").gameObject;
         npcNameText = dialogueBoxInstance.transform.Find("Panel/Name/NameText")?.GetComponent<TextMeshProUGUI>();
         dialogueText = dialogueBoxInstance.transform.Find("Panel/Dialog/DialogText")?.GetComponent<TextMeshProUGUI>();
         nextButton = dialogueBoxInstance.transform.Find("NextButton")?.GetComponent<Button>();
+        nextButton2 = maskPanel.GetComponent<Button>();
 
         if (step.dialogUp)
             MoveToTopCenter(panel, 200);
+        else
+            MoveToBottomCenter(panel, 100);
 
         npcNameText.text = step.npcName;
         dialogueText.text = step.dialogue;
@@ -127,6 +192,7 @@ public class TutorialManager : MonoBehaviour
         nextButton.onClick.RemoveAllListeners();
         nextButton.onClick.AddListener(NextStep);
         nextButton.interactable = false;
+        nextButton2?.onClick.RemoveAllListeners();
 
         var dialog = dialogueBoxInstance.GetComponent<DialogPanel>();
         if (dialog != null)
@@ -142,13 +208,14 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        yield return HandleStepEffects(step.effectID, step.highlightTarget);
+        yield return HandleStepEffects(step);
 
         if (step.effectID != 6 && string.IsNullOrEmpty(step.triggerEventName))
         {
             nextButton.interactable = true;
         }
     }
+
 
     public void MoveToTopCenter(GameObject uiObject, float offsetY = 0f)
     {
@@ -161,8 +228,21 @@ public class TutorialManager : MonoBehaviour
         targetRect.anchoredPosition = new Vector2(0f, -offsetY);
     }
 
-    private IEnumerator HandleStepEffects(int effectID, string target)
+    public void MoveToBottomCenter(GameObject uiObject, float offsetY = 0f)
     {
+        RectTransform targetRect = uiObject.GetComponent<RectTransform>();
+        if (targetRect == null) return;
+
+        targetRect.pivot = new Vector2(0.5f, 0f);
+        targetRect.anchorMin = new Vector2(0.5f, 0f);
+        targetRect.anchorMax = new Vector2(0.5f, 0f);
+        targetRect.anchoredPosition = new Vector2(0f, offsetY);
+    }
+
+    private IEnumerator HandleStepEffects(TutorialStep step)
+    {
+        int effectID = step.effectID;
+        string target = step.highlightTarget;
         maskPanel.SetActive(false);
         blackImage.SetActive(false);
         blockImage.SetActive(false);
@@ -199,9 +279,31 @@ public class TutorialManager : MonoBehaviour
                 SceneManager.LoadScene("MainScene");
                 break;
 
-            case 6:// 대화창은 그대로, 타겟 이벤트 실행되면 다음으로 넘어감
-                //TutorialManager.Instance.OnEventTriggered(이벤트이름);이 실행되면 다음으로 넘어감
-                Debug.Log("[튜토리얼] effectID 6: 이벤트 '" + target + "' 대기 중");
+            case 6:
+                blockImage.SetActive(true);
+                maskPanel.SetActive(true);
+                GameObject highlightTarget = GameObject.Find(target);
+                if (highlightTarget != null)
+                    HighlightUI(highlightTarget);
+
+                nextButton2.onClick.RemoveAllListeners();
+
+                nextButton2.onClick.AddListener(() =>
+                {
+                    if (!string.IsNullOrEmpty(step.triggerEventName) && triggerActions.TryGetValue(step.triggerEventName, out var action))
+                    {
+                        Debug.Log($"[튜토리얼] triggerEventName 실행: {step.triggerEventName}");
+                        action.Invoke();
+                    }
+
+                    NextStep();
+                });
+
+                nextButton2.gameObject.SetActive(true);
+                if (nextButton != null) nextButton.gameObject.SetActive(false);
+                break;
+            case 7:
+                UIController.Instance.OnExitBtn();
                 break;
         }
 
@@ -241,10 +343,21 @@ public class TutorialManager : MonoBehaviour
 
     private void EndTutorial()
     {
+        maskPanel.SetActive(false);
+        blackImage.SetActive(false);
+        blockImage.SetActive(false);
+        isPlaying = false;
+
         if (dialogueBoxInstance != null)
-            Destroy(dialogueBoxInstance);
+        {
+            Addressables.ReleaseInstance(dialogueBoxInstance);
+            dialogueBoxInstance = null;
+        }
+
         Debug.Log("튜토리얼 완료");
     }
+
+
 
     public void HighlightUI(GameObject targetUI)
     {
@@ -276,5 +389,45 @@ public class TutorialManager : MonoBehaviour
         float margin = 5f;
         maskRect.anchoredPosition = localPos;
         maskRect.sizeDelta = screenSize + new Vector2(margin * 2f, margin * 2f);
+    }
+    private void RegisterTriggerActions()
+    {
+        triggerActions.Clear();
+
+        triggerActions["Gottcha"] = () => UIController.Instance.OpenGottcha();
+        triggerActions["Gottcha10"] = () =>
+        {
+            GameObject gottchaObj = GameObject.Find("Gottcha");
+            if (gottchaObj == null)
+            {
+                Debug.LogError("[튜토리얼] 'Gottcha' 오브젝트를 찾을 수 없습니다.");
+                return;
+            }
+
+            Pick pickComponent = gottchaObj.GetComponent<Pick>();
+            if (pickComponent == null)
+            {
+                Debug.LogError("[튜토리얼] 'Gottcha' 오브젝트에 Pick 컴포넌트가 없습니다.");
+                return;
+            }
+            PlayerDataManager.Instance.player.ticket += 10;
+            Debug.Log("[튜토리얼] Pick.PickTenTimes() 실행");
+            pickComponent.PickTenTimes();
+        };
+        triggerActions["Gottcha10Exit"] = () =>
+        {
+            GameObject pickTenPage = GameObject.Find("PickTenPage");
+            if (pickTenPage != null)
+            {
+                pickTenPage.SetActive(false);
+                Debug.Log("[튜토리얼] PickTenPage 오브젝트 비활성화됨");
+            }
+            else
+            {
+                Debug.LogWarning("PickTenPage 오브젝트를 찾을 수 없습니다.");
+            }
+            UIController.Instance.OnExitBtn();
+        };
+        triggerActions["UnitManage"] = () => UIController.Instance.UnitManageActive();
     }
 }
