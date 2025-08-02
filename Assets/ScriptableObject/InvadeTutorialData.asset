@@ -14,18 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   steps:
   - npcName: 
-    dialogue: "\uCE68\uB7B5\uC5D0 \uB300\uD55C \uC124\uBA85\uC744 \uD574\uC8FC\uACA0\uB2E4"
-    triggerEventName: 
-    effectID: 0
-    dialogUp: 0
-    highlightTarget: 
-  - npcName: 
-    dialogue: "\uCE68\uB7B5 \uBC84\uD2BC\uC744 \uB20C\uB7EC\uBD10\uB77C"
-    triggerEventName: 
-    effectID: 0
-    dialogUp: 0
-    highlightTarget: SelectStageButton
-  - npcName: 
     dialogue: "\uC774\uACF3\uC740 \uB124\uB188\uC774 \uCE68\uB7B5\uD574\uC57C \uD560
       \uACF3\uC744 \uBCF4\uC5EC\uC900\uB2E4"
     triggerEventName: 
@@ -36,34 +24,34 @@ MonoBehaviour:
     dialogue: "\uCE68\uB7B5\uC744 \uD558\uAE30 \uC704\uD574\uC120 \uD589\uB3D9\uB825\uC774
       \uD544\uC694\uD558\uACE0"
     triggerEventName: 
-    effectID: 0
+    effectID: 1
     dialogUp: 0
     highlightTarget: BuildCostUIBG
   - npcName: 
     dialogue: "\uB124\uB188\uC774 \uC9C4\uD589\uC911\uC778 \uCC55\uD130\uB294 \uC5EC\uAE30\uC11C
       \uBCFC \uC218 \uC788\uB2E4"
     triggerEventName: 
-    effectID: 0
+    effectID: 1
     dialogUp: 0
     highlightTarget: Image
   - npcName: 
     dialogue: "\uC88C\uC6B0 \uBC84\uD2BC\uC744 \uB204\uB974\uBA74 \uCC55\uD130\uAC00
       \uBCC0\uACBD\uB418\uB2C8 \uAE30\uC5B5\uD558\uB3C4\uB85D"
     triggerEventName: 
-    effectID: 0
+    effectID: 1
     dialogUp: 0
-    highlightTarget: 
+    highlightTarget: SelectRightButton
   - npcName: 
     dialogue: "\uBA54\uC778 \uD654\uBA74\uC73C\uB85C \uB3CC\uC544\uAC00\uACE0 \uC2F6\uC73C\uBA74
       \uB204\uB974\uBA74 \uB41C\uB2E4"
     triggerEventName: 
-    effectID: 0
+    effectID: 1
     dialogUp: 0
     highlightTarget: CloseButton
   - npcName: 
     dialogue: "\uC0C1\uB300\uC758 \uC131\uC744 \uB20C\uB7EC\uBD10\uB77C"
     triggerEventName: 
-    effectID: 0
+    effectID: 6
     dialogUp: 0
     highlightTarget: 
   - npcName: 
