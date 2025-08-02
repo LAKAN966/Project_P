@@ -1,6 +1,6 @@
 ﻿ID,Level,BaseDistance,EnemyBaseHP,EnemyUnit1,EnemyUnit2,EnemyUnit3,FirstRewardIDs,RepeatReward,FirstReward1Amount,RepeatRewardAmount,StageName,TeaTime,ResetTime,EnemyHeroID,StageBG,ActionPoint,BackGround1,BackGround2,BackGround3,BackGround4,BackGround5,BackGround6,Type,GimmickID,RaceID,BGMName
-110001,1,25,100,2002,2001,,101,101,10000,1000,stage1-1,0,140,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
-110002,1,25,105,2002,2001,,101,101,10000,1000,stage1-2,0,145,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
+110001,1,25,100,2002,2001,2002,101,101,10000,1000,stage1-1,0,140,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
+110002,1,25,105,2002,2001,2002,101,101,10000,1000,stage1-2,0,145,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
 110003,1,25,110,2002,2001,2003,101,101,10000,1000,stage1-3,0,145,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
 110004,1,25,115,2002,2001,2003,101,101,10000,1000,stage1-4,0,140,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
 110005,1,25,120,2002,2001,2003,101;103,101,20000;1,2000,stage1-5,0,40,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
@@ -8,7 +8,7 @@
 110007,1,25,130,2002,2001,2003,101,101,11000,1100,stage1-7,0,50,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
 110008,1,25,135,2002,2001,2003,101,101,11000,1100,stage1-8,0,110,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
 110009,1,25,140,2002,2001,2003,101,101,11000,1100,stage1-9,0,75,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
-110010,1,25,150,2001,2003,,101;102,101,30000;5,3000,stage1-10,0,70,4001,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,7
+110010,1,25,150,2001,2002,2003,101;102,101,30000;5,3000,stage1-10,0,70,4001,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,7
 110011,2,25,100,2004,2005,,101,101,10000,1000,stage2-1,0,60,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
 110012,2,25,105,2004,2005,,101,101,10000,1000,stage2-2,0,60,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
 110013,2,25,110,2004,2005,2003,101,101,10000,1000,stage2-3,0,60,,Castle_Enemy,10,Sky-5,Mountain-6,Tree-2,,Ground-4,,0,,,6
