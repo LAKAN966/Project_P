@@ -54,6 +54,7 @@ public class TutorialManager : MonoBehaviour
 
     public void StartTuto(int i)
     {
+        Debug.Log("튜토리얼 실행");
         if (PlayerDataManager.Instance.player.tutorialDone[i]) return;
         if (isPlaying)
         {

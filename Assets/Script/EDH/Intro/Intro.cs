@@ -14,6 +14,11 @@ public class Intro : MonoBehaviour
 
     public void EnterGame()
     {
+        if (!PlayerDataManager.Instance.player.tutorialDone[0])
+        {
+            TutorialManager.Instance.StartTuto(0);
+            return;
+        }
         SceneManager.LoadScene("MainScene");
         SFXManager.Instance.PlaySFX(0);
     }
