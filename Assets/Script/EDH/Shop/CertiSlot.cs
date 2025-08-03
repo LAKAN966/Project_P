@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 public class CertiSlot : MonoBehaviour
 {
     [SerializeField] public Image UnitIcon;                     // 유닛 아이콘
