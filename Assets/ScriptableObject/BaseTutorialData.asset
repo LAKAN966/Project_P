@@ -95,21 +95,9 @@ MonoBehaviour:
     dialogue: "\uBCF8\uC778\uC5D0\uAC8C \uD544\uC694\uD55C \uB2A5\uB825\uCE58\uB97C
       \uBBF8\uB9AC \uD655\uC778\uD6C4 \uC9C4\uD589\uD558\uB3C4\uB85D"
     triggerEventName: 
-    effectID: 6
+    effectID: 20
     dialogUp: 0
     highlightTarget: 
-  - npcName: "\uB179\uC2A4"
-    dialogue: 
-    triggerEventName: ClosePanel1
-    effectID: 6
-    dialogUp: 1
-    highlightTarget: ShowCancleBtn
-  - npcName: "\uB179\uC2A4"
-    dialogue: 
-    triggerEventName: ClosePanel2
-    effectID: 6
-    dialogUp: 0
-    highlightTarget: GosCloseBtn
   - npcName: "\uB179\uC2A4"
     dialogue: "\uC774\uC81C \uD655\uC778\uC744 \uB20C\uB7EC \uAC74\uC124\uC744 \uC9C4\uD589
       \uD574\uBCF4\uC790"

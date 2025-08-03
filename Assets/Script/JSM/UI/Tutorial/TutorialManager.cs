@@ -312,6 +312,17 @@ public class TutorialManager : MonoBehaviour
                 var ui = GameObject.Find("PurchaseUIBox");
                 ui.SetActive(false);
                 break;
+
+            case 20:
+                GameObject GosCloseBtn = GameObject.Find("GosCloseBtn");
+                Button gosCloseBtn = GosCloseBtn.GetComponent<Button>();
+                gosCloseBtn.onClick.Invoke();
+                GameObject ShowCancleBtn = GameObject.Find("ShowCancleBtn");
+                Button showCancleBtn = ShowCancleBtn.GetComponent<Button>();
+                showCancleBtn.onClick.Invoke();
+
+                break;
+            
         }
 
         yield return null;
