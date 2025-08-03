@@ -505,13 +505,34 @@ public class TutorialManager : MonoBehaviour
 
         triggerActions["TowerBtn"] = () =>
         {
-            GameObject gd = GameObject.Find("Stage");
-            if (gd == null)
+            GameObject tower = GameObject.Find("Stage");
+            if (tower == null)
             {
-                Debug.Log("gd를 찾을 수 없습니다.");
+                Debug.Log("tower를 찾을 수 없습니다.");
             }
-            StageInit init = gd.GetComponentInChildren<StageInit>();
+            StageInit init = tower.GetComponentInChildren<StageInit>();
             init.OnTowerBtn();
+        };
+
+        triggerActions["EnterTowerBtn"] = () =>
+        {
+            GameObject enterTower = GameObject.Find("TowerPrefab(Clone)");
+            if (enterTower == null)
+            {
+                Debug.Log("enterTower를 찾을 수 없습니다.");
+            }
+            UITowerSlot info = enterTower.GetComponentInChildren<UITowerSlot>();
+            info.OnClickTower();
+        };
+
+        triggerActions["ExitTowerInfo"] = () =>
+        {
+            GameObject towerInfo = GameObject.Find("TowerInfo");
+            if (towerInfo == null)
+            {
+                Debug.Log("towerInfo를 찾을 수 없습니다.");
+            }
+            towerInfo.SetActive(false);
         };
     }
 }
