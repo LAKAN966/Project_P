@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Unity.VisualScripting;
 using Firebase.Auth;
 using Firebase.Database;
+using System.Threading.Tasks;
 
 public class PlayerDataManager
 {
@@ -35,7 +36,7 @@ public class PlayerDataManager
             Debug.Log("저장 성공");
         }
     }
-    public async void Load() // 플레이어 데이터 불러오기
+    public async Task Load() // 플레이어 데이터 불러오기
     {
         Player load = await SaveLoadManager.Load("playerJson", new Player());
         if(load != null)
@@ -45,6 +46,7 @@ public class PlayerDataManager
         }
         else
         {
+            Player = new Player();
             Save();
         }
     }
