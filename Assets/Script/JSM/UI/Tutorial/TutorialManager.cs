@@ -470,5 +470,69 @@ public class TutorialManager : MonoBehaviour
             Debug.Log("[튜토리얼] Pick.PickTenTimes() 실행");
             pickComponent.CertificateStoreSet();
         };
+
+        triggerActions["SelectBtn"] = () =>
+        {
+            GameObject stageBtn = GameObject.Find("StageNode(Clone)");
+            if (stageBtn == null)
+            {
+                Debug.Log("selectBtn을 찾을 수 없습니다.");
+            }
+            StageNode node = stageBtn.GetComponent<StageNode>();
+            node.OnClickNode();
+        };
+
+        triggerActions["exitBtn"] = () =>
+        {
+            GameObject exitBtn = GameObject.Find("StageInfo");
+            if (exitBtn == null)
+            {
+                Debug.Log("exitBtn을 찾을 수 없습니다.");
+            }
+            exitBtn.SetActive(false);
+        };
+
+        triggerActions["GoldDungeonBtn"] = () =>
+        {
+            GameObject gd = GameObject.Find("Stage");
+            if (gd == null)
+            {
+                Debug.Log("gd를 찾을 수 없습니다.");
+            }
+            StageInit init = gd.GetComponentInChildren<StageInit>();
+            init.OnGoldBtn();
+        };
+
+        triggerActions["TowerBtn"] = () =>
+        {
+            GameObject tower = GameObject.Find("Stage");
+            if (tower == null)
+            {
+                Debug.Log("tower를 찾을 수 없습니다.");
+            }
+            StageInit init = tower.GetComponentInChildren<StageInit>();
+            init.OnTowerBtn();
+        };
+
+        triggerActions["EnterTowerBtn"] = () =>
+        {
+            GameObject enterTower = GameObject.Find("TowerPrefab(Clone)");
+            if (enterTower == null)
+            {
+                Debug.Log("enterTower를 찾을 수 없습니다.");
+            }
+            UITowerSlot info = enterTower.GetComponentInChildren<UITowerSlot>();
+            info.OnClickTower();
+        };
+
+        triggerActions["ExitTowerInfo"] = () =>
+        {
+            GameObject towerInfo = GameObject.Find("TowerInfo");
+            if (towerInfo == null)
+            {
+                Debug.Log("towerInfo를 찾을 수 없습니다.");
+            }
+            towerInfo.SetActive(false);
+        };
     }
 }

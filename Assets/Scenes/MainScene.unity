@@ -13711,7 +13711,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2051488705740483937}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIStageInfo, Assembly-CSharp
         m_MethodName: OnClickToDeck
         m_Mode: 1
@@ -26321,27 +26321,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935636470684895169}
   m_CullTransparentMesh: 1
---- !u!114 &2051488705740483937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2186561246076904980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f253295e63e07aa45a97cb8807e485b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy1: {fileID: 5341164497891139020}
-  enemy2: {fileID: 4043277424603927661}
-  enemyLeader: {fileID: 2326113154926358777}
-  firstRewardParent: {fileID: 2034496818029756836}
-  frSlot: {fileID: 7711535533745235103, guid: 71c39ce64c49f4b4d82e5201466683d8, type: 3}
-  repeatRewardParent: {fileID: 1761343765735980834}
-  rrSlot: {fileID: 6952028933753940915, guid: 282700d865f19d04ea56564945cd6f84, type: 3}
-  deckBtn: {fileID: 3077061823626494513}
-  enterBtn: {fileID: 8350006109083036006}
 --- !u!1 &2058166064424889621
 GameObject:
   m_ObjectHideFlags: 0
@@ -26997,7 +26976,7 @@ GameObject:
   - component: {fileID: 5927745265090045013}
   - component: {fileID: 8228458969130247994}
   - component: {fileID: 1189708901116114816}
-  - component: {fileID: 2051488705740483937}
+  - component: {fileID: 8228458969130247995}
   m_Layer: 5
   m_Name: StageInfoUI
   m_TagString: Untagged
@@ -27150,7 +27129,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2051488705740483937}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIStageInfo, Assembly-CSharp
         m_MethodName: OnClickToDeck
         m_Mode: 1
@@ -29946,7 +29925,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5065400213054122859}
   m_Layer: 5
-  m_Name: Stage
+  m_Name: StageParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31934,7 +31913,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2051488705740483937}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIStageInfo, Assembly-CSharp
         m_MethodName: OnClickToDeck
         m_Mode: 1
@@ -51924,7 +51903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6630495252154507066
 GameObject:
   m_ObjectHideFlags: 0
@@ -60091,6 +60070,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2186561246076904980}
   m_CullTransparentMesh: 1
+--- !u!114 &8228458969130247995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2186561246076904980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f253295e63e07aa45a97cb8807e485b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy1: {fileID: 5341164497891139020}
+  enemy2: {fileID: 4043277424603927661}
+  enemyLeader: {fileID: 2326113154926358777}
+  firstRewardParent: {fileID: 2034496818029756836}
+  frSlot: {fileID: 7711535533745235103, guid: 71c39ce64c49f4b4d82e5201466683d8, type: 3}
+  repeatRewardParent: {fileID: 1761343765735980834}
+  rrSlot: {fileID: 6952028933753940915, guid: 282700d865f19d04ea56564945cd6f84, type: 3}
+  deckBtn: {fileID: 3077061823626494513}
+  enterBtn: {fileID: 8350006109083036006}
 --- !u!114 &8232273916847704251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60562,7 +60562,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2051488705740483937}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIStageInfo, Assembly-CSharp
         m_MethodName: OnClickEnter
         m_Mode: 1

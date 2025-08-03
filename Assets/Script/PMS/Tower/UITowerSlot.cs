@@ -51,7 +51,7 @@ public class UITowerSlot : MonoBehaviour
         }
     }
 
-    private void OnClickTower()
+    public void OnClickTower()
     {
         var stage = TowerManager.Instance.GetCurrentFloorStage(raceID);
         if(stage == null)
