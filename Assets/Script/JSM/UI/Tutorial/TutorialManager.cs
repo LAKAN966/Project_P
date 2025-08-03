@@ -40,6 +40,7 @@ public class TutorialManager : MonoBehaviour
     public bool isPlaying = false;
     private bool hasPlayedNpcIntro = false;
     private TutorialData tutorialData;
+    private int tutoNum;
     private AsyncOperationHandle<GameObject> handle;
 
     private AsyncOperationHandle<GameObject> dialogueBoxHandle;
@@ -53,6 +54,7 @@ public class TutorialManager : MonoBehaviour
 
     public void StartTuto(int i)
     {
+        if (PlayerDataManager.Instance.player.tutorialDone[i]) return;
         if (isPlaying)
         {
             Debug.LogWarning("튜토리얼이 이미 진행 중입니다.");
@@ -61,6 +63,7 @@ public class TutorialManager : MonoBehaviour
 
         isPlaying = true;
         tutorialData = tutorialDataList[i];
+        tutoNum = i;
 
         if (i == 0)
         {
@@ -358,7 +361,7 @@ public class TutorialManager : MonoBehaviour
             Addressables.ReleaseInstance(dialogueBoxInstance);
             dialogueBoxInstance = null;
         }
-
+        PlayerDataManager.Instance.player.tutorialDone[tutoNum] = true;
         Debug.Log("튜토리얼 완료");
     }
 
