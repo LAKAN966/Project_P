@@ -53,7 +53,7 @@ MonoBehaviour:
     triggerEventName: 
     effectID: 6
     dialogUp: 0
-    highlightTarget: 
+    highlightTarget: StageNode(Clone)
   - npcName: 
     dialogue: 
     triggerEventName: 
