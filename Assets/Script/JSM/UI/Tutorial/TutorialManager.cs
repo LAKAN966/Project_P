@@ -490,52 +490,17 @@ public class TutorialManager : MonoBehaviour
         };
         triggerActions["BuildGrave"] = () =>
         {
-
             GameObject BuildGrave = GameObject.Find("BuildMenuSlot_0");
             BuildSelectButton buildGrave = BuildGrave.GetComponent<BuildSelectButton>();
-            buildGrave.buildConfirmPanel.SetActive(true);
-            NextStep();
+            buildGrave.OnClick();
         };
-        triggerActions["TouchBuildIcon"] = () =>
+        triggerActions["BuildIcons"] = () =>
         {
-            GameObject TouchBuildIcon = GameObject.Find("BuildImage");
-            BuildSelectButton Icon = TouchBuildIcon.GetComponent<BuildSelectButton>();
-            Icon.buildGospelUI.SetActive(true);
-            GameObject buildGospelUI = GameObject.Find("buildGospelUI");
-            buildGospelUI.SetActive(true);
-            NextStep();
+            GameObject BuildIcons = GameObject.Find("GospelPanel");
+            BuildSelectButton buildSelectButton = BuildIcons.GetComponent<BuildSelectButton>();
+            buildSelectButton.buildGospelUI.SetActive(true);
         };
-        triggerActions["TouchSpell"] = () =>
-        {
 
-        };
-        triggerActions["TouchBuildConfirm"] = () =>
-        {
-            GameObject BuildGrave = GameObject.Find("BuildMenuSlot_0");
-        };
-        triggerActions["TouchGrave"] = () =>
-        {
-            GameObject BuildGrave = GameObject.Find("BuildMenuSlot_0");
-            BuildSelectButton buildGrave = BuildGrave.GetComponent<BuildSelectButton>();
-            buildGrave.buildGospelUI.SetActive(true);
-        };
-        triggerActions["ConfirmExit"] = () =>
-        {
-            GameObject ConfirmExit = GameObject.Find("ConfirmBtn");
-            BuildSelectButton buildCom = ConfirmExit.GetComponent<BuildSelectButton>();
-            buildCom.buildConfirmPanel.SetActive(false);
-        };
-        triggerActions["LevelUp"] = () =>   
-        {
-            GameObject ConfirmExit = GameObject.Find("ConfirmBtn");
-            BuildSlotUI buildCom = ConfirmExit.GetComponent<BuildSlotUI>();
-            buildCom.levelUpPanel.SetActive(true);
-        };
-        triggerActions["LevelUpExit"] = () =>
-        {
-            GameObject LevelUpExit = GameObject.Find("ConfirmBtn");
-            BuildSlotUI lvUpExit = LevelUpExit.GetComponent<BuildSlotUI>();
-            lvUpExit.levelUpPanel.SetActive(false);
-        };
+
     }
 }

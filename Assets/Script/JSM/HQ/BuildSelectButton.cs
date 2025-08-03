@@ -40,7 +40,7 @@ public class BuildSelectButton : MonoBehaviour
             allIDs.AddRange(building.raceIDList);
     }
 
-    private void OnClick()
+    public void OnClick()
     {
         buildConfirmPanel.SetActive(true);
 
