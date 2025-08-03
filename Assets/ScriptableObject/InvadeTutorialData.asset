@@ -55,12 +55,6 @@ MonoBehaviour:
     dialogUp: 0
     highlightTarget: StageNode(Clone)
   - npcName: "\uB179\uC2A4"
-    dialogue: 
-    triggerEventName: 
-    effectID: 1
-    dialogUp: 0
-    highlightTarget: StageInfo
-  - npcName: "\uB179\uC2A4"
     dialogue: "\uC131\uC758 \uC815\uBCF4\uB97C \uD655\uC778\uD558\uC5EC \uCE68\uB7B5\uC744
       \uC9C4\uD589 \uD560 \uC218 \uC788\uB2E4"
     triggerEventName: 
@@ -89,7 +83,7 @@ MonoBehaviour:
     dialogUp: 1
     highlightTarget: Encounter
   - npcName: "\uB179\uC2A4"
-    dialogue: 
+    dialogue: "\uB2E4\uC74C..."
     triggerEventName: exitBtn
     effectID: 6
     dialogUp: 0
@@ -177,7 +171,7 @@ MonoBehaviour:
     dialogUp: 0
     highlightTarget: 
   - npcName: "\uB179\uC2A4"
-    dialogue: 
+    dialogue: "\uC124\uBA85\uC740 \uC774\uCBE4 \uD558"
     triggerEventName: ExitTowerInfo
     effectID: 6
     dialogUp: 0
