@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -306,6 +305,10 @@ public class TutorialManager : MonoBehaviour
             case 7:
                 UIController.Instance.OnExitBtn();
                 break;
+            case 8:
+                var ui = GameObject.Find("PurchaseUIBox");
+                ui.SetActive(false);
+                break;
         }
 
         yield return null;
@@ -329,6 +332,7 @@ public class TutorialManager : MonoBehaviour
 
     public void OnEventTriggered(string eventName)
     {
+        if(tutorialData == null) return;
         var step = tutorialData.steps[currentStepIndex];
         if (step.effectID == 6 && step.highlightTarget == eventName)
         {
@@ -430,40 +434,41 @@ public class TutorialManager : MonoBehaviour
             UIController.Instance.OnExitBtn();
         };
         triggerActions["UnitManage"] = () => UIController.Instance.UnitManageActive();
-        triggerActions["BuildSlot"] = () => 
+        triggerActions["ClickNorm"] = () =>
         {
-            GameObject BuildSlot = GameObject.Find("BuildSlot_0");
-            if (BuildSlot == null)
+            GameObject gottchaObj = GameObject.Find("ItemSlot(Clone)");
+            if (gottchaObj == null)
             {
-                Debug.LogError("[튜토리얼] 'BuildSlot_0' 오브젝트를 찾을 수 없습니다.");
+                Debug.LogError("[튜토리얼] 'ItemSlot(Clone)' 오브젝트를 찾을 수 없습니다.");
                 return;
             }
-            BuildSlotUI buildSlot = BuildSlot.GetComponent<BuildSlotUI>();
-            if (buildSlot == null)
+
+            ItemSlot pickComponent = gottchaObj.GetComponent<ItemSlot>();
+            if (pickComponent == null)
             {
-                Debug.LogError("[튜토리얼] 'buildSlot' 오브젝트를 찾을 수 없습니다.");
+                Debug.LogError("[튜토리얼] 'ItemSlot(Clone)' 오브젝트에 ItemSlot 컴포넌트가 없습니다.");
                 return;
             }
-            buildSlot.Select();
+            Debug.Log("[튜토리얼] Pick.PickTenTimes() 실행");
+            pickComponent.OnButtonClicked();
         };
-        triggerActions["BuildGrave"] = () => 
+        triggerActions["CertificateStoreBtn"] = () =>
         {
-            GameObject BuildGrave = GameObject.Find("BuildMenuSlot_0");
-            BuildSelectButton buildGrave = BuildGrave.GetComponent<BuildSelectButton>();
-            buildGrave.buildConfirmPanel.SetActive(true);
-            NextStep();
+            GameObject gottchaObj = GameObject.Find("BookMark");
+            if (gottchaObj == null)
+            {
+                Debug.LogError("[튜토리얼] 'BookMark' 오브젝트를 찾을 수 없습니다.");
+                return;
+            }
+
+            var pickComponent = gottchaObj.GetComponent<BookMarkSet>();
+            if (pickComponent == null)
+            {
+                Debug.LogError("[튜토리얼] 'BookMark' 오브젝트에 BookMarkSet 컴포넌트가 없습니다.");
+                return;
+            }
+            Debug.Log("[튜토리얼] Pick.PickTenTimes() 실행");
+            pickComponent.CertificateStoreSet();
         };
-        triggerActions["TouchBuildIcon"] = () => 
-        {
-
-
-        };
-        triggerActions["TouchSpell"] = () => { };
-        triggerActions["TouchBuildConfirm"] = () => { };
-        triggerActions["TouchGrave"] = () => { };
-        triggerActions["ConfirmExit"] = () => { };
-        triggerActions["LevelUp"] = () => { };
-        triggerActions["LevelUpExit"] = () => { };
-
     }
 }
