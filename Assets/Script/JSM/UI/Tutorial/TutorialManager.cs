@@ -139,7 +139,7 @@ public class TutorialManager : MonoBehaviour
 
     private void ShowCurrentStep()
     {
-        if(tutorialData.steps.Count <= 0)
+        if (tutorialData.steps.Count <= 0)
         {
             EndTutorial();
             return;
@@ -332,7 +332,7 @@ public class TutorialManager : MonoBehaviour
 
     public void OnEventTriggered(string eventName)
     {
-        if(tutorialData == null) return;
+        if (tutorialData == null) return;
         var step = tutorialData.steps[currentStepIndex];
         if (step.effectID == 6 && step.highlightTarget == eventName)
         {
@@ -469,6 +469,73 @@ public class TutorialManager : MonoBehaviour
             }
             Debug.Log("[튜토리얼] Pick.PickTenTimes() 실행");
             pickComponent.CertificateStoreSet();
+        };
+
+        triggerActions["BuildSlot"] = () =>
+        {
+            GospelManager.Instance.LoadGospels();
+            GameObject BuildSlot = GameObject.Find("BuildSlot_0");
+            if (BuildSlot == null)
+            {
+                Debug.LogError("[튜토리얼] 'BuildSlot_0' 오브젝트를 찾을 수 없습니다.");
+                return;
+            }
+            BuildSlotUI buildSlot = BuildSlot.GetComponent<BuildSlotUI>();
+            if (buildSlot == null)
+            {
+                Debug.LogError("[튜토리얼] 'buildSlot' 오브젝트를 찾을 수 없습니다.");
+                return;
+            }
+            buildSlot.Select();
+        };
+        triggerActions["BuildGrave"] = () =>
+        {
+
+            GameObject BuildGrave = GameObject.Find("BuildMenuSlot_0");
+            BuildSelectButton buildGrave = BuildGrave.GetComponent<BuildSelectButton>();
+            buildGrave.buildConfirmPanel.SetActive(true);
+            NextStep();
+        };
+        triggerActions["TouchBuildIcon"] = () =>
+        {
+            GameObject TouchBuildIcon = GameObject.Find("BuildImage");
+            BuildSelectButton Icon = TouchBuildIcon.GetComponent<BuildSelectButton>();
+            Icon.buildGospelUI.SetActive(true);
+            GameObject buildGospelUI = GameObject.Find("buildGospelUI");
+            buildGospelUI.SetActive(true);
+            NextStep();
+        };
+        triggerActions["TouchSpell"] = () =>
+        {
+
+        };
+        triggerActions["TouchBuildConfirm"] = () =>
+        {
+            GameObject BuildGrave = GameObject.Find("BuildMenuSlot_0");
+        };
+        triggerActions["TouchGrave"] = () =>
+        {
+            GameObject BuildGrave = GameObject.Find("BuildMenuSlot_0");
+            BuildSelectButton buildGrave = BuildGrave.GetComponent<BuildSelectButton>();
+            buildGrave.buildGospelUI.SetActive(true);
+        };
+        triggerActions["ConfirmExit"] = () =>
+        {
+            GameObject ConfirmExit = GameObject.Find("ConfirmBtn");
+            BuildSelectButton buildCom = ConfirmExit.GetComponent<BuildSelectButton>();
+            buildCom.buildConfirmPanel.SetActive(false);
+        };
+        triggerActions["LevelUp"] = () =>   
+        {
+            GameObject ConfirmExit = GameObject.Find("ConfirmBtn");
+            BuildSlotUI buildCom = ConfirmExit.GetComponent<BuildSlotUI>();
+            buildCom.levelUpPanel.SetActive(true);
+        };
+        triggerActions["LevelUpExit"] = () =>
+        {
+            GameObject LevelUpExit = GameObject.Find("ConfirmBtn");
+            BuildSlotUI lvUpExit = LevelUpExit.GetComponent<BuildSlotUI>();
+            lvUpExit.levelUpPanel.SetActive(false);
         };
     }
 }
