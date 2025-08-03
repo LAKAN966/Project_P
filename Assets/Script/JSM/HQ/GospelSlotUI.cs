@@ -36,7 +36,7 @@ public class GospelSlotUI : MonoBehaviour
         state = newState;
         UpdateUIByState();
     }
-    private void OnClick()
+    public void OnClick()
     {
         if (confirmUI.gameObject != null && gospelData != null)
         {
