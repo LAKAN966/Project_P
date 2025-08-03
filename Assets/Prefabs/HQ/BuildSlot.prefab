@@ -68,7 +68,7 @@ MonoBehaviour:
   m_text: "\uB808\uBCA8 \uC5C5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 90f30f04fb2192744803af509420a469, type: 2}
-  m_sharedMaterial: {fileID: 4804673219077872049, guid: 8728abdc993f6f14d88b82d8d59400a4, type: 2}
+  m_sharedMaterial: {fileID: 5625860348697742433, guid: 90f30f04fb2192744803af509420a469, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 6883100758061504310}
   - component: {fileID: 2576130307130788706}
   m_Layer: 5
-  m_Name: Button
+  m_Name: lvlButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
