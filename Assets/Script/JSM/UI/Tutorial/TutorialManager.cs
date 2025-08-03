@@ -139,7 +139,7 @@ public class TutorialManager : MonoBehaviour
 
     private void ShowCurrentStep()
     {
-        if (tutorialData.steps.Count <= 0)
+        if(tutorialData.steps.Count <= 0)
         {
             EndTutorial();
             return;
@@ -332,7 +332,7 @@ public class TutorialManager : MonoBehaviour
 
     public void OnEventTriggered(string eventName)
     {
-        if (tutorialData == null) return;
+        if(tutorialData == null) return;
         var step = tutorialData.steps[currentStepIndex];
         if (step.effectID == 6 && step.highlightTarget == eventName)
         {
@@ -471,36 +471,68 @@ public class TutorialManager : MonoBehaviour
             pickComponent.CertificateStoreSet();
         };
 
-        triggerActions["BuildSlot"] = () =>
+        triggerActions["SelectBtn"] = () =>
         {
-            GospelManager.Instance.LoadGospels();
-            GameObject BuildSlot = GameObject.Find("BuildSlot_0");
-            if (BuildSlot == null)
+            GameObject stageBtn = GameObject.Find("StageNode(Clone)");
+            if (stageBtn == null)
             {
-                Debug.LogError("[튜토리얼] 'BuildSlot_0' 오브젝트를 찾을 수 없습니다.");
-                return;
+                Debug.Log("selectBtn을 찾을 수 없습니다.");
             }
-            BuildSlotUI buildSlot = BuildSlot.GetComponent<BuildSlotUI>();
-            if (buildSlot == null)
-            {
-                Debug.LogError("[튜토리얼] 'buildSlot' 오브젝트를 찾을 수 없습니다.");
-                return;
-            }
-            buildSlot.Select();
-        };
-        triggerActions["BuildGrave"] = () =>
-        {
-            GameObject BuildGrave = GameObject.Find("BuildMenuSlot_0");
-            BuildSelectButton buildGrave = BuildGrave.GetComponent<BuildSelectButton>();
-            buildGrave.OnClick();
-        };
-        triggerActions["BuildIcons"] = () =>
-        {
-            GameObject BuildIcons = GameObject.Find("GospelPanel");
-            BuildSelectButton buildSelectButton = BuildIcons.GetComponent<BuildSelectButton>();
-            buildSelectButton.buildGospelUI.SetActive(true);
+            StageNode node = stageBtn.GetComponent<StageNode>();
+            node.OnClickNode();
         };
 
+        triggerActions["exitBtn"] = () =>
+        {
+            GameObject exitBtn = GameObject.Find("StageInfo");
+            if (exitBtn == null)
+            {
+                Debug.Log("exitBtn을 찾을 수 없습니다.");
+            }
+            exitBtn.SetActive(false);
+        };
 
+        triggerActions["GoldDungeonBtn"] = () =>
+        {
+            GameObject gd = GameObject.Find("Stage");
+            if (gd == null)
+            {
+                Debug.Log("gd를 찾을 수 없습니다.");
+            }
+            StageInit init = gd.GetComponentInChildren<StageInit>();
+            init.OnGoldBtn();
+        };
+
+        triggerActions["TowerBtn"] = () =>
+        {
+            GameObject tower = GameObject.Find("Stage");
+            if (tower == null)
+            {
+                Debug.Log("tower를 찾을 수 없습니다.");
+            }
+            StageInit init = tower.GetComponentInChildren<StageInit>();
+            init.OnTowerBtn();
+        };
+
+        triggerActions["EnterTowerBtn"] = () =>
+        {
+            GameObject enterTower = GameObject.Find("TowerPrefab(Clone)");
+            if (enterTower == null)
+            {
+                Debug.Log("enterTower를 찾을 수 없습니다.");
+            }
+            UITowerSlot info = enterTower.GetComponentInChildren<UITowerSlot>();
+            info.OnClickTower();
+        };
+
+        triggerActions["ExitTowerInfo"] = () =>
+        {
+            GameObject towerInfo = GameObject.Find("TowerInfo");
+            if (towerInfo == null)
+            {
+                Debug.Log("towerInfo를 찾을 수 없습니다.");
+            }
+            towerInfo.SetActive(false);
+        };
     }
 }

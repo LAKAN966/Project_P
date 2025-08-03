@@ -34,6 +34,7 @@ public class Player
 
     public PlayerTowerData towerData = new();
 
+
     public Player()
     {
         for(int i = 0; i<3; i++)

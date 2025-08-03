@@ -38,7 +38,7 @@ public class UIStageInfo : MonoBehaviour
 
         var en1 = UnitDataManager.Instance.GetStats(stage.EnemyUnit1);
         var en2 = UnitDataManager.Instance.GetStats(stage.EnemyUnit2);
-        var enLeader = UnitDataManager.Instance.GetStats(stage.EnemyHeroID);
+        var enLeader = UnitDataManager.Instance.GetStats(stage.EnemyUnit3);
 
         enemy1.sprite = Resources.Load<Sprite>($"SPUMImg/{en1.ModelName}");
         enemy2.sprite = Resources.Load<Sprite>($"SPUMImg/{en2.ModelName}");
