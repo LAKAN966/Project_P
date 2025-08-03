@@ -37,14 +37,15 @@ public class ItemSlot : MonoBehaviour
 
         itemSlot.onClick.RemoveAllListeners();
 
-        itemSlot.onClick.AddListener(() =>
-        {
-            purchaseSync.Init(_Item, this);
-            //리펙터링 필요
-            UIController.Instance.PurchaseUIBox.SetActive(true);
-            ItemSlotSet();
-            SFXManager.Instance.PlaySFX(0);
-        });
+        itemSlot.onClick.AddListener(OnButtonClicked);
+    }
+    public void OnButtonClicked()
+    {
+        _purchaseSync.Init(_Item, this);
+        //리펙터링 필요
+        UIController.Instance.PurchaseUIBox.SetActive(true);
+        ItemSlotSet();
+        SFXManager.Instance.PlaySFX(0);
     }
 
     private static Dictionary<int, Item> GetItems(Item item)
