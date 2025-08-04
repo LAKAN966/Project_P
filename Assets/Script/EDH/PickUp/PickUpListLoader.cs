@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -15,7 +16,7 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
 {
     private void Awake()
     {
-        PickUps();
+        //PickUps();
     }
 
     private Dictionary<int, PickInfo> PickListsDict = new();
@@ -35,7 +36,12 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
             if (string.IsNullOrWhiteSpace(lines[i])) continue;
 
             List<string> tokens = ParseCSVLine(lines[i]);
-
+            //int j=0;
+            //foreach(var token in tokens)
+            //{
+            //    Debug.Log(i+"-"+j+" : "+token);
+            //    j++;
+            //}
             PickInfo pickinfo = new PickInfo
             {
                 ID = int.Parse(tokens[0]),    // 유닛 ID

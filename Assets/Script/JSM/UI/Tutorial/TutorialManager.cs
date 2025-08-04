@@ -373,7 +373,9 @@ public class TutorialManager : MonoBehaviour
             Addressables.ReleaseInstance(dialogueBoxInstance);
             dialogueBoxInstance = null;
         }
+        Debug.Log(tutoNum);
         PlayerDataManager.Instance.player.tutorialDone[tutoNum] = true;
+        Debug.Log(PlayerDataManager.Instance.player.tutorialDone[0] + "" + PlayerDataManager.Instance.player.tutorialDone[1] + "" + PlayerDataManager.Instance.player.tutorialDone[2] + "" + PlayerDataManager.Instance.player.tutorialDone[3]);
         Debug.Log("튜토리얼 완료");
     }
 
