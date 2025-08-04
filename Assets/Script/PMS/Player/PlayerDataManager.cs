@@ -38,7 +38,7 @@ public class PlayerDataManager
     }
     public async Task Load() // 플레이어 데이터 불러오기
     {
-        Player load = await SaveLoadManager.Load("playerJson", new Player());
+        Player load = await SaveLoadManager.Load<Player>("playerJson", null);
         if(load != null)
         {
             Player = load;
@@ -47,6 +47,8 @@ public class PlayerDataManager
         else
         {
             Player = new Player();
+            Player.AddUnit(1001);
+            Player.AddUnit(1002);
             Save();
         }
     }
