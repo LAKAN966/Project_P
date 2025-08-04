@@ -56,7 +56,6 @@ public class PickSlotSpawner : MonoBehaviour
         //    }
         //}
         PickInfo pick = CreateCard(Grid1);
-        PlayerDataManager.Instance.AddUnit(pick.ID);
     }
 
     public void SpawnCardTen() //10개 뽑기 결과생성
@@ -80,10 +79,6 @@ public class PickSlotSpawner : MonoBehaviour
         {
             picks.Add(CreateCard(Grid2));
         }
-        foreach (PickInfo pick in picks)
-        {
-            PlayerDataManager.Instance.AddUnit(pick.ID);
-        }
     }
     private PickInfo CreateCard(Transform parent) //카드 슬롯 생성
     {
@@ -91,7 +86,7 @@ public class PickSlotSpawner : MonoBehaviour
         PickInfo RanResult;
 
         int rand = Random.Range(0, heroPie + normPie);
-        if(rand < heroPie-1)
+        if(rand < heroPie)
             RanResult = heroes[Random.Range(0, heroes.Count)];
         else
             RanResult = nonHeroes[Random.Range(0, nonHeroes.Count)];
