@@ -7,9 +7,9 @@ using UnityEngine;
 public static class SaveLoadManager
 {
     public static string UserID => SystemInfo.deviceUniqueIdentifier;
-    public static async Task<bool> Save<T>(string key, T data)
+    public static async Task<bool> Save<T>(string key, T value)
     {
-        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+        string json = JsonConvert.SerializeObject(value);
         try
         {
             await FirebaseDatabase.DefaultInstance.GetReference($"users/{UserID}/{key}").SetValueAsync(json);

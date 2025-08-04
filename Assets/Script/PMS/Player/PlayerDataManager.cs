@@ -25,7 +25,7 @@ public class PlayerDataManager
         }
     }
 
-    private Player Player = new();
+    private Player Player = new Player();
     public Player player => Player;
 
     public async void Save() // 플레이어 데이터 저장

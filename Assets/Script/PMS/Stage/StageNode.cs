@@ -34,4 +34,15 @@ public class StageNode : MonoBehaviour
         }
     }
 
+    public void SetInteractable(bool interactable)
+    {
+        GetComponent<Button>().interactable = interactable;
+
+        var image = GetComponent<Image>();
+        if (image != null)
+        {
+            image.color = interactable ? Color.white : new Color(0.5f, 0.5f, 0.5f);
+        }
+    }
+
 }

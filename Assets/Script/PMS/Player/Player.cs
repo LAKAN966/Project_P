@@ -29,7 +29,7 @@ public class Player
     public List<BuildingState> buildingsList = new();
     public Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();
     public Dictionary<int, UnitStats> buildingBuffs = new();
-    public List<bool> tutorialDone = new List<bool>() { false, false, false, false };
+    public List<bool> tutorialDone;
     //public int pickPoint = 0;
 
     public PlayerTowerData towerData = new();
@@ -37,7 +37,10 @@ public class Player
 
     public Player()
     {
-        for(int i = 0; i<3; i++)
+
+        tutorialDone = new List<bool>(new bool[4]);
+
+        for (int i = 0; i<3; i++)
         {
             preset.Add(new DeckData());
         }
