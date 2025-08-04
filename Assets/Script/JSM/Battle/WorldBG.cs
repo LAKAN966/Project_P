@@ -14,11 +14,15 @@ public class WorldBG : MonoBehaviour
 {
     public Transform parentTransform;
     public int stageID = 0;
-    public TextAsset stageDataCSV;
+    private TextAsset stageDataCSV;
 
     public List<WorldParallaxLayer> layers = new();
     private readonly List<Transform> generatedTiles = new();
 
+    private void Awake()
+    {
+        stageDataCSV = Resources.Load<TextAsset>("Data/StageData");
+    }
     private void Start()
     {
         StartCoroutine(InitializeStage());

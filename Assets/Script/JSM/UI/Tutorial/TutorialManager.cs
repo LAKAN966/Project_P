@@ -56,7 +56,7 @@ public class TutorialManager : MonoBehaviour
     public void StartTuto(int i)
     {
         Debug.Log("튜토리얼 실행");
-        if (PlayerDataManager.Instance.player.tutorialDone[i]) return;
+        //if (PlayerDataManager.Instance.player.tutorialDone[i]) return;
         if (isPlaying)
         {
             Debug.LogWarning("튜토리얼이 이미 진행 중입니다.");
@@ -380,6 +380,11 @@ public class TutorialManager : MonoBehaviour
         PlayerDataManager.Instance.player.tutorialDone[tutoNum] = true;
         Debug.Log(PlayerDataManager.Instance.player.tutorialDone[0] + "" + PlayerDataManager.Instance.player.tutorialDone[1] + "" + PlayerDataManager.Instance.player.tutorialDone[2] + "" + PlayerDataManager.Instance.player.tutorialDone[3]);
         Debug.Log("튜토리얼 완료");
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "BattleScene")
+        {
+            SceneManager.LoadScene("MainScene");
+        }
     }
 
 
