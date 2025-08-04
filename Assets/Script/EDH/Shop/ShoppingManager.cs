@@ -13,6 +13,9 @@ public class ShoppingManager : Singleton<ShoppingManager>
     public TMP_Text GoldAmount; //골드 상점용
     public TMP_Text PityCount; // 뽑기 횟수 =  증명서 갯수
 
+    public TMP_Text TicketCount;
+    public TMP_Text BluprintCount;
+    public TMP_Text buildToolCount;
 
 
     void Start()
@@ -34,5 +37,18 @@ public class ShoppingManager : Singleton<ShoppingManager>
     public void ShowNowCertificate()
     {
         PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
+    }
+    public void ShowNowTiket()
+    {
+        TicketCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
+    }
+    public void ShowNowBlueprint()
+    {
+        BluprintCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.bluePrint);
+    }
+
+    public void ShowNowBuildTool()
+    {
+        buildToolCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.tribute);
     }
 }

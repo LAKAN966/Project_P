@@ -20,6 +20,7 @@ public class PurchaseSync : MonoBehaviour
 
     public TMP_InputField InputAmount;   // 수량 입력칸
     public TextMeshProUGUI totalCost;
+    public TextMeshProUGUI NowHave;
 
     public Button AddButton;        // 수량 추가 버튼
     public Button SubtractButton;   // 수량 빼기버튼
@@ -90,6 +91,7 @@ public class PurchaseSync : MonoBehaviour
 
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
+       
 
         if ((ItemID)_Item.ID == ItemID.NormalRecruit)
             PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTicket);
@@ -110,7 +112,6 @@ public class PurchaseSync : MonoBehaviour
 
         int Cost = _Item.Cost;
         int Amount = int.Parse(InputAmount.text);
-
         if (AttemptLeft > 0)
         {
             if (int.Parse(InputAmount.text) > _Item.DailyBuy)

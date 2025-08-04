@@ -127,6 +127,9 @@ public class UIController : MonoBehaviour
         Shop.SetActive(true);
         Main.SetActive(false);
         ShoppingManager.Instance.ShowNowCertificate();
+        ShoppingManager.Instance.ShowNowTiket();
+        ShoppingManager.Instance.ShowNowBlueprint();
+        ShoppingManager.Instance.ShowNowBuildTool();
         SoundManager.Instance.PlayBGM(5);
         SFXManager.Instance.PlaySFX(0); // 버튼
         if (!PlayerDataManager.Instance.player.tutorialDone[1]) TutorialManager.Instance.StartTuto(1);
