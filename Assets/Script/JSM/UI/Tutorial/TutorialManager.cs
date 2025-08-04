@@ -38,6 +38,7 @@ public class TutorialManager : MonoBehaviour
     private int currentStepIndex;
 
     public bool isPlaying = false;
+    public bool isTutoring = false;
     private bool hasPlayedNpcIntro = false;
     private TutorialData tutorialData;
     private int tutoNum;
@@ -55,7 +56,7 @@ public class TutorialManager : MonoBehaviour
     public void StartTuto(int i)
     {
         Debug.Log("튜토리얼 실행");
-        if (PlayerDataManager.Instance.player.tutorialDone[i]&&i!=1) return;
+        if (PlayerDataManager.Instance.player.tutorialDone[i]) return;
         if (isPlaying)
         {
             Debug.LogWarning("튜토리얼이 이미 진행 중입니다.");
@@ -63,6 +64,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         isPlaying = true;
+        isTutoring = true;
         tutorialData = tutorialDataList[i];
         tutoNum = i;
 
@@ -91,7 +93,7 @@ public class TutorialManager : MonoBehaviour
             var normalDeck = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
             var leaderDeck = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
             SceneManager.sceneLoaded -= OnBattleSceneLoaded;
-            BattleManager.Instance.StartBattle(110001, normalDeck, leaderDeck);
+            BattleManager.Instance.StartBattle(110000, normalDeck, leaderDeck);
         }
     }
 
@@ -367,6 +369,7 @@ public class TutorialManager : MonoBehaviour
         blackImage.SetActive(false);
         blockImage.SetActive(false);
         isPlaying = false;
+        isTutoring = false;
 
         if (dialogueBoxInstance != null)
         {
