@@ -26,13 +26,16 @@ public class WaveManager : MonoBehaviour
 
     public UnitPool enemyPool;
 
-    public TextAsset stageCSV;
-    public TextAsset waveCSV;
+    private TextAsset stageCSV;
+    private TextAsset waveCSV;
 
     private void Awake()
     {
         if(Instance == null) Instance = this;
         else Destroy(this);
+
+        waveCSV = Resources.Load<TextAsset>("Data/WaveData");
+        stageCSV = Resources.Load<TextAsset>("Data/StageData");
     }
 
     private void Start()
