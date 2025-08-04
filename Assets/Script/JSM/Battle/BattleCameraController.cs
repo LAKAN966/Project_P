@@ -127,7 +127,7 @@ public class BattleCameraController : CameraController
             }
             else if (touch.phase == TouchPhase.Moved)
             {
-                Vector3 delta = touch.position - lastMousePos;
+                Vector2 delta = touch.position - (Vector2)lastMousePos;
                 float moveX = -delta.x * dragSpeed;
 
                 cam.transform.position += new Vector3(moveX, 0, 0);
