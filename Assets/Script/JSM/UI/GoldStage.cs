@@ -82,6 +82,13 @@ public class GoldStage : MonoBehaviour
         int selectedStageID = goldStageData[currentGoldStage].ID;
         if (selectedStageID == -1) return;
 
+        if (!PlayerCheckCurrentDeck.HasUnitsInCurrentDeck())
+        {
+            //Debug.Log("덱에 유닛이 없습니다.");
+            StageManager.instance.PopUp("덱에 유닛이 없습니다.\n유닛을 편성해주세요.");
+            return;
+        }
+
         SceneManager.sceneLoaded += OnBattleSceneLoaded;//씬 로드 후에 실행되게 설정
         SceneManager.LoadScene("BattleScene");
         Debug.Log($"{selectedStageID} 입장");
@@ -103,6 +110,18 @@ public class GoldStage : MonoBehaviour
 
     private void OnChangeLevel()
     {
-        startButton.interactable = (goldStageData[currentGoldStage].ID <= PlayerDataManager.Instance.player.goldDungeonData.lastClearStage + 1) || currentGoldStage == 1 ? true : false;
+        //startButton.interactable = (goldStageData[currentGoldStage].ID <= PlayerDataManager.Instance.player.goldDungeonData.lastClearStage + 1) || currentGoldStage == 1 ? true : false;
+
+        int lastClearStage = PlayerDataManager.Instance.player.goldDungeonData.lastClearStage;
+
+        bool canEnter = currentGoldStage == 1 ||
+                        goldStageData[currentGoldStage].ID <= lastClearStage + 1;
+        startButton.interactable = canEnter;
+        
+        leftButton.gameObject.SetActive(currentGoldStage > 1);
+
+        bool canMoveRight = currentGoldStage < goldStageData.Count &&
+                            goldStageData[currentGoldStage].ID <= lastClearStage;
+        rightButton.gameObject.SetActive(canMoveRight);
     }
 }
