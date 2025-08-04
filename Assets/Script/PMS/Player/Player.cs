@@ -29,7 +29,7 @@ public class Player
     public List<BuildingState> buildingsList = new();
     public Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();
     public Dictionary<int, UnitStats> buildingBuffs = new();
-    public List<bool> tutorialDone;
+    public Dictionary<int, bool> tutorialDone = new Dictionary<int, bool>();
     //public int pickPoint = 0;
 
     public PlayerTowerData towerData = new();
@@ -37,10 +37,7 @@ public class Player
 
     public Player()
     {
-
-        tutorialDone = new List<bool>(new bool[4]);
-
-        for (int i = 0; i<3; i++)
+        for(int i = 0; i<3; i++)
         {
             preset.Add(new DeckData());
         }
@@ -48,6 +45,13 @@ public class Player
         currentPresetIndex = 0;
 
         currentDeck = DeckManager.Instance.CloneDeck(preset[0]);
+        if (tutorialDone.Count == 0)
+        {
+            for (int i = 0; i <= 3; i++)
+            {
+                tutorialDone[i] = false;
+            }
+        }
     }
 
     public void AddUnit(int unitID)

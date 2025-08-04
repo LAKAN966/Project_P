@@ -63,7 +63,8 @@ public class UIController : MonoBehaviour
     public Button CloseHQ;              // 전초기지 닫기
     public Button Closestage;           // 침략 닫기
 
-
+    //기본 설정
+    public BookMarkSet bookMarkSet;
     private void Start()
     {
         Main.SetActive(true);
@@ -72,6 +73,7 @@ public class UIController : MonoBehaviour
         PlayerCurrencyEvent.OnGoldChange += value => ShowNowGold();
         SoundManager.Instance.PlayBGM(0);
         TutorialManager.Instance.OnEventTriggered("battleOver");
+        UnitDataManager.Instance.LoadUnitData();
     }
 
     public void SetButton()
@@ -122,9 +124,13 @@ public class UIController : MonoBehaviour
     }
     public void OpenShop()
     {
+        bookMarkSet.GoldStoreSet();
         Shop.SetActive(true);
         Main.SetActive(false);
         ShoppingManager.Instance.ShowNowCertificate();
+        ShoppingManager.Instance.ShowNowTiket();
+        ShoppingManager.Instance.ShowNowBlueprint();
+        ShoppingManager.Instance.ShowNowBuildTool();
         SoundManager.Instance.PlayBGM(5);
         SFXManager.Instance.PlaySFX(0); // 버튼
         if (!PlayerDataManager.Instance.player.tutorialDone[1]) TutorialManager.Instance.StartTuto(1);

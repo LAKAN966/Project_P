@@ -30,6 +30,7 @@ public class PlayerDataManager
 
     public async void Save() // 플레이어 데이터 저장
     {
+        Debug.Log("저장 직전 tutorialDone Count: " + player.tutorialDone.Count);
         bool save = await SaveLoadManager.Save("playerJson", player);
         if (save)
         {
