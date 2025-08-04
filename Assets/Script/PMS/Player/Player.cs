@@ -45,9 +45,6 @@ public class Player
         currentPresetIndex = 0;
 
         currentDeck = DeckManager.Instance.CloneDeck(preset[0]);
-
-        AddUnit(1001);
-        AddUnit(1002);
     }
 
     public void AddUnit(int unitID)
