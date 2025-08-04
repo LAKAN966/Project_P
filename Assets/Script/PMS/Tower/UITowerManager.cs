@@ -38,10 +38,10 @@ public class UITowerManager : MonoBehaviour
 
         SetTower();
 
-        nextBtn.onClick.RemoveAllListeners();
-        prevBtn.onClick.RemoveAllListeners();
-        nextBtn.onClick.AddListener(NextPage);
-        prevBtn.onClick.AddListener(PrevPage);
+        //nextBtn.onClick.RemoveAllListeners();
+        //prevBtn.onClick.RemoveAllListeners();
+        //nextBtn.onClick.AddListener(NextPage);
+        //prevBtn.onClick.AddListener(PrevPage);
     }
     public void SetTower()
     {
@@ -58,8 +58,8 @@ public class UITowerManager : MonoBehaviour
             slot.Setup(raceIDs[i]);
         }
 
-        prevBtn.interactable = currentPage > 0;
-        nextBtn.interactable = endIndex < raceIDs.Count;
+        //prevBtn.interactable = currentPage > 0;
+        //nextBtn.interactable = endIndex < raceIDs.Count;
     }
 
     private void NextPage()

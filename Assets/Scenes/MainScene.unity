@@ -17102,6 +17102,8 @@ MonoBehaviour:
   goldStage: {fileID: 8287121670539279105}
   mainStage: {fileID: 4428391720395601866}
   infoPanel: {fileID: 1712884235145045237}
+  goldinfoPanel: {fileID: 720643258}
+  towerinfoPanel: {fileID: 5008006957701177523}
   towerPanel: {fileID: 1912555526733636492}
 --- !u!224 &77868471694870468
 RectTransform:
