@@ -1633,6 +1633,7 @@ MonoBehaviour:
   CloseShop: {fileID: 879219499243943763}
   CloseHQ: {fileID: 2763132372094393252}
   Closestage: {fileID: 5686197328101428863}
+  bookMarkSet: {fileID: 9056382004600755874}
 --- !u!1 &202546470
 GameObject:
   m_ObjectHideFlags: 0
