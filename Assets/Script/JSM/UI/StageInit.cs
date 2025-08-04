@@ -40,11 +40,11 @@ public class StageInit : MonoBehaviour
     }
     public void OnTowerBtn()
     {
-        UITowerManager.instance.Init();
         goldStage.SetActive(false);
         mainStage.SetActive(false);
         infoPanel.SetActive(false);
         towerPanel.SetActive(true);
+        UITowerManager.instance.Init();
         goldinfoPanel.SetActive(false);
         towerinfoPanel.SetActive(false);
     }
