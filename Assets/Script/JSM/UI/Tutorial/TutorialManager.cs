@@ -399,22 +399,34 @@ public class TutorialManager : MonoBehaviour
         Vector3[] corners = new Vector3[4];
         targetRect.GetWorldCorners(corners);
 
-        Vector2 screenMin = RectTransformUtility.WorldToScreenPoint(targetCamera, corners[0]);
-        Vector2 screenMax = RectTransformUtility.WorldToScreenPoint(targetCamera, corners[2]);
-        Vector2 screenCenter = (screenMin + screenMax) * 0.5f;
-        Vector2 screenSize = screenMax - screenMin;
+        Vector3 worldMin = corners[0];
+        Vector3 worldMax = corners[2];
 
+        RectTransform maskCanvasRect = maskCanvas.GetComponent<RectTransform>();
+
+        // 월드 좌표를 마스크 캔버스의 로컬 좌표로 변환
+        Vector2 localMin, localMax;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            maskCanvas.GetComponent<RectTransform>(),
-            screenCenter,
+            maskCanvasRect,
+            RectTransformUtility.WorldToScreenPoint(targetCamera, worldMin),
             maskCamera,
-            out Vector2 localPos
+            out localMin
+        );
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            maskCanvasRect,
+            RectTransformUtility.WorldToScreenPoint(targetCamera, worldMax),
+            maskCamera,
+            out localMax
         );
 
+        Vector2 localCenter = (localMin + localMax) * 0.5f;
+        Vector2 localSize = localMax - localMin;
+
         float margin = 5f;
-        maskRect.anchoredPosition = localPos;
-        maskRect.sizeDelta = screenSize + new Vector2(margin * 2f, margin * 2f);
+        maskRect.anchoredPosition = localCenter;
+        maskRect.sizeDelta = localSize + new Vector2(margin * 2f, margin * 2f);
     }
+
     private void RegisterTriggerActions()
     {
         triggerActions.Clear();
