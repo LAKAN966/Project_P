@@ -82,6 +82,13 @@ public class GoldStage : MonoBehaviour
         int selectedStageID = goldStageData[currentGoldStage].ID;
         if (selectedStageID == -1) return;
 
+        if (!PlayerCheckCurrentDeck.HasUnitsInCurrentDeck())
+        {
+            //Debug.Log("덱에 유닛이 없습니다.");
+            StageManager.instance.PopUp("덱에 유닛이 없습니다.\n유닛을 편성해주세요.");
+            return;
+        }
+
         SceneManager.sceneLoaded += OnBattleSceneLoaded;//씬 로드 후에 실행되게 설정
         SceneManager.LoadScene("BattleScene");
         Debug.Log($"{selectedStageID} 입장");

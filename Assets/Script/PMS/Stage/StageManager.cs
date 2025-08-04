@@ -173,7 +173,7 @@ public class StageManager : MonoBehaviour
         if (!PlayerCheckCurrentDeck.HasUnitsInCurrentDeck())
         {
             //Debug.Log("덱에 유닛이 없습니다.");
-            PopUp("덱에 유닛이 없습니다. 유닛을 편성해주세요.");
+            PopUp("덱에 유닛이 없습니다.\n유닛을 편성해주세요.");
             return;
         }
 
@@ -319,7 +319,7 @@ public class StageManager : MonoBehaviour
 
     }
 
-    void PopUp(string txt)
+    public void PopUp(string txt)
     {
         TextMeshProUGUI text = pannel.GetComponentInChildren<TextMeshProUGUI>();
         text.text = txt;
