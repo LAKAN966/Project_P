@@ -21,14 +21,12 @@ public class BattleCameraController : CameraController
     private float savedCamSize;
     private bool hasSavedCamera = false;
 
-
     void Start()
     {
         initialCamPosition = cam.transform.position;
-        minSize = cam.orthographicSize*0.7f;
+        minSize = cam.orthographicSize * 0.7f;
 
         float stageWidth = maxX - minX;
-
         maxSize = Mathf.Min(5.7f, (stageWidth * 0.5f) / cam.aspect);
 
         setCamLocation();
@@ -38,20 +36,26 @@ public class BattleCameraController : CameraController
     {
         if ((this as CameraController).IsFocusing) return;
         if (TutorialManager.Instance.isPlaying) return;
-        HandleZoom();
-        HandleDrag();
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+        HandleZoomWithMouse();
+        HandleDragWithMouse();
+#elif UNITY_IOS || UNITY_ANDROID
+        HandleZoomWithTouch();
+        HandleDragWithTouch();
+#endif
     }
+
     public void setCamLocation()
     {
         if (WaveManager.Instance.stageType == 2)
         {
-            //cam.transform.position += new Vector3(WaveManager.Instance.currentStage.BaseDistance / 2, 0, 0);
             Destroy(this);
             return;
         }
     }
 
-    public void HandleZoom()
+    void HandleZoomWithMouse()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (Mathf.Abs(scroll) < 0.01f) return;
@@ -61,15 +65,13 @@ public class BattleCameraController : CameraController
         if (Mathf.Approximately(oldSize, newSize)) return;
 
         float sizeDelta = newSize - oldSize;
-
-        // 지면 기준 위로 줌 피벗 조정
         cam.transform.position += new Vector3(0, sizeDelta * (1f - pivotOffset), 0);
         cam.orthographicSize = newSize;
 
         ClampCameraPosition();
     }
 
-    public void HandleDrag()
+    void HandleDragWithMouse()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -87,17 +89,66 @@ public class BattleCameraController : CameraController
         }
     }
 
+    void HandleZoomWithTouch()
+    {
+        if (Input.touchCount == 2)
+        {
+            Touch touch0 = Input.GetTouch(0);
+            Touch touch1 = Input.GetTouch(1);
+
+            Vector2 prevTouch0 = touch0.position - touch0.deltaPosition;
+            Vector2 prevTouch1 = touch1.position - touch1.deltaPosition;
+
+            float prevMagnitude = (prevTouch0 - prevTouch1).magnitude;
+            float currentMagnitude = (touch0.position - touch1.position).magnitude;
+
+            float deltaMagnitude = prevMagnitude - currentMagnitude;
+
+            float oldSize = cam.orthographicSize;
+            float newSize = Mathf.Clamp(oldSize + deltaMagnitude * 0.01f * zoomSpeed, minSize, maxSize);
+            if (Mathf.Approximately(oldSize, newSize)) return;
+
+            float sizeDelta = newSize - oldSize;
+            cam.transform.position += new Vector3(0, sizeDelta * (1f - pivotOffset), 0);
+            cam.orthographicSize = newSize;
+
+            ClampCameraPosition();
+        }
+    }
+
+    void HandleDragWithTouch()
+    {
+        if (Input.touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                lastMousePos = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+                Vector3 delta = touch.position - lastMousePos;
+                float moveX = -delta.x * dragSpeed;
+
+                cam.transform.position += new Vector3(moveX, 0, 0);
+                lastMousePos = touch.position;
+
+                ClampCameraPosition();
+            }
+        }
+    }
+
     void ClampCameraPosition()
     {
         float halfView = cam.orthographicSize * cam.aspect;
 
-        // 좌/우 카메라 이동 제한: 뒷부분이 보이지 않게 조절
         float leftLimit = minX + halfView;
         float rightLimit = maxX - halfView;
 
         float clampedX = Mathf.Clamp(cam.transform.position.x, leftLimit, rightLimit);
         cam.transform.position = new Vector3(clampedX, cam.transform.position.y, cam.transform.position.z);
     }
+
     public void FocusLeftMax()
     {
         SaveCameraState();
@@ -120,12 +171,14 @@ public class BattleCameraController : CameraController
 
         cam.transform.position = new Vector3(rightLimit, initialCamPosition.y, initialCamPosition.z);
     }
+
     public void SaveCameraState()
     {
         savedCamPosition = cam.transform.position;
         savedCamSize = cam.orthographicSize;
         hasSavedCamera = true;
     }
+
     public void RestoreCameraState()
     {
         if (!hasSavedCamera)
@@ -137,8 +190,6 @@ public class BattleCameraController : CameraController
         cam.transform.position = savedCamPosition;
         cam.orthographicSize = savedCamSize;
 
-        ClampCameraPosition(); // 혹시 범위를 넘어갈 경우 보정
+        ClampCameraPosition();
     }
-
-
 }
