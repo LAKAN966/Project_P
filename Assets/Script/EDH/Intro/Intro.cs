@@ -16,6 +16,7 @@ public class Intro : MonoBehaviour
     {
         if (!PlayerDataManager.Instance.player.tutorialDone[0])
         {
+            Debug.Log(PlayerDataManager.Instance.player.tutorialDone[0] + "" + PlayerDataManager.Instance.player.tutorialDone[1] + "" + PlayerDataManager.Instance.player.tutorialDone[2] + "" + PlayerDataManager.Instance.player.tutorialDone[3]);
             TutorialManager.Instance.StartTuto(0);
             return;
         }

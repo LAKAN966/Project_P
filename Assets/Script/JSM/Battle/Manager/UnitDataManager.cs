@@ -15,7 +15,7 @@ public class UnitDataManager
             if (instance == null)
             {
                 instance = new UnitDataManager();
-                instance.LoadUnitData();
+                //instance.LoadUnitData();
             }
             return instance;
         }
@@ -24,7 +24,7 @@ public class UnitDataManager
     private Dictionary<int, UnitStats> unitStatsDict = new();
 
     private UnitDataManager() { }
-    private void LoadUnitData()
+    public void LoadUnitData()
     {
         TextAsset csvFile = Resources.Load<TextAsset>("Data/UnitData"); // 확장자 없이
         if (csvFile == null)
