@@ -283,7 +283,20 @@ public class StageManager : MonoBehaviour
             .ToList();
 
         if (chapterStage.First().ID == stageID)
-            return true;
+        {
+            int currentChapter = stageData.Chapter;
+            int prevChapter = currentChapter - 1;
+
+            if (!stageDic.Values.Any(x => x.Chapter == prevChapter))
+                return true;
+
+            var prevChapterStages = stageDic.Values
+                .Where(x => x.Chapter == prevChapter)
+                .Select(x => x.ID)
+                .ToList();
+
+            return prevChapterStages.All(id => PlayerDataManager.Instance.HasClearedStage(id));
+        }
 
         for (int i = 1; i < chapterStage.Count; i++)
         {
