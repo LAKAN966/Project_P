@@ -48,6 +48,9 @@ public class UIController : MonoBehaviour
     public TMP_Text MainGoldAmount;          // 골드 표기
     public TMP_Text StoreGoldAmount;         // 상점에서 골드 표기
     public TMP_Text NotEnoughBoxText;        // 재화 부족 경고 텍스트                                             
+    public TMP_Text mainStageGoldAmount;
+    public TMP_Text gdStageGoldAmount;
+    public TMP_Text towerStageGoldAmount;
 
     //열기버튼
     public Button UnitManagementButton;  // 덱빌딩
@@ -157,6 +160,9 @@ public class UIController : MonoBehaviour
     {
         MainGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
         StoreGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
+        mainStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
+        gdStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
+        towerStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
     }
 
     public void CloseGottaTab()
