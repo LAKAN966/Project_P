@@ -83,7 +83,7 @@ MonoBehaviour:
     dialogUp: 1
     highlightTarget: Encounter
   - npcName: "\uB179\uC2A4"
-    dialogue: "\uB2E4\uC74C..."
+    dialogue: "X\uB97C \uB20C\uB7EC\uC11C \uB2EB\uC544\uB77C"
     triggerEventName: exitBtn
     effectID: 6
     dialogUp: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
     triggerEventName: EnterTowerBtn
     effectID: 6
     dialogUp: 0
-    highlightTarget: TowerPrefab(Clone)
+    highlightTarget: showhighlight
   - npcName: "\uB179\uC2A4"
     dialogue: "\uBBF8\uAD81\uC758 \uD0D1\uC740 \uC81C\uD55C \uC870\uAC74\uC774 \uC874\uC7AC
       \uD55C\uB2E4"

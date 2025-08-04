@@ -122,7 +122,7 @@ MonoBehaviour:
     triggerEventName: BuildSlot
     effectID: 6
     dialogUp: 1
-    highlightTarget: BuildSlot_0
+    highlightTarget: image_HQ13 (1)
   - npcName: "\uB179\uC2A4"
     dialogue: "\uB124\uB188\uC774 \uC120\uD0DD\uD55C \uAD50\uB9AC\uB85C \uBCD1\uC0AC\uB4E4\uC744
       \uAC15\uD654\uD560\uC218 \uC788\uB2E4."
