@@ -76,7 +76,8 @@ public class BattleManager : MonoBehaviour {
 
         if(isWin)
             StageManager.instance.ClearStage(WaveManager.Instance.stageID);
-        UIController.Instance.OpenStage();
+        if(!TutorialManager.Instance.isTutoring)
+            UIController.Instance.OpenStage();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
