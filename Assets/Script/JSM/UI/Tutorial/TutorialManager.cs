@@ -55,7 +55,7 @@ public class TutorialManager : MonoBehaviour
     public void StartTuto(int i)
     {
         Debug.Log("튜토리얼 실행");
-        if (PlayerDataManager.Instance.player.tutorialDone[i]) return;
+        if (PlayerDataManager.Instance.player.tutorialDone[i]&&i!=1) return;
         if (isPlaying)
         {
             Debug.LogWarning("튜토리얼이 이미 진행 중입니다.");
@@ -361,7 +361,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    private void EndTutorial()
+    public void EndTutorial()
     {
         maskPanel.SetActive(false);
         blackImage.SetActive(false);
