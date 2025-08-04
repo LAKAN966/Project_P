@@ -13,6 +13,7 @@ public class FrameSetting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetLowFPS();
         LowFPSbtn.onClick.AddListener(SetLowFPS);
         HighFPSbtn.onClick.AddListener(SetHighFPS);
     }

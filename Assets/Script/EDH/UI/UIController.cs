@@ -63,7 +63,8 @@ public class UIController : MonoBehaviour
     public Button CloseHQ;              // 전초기지 닫기
     public Button Closestage;           // 침략 닫기
 
-
+    //기본 설정
+    public BookMarkSet bookMarkSet;
     private void Start()
     {
         Main.SetActive(true);
@@ -122,6 +123,7 @@ public class UIController : MonoBehaviour
     }
     public void OpenShop()
     {
+        bookMarkSet.GoldStoreSet();
         Shop.SetActive(true);
         Main.SetActive(false);
         ShoppingManager.Instance.ShowNowCertificate();
