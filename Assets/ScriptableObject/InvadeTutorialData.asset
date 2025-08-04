@@ -171,7 +171,7 @@ MonoBehaviour:
     dialogUp: 0
     highlightTarget: 
   - npcName: "\uB179\uC2A4"
-    dialogue: "\uC124\uBA85\uC740 \uC774\uCBE4 \uD558"
+    dialogue: "\uC124\uBA85\uC740 \uC774\uCBE4 \uD558\uC9C0"
     triggerEventName: ExitTowerInfo
     effectID: 6
     dialogUp: 0
