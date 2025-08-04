@@ -26,7 +26,7 @@ public class BuildingLevelUpUI : MonoBehaviour
         confirmButton = buildLevelUpConfirmUI.confirmBtn;
         buildImg = buildLevelUpConfirmUI.buildingImg;
     }
-    private void OnClick()
+    public void OnClick()
     {
         levelUpPanel.SetActive(true);
 

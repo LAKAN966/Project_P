@@ -40,6 +40,7 @@ public class TutorialManager : MonoBehaviour
     public bool isPlaying = false;
     private bool hasPlayedNpcIntro = false;
     private TutorialData tutorialData;
+    private int tutoNum;
     private AsyncOperationHandle<GameObject> handle;
 
     private AsyncOperationHandle<GameObject> dialogueBoxHandle;
@@ -53,6 +54,8 @@ public class TutorialManager : MonoBehaviour
 
     public void StartTuto(int i)
     {
+        Debug.Log("튜토리얼 실행");
+        if (PlayerDataManager.Instance.player.tutorialDone[i]) return;
         if (isPlaying)
         {
             Debug.LogWarning("튜토리얼이 이미 진행 중입니다.");
@@ -61,6 +64,7 @@ public class TutorialManager : MonoBehaviour
 
         isPlaying = true;
         tutorialData = tutorialDataList[i];
+        tutoNum = i;
 
         if (i == 0)
         {
@@ -139,7 +143,7 @@ public class TutorialManager : MonoBehaviour
 
     private void ShowCurrentStep()
     {
-        if(tutorialData.steps.Count <= 0)
+        if (tutorialData.steps.Count <= 0)
         {
             EndTutorial();
             return;
@@ -309,6 +313,17 @@ public class TutorialManager : MonoBehaviour
                 var ui = GameObject.Find("PurchaseUIBox");
                 ui.SetActive(false);
                 break;
+
+            case 20:
+                GameObject GosCloseBtn = GameObject.Find("GosCloseBtn");
+                Button gosCloseBtn = GosCloseBtn.GetComponent<Button>();
+                gosCloseBtn.onClick.Invoke();
+                GameObject ShowCancleBtn = GameObject.Find("ShowCancleBtn");
+                Button showCancleBtn = ShowCancleBtn.GetComponent<Button>();
+                showCancleBtn.onClick.Invoke();
+
+                break;
+            
         }
 
         yield return null;
@@ -332,7 +347,7 @@ public class TutorialManager : MonoBehaviour
 
     public void OnEventTriggered(string eventName)
     {
-        if(tutorialData == null) return;
+        if (tutorialData == null) return;
         var step = tutorialData.steps[currentStepIndex];
         if (step.effectID == 6 && step.highlightTarget == eventName)
         {
@@ -358,7 +373,7 @@ public class TutorialManager : MonoBehaviour
             Addressables.ReleaseInstance(dialogueBoxInstance);
             dialogueBoxInstance = null;
         }
-
+        PlayerDataManager.Instance.player.tutorialDone[tutoNum] = true;
         Debug.Log("튜토리얼 완료");
     }
 
@@ -533,6 +548,66 @@ public class TutorialManager : MonoBehaviour
                 Debug.Log("towerInfo를 찾을 수 없습니다.");
             }
             towerInfo.SetActive(false);
+        };
+        triggerActions["BuildSlot"] = () =>
+        {
+            GospelManager.Instance.LoadGospels();
+            GameObject BuildSlot = GameObject.Find("BuildSlot_0");
+            if (BuildSlot == null)
+            {
+                Debug.LogError("[튜토리얼] 'BuildSlot_0' 오브젝트를 찾을 수 없습니다.");
+                return;
+            }
+            BuildSlotUI buildSlot = BuildSlot.GetComponent<BuildSlotUI>();
+            if (buildSlot == null)
+            {
+                Debug.LogError("[튜토리얼] 'buildSlot' 오브젝트를 찾을 수 없습니다.");
+                return;
+            }
+            buildSlot.Select();
+        };
+        triggerActions["BuildGrave"] = () =>
+
+        {
+            GameObject BuildGrave = GameObject.Find("BuildMenuSlot_0");
+            BuildSelectButton buildGrave = BuildGrave.GetComponent<BuildSelectButton>();
+            buildGrave.OnClick();
+        };
+        triggerActions["BuildIcons"] = () =>
+        {
+            GameObject BuildIcons = GameObject.Find("BuildMenuSlot_0");
+            BuildSelectButton buildIcons = BuildIcons.GetComponent<BuildSelectButton>();
+            buildIcons.ShowGospel();
+        };
+        triggerActions["TouchSpell"] = () =>
+        {
+            GameObject TouchSpell = GameObject.Find("GospelSlot_2");
+            GospelSlotUI touchspell = TouchSpell.GetComponentInChildren<GospelSlotUI>();
+            touchspell.OnClick();
+        };
+        triggerActions["ClosePanel1"] = () =>
+        {
+            GameObject ShowCancleBtn = GameObject.Find("ShowCancleBtn");
+            Button showCancleBtn = ShowCancleBtn.GetComponent<Button>();
+            showCancleBtn.onClick.Invoke();
+        };
+        triggerActions["ClosePanel2"] = () =>
+        {
+            GameObject GosCloseBtn = GameObject.Find("GosCloseBtn");
+            Button gosCloseBtn = GosCloseBtn.GetComponent<Button>();
+            gosCloseBtn.onClick.Invoke();
+        };
+        triggerActions["Confirm"] = () =>
+        {
+            GameObject GosCloseBtn = GameObject.Find("BuildConfirmBtn");
+            Button gosCloseBtn = GosCloseBtn.GetComponent<Button>();
+            gosCloseBtn.onClick.Invoke();
+        };
+        triggerActions["LvlPanel"] = () =>
+        {
+            GameObject build = GameObject.Find("BuildSlot_0/lvlButton");
+            BuildingLevelUpUI lvBtn = build.GetComponentInChildren<BuildingLevelUpUI>();
+            lvBtn.OnClick();
         };
     }
 }
