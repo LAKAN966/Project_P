@@ -104,5 +104,15 @@ public class GoldStage : MonoBehaviour
     private void OnChangeLevel()
     {
         startButton.interactable = (goldStageData[currentGoldStage].ID <= PlayerDataManager.Instance.player.goldDungeonData.lastClearStage + 1) || currentGoldStage == 1 ? true : false;
+
+        //int lastClearStage = PlayerDataManager.Instance.player.goldDungeonData.lastClearStage;
+
+        //startButton.interactable = (goldStageData[currentGoldStage].ID <= lastClearStage + 1) || currentGoldStage == 1;
+
+        //leftButton.gameObject.SetActive(currentGoldStage > 1);
+
+        //bool canMoveRight = currentGoldStage < goldStageData.Count &&
+        //                    goldStageData[currentGoldStage].ID <= lastClearStage;
+        //rightButton.gameObject.SetActive(canMoveRight);
     }
 }
