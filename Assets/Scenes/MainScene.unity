@@ -1633,7 +1633,7 @@ MonoBehaviour:
   CloseShop: {fileID: 879219499243943763}
   CloseHQ: {fileID: 2763132372094393252}
   Closestage: {fileID: 5686197328101428863}
-  bookMarkSet: {fileID: 9056382004600755874}
+  bookMarkSet: {fileID: 0}
 --- !u!1 &202546470
 GameObject:
   m_ObjectHideFlags: 0
@@ -21688,7 +21688,7 @@ RectTransform:
   m_Father: {fileID: 4569016975494263248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -48196,7 +48196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &5931838483414853863
 GameObject:
   m_ObjectHideFlags: 0
@@ -50078,7 +50078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InputAmount: {fileID: 3534668673208589304}
   totalCost: {fileID: 600047179}
-  NowHave: {fileID: 1512096072}
+  NowHave: {fileID: 0}
   AddButton: {fileID: 1293738681641351760}
   SubtractButton: {fileID: 9211574958741895463}
   PurchaseButton: {fileID: 107408509097584594}
@@ -51523,6 +51523,9 @@ MonoBehaviour:
   Content: {fileID: 4370703924525917719}
   GoldAmount: {fileID: 1259024336}
   PityCount: {fileID: 1688515861}
+  TicketCount: {fileID: 0}
+  BluprintCount: {fileID: 0}
+  buildToolCount: {fileID: 0}
 --- !u!224 &6581892907567602197
 RectTransform:
   m_ObjectHideFlags: 0
@@ -62354,7 +62357,7 @@ RectTransform:
   m_Father: {fileID: 5171772540284335999}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}

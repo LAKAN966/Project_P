@@ -135,6 +135,13 @@ public class StageManager : MonoBehaviour
                 nodePosition.anchoredPosition = new Vector2(x, y);
             }
         }
+
+        var allStageData = StageDataManager.Instance.GetAllStageData();
+        int minChapter = allStageData.Values.Min(x => x.Chapter);
+        int maxChapter = allStageData.Values.Max(x => x.Chapter);
+
+        prevBtn.gameObject.SetActive(currentChapter > minChapter);
+        nextBtn.gameObject.SetActive(currentChapter < maxChapter);
     }
 
 
