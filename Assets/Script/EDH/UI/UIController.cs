@@ -74,6 +74,7 @@ public class UIController : MonoBehaviour
         SetButton();
         ShowNowGold();
         PlayerCurrencyEvent.OnGoldChange += value => ShowNowGold();
+        PlayerCurrencyEvent.OnTributeChange += value => ShowNowGold();
         SoundManager.Instance.PlayBGM(0);
         TutorialManager.Instance.OnEventTriggered("battleOver");
         UnitDataManager.Instance.LoadUnitData();
@@ -162,7 +163,7 @@ public class UIController : MonoBehaviour
         StoreGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
         mainStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
         gdStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
-        towerStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
+        towerStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.tribute);
     }
 
     public void CloseGottaTab()
