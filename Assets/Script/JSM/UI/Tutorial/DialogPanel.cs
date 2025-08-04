@@ -9,6 +9,7 @@ public class DialogPanel : MonoBehaviour
     public GameObject dialog;
     public GameObject npc;
     public Button nextBtn;
+    public Button skipBtn;
     public TextMeshProUGUI npcName;
     public TextMeshProUGUI dialogText;
 
@@ -18,6 +19,7 @@ public class DialogPanel : MonoBehaviour
     private void Awake()
     {
         originalNpcPos = npc.transform.localPosition;
+        skipBtn.onClick.AddListener(TutorialManager.Instance.EndTutorial);
         //dialog.SetActive(false); // 초기에는 숨김
     }
 

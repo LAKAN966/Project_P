@@ -15,9 +15,6 @@ public enum ItemID
 }
 public class PurchaseSync : MonoBehaviour
 {
-    private UILoader uILoader;
-    private UIManager uiManager;
-
     public TMP_InputField InputAmount;   // 수량 입력칸
     public TextMeshProUGUI totalCost;
     public TextMeshProUGUI NowHave;

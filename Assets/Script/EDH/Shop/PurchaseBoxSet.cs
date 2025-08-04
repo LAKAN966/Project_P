@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class PurchaseBoxSet : MonoBehaviour
 {
-    private UILoader uILoader;
-    private UIManager uiManager;
-
     public TMP_Text ItemDescriptionText; // 아이템 설명 텍스트
 
     public GameObject purchaseUIBox;   // 구매UI 상자
