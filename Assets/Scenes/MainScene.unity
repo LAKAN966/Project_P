@@ -31683,7 +31683,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8228458969130247995}
         m_TargetAssemblyTypeName: UIStageInfo, Assembly-CSharp
         m_MethodName: OnClickToDeck
         m_Mode: 1
@@ -60332,7 +60332,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8228458969130247995}
         m_TargetAssemblyTypeName: UIStageInfo, Assembly-CSharp
         m_MethodName: OnClickEnter
         m_Mode: 1
