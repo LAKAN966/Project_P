@@ -150,7 +150,7 @@ public class StageManager : MonoBehaviour
     {
         if (!CanEnterStage(stageID))
         {
-            PopUp();
+            PopUp("이전 스테이지를 클리어해야 합니다.");
             return;
         }
         selectedStageID = stageID;
@@ -166,7 +166,14 @@ public class StageManager : MonoBehaviour
 
         if (!CanEnterStage(selectedStageID))
         {
-            Debug.Log("이전 스테이지를 클리어해야 입장이 가능합니다.");
+            //Debug.Log("이전 스테이지를 클리어해야 입장이 가능합니다.");
+            return;
+        }
+
+        if (!PlayerCheckCurrentDeck.HasUnitsInCurrentDeck())
+        {
+            //Debug.Log("덱에 유닛이 없습니다.");
+            PopUp("덱에 유닛이 없습니다.\n유닛을 편성해주세요.");
             return;
         }
 
@@ -312,10 +319,10 @@ public class StageManager : MonoBehaviour
 
     }
 
-    void PopUp()
+    public void PopUp(string txt)
     {
         TextMeshProUGUI text = pannel.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = $"이전 스테이지를 클리어해야 입장할 수 있습니다.";
+        text.text = txt;
         pannel.SetActive(true);
     }
 
