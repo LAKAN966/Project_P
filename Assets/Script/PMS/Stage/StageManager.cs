@@ -128,7 +128,8 @@ public class StageManager : MonoBehaviour
                     var img = node.GetComponent<Image>();
                     if (img != null)
                     {
-                        img.color = Color.red;
+                        var originalColor = img.color;
+                        img.color = new Color(1f, 0f, 0f, originalColor.a);
                     }
                 }
 
