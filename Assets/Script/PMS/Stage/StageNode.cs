@@ -37,12 +37,34 @@ public class StageNode : MonoBehaviour
     public void SetInteractable(bool interactable)
     {
         var image = GetComponent<Image>();
+        
         if (image != null)
         {
             Color color = image.color;
             color.a = interactable ? 1f : 0.7f;
             image.color = color;
         }
+
+        Transform childImageTransform = transform.Find("Image");
+        if (childImageTransform != null)
+        {
+            var childImage = childImageTransform.GetComponent<Image>();
+            if (childImage != null)
+            {
+                var color = childImage.color;
+                color.a = interactable ? 1f : 0.7f;
+                childImage.color = color;
+            }
+
+            var text = childImageTransform.GetComponentInChildren<TextMeshProUGUI>();
+            if (text != null)
+            {
+                var color = text.color;
+                color.a = interactable ? 1f : 0.7f;
+                text.color = color;
+            }
+        }
+
     }
-  
+
 }

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Player
 {
-    public int gold = 999999;
-    public int ticket = 0;
-    public int bluePrint = 99999;
-    public int tribute = 999999;
+    public int gold = 10000;
+    public int ticket = 10;
+    public int bluePrint = 5;
+    public int tribute = 10;
     public int certi = 0;
 
     public List<int> myUnitIDs = new();

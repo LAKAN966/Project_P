@@ -56,7 +56,7 @@ public class TutorialManager : MonoBehaviour
     public void StartTuto(int i)
     {
         Debug.Log("튜토리얼 실행");
-        //if (PlayerDataManager.Instance.player.tutorialDone[i]) return;
+        if (PlayerDataManager.Instance.player.tutorialDone[i]) return;
         if (isPlaying)
         {
             Debug.LogWarning("튜토리얼이 이미 진행 중입니다.");
@@ -385,6 +385,19 @@ public class TutorialManager : MonoBehaviour
         {
             SceneManager.LoadScene("MainScene");
         }
+        UIController.Instance.OnExitBtn();
+        switch (tutoNum)
+        {
+            case 1:
+                UIController.Instance.OpenShop();
+                break;
+            case 2:
+                UIController.Instance.OpenSacredPlace();
+                break;
+            case 3:
+                UIController.Instance.OpenStage();
+                break;
+        }
     }
 
 
@@ -452,7 +465,7 @@ public class TutorialManager : MonoBehaviour
                 Debug.LogError("[튜토리얼] 'Gottcha' 오브젝트에 Pick 컴포넌트가 없습니다.");
                 return;
             }
-            PlayerDataManager.Instance.player.ticket += 10;
+            //PlayerDataManager.Instance.player.ticket += 10;
             Debug.Log("[튜토리얼] Pick.PickTenTimes() 실행");
             pickComponent.PickTenTimes();
         };
