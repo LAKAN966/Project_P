@@ -29,7 +29,7 @@ public class StageDataManager
     private Dictionary<int, StageData> stageDic = new();
     private Dictionary<int, StageData> towerStageDic = new();
     private Dictionary<int, StageData> goldDic = new();
-
+    private Dictionary<int, StageData> tutoDic = new();
     public void LoadStageData()
     {
         TextAsset csvFile = Resources.Load<TextAsset>("Data/StageData");
@@ -93,6 +93,9 @@ public class StageDataManager
                 case 2:
                     goldDic[stage.ID] = stage;
                     break;
+                case 99:
+                    tutoDic[stage.ID] = stage;
+                    break;
             }
         }
 
@@ -107,6 +110,8 @@ public class StageDataManager
         if (towerStageDic.TryGetValue(id, out data))
             return data;
         if (goldDic.TryGetValue(id, out data))
+            return data;
+        if (tutoDic.TryGetValue(id, out data))
             return data;
         Debug.Log($"스테이지ID {id}에 해당하는 정보를 찾을 올 수 없습니다.");
         return null;
