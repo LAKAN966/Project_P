@@ -4,9 +4,6 @@ using UnityEngine.UI;
 
 public class CertiPurchaseBoxSet : MonoBehaviour
 {
-    private UILoader uILoader;
-    private UIManager uiManager;
-
     public TMP_Text UnitDescriptionText; // 아이템 설명 텍스트
 
     public GameObject PurchaseCertiUnitBox;   // 구매UI 상자

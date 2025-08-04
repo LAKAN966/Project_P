@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
 {
-    private UILoader uILoader;
-    private UIManager uiManager;
-
     public Button PurchaseButton;   // 아이템 구매 버튼
 
     PlayerDataManager PlayerDataManager;
@@ -44,7 +41,6 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
             UIController.Instance.CertiNotEnoungh();
         }
     }
-    
     public void Init(PickInfo pickInfo, CertiSlot certiSlot)
     {
         Debug.Log("c");
