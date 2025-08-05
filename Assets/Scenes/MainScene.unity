@@ -2131,6 +2131,7 @@ MonoBehaviour:
   CloseHQ: {fileID: 2763132372094393252}
   Closestage: {fileID: 5686197328101428863}
   bookMarkSet: {fileID: 9056382004600755874}
+  frameSetting: {fileID: 7048111860383114800}
 --- !u!1 &202546470
 GameObject:
   m_ObjectHideFlags: 0
@@ -3616,7 +3617,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 69.30011, y: -48.55011}
+  m_AnchoredPosition: {x: 69.30005, y: -48.55005}
   m_SizeDelta: {x: 300, y: 82.9}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &407891422
@@ -29616,7 +29617,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 75}
+  m_AnchoredPosition: {x: 0, y: 65}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2275397019078512068
@@ -45660,7 +45661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 75}
+  m_AnchoredPosition: {x: 0, y: 65}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5047612059738904826
@@ -47523,6 +47524,7 @@ MonoBehaviour:
     IsHero: 0
     Uniticon: 
     warrant: 0
+    duplication: 0
     IsEnemy: 0
 --- !u!114 &5362241250109659807
 MonoBehaviour:
@@ -57033,6 +57035,7 @@ MonoBehaviour:
     IsHero: 0
     Uniticon: 
     warrant: 0
+    duplication: 0
     IsEnemy: 0
 --- !u!114 &7294154839115023041
 MonoBehaviour:
@@ -65617,6 +65620,7 @@ MonoBehaviour:
     IsHero: 0
     Uniticon: 
     warrant: 0
+    duplication: 0
     IsEnemy: 0
 --- !u!1 &8973283198325697020
 GameObject:
@@ -65857,7 +65861,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 69.30011, y: -48.55011}
+  m_AnchoredPosition: {x: 69.30005, y: -48.55005}
   m_SizeDelta: {x: 1589, y: 1050}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &9014750994020676222
