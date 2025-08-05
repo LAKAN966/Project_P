@@ -17,6 +17,8 @@ public class GotchaInit : MonoBehaviour
     public Toggle percent;
     public Image ticketImg;
     public TextMeshProUGUI ticketCount;
+    public Sprite ticketSprite;
+    public Sprite specTicketSprite;
     public void Awake()
     {
         for (int i = 0; i < BGList.Count; i++)
@@ -33,6 +35,8 @@ public class GotchaInit : MonoBehaviour
     {
         percent.isOn = false;
         state = select-1;
+        ticketImg.sprite = state == -1 ? ticketSprite : specTicketSprite;
+        ticketCount.text = state == -1 ? NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket) : NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.specTicket);
         for (int i = 0; i < BGList.Count; i++)
         {
             if (i == select)

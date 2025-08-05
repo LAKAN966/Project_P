@@ -89,6 +89,11 @@ public class PlayerDataManager
         player.certi += amount;
         PlayerCurrencyEvent.OnCertiChange?.Invoke(player.certi);
     }
+    public void AddSpecT(int amount)
+    {
+        player.specTicket += amount;
+        PlayerCurrencyEvent.OnSpecTicketChange?.Invoke(player.specTicket);
+    }
 
     public bool AddUnit(int id)
     {
@@ -239,6 +244,20 @@ public class PlayerDataManager
         else
         {
             Debug.Log("티켓이 부족합니다.");
+            return false;
+        }
+    }
+    public bool UseSpecTicket(int amount)
+    {
+        if (player.specTicket >= amount)
+        {
+            player.specTicket -= amount;
+            PlayerCurrencyEvent.OnSpecTicketChange?.Invoke(player.specTicket);
+            return true;
+        }
+        else
+        {
+            Debug.Log("특수모집티켓이 부족합니다.");
             return false;
         }
     }

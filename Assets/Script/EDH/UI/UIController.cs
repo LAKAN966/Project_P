@@ -249,4 +249,16 @@ public class UIController : MonoBehaviour
             UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
+    public void SpecTicketNotEnoungh() // 티켓 부족 알림
+    {
+        UIController.Instance.NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "특수모집티켓이 부족합니다.";
+        StartCoroutine(HideNotEnoughBox());
+
+        IEnumerator HideNotEnoughBox()
+        {
+            yield return new WaitForSeconds(1f); // 3초 대기
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
+        }
+    }
 }
