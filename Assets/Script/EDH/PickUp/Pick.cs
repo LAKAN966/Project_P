@@ -50,11 +50,15 @@ public class Pick : MonoBehaviour
 
     public void PickOneTime()
     {
-        var ticket = gotchaInit.state!=-1?PlayerDataManager.Instance.player.ticket: PlayerDataManager.Instance.player.specTicket;
+        bool spec = gotchaInit.state == -1;
+        var ticket = spec ? PlayerDataManager.Instance.player.ticket: PlayerDataManager.Instance.player.specTicket;
         Dictionary<int, PickInfo> PickInfo = PickUpListLoader.Instance.GetAllPickList();
         if (ticket >= 1)
         {
-            PlayerDataManager.Instance.UseTicket(1);
+            if(spec)
+                PlayerDataManager.Instance.UseTicket(1);
+            else
+                PlayerDataManager.Instance.UseSpecTicket(1);
 
             ticket = Math.Max(ticket, 0); // 0검사
             Debug.Log(ticket.ToString() + "티켓 보유수");
@@ -76,11 +80,15 @@ public class Pick : MonoBehaviour
 
     public void PickTenTimes()
     {
-        var ticket = gotchaInit.state != -1 ? PlayerDataManager.Instance.player.ticket : PlayerDataManager.Instance.player.specTicket;
+        bool spec = gotchaInit.state == -1;
+        var ticket = spec ? PlayerDataManager.Instance.player.ticket : PlayerDataManager.Instance.player.specTicket;
         var pickTable = PickUpListLoader.Instance.GetAllPickList();
         if (ticket >= 10)
         {
-            PlayerDataManager.Instance.UseTicket(10);
+            if (spec)
+                PlayerDataManager.Instance.UseTicket(10);
+            else
+                PlayerDataManager.Instance.UseSpecTicket(10);
             ticket = Math.Max(ticket, 0); // 예외처리
             Debug.Log(NumberFormatter.FormatNumber(ticket) + "티켓 보유수");
 

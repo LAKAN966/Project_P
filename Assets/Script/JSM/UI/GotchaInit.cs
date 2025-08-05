@@ -16,6 +16,8 @@ public class GotchaInit : MonoBehaviour
     public List<GotchaPanel> BGList;
     public Toggle percent;
     public Image ticketImg;
+    public Image btnTicketImg;
+    public Image btnTicketImg2;
     public TextMeshProUGUI ticketCount;
     public Sprite ticketSprite;
     public Sprite specTicketSprite;
@@ -36,6 +38,8 @@ public class GotchaInit : MonoBehaviour
         percent.isOn = false;
         state = select-1;
         ticketImg.sprite = state == -1 ? ticketSprite : specTicketSprite;
+        btnTicketImg.sprite = state == -1 ? ticketSprite : specTicketSprite;
+        btnTicketImg2.sprite = state == -1 ? ticketSprite : specTicketSprite;
         ticketCount.text = state == -1 ? NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket) : NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.specTicket);
         for (int i = 0; i < BGList.Count; i++)
         {
