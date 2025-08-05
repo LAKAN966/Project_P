@@ -15,7 +15,27 @@ public class CertiPurchaseBoxSet : MonoBehaviour
     public Button CancelButton;     // 구매 취소 버튼
 
     public PickInfo _PickInfo;
-    void Start()
+
+    [Header("이미지/정보")]
+    //[SerializeField] private GameObject infoImage;
+    [SerializeField] private GameObject infoStats;
+    //[SerializeField] private GameObject infoName;
+    //[SerializeField] private TextMeshProUGUI nameValueText;
+    [SerializeField] private TextMeshProUGUI hpValueText;
+    [SerializeField] private TextMeshProUGUI damageValueText;
+    [SerializeField] private TextMeshProUGUI typeText;
+    [SerializeField] private Image hpIcon;
+    [SerializeField] private Image damageIcon;
+    [SerializeField] private Image typeIcon;
+    [SerializeField] private Sprite hpSprite;
+    [SerializeField] private Sprite damageSprite;
+    [SerializeField] private Sprite typeSprite;
+    [SerializeField] private TextMeshProUGUI price;
+
+    [Header("스킬")]
+    [SerializeField] private GameObject skillBox;
+
+    void OnEnable()
     {
         PurchaseItemIcon.onClick.AddListener(DescriptionSet);
         SFXManager.Instance.PlaySFX(0);
@@ -40,5 +60,56 @@ public class CertiPurchaseBoxSet : MonoBehaviour
     public void SetUnitIcon(Sprite sprite)
     {
         UnitIcon.sprite = sprite;
+    }
+
+    public void ShowInfo(PickInfo info)
+    {
+        UnitStats stats = UnitDataManager.Instance.GetStats(info.ID);
+        if (stats == null)
+        {
+            ClearInfo();
+            return;
+        }
+
+        //infoImage.gameObject.SetActive(true);
+        infoStats.gameObject.SetActive(true);
+        //infoName.gameObject.SetActive(true);
+
+        //var sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
+        //var image = infoImage.GetComponentInChildren<Image>();
+        //if (image != null)
+        //{
+        //    image.sprite = sprite;
+        //}
+
+        //nameValueText.text = stats.Name;
+        hpValueText.text = stats.MaxHP.ToString();
+        damageValueText.text = stats.Damage.ToString();
+        typeText.text = RaceManager.GetNameByID(stats.RaceID);
+        price.text = stats.warrant.ToString();
+
+        hpIcon.sprite = hpSprite;
+        damageIcon.sprite = damageSprite;
+        typeIcon.sprite = typeSprite;
+
+        if (skillBox != null)
+        {
+            skillBox.SetActive(stats.IsHero);
+            var skillUI = skillBox.GetComponent<UISkillBox>();
+            if (stats.IsHero)
+            {
+                skillUI?.SetSkill(stats);
+            }
+            else
+            {
+                skillUI?.Hide();
+            }
+        }
+    }
+    public void ClearInfo()
+    {
+        //infoImage.gameObject.SetActive(false);
+        infoStats.gameObject.SetActive(false);
+        //infoName.gameObject.SetActive(false);
     }
 }
