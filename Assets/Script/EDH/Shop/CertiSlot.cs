@@ -9,6 +9,7 @@ public class CertiSlot : MonoBehaviour
     [SerializeField] private CertiPurChaseSync certiPurChaseSync;
     [SerializeField] private TextMeshProUGUI certiName;
     [SerializeField] private TextMeshProUGUI certiDesc;
+    [SerializeField] private GameObject hasMark;
     private PickInfo _Info;
 
     public void init(PickInfo pickInfo)
@@ -28,6 +29,7 @@ public class CertiSlot : MonoBehaviour
 
         if (isOwned)
         {
+            hasMark.SetActive(true);
             certiSlot.interactable = false;
             var color = UnitIcon.color;
             color.a = 0.4f;
