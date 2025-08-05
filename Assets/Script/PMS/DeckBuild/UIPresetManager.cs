@@ -9,6 +9,7 @@ public class UIPresetManager : MonoBehaviour
     [SerializeField] private List<Button> presetBtn; 
     [SerializeField] private List<Image> presetBtnImg;
     [SerializeField] private List<PresetMover> presetMover;
+    [SerializeField] private List<Image> presetNum;
 
     public static UIPresetManager instance;
     private int prevIndex = -1;
@@ -62,6 +63,7 @@ public class UIPresetManager : MonoBehaviour
         {
             float alpha = (i == currentIndex) ? 1f : 0.5f;
             SetButtonAlpha(presetBtnImg[i], alpha);
+            SetButtonAlpha(presetNum[i], alpha);
         }
     }
 

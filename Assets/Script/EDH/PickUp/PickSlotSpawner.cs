@@ -116,17 +116,24 @@ public class PickSlotSpawner : MonoBehaviour
         int groupRand = Random.Range(0, totalPie);
         bool isHeroGroup = (groupRand < (heroCount > 0 ? heroPie : 0));
 
+
         // 2. 그룹 내에서 무작위 PickInfo 선택
+        PickInfo selected = null;
         if (isHeroGroup && heroCount > 0)
         {
-            return heroCandidates[Random.Range(0, heroCount)];
+            selected = heroCandidates[Random.Range(0, heroCount)];
         }
         else if (normCount > 0)
         {
-            return nonHeroCandidates[Random.Range(0, normCount)];
+            selected = nonHeroCandidates[Random.Range(0, normCount)];
         }
 
-        return null;
+        if (selected != null)
+        {
+            QuestEvent.OnRecruit?.Invoke(1);
+        }
+
+        return selected;
     }
 
 
