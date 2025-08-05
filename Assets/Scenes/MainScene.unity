@@ -1830,7 +1830,7 @@ MonoBehaviour:
   CloseShop: {fileID: 879219499243943763}
   CloseHQ: {fileID: 2763132372094393252}
   Closestage: {fileID: 5686197328101428863}
-  bookMarkSet: {fileID: 0}
+  bookMarkSet: {fileID: 1319848261}
   frameSetting: {fileID: 7048111860383114800}
 --- !u!1 &214715214
 GameObject:
@@ -67356,10 +67356,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc37726769eca4428a15af53a1e873a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PurchaseButton: {fileID: 0}
+  PurchaseButton: {fileID: 864612879}
   NotEnoughBoxText: {fileID: 8595309785592346999}
   NotEnoughBox: {fileID: 4408721190052596404}
-  PurchaseCertiUnitBox: {fileID: 0}
+  PurchaseCertiUnitBox: {fileID: 1511573073}
   cSlot: {fileID: 760071108794456954, guid: fde0e4a7cc2f146468b868400796223a, type: 3}
   Info:
     ID: 0

@@ -32,9 +32,6 @@ public class CertiSlot : MonoBehaviour
             var color = UnitIcon.color;
             color.a = 0.4f;
             UnitIcon.color = color;
-
-            CertiCost.text = "보유 중";
-            CertiCost.color = Color.gray;
         }
         else
         {
