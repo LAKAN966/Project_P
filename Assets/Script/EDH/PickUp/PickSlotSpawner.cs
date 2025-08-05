@@ -23,6 +23,7 @@ public class PickSlotSpawner : MonoBehaviour
     [SerializeField] private GameObject textPrefab;
     public GotchaInit gotchaInit;
 
+
     private void Start()
     {
         foreach (PickInfo pickInfo in PickUpListLoader.Instance.GetAllPickList().Values.ToList())
@@ -40,20 +41,10 @@ public class PickSlotSpawner : MonoBehaviour
     public void SpawnCardOne() //1개 뽑기 결과 생성
     {
         List<PickInfo> Alliance = new();
-        var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
         foreach (Transform Child in Grid1)
         {
             Destroy(Child.gameObject);
         }
-
-        //foreach (PickInfo pickInfo in PicklistDo)
-        //{
-        //    if (pickInfo.IsEnemy == false)
-        //    {
-        //        Debug.Log($"{pickInfo.IsEnemy}, {pickInfo.Name}");
-        //        Alliance.Add(pickInfo);
-        //    }
-        //}
         PickInfo pick = CreateCard(Grid1, gotchaInit.state);
     }
 
@@ -64,15 +55,6 @@ public class PickSlotSpawner : MonoBehaviour
         {
             Destroy(Child.gameObject);
         }
-        //var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
-        //foreach (PickInfo pickInfo in PicklistDo )
-        //{
-        //    if(pickInfo.IsEnemy == false)
-        //    {
-        //        Debug.Log($"{pickInfo.IsEnemy}, {pickInfo.Name}");
-        //        Alliance.Add(pickInfo);
-        //    }
-        //}
         List<PickInfo> picks = new List<PickInfo>();
         for (int i = 0; i < 10; i++)
         {
