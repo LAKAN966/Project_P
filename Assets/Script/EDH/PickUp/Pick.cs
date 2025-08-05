@@ -20,7 +20,6 @@ public class Pick : MonoBehaviour
     public Button RePickOne; //다시  1회 뽑기 버튼
     public Button RePickTen; //다시 10회 뽑기 버튼
 
-    public GameObject PickOnePage; //  1회 뽑기 화면
     public GameObject PickTenPage; // 10회 뽑기 화면
 
     [SerializeField]
@@ -53,8 +52,9 @@ public class Pick : MonoBehaviour
         SFXManager.Instance.PlaySFX(0);
         if (PickUp(1))
         {
-            PickOnePage.SetActive(true);
-            pickSlotSpawner.SpawnCardOne();
+            PickTenPage.SetActive(true);
+            pickSlotSpawner.SpawnCard(1);
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
         }
     }
 
@@ -64,7 +64,8 @@ public class Pick : MonoBehaviour
         if (PickUp(10))
         {
             PickTenPage.SetActive(true);
-            pickSlotSpawner.SpawnCardTen();
+            pickSlotSpawner.SpawnCard(10);
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
         }
     }
     public bool PickUp(int num)
