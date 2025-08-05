@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,11 @@ public class GotchaPanel
 }
 public class GotchaInit : MonoBehaviour
 {
+    public int state = -1;
     public List<GotchaPanel> BGList;
+    public Toggle percent;
+    public Image ticketImg;
+    public TextMeshProUGUI ticketCount;
     public void Awake()
     {
         for (int i = 0; i < BGList.Count; i++)
@@ -26,6 +31,8 @@ public class GotchaInit : MonoBehaviour
     }
     public void selectBtn(int select)
     {
+        percent.isOn = false;
+        state = select-1;
         for (int i = 0; i < BGList.Count; i++)
         {
             if (i == select)

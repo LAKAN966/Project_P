@@ -18992,7 +18992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &377641115240018709
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21330,6 +21330,7 @@ MonoBehaviour:
   normPie: 99
   contentParent: {fileID: 430352900}
   textPrefab: {fileID: 8739809049921615924, guid: 73b4ba76d2597064fb752c907e88ca7c, type: 3}
+  gotchaInit: {fileID: 6787558541080948138}
 --- !u!114 &681034021984652591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30963,7 +30964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2528131336356014363
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47427,10 +47428,12 @@ MonoBehaviour:
   _PickInfo:
     ID: 0
     Name: 
+    raceId: 0
     Description: 
     IsHero: 0
     Uniticon: 
     warrant: 0
+    duplication: 0
     IsEnemy: 0
 --- !u!114 &5362241250109659807
 MonoBehaviour:
@@ -54611,13 +54614,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c9ac69fdec94b4dbd0f986542a928f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   BGList:
   - backGround: {fileID: 2527441085462148997}
     selectBtn: {fileID: 7665380528901955001}
-  - backGround: {fileID: 368275960972544305}
-    selectBtn: {fileID: 3746567141360210743}
   - backGround: {fileID: 7311666648418810817}
     selectBtn: {fileID: 1057406676834519450}
+  - backGround: {fileID: 368275960972544305}
+    selectBtn: {fileID: 3746567141360210743}
+  percent: {fileID: 560811517}
+  ticketImg: {fileID: 0}
+  ticketCount: {fileID: 0}
 --- !u!224 &6793472344713425271
 RectTransform:
   m_ObjectHideFlags: 0
@@ -56937,10 +56944,12 @@ MonoBehaviour:
   _PickInfo:
     ID: 0
     Name: 
+    raceId: 0
     Description: 
     IsHero: 0
     Uniticon: 
     warrant: 0
+    duplication: 0
     IsEnemy: 0
 --- !u!114 &7294154839115023041
 MonoBehaviour:
@@ -65520,10 +65529,12 @@ MonoBehaviour:
   Info:
     ID: 0
     Name: 
+    raceId: 0
     Description: 
     IsHero: 0
     Uniticon: 
     warrant: 0
+    duplication: 0
     IsEnemy: 0
 --- !u!1 &8973283198325697020
 GameObject:

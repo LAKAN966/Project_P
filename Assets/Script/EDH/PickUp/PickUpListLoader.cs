@@ -47,6 +47,7 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
                 ID = int.Parse(tokens[0]),    // 유닛 ID
                 Name = tokens[1],               // 유닛 이름
                 Description = tokens[2],               // 설명
+                raceId = int.Parse(tokens[3]),
                 IsHero = bool.Parse(tokens[4]),   // 영웅 여부
                 Uniticon = tokens[5],               // 유닛 아이콘
                 IsEnemy = bool.Parse(tokens[19]),  // 적 여부

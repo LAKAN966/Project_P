@@ -21,8 +21,7 @@ public class PickSlotSpawner : MonoBehaviour
     List<PickInfo> Alliance = new List<PickInfo>();
     [SerializeField] private Transform contentParent;
     [SerializeField] private GameObject textPrefab;
-    private bool showPercent=false;
-
+    public GotchaInit gotchaInit;
 
     private void Start()
     {
@@ -55,7 +54,7 @@ public class PickSlotSpawner : MonoBehaviour
         //        Alliance.Add(pickInfo);
         //    }
         //}
-        PickInfo pick = CreateCard(Grid1);
+        PickInfo pick = CreateCard(Grid1, gotchaInit.state);
     }
 
     public void SpawnCardTen() //10개 뽑기 결과생성
@@ -77,55 +76,79 @@ public class PickSlotSpawner : MonoBehaviour
         List<PickInfo> picks = new List<PickInfo>();
         for (int i = 0; i < 10; i++)
         {
-            picks.Add(CreateCard(Grid2));
+            picks.Add(CreateCard(Grid2, gotchaInit.state));
         }
     }
-    private PickInfo CreateCard(Transform parent) //카드 슬롯 생성
+    private PickInfo CreateCard(Transform parent, int state) //카드 슬롯 생성
     {
         UnitCardSlot slot = new UnitCardSlot();
         PickInfo RanResult;
+        List<PickInfo> heroCandidates = heroes;
+        List<PickInfo> nonHeroCandidates = nonHeroes;
 
-        int rand = Random.Range(0, heroPie + normPie);
-        if(rand < heroPie)
-            RanResult = heroes[Random.Range(0, heroes.Count)];
+        if (state != -1)
+        {
+            heroCandidates = heroes.Where(h => h.raceId == state).ToList();
+            nonHeroCandidates = nonHeroes.Where(n => n.raceId == state).ToList();
+        }
+
+        int total = heroCandidates.Count + nonHeroCandidates.Count;
+        if (total == 0)
+        {
+            Debug.LogWarning($"state {state}에 해당하는 카드가 없습니다.");
+            return null;
+        }
+
+        int rand = Random.Range(0, total);
+        if (rand < heroCandidates.Count)
+            RanResult = heroCandidates[Random.Range(0, heroCandidates.Count)];
         else
-            RanResult = nonHeroes[Random.Range(0, nonHeroes.Count)];
+            RanResult = nonHeroCandidates[Random.Range(0, nonHeroCandidates.Count)];
 
-        GameObject go = Instantiate(UnitICard, parent); //1
-        slot = go.GetComponent<UnitCardSlot>(); //2
-        slot.init(RanResult); //3
-        
+        GameObject go = Instantiate(UnitICard, parent);
+        slot = go.GetComponent<UnitCardSlot>();
+        slot.init(RanResult);
+
         return RanResult;
     }
     public void ShowProbabilityTable()
     {
-        if (showPercent) return;
-        showPercent = true;
+        int state = gotchaInit.state;
 
         // 기존 텍스트 제거
         foreach (Transform child in contentParent)
             Destroy(child.gameObject);
 
-        int totalPie = heroPie + normPie;
+        var heroCandidates = heroes;
+        var nonHeroCandidates = nonHeroes;
+        if (state != -1)
+        {
+            heroCandidates = heroes.Where(h => h.raceId == state).ToList();
+            nonHeroCandidates = nonHeroes.Where(n => n.raceId == state).ToList();
+        }
 
-        if (heroes.Count > 0 && heroPie > 0)
+        int totalPie = heroCandidates.Count > 0 ? heroPie : 0;
+        totalPie += nonHeroCandidates.Count > 0 ? normPie : 0;
+
+        if (heroCandidates.Count > 0 && heroPie > 0)
         {
             float groupRate = heroPie / (float)totalPie;
-            float unitRate = groupRate / heroes.Count * 100f;
+            float unitRate = groupRate / heroCandidates.Count * 100f;
 
-            foreach (var hero in heroes)
+            foreach (var hero in heroCandidates)
                 CreateText($"[영웅] {hero.Name} → {unitRate:F2}%");
         }
 
-        if (nonHeroes.Count > 0 && normPie > 0)
+        if (nonHeroCandidates.Count > 0 && normPie > 0)
         {
             float groupRate = normPie / (float)totalPie;
-            float unitRate = groupRate / nonHeroes.Count * 100f;
+            float unitRate = groupRate / nonHeroCandidates.Count * 100f;
 
-            foreach (var norm in nonHeroes)
+            foreach (var norm in nonHeroCandidates)
                 CreateText($"[일반] {norm.Name} → {unitRate:F2}%");
         }
     }
+
 
 
     private void CreateText(string content)
