@@ -24,19 +24,35 @@ public class CertiSlot : MonoBehaviour
         certiName.text = _Info.Name;
         certiSlot.onClick.RemoveAllListeners();
 
-        certiSlot.onClick.AddListener(() =>
-        {
-            Debug.Log("버튼 눌림");
-            if(certiPurChaseSync == null)
-            {
-                certiPurChaseSync = FindObjectOfType<CertiPurChaseSync>();
-            }
-            CertiPurChaseSync.Instance.Init(pickInfo, this);
+        bool isOwned = PlayerDataManager.Instance.HasUnit(_Info.ID);
 
-            UIController.Instance.PurchaseCertiUnitBox.SetActive(true);
-            CertiSlotSet();
-            SFXManager.Instance.PlaySFX(0);
-        });
+        if (isOwned)
+        {
+            certiSlot.interactable = false;
+            var color = UnitIcon.color;
+            color.a = 0.4f;
+            UnitIcon.color = color;
+
+            CertiCost.text = "보유 중";
+            CertiCost.color = Color.gray;
+        }
+        else
+        {
+
+            certiSlot.onClick.AddListener(() =>
+            {
+                Debug.Log("버튼 눌림");
+                if (certiPurChaseSync == null)
+                {
+                    certiPurChaseSync = FindObjectOfType<CertiPurChaseSync>();
+                }
+                CertiPurChaseSync.Instance.Init(pickInfo, this);
+
+                UIController.Instance.PurchaseCertiUnitBox.SetActive(true);
+                CertiSlotSet();
+                SFXManager.Instance.PlaySFX(0);
+            });
+        }
     }
 
     public void CertiSlotSet()
