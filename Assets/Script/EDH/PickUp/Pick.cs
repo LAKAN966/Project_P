@@ -24,8 +24,8 @@ public class Pick : MonoBehaviour
     public GameObject PickTenPage; // 10회 뽑기 화면
 
     [SerializeField]
-    private PickLogic pickLogic; // 뽑기 로직
     public GotchaInit gotchaInit;
+    public PickSlotSpawner pickSlotSpawner;
 
 
 
@@ -69,7 +69,7 @@ public class Pick : MonoBehaviour
             PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
 
             PickOnePage.SetActive(true);
-            pickLogic.DrawOne();
+            pickSlotSpawner.SpawnCardOne();
         }
         else
         {
@@ -98,7 +98,7 @@ public class Pick : MonoBehaviour
             PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
 
             PickTenPage.SetActive(true);
-            pickLogic.DrawTen();
+            pickSlotSpawner.SpawnCardTen();
         }
         else
         {
