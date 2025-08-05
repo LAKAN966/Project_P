@@ -97,7 +97,7 @@ public class PurchaseSync : MonoBehaviour
         else if ((ItemID)_Item.ID == ItemID.Blueprint)
             PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddBluePrint);
         else if ((ItemID)_Item.ID == ItemID.SpecialRecruit)
-            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTicket);
+            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddSpecT);
         ShoppingManager.Instance.ShowNowGold();
         purchaseBoxSet.TabClose();
         SFXManager.Instance.PlaySFX(0);
