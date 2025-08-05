@@ -10,7 +10,9 @@ public class BookMarkSet : MonoBehaviour
 
     public GameObject GoldStore;
     public GameObject CertificateStore;
-    
+
+    public CertiPurchaseBoxSet certiPurchaseBoxSet;
+
     public void Start()
     {
         GoldStoreBtn.onClick.AddListener(GoldStoreSet);
@@ -21,6 +23,11 @@ public class BookMarkSet : MonoBehaviour
         GoldStore.SetActive(true);
         CertificateStore.SetActive(false);
         SFXManager.Instance.PlaySFX(0);
+
+        if (certiPurchaseBoxSet != null)
+        {
+            certiPurchaseBoxSet.TabClose();
+        }
     }
 
     public void CertificateStoreSet()
