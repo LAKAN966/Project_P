@@ -1830,7 +1830,7 @@ MonoBehaviour:
   CloseShop: {fileID: 879219499243943763}
   CloseHQ: {fileID: 2763132372094393252}
   Closestage: {fileID: 5686197328101428863}
-  bookMarkSet: {fileID: 0}
+  bookMarkSet: {fileID: 1319848261}
   frameSetting: {fileID: 7048111860383114800}
 --- !u!1 &214715214
 GameObject:
@@ -27490,7 +27490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1717721038514731835
 RectTransform:
   m_ObjectHideFlags: 0
