@@ -58,7 +58,7 @@ public class Pick : MonoBehaviour
             BtnList.SetActive(false);
             PickTenPage.SetActive(true);
             pickSlotSpawner.SpawnCard(1);
-            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(gotchaInit.state == -1 ? PlayerDataManager.Instance.player.ticket : PlayerDataManager.Instance.player.specTicket);
         }
     }
 
@@ -72,7 +72,7 @@ public class Pick : MonoBehaviour
             BtnList.SetActive(false);
             PickTenPage.SetActive(true);
             pickSlotSpawner.SpawnCard(10);
-            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(gotchaInit.state == -1 ? PlayerDataManager.Instance.player.ticket : PlayerDataManager.Instance.player.specTicket);
         }
     }
     public bool PickUp(int num)
