@@ -21,6 +21,7 @@ public class Pick : MonoBehaviour
     public Button RePickTen; //다시 10회 뽑기 버튼
 
     public GameObject PickTenPage; // 10회 뽑기 화면
+    public GameObject BtnList;
 
     [SerializeField]
     public GotchaInit gotchaInit;
@@ -52,6 +53,9 @@ public class Pick : MonoBehaviour
         SFXManager.Instance.PlaySFX(0);
         if (PickUp(1))
         {
+            RePickOne.gameObject.SetActive(true);
+            RePickTen.gameObject.SetActive(false);
+            BtnList.SetActive(false);
             PickTenPage.SetActive(true);
             pickSlotSpawner.SpawnCard(1);
             ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
@@ -63,6 +67,9 @@ public class Pick : MonoBehaviour
         SFXManager.Instance.PlaySFX(0);
         if (PickUp(10))
         {
+            RePickOne.gameObject.SetActive(false);
+            RePickTen.gameObject.SetActive(true);
+            BtnList.SetActive(false);
             PickTenPage.SetActive(true);
             pickSlotSpawner.SpawnCard(10);
             ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);

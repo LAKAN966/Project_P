@@ -11,13 +11,13 @@ public class UnitCardSlot : MonoBehaviour
     [SerializeField] private GameObject backSide;
     [SerializeField] private TMP_Text UnitICardNametext;        // 유닛 이름
 
-    [SerializeField] public Image UnitIcon;                     // 유닛 아이콘
+    [SerializeField] private Image UnitIcon;                     // 유닛 아이콘
+    [SerializeField] private GameObject goodStuffBG;                     // 유닛 아이콘
     public int shopPrice;
     public GameObject duplicate;
     public TextMeshProUGUI dupTxt;
     private Coroutine blinkCoroutine;
     private bool isDuplicate;
-
     public void init(PickInfo Alliance)
     {
         UnitICardNametext.text = Alliance.Name;
@@ -32,6 +32,11 @@ public class UnitCardSlot : MonoBehaviour
         isDuplicate = !PlayerDataManager.Instance.AddUnit(Alliance.ID);
         dupTxt.text = Alliance.duplication.ToString();
 
+        if (Alliance.IsHero)
+        {
+            backSide.GetComponent<Image>().color = Color.yellow;
+            goodStuffBG.SetActive(true);
+        }
     }
 
     private IEnumerator BlinkObject(GameObject obj)

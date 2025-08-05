@@ -31,6 +31,7 @@ public class PickSlotSpawner : MonoBehaviour
 
     private GameObject revealButtonInstance;
     private Vector3 revealButtonWorldPos;
+    public GameObject BtnList;
 
 
 
@@ -60,9 +61,11 @@ public class PickSlotSpawner : MonoBehaviour
 
         gridLayoutGroup.enabled = false;
 
+        bool isGoodStuff=false;
         for (int i = 0; i < num; i++)
         {
             PickInfo pick = CreateCard(gotchaInit.state); // ❗ 카드 생성 X, PickInfo만
+            if (pick.IsHero) isGoodStuff = true;
             GameObject card = Instantiate(UnitICard, centerPoint.position, Quaternion.identity, Grid2);
             card.GetComponent<UnitCardSlot>().SetPickInfo(pick);
             card.GetComponent<UnitCardSlot>().ShowBack();
@@ -76,6 +79,11 @@ public class PickSlotSpawner : MonoBehaviour
         revealButtonInstance = Instantiate(revealButtonPrefab, revealButtonParent);
         revealButtonWorldPos = revealButtonInstance.transform.position;
 
+        if (isGoodStuff)
+        {
+            revealButtonInstance.GetComponent<Image>().color = Color.yellow;
+        }
+
         Button btn = revealButtonInstance.GetComponent<Button>();
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(RevealCards);
@@ -83,9 +91,8 @@ public class PickSlotSpawner : MonoBehaviour
 
 
 
-    private PickInfo CreateCard(int state) // 오버로드: parent 제거
+    private PickInfo CreateCard(int state)
     {
-        PickInfo RanResult;
         List<PickInfo> heroCandidates = heroes;
         List<PickInfo> nonHeroCandidates = nonHeroes;
 
@@ -95,21 +102,33 @@ public class PickSlotSpawner : MonoBehaviour
             nonHeroCandidates = nonHeroes.Where(n => n.raceId == state).ToList();
         }
 
-        int total = heroCandidates.Count + nonHeroCandidates.Count;
-        if (total == 0)
+        int heroCount = heroCandidates.Count;
+        int normCount = nonHeroCandidates.Count;
+
+        int totalPie = (heroCount > 0 ? heroPie : 0) + (normCount > 0 ? normPie : 0);
+        if (totalPie == 0)
         {
             Debug.LogWarning($"state {state}에 해당하는 카드가 없습니다.");
             return null;
         }
 
-        int rand = Random.Range(0, total);
-        if (rand < heroCandidates.Count)
-            RanResult = heroCandidates[Random.Range(0, heroCandidates.Count)];
-        else
-            RanResult = nonHeroCandidates[Random.Range(0, nonHeroCandidates.Count)];
+        // 1. 먼저 그룹(영웅/일반) 선택
+        int groupRand = Random.Range(0, totalPie);
+        bool isHeroGroup = (groupRand < (heroCount > 0 ? heroPie : 0));
 
-        return RanResult;
+        // 2. 그룹 내에서 무작위 PickInfo 선택
+        if (isHeroGroup && heroCount > 0)
+        {
+            return heroCandidates[Random.Range(0, heroCount)];
+        }
+        else if (normCount > 0)
+        {
+            return nonHeroCandidates[Random.Range(0, normCount)];
+        }
+
+        return null;
     }
+
 
     public void ShowProbabilityTable()
     {
@@ -209,15 +228,10 @@ public class PickSlotSpawner : MonoBehaviour
                     spawnedCards[index].GetComponent<UnitCardSlot>().Flip();
                 });
             }
+            float lastFlipDelay = 0.1f * spawnedCards.Count;
+            DOVirtual.DelayedCall(lastFlipDelay+1f, () => BtnList.SetActive(true));
         });
     }
-
-
-
-
-
-
-
     private void CreateText(string content)
     {
         GameObject textObj = Instantiate(textPrefab, contentParent);
