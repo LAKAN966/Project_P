@@ -35,7 +35,7 @@ public class CertiPurchaseBoxSet : MonoBehaviour
     [Header("스킬")]
     [SerializeField] private GameObject skillBox;
 
-    void OnEnable()
+    private void Start()
     {
         PurchaseItemIcon.onClick.AddListener(DescriptionSet);
         SFXManager.Instance.PlaySFX(0);
@@ -52,9 +52,16 @@ public class CertiPurchaseBoxSet : MonoBehaviour
 
     public void DescriptionSet()
     {
-        Debug.Log("유닛 설명" + _PickInfo.Description);
+        if (CertiDescriptionBox.activeSelf)
+        {
+            CertiDescriptionBox.SetActive(false);
+            SFXManager.Instance.PlaySFX(0);
+            return;
+        }
+
         CertiDescriptionBox.SetActive(true);
-        CertiDescriptionBox.GetComponentInChildren<TMP_Text>().text = _PickInfo.Description; // null일경우 넣어주면 안됨.
+        CertiDescriptionBox.GetComponentInChildren<TMP_Text>().text = _PickInfo.Description;
+        SFXManager.Instance.PlaySFX(0);
     }
 
     public void SetUnitIcon(Sprite sprite)
