@@ -11,9 +11,6 @@ public class BookMarkSet : MonoBehaviour
     public GameObject GoldStore;
     public GameObject CertificateStore;
     
-    public GameObject GoldAmount;           //골드량 표시 UI
-    public GameObject CertificateAmount;    //증명서 표시 UI
-
     public void Start()
     {
         GoldStoreBtn.onClick.AddListener(GoldStoreSet);
@@ -22,18 +19,14 @@ public class BookMarkSet : MonoBehaviour
     public void GoldStoreSet()
     {
         GoldStore.SetActive(true);
-        GoldAmount.SetActive(true);
         CertificateStore.SetActive(false);
-        CertificateAmount.SetActive(false);
         SFXManager.Instance.PlaySFX(0);
     }
 
     public void CertificateStoreSet()
     {
         CertificateStore.SetActive(true);
-        CertificateAmount.SetActive(true);
         GoldStore.SetActive(false);
-        GoldAmount.SetActive(false);
         SFXManager.Instance.PlaySFX(0);
     }
 }

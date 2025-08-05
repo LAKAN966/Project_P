@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
     }
     void Awake()
     {
+        frameSetting.LoadFrame();
         if (Instance == null)
         {
             instance = this;
@@ -68,6 +69,9 @@ public class UIController : MonoBehaviour
 
     //기본 설정
     public BookMarkSet bookMarkSet;
+    public FrameSetting frameSetting;
+    
+    
     private void Start()
     {
         Main.SetActive(true);
