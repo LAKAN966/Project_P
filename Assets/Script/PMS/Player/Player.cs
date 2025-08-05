@@ -6,6 +6,7 @@ public class Player
 {
     public int gold = 10000;
     public int ticket = 10;
+    public int specTicket = 0;
     public int bluePrint = 5;
     public int tribute = 10;
     public int certi = 0;
