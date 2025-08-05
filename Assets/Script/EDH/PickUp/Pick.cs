@@ -25,6 +25,7 @@ public class Pick : MonoBehaviour
 
     [SerializeField]
     private PickLogic pickLogic; // 뽑기 로직
+    public GotchaInit gotchaInit;
 
 
 
@@ -49,17 +50,22 @@ public class Pick : MonoBehaviour
 
     public void PickOneTime()
     {
+        bool spec = gotchaInit.state == -1;
+        var ticket = spec ? PlayerDataManager.Instance.player.ticket: PlayerDataManager.Instance.player.specTicket;
         Dictionary<int, PickInfo> PickInfo = PickUpListLoader.Instance.GetAllPickList();
-        if (PlayerDataManager.Instance.player.ticket >= 1)
+        if (ticket >= 1)
         {
-            PlayerDataManager.Instance.UseTicket(1);
+            if(spec)
+                PlayerDataManager.Instance.UseTicket(1);
+            else
+                PlayerDataManager.Instance.UseSpecTicket(1);
 
-            PlayerDataManager.Instance.player.ticket = Math.Max(PlayerDataManager.Instance.player.ticket, 0); // 0검사
-            Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
+            ticket = Math.Max(ticket, 0); // 0검사
+            Debug.Log(ticket.ToString() + "티켓 보유수");
 
             PlayerDataManager.Instance.player.certi++;
 
-            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(ticket);
             PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
 
             PickOnePage.SetActive(true);
@@ -74,16 +80,21 @@ public class Pick : MonoBehaviour
 
     public void PickTenTimes()
     {
+        bool spec = gotchaInit.state == -1;
+        var ticket = spec ? PlayerDataManager.Instance.player.ticket : PlayerDataManager.Instance.player.specTicket;
         var pickTable = PickUpListLoader.Instance.GetAllPickList();
-        if (PlayerDataManager.Instance.player.ticket >= 10)
+        if (ticket >= 10)
         {
-            PlayerDataManager.Instance.UseTicket(10);
-            PlayerDataManager.Instance.player.ticket = Math.Max(PlayerDataManager.Instance.player.ticket, 0); // 예외처리
-            Debug.Log(NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket) + "티켓 보유수");
+            if (spec)
+                PlayerDataManager.Instance.UseTicket(10);
+            else
+                PlayerDataManager.Instance.UseSpecTicket(10);
+            ticket = Math.Max(ticket, 0); // 예외처리
+            Debug.Log(NumberFormatter.FormatNumber(ticket) + "티켓 보유수");
 
             PlayerDataManager.Instance.player.certi += 10;
 
-            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(ticket);
             PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
 
             PickTenPage.SetActive(true);

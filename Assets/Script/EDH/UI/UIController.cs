@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
     }
     void Awake()
     {
+        frameSetting.LoadFrame();
         if (Instance == null)
         {
             instance = this;
@@ -68,6 +69,9 @@ public class UIController : MonoBehaviour
 
     //기본 설정
     public BookMarkSet bookMarkSet;
+    public FrameSetting frameSetting;
+    
+    
     private void Start()
     {
         Main.SetActive(true);
@@ -237,6 +241,18 @@ public class UIController : MonoBehaviour
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
         NotEnoughBoxText.text = "티켓이 부족합니다.";
+        StartCoroutine(HideNotEnoughBox());
+
+        IEnumerator HideNotEnoughBox()
+        {
+            yield return new WaitForSeconds(1f); // 3초 대기
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
+        }
+    }
+    public void SpecTicketNotEnoungh() // 티켓 부족 알림
+    {
+        UIController.Instance.NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "특수모집티켓이 부족합니다.";
         StartCoroutine(HideNotEnoughBox());
 
         IEnumerator HideNotEnoughBox()
