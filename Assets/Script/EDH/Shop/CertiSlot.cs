@@ -9,6 +9,7 @@ public class CertiSlot : MonoBehaviour
     [SerializeField] private CertiPurChaseSync certiPurChaseSync;
     [SerializeField] private TextMeshProUGUI certiName;
     [SerializeField] private TextMeshProUGUI certiDesc;
+    [SerializeField] private GameObject hasMark;
     private PickInfo _Info;
 
     public void init(PickInfo pickInfo)
@@ -24,19 +25,33 @@ public class CertiSlot : MonoBehaviour
         certiName.text = _Info.Name;
         certiSlot.onClick.RemoveAllListeners();
 
-        certiSlot.onClick.AddListener(() =>
-        {
-            Debug.Log("버튼 눌림");
-            if(certiPurChaseSync == null)
-            {
-                certiPurChaseSync = FindObjectOfType<CertiPurChaseSync>();
-            }
-            CertiPurChaseSync.Instance.Init(pickInfo, this);
+        bool isOwned = PlayerDataManager.Instance.HasUnit(_Info.ID);
 
-            UIController.Instance.PurchaseCertiUnitBox.SetActive(true);
-            CertiSlotSet();
-            SFXManager.Instance.PlaySFX(0);
-        });
+        if (isOwned)
+        {
+            hasMark.SetActive(true);
+            certiSlot.interactable = false;
+            var color = UnitIcon.color;
+            color.a = 0.4f;
+            UnitIcon.color = color;
+        }
+        else
+        {
+
+            certiSlot.onClick.AddListener(() =>
+            {
+                Debug.Log("버튼 눌림");
+                if (certiPurChaseSync == null)
+                {
+                    certiPurChaseSync = FindObjectOfType<CertiPurChaseSync>();
+                }
+                CertiPurChaseSync.Instance.Init(pickInfo, this);
+
+                UIController.Instance.PurchaseCertiUnitBox.SetActive(true);
+                CertiSlotSet();
+                SFXManager.Instance.PlaySFX(0);
+            });
+        }
     }
 
     public void CertiSlotSet()
