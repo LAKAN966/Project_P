@@ -1,20 +1,24 @@
+using System.Collections;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 
 public class UnitCardSlot : MonoBehaviour
 {
+    [SerializeField] private GameObject frontSide;
+    [SerializeField] private GameObject backSide;
     [SerializeField] private TMP_Text UnitICardNametext;        // 유닛 이름
 
-    [SerializeField] public Image UnitIcon;                     // 유닛 아이콘
+    [SerializeField] private Image UnitIcon;                     // 유닛 아이콘
+    [SerializeField] private GameObject goodStuffBG;                     // 유닛 아이콘
     public int shopPrice;
     public GameObject duplicate;
     public TextMeshProUGUI dupTxt;
     private Coroutine blinkCoroutine;
-
-    public void init(PickInfo Alliance) //4
+    private bool isDuplicate;
+    public void init(PickInfo Alliance)
     {
         UnitICardNametext.text = Alliance.Name;
 
@@ -22,16 +26,19 @@ public class UnitCardSlot : MonoBehaviour
         shopPrice = Alliance.duplication;
         Debug.Log(stats.ModelName);
 
-        UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}"); //5
+        UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
 
-        if (!PlayerDataManager.Instance.AddUnit(Alliance.ID))
+        // 유닛 보유 여부만 저장
+        isDuplicate = !PlayerDataManager.Instance.AddUnit(Alliance.ID);
+        dupTxt.text = Alliance.duplication.ToString();
+
+        if (Alliance.IsHero)
         {
-            duplicate.SetActive(true);
-            dupTxt.text = Alliance.duplication.ToString();
-            if (blinkCoroutine != null) StopCoroutine(blinkCoroutine);
-            blinkCoroutine = StartCoroutine(BlinkObject(duplicate));
+            backSide.GetComponent<Image>().color = Color.yellow;
+            goodStuffBG.SetActive(true);
         }
     }
+
     private IEnumerator BlinkObject(GameObject obj)
     {
         CanvasGroup group = obj.GetComponent<CanvasGroup>();
@@ -41,6 +48,10 @@ public class UnitCardSlot : MonoBehaviour
         if (iconGroup == null) iconGroup = UnitIcon.gameObject.AddComponent<CanvasGroup>();
 
         float duration = 1f;
+
+        group.alpha = 0f;
+        iconGroup.alpha = 1f;
+        yield return new WaitForSeconds(2f);
 
         while (true)
         {
@@ -55,7 +66,7 @@ public class UnitCardSlot : MonoBehaviour
             group.alpha = 1f;
             iconGroup.alpha = 0f;
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(2f);
 
             // Fade Out (obj), Fade In (icon)
             for (float t = 0; t < duration; t += Time.deltaTime)
@@ -68,8 +79,52 @@ public class UnitCardSlot : MonoBehaviour
             group.alpha = 0f;
             iconGroup.alpha = 1f;
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(2f);
         }
     }
+    private PickInfo pickInfo;
 
+    public void SetPickInfo(PickInfo info)
+    {
+        pickInfo = info;
+    }
+
+    public void Reveal()
+    {
+        init(pickInfo);
+        ShowBack(); // 처음엔 뒷면
+    }
+
+    public void ShowBack()
+    {
+        frontSide.SetActive(false);
+        backSide.SetActive(true);
+    }
+
+    public void ShowFront()
+    {
+        frontSide.SetActive(true);
+        backSide.SetActive(false);
+    }
+
+    public void Flip()
+    {
+        Sequence flip = DOTween.Sequence();
+        flip.Append(transform.DORotate(new Vector3(0, 90, 0), 0.2f).SetEase(Ease.InQuad))
+            .AppendCallback(() =>
+            {
+                ShowFront();
+            })
+            .Append(transform.DORotate(new Vector3(0, 0, 0), 0.2f).SetEase(Ease.OutQuad))
+            .OnComplete(() =>
+            {
+                duplicate.SetActive(isDuplicate ? true : false);
+                // Flip이 끝난 후 깜빡이기 시작
+                if (duplicate.activeSelf)
+                {
+                    if (blinkCoroutine != null) StopCoroutine(blinkCoroutine);
+                    blinkCoroutine = StartCoroutine(BlinkObject(duplicate));
+                }
+            });
+    }
 }

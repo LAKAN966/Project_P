@@ -703,6 +703,7 @@ MonoBehaviour:
   minHeight: 500
   minWidth: 250
   Level: 0
+  EffectPrefab: {fileID: 6266720555649232221, guid: 5f2d2f852883b0d4b98fc8b64113d62b, type: 3}
 --- !u!114 &5972918704138658293
 MonoBehaviour:
   m_ObjectHideFlags: 0
