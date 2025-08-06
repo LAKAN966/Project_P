@@ -6,12 +6,14 @@ public class GimmickData
     public int ID;
     public string Name;
     public float EffectValue;
+    public string Desc;
 
-    public GimmickData(int id, string name, float value)
+    public GimmickData(int id, string name, float value, string desc)
     {
         ID = id;
         Name = name;
         EffectValue = value;
+        Desc = desc;
     }
 }
 
@@ -57,11 +59,11 @@ public class GimmickDataManager
             int id = int.Parse(tokens[0]);
             string name = tokens[1];
             float effectValue = 0f;
-
+            string desc = tokens[3];
             if (tokens.Length > 2 && !string.IsNullOrWhiteSpace(tokens[2]))
                 float.TryParse(tokens[2], out effectValue);
 
-            GimmickData data = new(id, name, effectValue);
+            GimmickData data = new(id, name, effectValue, desc);
             gimmickDict[id] = data;
         }
 

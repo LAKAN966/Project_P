@@ -160,7 +160,7 @@ public class UITowerInfo : MonoBehaviour
         {
             var gimmickData = GimmickDataManager.Instance.GetGimmick(id);
             if (gimmickData != null)
-                gimmickNames.Add(gimmickData.Name);
+                gimmickNames.Add(gimmickData.Desc);
         }
 
         UIGimmickInfo.Instance.Open(gimmickNames);
