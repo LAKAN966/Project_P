@@ -33,7 +33,7 @@ public class WalletLevelUp : MonoBehaviour
         var mgr = BattleResourceManager.Instance;
 
         levelText.text = $"Lv.{mgr.walletLevel}";
-        costText.text = mgr.CanLevelUp() ? $"{mgr.GetLevelUpCost()}G" : "MAX";
+        costText.text = mgr.CanLevelUp() ? $"{mgr.GetLevelUpCost()}" : "MAX";
         levelUpButton.interactable = mgr.CanLevelUp() && mgr.currentResource >= mgr.GetLevelUpCost();
     }
 }

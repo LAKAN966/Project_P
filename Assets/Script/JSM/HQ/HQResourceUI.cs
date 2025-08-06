@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HQResourceUI : MonoBehaviour
 {
@@ -10,10 +11,16 @@ public class HQResourceUI : MonoBehaviour
     public TextMeshProUGUI skullTxt;
     public TextMeshProUGUI bluePrintTxt;
     public GameObject targetPanel;
+    private Coroutine showAndHideCoroutine;
     private void Awake()
     {
         if(Instance == null)
         Instance = this;
+        targetPanel.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            StopCoroutine(showAndHideCoroutine);
+            targetPanel.SetActive(false);
+        });
     }
     private void OnEnable()
     {
@@ -32,7 +39,7 @@ public class HQResourceUI : MonoBehaviour
             Debug.LogWarning("패널이 지정되지 않았습니다.");
             return;
         }
-        StartCoroutine(ShowAndHide(duration));
+        showAndHideCoroutine = StartCoroutine(ShowAndHide(duration));
     }
 
     private IEnumerator ShowAndHide(float delay)
