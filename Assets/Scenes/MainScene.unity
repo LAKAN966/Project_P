@@ -1456,7 +1456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &168317596
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39158,6 +39158,7 @@ MonoBehaviour:
   deckBtn: {fileID: 2205137733656085363}
   gimmickBtn: {fileID: 8682677406326464758}
   warningPopup: {fileID: 2535524715443165330}
+  gimmickInfo: {fileID: 168317595}
 --- !u!224 &3827744836240770056
 RectTransform:
   m_ObjectHideFlags: 0
