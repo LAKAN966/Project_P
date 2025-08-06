@@ -12,6 +12,8 @@ public class StageInit : MonoBehaviour
     public GameObject goldStage;
     public GameObject mainStage;
     public GameObject infoPanel;
+    public GameObject goldinfoPanel;
+    public GameObject towerinfoPanel;
     public GameObject towerPanel;
 
     public void OnDisable()
@@ -24,6 +26,8 @@ public class StageInit : MonoBehaviour
         mainStage.SetActive(true);
         infoPanel.SetActive(false);
         towerPanel.SetActive(false);
+        goldinfoPanel.SetActive(false);
+        towerinfoPanel.SetActive(false);
     }
     public void OnGoldBtn()
     {
@@ -31,6 +35,8 @@ public class StageInit : MonoBehaviour
         mainStage.SetActive(false);
         infoPanel.SetActive(false);
         towerPanel.SetActive(false);
+        goldinfoPanel.SetActive(false);
+        towerinfoPanel.SetActive(false);
     }
     public void OnTowerBtn()
     {
@@ -39,6 +45,8 @@ public class StageInit : MonoBehaviour
         infoPanel.SetActive(false);
         towerPanel.SetActive(true);
         UITowerManager.instance.Init();
+        goldinfoPanel.SetActive(false);
+        towerinfoPanel.SetActive(false);
     }
 
 }

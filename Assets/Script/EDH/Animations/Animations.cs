@@ -10,6 +10,7 @@ public class ButtonScaler_Coroutine : MonoBehaviour, IPointerDownHandler, IPoint
 
     private Vector3 originalScale;
     private Image buttonImage;
+    private Image image;
     private Color originalColor;
     private Color darkenedColor;
 
@@ -18,10 +19,21 @@ public class ButtonScaler_Coroutine : MonoBehaviour, IPointerDownHandler, IPoint
     private void Awake()
     {
         originalScale = transform.localScale;
-        buttonImage = GetComponent<Image>();
+        image = GetComponent<Image>();
+
         if (buttonImage != null)
         {
             originalColor = buttonImage.color;
+            darkenedColor = new Color(
+                originalColor.r * 0.4f,
+                originalColor.g * 0.4f,
+                originalColor.b * 0.4f,
+                originalColor.a
+            );
+        }
+        if (image != null)
+        {
+            originalColor = image.color;
             darkenedColor = new Color(
                 originalColor.r * 0.4f,
                 originalColor.g * 0.4f,
@@ -34,6 +46,15 @@ public class ButtonScaler_Coroutine : MonoBehaviour, IPointerDownHandler, IPoint
     public void OnPointerDown(PointerEventData eventData)
     {
         if (buttonImage != null) buttonImage.color = darkenedColor;
+        transform.localScale = originalScale * pressScale;
+
+        if (resetCoroutine != null)
+        {
+            StopCoroutine(resetCoroutine);
+            resetCoroutine = null;
+        }
+
+        if (image != null) image.color = darkenedColor;
         transform.localScale = originalScale * pressScale;
 
         if (resetCoroutine != null)
@@ -64,6 +85,8 @@ public class ButtonScaler_Coroutine : MonoBehaviour, IPointerDownHandler, IPoint
         transform.localScale = originalScale;
         if (buttonImage != null) buttonImage.color = originalColor;
         resetCoroutine = null;
+        if (image != null) image.color = originalColor;
+        resetCoroutine = null;
     }
 
     private void OnDisable()
@@ -72,6 +95,8 @@ public class ButtonScaler_Coroutine : MonoBehaviour, IPointerDownHandler, IPoint
         transform.localScale = originalScale;
         if (buttonImage != null) buttonImage.color = originalColor;
         resetCoroutine = null;
+        if (image != null) image.color = originalColor;
+        resetCoroutine = null;
     }
 
     private void OnEnable()
@@ -79,5 +104,8 @@ public class ButtonScaler_Coroutine : MonoBehaviour, IPointerDownHandler, IPoint
         // 재활성화 시 상태 보정
         transform.localScale = originalScale;
         if (buttonImage != null) buttonImage.color = originalColor;
+        transform.localScale = originalScale;
+        if (image != null) image.color = originalColor;
     }
 }
+

@@ -37,11 +37,12 @@ public class UIQuestManager : MonoBehaviour
         weeklyTabBtn.onClick.AddListener(() => ShowQuests(QuestType.Weekly));
         closeBtn.onClick.AddListener(() => questPanel.SetActive(false));
         getAllBtn.onClick.AddListener(GetAllRewards);
+        
     }
 
     public void OpenPanel()
     {
-        
+        QuestEvent.OnLogin?.Invoke();
         questPanel.SetActive(true);
         ShowQuests(QuestType.Daily);
     }

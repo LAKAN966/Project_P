@@ -38,6 +38,7 @@ public class TutorialManager : MonoBehaviour
     private int currentStepIndex;
 
     public bool isPlaying = false;
+    public bool isTutoring = false;
     private bool hasPlayedNpcIntro = false;
     private TutorialData tutorialData;
     private int tutoNum;
@@ -55,7 +56,7 @@ public class TutorialManager : MonoBehaviour
     public void StartTuto(int i)
     {
         Debug.Log("튜토리얼 실행");
-        if (PlayerDataManager.Instance.player.tutorialDone[i]&&i!=1) return;
+        if (PlayerDataManager.Instance.player.tutorialDone[i]) return;
         if (isPlaying)
         {
             Debug.LogWarning("튜토리얼이 이미 진행 중입니다.");
@@ -63,6 +64,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         isPlaying = true;
+        isTutoring = true;
         tutorialData = tutorialDataList[i];
         tutoNum = i;
 
@@ -91,7 +93,7 @@ public class TutorialManager : MonoBehaviour
             var normalDeck = PlayerDataManager.Instance.player.currentDeck.GetAllNormalUnit();
             var leaderDeck = PlayerDataManager.Instance.player.currentDeck.GetLeaderUnitInDeck();
             SceneManager.sceneLoaded -= OnBattleSceneLoaded;
-            BattleManager.Instance.StartBattle(110001, normalDeck, leaderDeck);
+            BattleManager.Instance.StartBattle(110000, normalDeck, leaderDeck);
         }
     }
 
@@ -367,6 +369,7 @@ public class TutorialManager : MonoBehaviour
         blackImage.SetActive(false);
         blockImage.SetActive(false);
         isPlaying = false;
+        isTutoring = false;
 
         if (dialogueBoxInstance != null)
         {
@@ -377,6 +380,24 @@ public class TutorialManager : MonoBehaviour
         PlayerDataManager.Instance.player.tutorialDone[tutoNum] = true;
         Debug.Log(PlayerDataManager.Instance.player.tutorialDone[0] + "" + PlayerDataManager.Instance.player.tutorialDone[1] + "" + PlayerDataManager.Instance.player.tutorialDone[2] + "" + PlayerDataManager.Instance.player.tutorialDone[3]);
         Debug.Log("튜토리얼 완료");
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "BattleScene")
+        {
+            SceneManager.LoadScene("MainScene");
+        }
+        UIController.Instance.OnExitBtn();
+        switch (tutoNum)
+        {
+            case 1:
+                UIController.Instance.OpenShop();
+                break;
+            case 2:
+                UIController.Instance.OpenSacredPlace();
+                break;
+            case 3:
+                UIController.Instance.OpenStage();
+                break;
+        }
     }
 
 
@@ -396,22 +417,34 @@ public class TutorialManager : MonoBehaviour
         Vector3[] corners = new Vector3[4];
         targetRect.GetWorldCorners(corners);
 
-        Vector2 screenMin = RectTransformUtility.WorldToScreenPoint(targetCamera, corners[0]);
-        Vector2 screenMax = RectTransformUtility.WorldToScreenPoint(targetCamera, corners[2]);
-        Vector2 screenCenter = (screenMin + screenMax) * 0.5f;
-        Vector2 screenSize = screenMax - screenMin;
+        Vector3 worldMin = corners[0];
+        Vector3 worldMax = corners[2];
 
+        RectTransform maskCanvasRect = maskCanvas.GetComponent<RectTransform>();
+
+        // 월드 좌표를 마스크 캔버스의 로컬 좌표로 변환
+        Vector2 localMin, localMax;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            maskCanvas.GetComponent<RectTransform>(),
-            screenCenter,
+            maskCanvasRect,
+            RectTransformUtility.WorldToScreenPoint(targetCamera, worldMin),
             maskCamera,
-            out Vector2 localPos
+            out localMin
+        );
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            maskCanvasRect,
+            RectTransformUtility.WorldToScreenPoint(targetCamera, worldMax),
+            maskCamera,
+            out localMax
         );
 
+        Vector2 localCenter = (localMin + localMax) * 0.5f;
+        Vector2 localSize = localMax - localMin;
+
         float margin = 5f;
-        maskRect.anchoredPosition = localPos;
-        maskRect.sizeDelta = screenSize + new Vector2(margin * 2f, margin * 2f);
+        maskRect.anchoredPosition = localCenter;
+        maskRect.sizeDelta = localSize + new Vector2(margin * 2f, margin * 2f);
     }
+
     private void RegisterTriggerActions()
     {
         triggerActions.Clear();
@@ -432,7 +465,7 @@ public class TutorialManager : MonoBehaviour
                 Debug.LogError("[튜토리얼] 'Gottcha' 오브젝트에 Pick 컴포넌트가 없습니다.");
                 return;
             }
-            PlayerDataManager.Instance.player.ticket += 10;
+            //PlayerDataManager.Instance.player.ticket += 10;
             Debug.Log("[튜토리얼] Pick.PickTenTimes() 실행");
             pickComponent.PickTenTimes();
         };

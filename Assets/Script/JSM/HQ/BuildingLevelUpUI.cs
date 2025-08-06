@@ -15,6 +15,7 @@ public class BuildingLevelUpUI : MonoBehaviour
     private Button confirmButton;
     private Image buildImg;
     public BuildSlotUI buildSlotUI;
+
     private void Start()
     {
         GetComponent<Button>().onClick.AddListener(OnClick);

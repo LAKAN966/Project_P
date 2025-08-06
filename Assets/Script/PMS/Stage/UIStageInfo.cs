@@ -18,12 +18,15 @@ public class UIStageInfo : MonoBehaviour
     [SerializeField] private Button deckBtn;
     [SerializeField] private Button enterBtn;
 
+    [SerializeField] private TextMeshProUGUI stageNumText;
+
     private List<int> firstRewardIDs;
     private List<int> firstRewardAmounts;
 
     public void SetStageInfo(int stageID)
     {
         var stage = StageDataManager.Instance.GetStageData(stageID);
+        bool isCleared = PlayerDataManager.Instance.HasClearedStage(stageID);
 
         foreach (Transform child in firstRewardParent.transform)
         {
@@ -49,17 +52,19 @@ public class UIStageInfo : MonoBehaviour
 
         for (int i = 0; i < firstRewardIDs.Count; i++)
         {
-            CreateRewardSlot(firstRewardIDs[i], firstRewardAmounts[i], firstRewardParent.transform, frSlot);
+            CreateRewardSlot(firstRewardIDs[i], firstRewardAmounts[i], firstRewardParent.transform, frSlot, isCleared, isFirstReward: true);
         }
 
         if (stage.repeatRewardItemIDs != null && stage.repeatRewardItemIDs.Count > 0)
         {
             int itemID = stage.repeatRewardItemIDs[0];
             int amount = stage.repeatRewardAmounts[0];
-            CreateRewardSlot(itemID, amount, repeatRewardParent.transform, rrSlot);
+            CreateRewardSlot(itemID, amount, repeatRewardParent.transform, rrSlot, false, false);
         }
+
+        stageNumText.text = stage.StageName.Replace("stage", "");
     }
-    private void CreateRewardSlot(int itemID, int amount, Transform parent, GameObject slotPrefab)
+    private void CreateRewardSlot(int itemID, int amount, Transform parent, GameObject slotPrefab, bool isCleared, bool isFirstReward)
     {
         GameObject slot = Instantiate(slotPrefab, parent);
         Sprite icon = Resources.Load<Sprite>($"Rewards/{itemID}");
@@ -82,6 +87,15 @@ public class UIStageInfo : MonoBehaviour
             {
                 t.text = amount.ToString();
                 break;
+            }
+        }
+
+        if (isFirstReward && isCleared)
+        {
+            Transform rewardMark = slot.transform.Find("ObtainMark");
+            if (rewardMark != null)
+            {
+                rewardMark.gameObject.SetActive(true);
             }
         }
     }

@@ -13,10 +13,10 @@ public class FrameSetting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetLowFPS();
         LowFPSbtn.onClick.AddListener(SetLowFPS);
         HighFPSbtn.onClick.AddListener(SetHighFPS);
     }
+    private int setframeNumber = 0;
 
     public void SetLowFPS()
     {
@@ -26,6 +26,9 @@ public class FrameSetting : MonoBehaviour
         Application.targetFrameRate = 30;
         Debug.Log("현재 프레임" + Application.targetFrameRate);
         SpriteRendererTwo.color = Color.white;
+        
+        setframeNumber = 30;
+        PlayerPrefs.SetInt("Frame",setframeNumber);
     }
 
     public void SetHighFPS()
@@ -35,5 +38,21 @@ public class FrameSetting : MonoBehaviour
         Application.targetFrameRate = 60;
         Debug.Log("현재 프레임" + Application.targetFrameRate);
         spriteRendererOne.color = Color.white;
+
+        setframeNumber = 60;
+        PlayerPrefs.SetInt("Frame", setframeNumber);
+    }
+
+    public void LoadFrame()
+    {
+        setframeNumber = PlayerPrefs.GetInt("Frame");
+        if(setframeNumber == 30)
+        {
+            SetLowFPS();
+        }
+        else
+        {
+            SetHighFPS();
+        }
     }
 }

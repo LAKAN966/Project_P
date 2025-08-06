@@ -122,6 +122,12 @@ public class TowerManager
             return;
         }
 
+        if (!PlayerCheckCurrentDeck.HasUnitsInCurrentDeck())
+        {
+            //Debug.Log("덱에 유닛이 없습니다.");
+            StageManager.instance.PopUp("덱에 유닛이 없습니다.\n유닛을 편성해주세요.");
+            return;
+        }
         //bool entered = EnterTower(raceID);
         //if (!entered)
         //{

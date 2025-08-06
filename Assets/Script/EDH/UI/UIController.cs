@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
     }
     void Awake()
     {
+        frameSetting.LoadFrame();
         if (Instance == null)
         {
             instance = this;
@@ -48,6 +49,9 @@ public class UIController : MonoBehaviour
     public TMP_Text MainGoldAmount;          // 골드 표기
     public TMP_Text StoreGoldAmount;         // 상점에서 골드 표기
     public TMP_Text NotEnoughBoxText;        // 재화 부족 경고 텍스트                                             
+    public TMP_Text mainStageGoldAmount;
+    public TMP_Text gdStageGoldAmount;
+    public TMP_Text towerStageGoldAmount;
 
     //열기버튼
     public Button UnitManagementButton;  // 덱빌딩
@@ -65,12 +69,16 @@ public class UIController : MonoBehaviour
 
     //기본 설정
     public BookMarkSet bookMarkSet;
+    public FrameSetting frameSetting;
+    
+    
     private void Start()
     {
         Main.SetActive(true);
         SetButton();
         ShowNowGold();
         PlayerCurrencyEvent.OnGoldChange += value => ShowNowGold();
+        PlayerCurrencyEvent.OnTributeChange += value => ShowNowGold();
         SoundManager.Instance.PlayBGM(0);
         TutorialManager.Instance.OnEventTriggered("battleOver");
         UnitDataManager.Instance.LoadUnitData();
@@ -157,6 +165,9 @@ public class UIController : MonoBehaviour
     {
         MainGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
         StoreGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
+        mainStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
+        gdStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
+        towerStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.tribute);
     }
 
     public void CloseGottaTab()
@@ -230,6 +241,18 @@ public class UIController : MonoBehaviour
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
         NotEnoughBoxText.text = "티켓이 부족합니다.";
+        StartCoroutine(HideNotEnoughBox());
+
+        IEnumerator HideNotEnoughBox()
+        {
+            yield return new WaitForSeconds(1f); // 3초 대기
+            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
+        }
+    }
+    public void SpecTicketNotEnoungh() // 티켓 부족 알림
+    {
+        UIController.Instance.NotEnoughBox.SetActive(true);
+        NotEnoughBoxText.text = "특수모집티켓이 부족합니다.";
         StartCoroutine(HideNotEnoughBox());
 
         IEnumerator HideNotEnoughBox()

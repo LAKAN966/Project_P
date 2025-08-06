@@ -15,7 +15,7 @@ public class UnitDataManager
             if (instance == null)
             {
                 instance = new UnitDataManager();
-                //instance.LoadUnitData();
+                instance.LoadUnitData();
             }
             return instance;
         }

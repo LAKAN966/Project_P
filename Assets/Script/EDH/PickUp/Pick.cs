@@ -20,11 +20,12 @@ public class Pick : MonoBehaviour
     public Button RePickOne; //다시  1회 뽑기 버튼
     public Button RePickTen; //다시 10회 뽑기 버튼
 
-    public GameObject PickOnePage; //  1회 뽑기 화면
     public GameObject PickTenPage; // 10회 뽑기 화면
+    public GameObject BtnList;
 
     [SerializeField]
-    private PickLogic pickLogic; // 뽑기 로직
+    public GotchaInit gotchaInit;
+    public PickSlotSpawner pickSlotSpawner;
 
 
 
@@ -49,50 +50,56 @@ public class Pick : MonoBehaviour
 
     public void PickOneTime()
     {
-        Dictionary<int, PickInfo> PickInfo = PickUpListLoader.Instance.GetAllPickList();
-        if (PlayerDataManager.Instance.player.ticket >= 1)
-        {
-            PlayerDataManager.Instance.UseTicket(1);
-
-            PlayerDataManager.Instance.player.ticket = Math.Max(PlayerDataManager.Instance.player.ticket, 0); // 0검사
-            Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
-
-            PlayerDataManager.Instance.player.certi++;
-
-            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
-            PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
-
-            PickOnePage.SetActive(true);
-            pickLogic.DrawOne();
-        }
-        else
-        {
-            UIController.Instance.TicketNotEnoungh();
-        }
         SFXManager.Instance.PlaySFX(0);
+        if (PickUp(1))
+        {
+            RePickOne.gameObject.SetActive(true);
+            RePickTen.gameObject.SetActive(false);
+            BtnList.SetActive(false);
+            PickTenPage.SetActive(true);
+            pickSlotSpawner.SpawnCard(1);
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(gotchaInit.state == -1 ? PlayerDataManager.Instance.player.ticket : PlayerDataManager.Instance.player.specTicket);
+        }
     }
 
     public void PickTenTimes()
     {
-        var pickTable = PickUpListLoader.Instance.GetAllPickList();
-        if (PlayerDataManager.Instance.player.ticket >= 10)
+        SFXManager.Instance.PlaySFX(0);
+        if (PickUp(10))
         {
-            PlayerDataManager.Instance.UseTicket(10);
-            PlayerDataManager.Instance.player.ticket = Math.Max(PlayerDataManager.Instance.player.ticket, 0); // 예외처리
-            Debug.Log(NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket) + "티켓 보유수");
-
-            PlayerDataManager.Instance.player.certi += 10;
-
-            ShowTicketAmountText.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.ticket);
-            PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
-
+            RePickOne.gameObject.SetActive(false);
+            RePickTen.gameObject.SetActive(true);
+            BtnList.SetActive(false);
             PickTenPage.SetActive(true);
-            pickLogic.DrawTen();
+            pickSlotSpawner.SpawnCard(10);
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(gotchaInit.state == -1 ? PlayerDataManager.Instance.player.ticket : PlayerDataManager.Instance.player.specTicket);
+        }
+    }
+    public bool PickUp(int num)
+    {
+        bool spec = gotchaInit.state == -1;
+        var ticket = spec ? PlayerDataManager.Instance.player.ticket : PlayerDataManager.Instance.player.specTicket;
+        var pickTable = PickUpListLoader.Instance.GetAllPickList();
+        if (ticket >= num)
+        {
+            if (spec)
+                PlayerDataManager.Instance.UseTicket(num);
+            else
+                PlayerDataManager.Instance.UseSpecTicket(num);
+            ticket = Math.Max(ticket, 0); // 예외처리
+            Debug.Log(NumberFormatter.FormatNumber(ticket) + "티켓 보유수");
+
+            PlayerDataManager.Instance.player.certi += num;
+
+            ShowTicketAmountText.text = NumberFormatter.FormatNumber(ticket);
+            PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
+            return true;
         }
         else
         {
             UIController.Instance.TicketNotEnoungh();
+            return false;
         }
-        SFXManager.Instance.PlaySFX(0);
     }
+    
 }
