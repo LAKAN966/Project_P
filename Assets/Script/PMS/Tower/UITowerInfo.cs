@@ -19,6 +19,7 @@ public class UITowerInfo : MonoBehaviour
     [SerializeField] private Button gimmickBtn;
 
     [SerializeField] private GameObject warningPopup;
+    [SerializeField] private GameObject gimmickInfo;
 
     private List<int> firstRewardIDs;
     private List<int> firstRewardAmounts;
