@@ -3686,8 +3686,8 @@ MonoBehaviour:
   levelUpBaseCost: 50
   basicWallet: 150
   increaseWallet: 100
-  basicEarn: 1
-  increaseEarn: 4
+  basicEarn: 5
+  increaseEarn: 10
 --- !u!224 &225077550614719133
 RectTransform:
   m_ObjectHideFlags: 0
