@@ -236,7 +236,10 @@ public class PickSlotSpawner : MonoBehaviour
                 });
             }
             float lastFlipDelay = 0.1f * spawnedCards.Count;
-            DOVirtual.DelayedCall(lastFlipDelay+1f, () => BtnList.SetActive(true));
+            DOVirtual.DelayedCall(lastFlipDelay + 1f, () => { 
+                BtnList.SetActive(true);
+                TutorialManager.Instance.OnEventTriggered("GotchaGotcha");
+            });
         });
     }
     private void CreateText(string content)
