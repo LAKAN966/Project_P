@@ -11,13 +11,18 @@ public class CertiSlotSpawner : MonoBehaviour
     [SerializeField] private Transform Content;
 
 
-    private void Start()
+    void OnEnable()
     {
         ShowCertiUnitCard();
     }
 
     public void ShowCertiUnitCard()
     {
+        foreach (Transform child in Content)
+        {
+            Destroy(child.gameObject);
+        }
+
         var PicklistDo = PickUpListLoader.Instance.GetAllPickList().Values.ToList();
 
         List<PickInfo> Alliance = new();
