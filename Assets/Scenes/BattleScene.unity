@@ -3686,8 +3686,8 @@ MonoBehaviour:
   levelUpBaseCost: 50
   basicWallet: 150
   increaseWallet: 100
-  basicEarn: 1
-  increaseEarn: 4
+  basicEarn: 5
+  increaseEarn: 10
 --- !u!224 &225077550614719133
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11108,7 +11108,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentTransform: {fileID: 4370630921926924095}
   stageID: 0
-  stageDataCSV: {fileID: 4900000, guid: 70f68e7cfe599234d850b82d62f802fe, type: 3}
   layers: []
 --- !u!114 &7742799021315102669
 MonoBehaviour:
