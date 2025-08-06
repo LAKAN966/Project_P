@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,6 +27,8 @@ public class StageManager : MonoBehaviour
     private int currentChapter = 1;
     private int selectedStageID = -1;
 
+    public int lastSessionClearedStageID = -1;
+    public int lastSessionClearedStageType = 0;
 
     public static StageManager instance;
 
@@ -47,36 +50,38 @@ public class StageManager : MonoBehaviour
 
     public void Init()
     {
+        UpdateStageUI();
+
         var clearedStageIDs = PlayerDataManager.Instance.player.clearedStageIDs;
         var allStageData = new Dictionary<int, StageData>();
         foreach (var kv in StageDataManager.Instance.GetAllStageData()) allStageData[kv.Key] = kv.Value;
         foreach (var kv in StageDataManager.Instance.GetAllTowerStageData()) allStageData[kv.Key] = kv.Value;
         foreach (var kv in StageDataManager.Instance.GetAllGoldStageData()) allStageData[kv.Key] = kv.Value;
 
-        if (clearedStageIDs != null && clearedStageIDs.Count > 0)
+        if (lastSessionClearedStageID != -1 && allStageData.TryGetValue(lastSessionClearedStageID, out var lastStageData))
         {
-            int lastClearedStageID = clearedStageIDs.Max();
-            if (allStageData.TryGetValue(lastClearedStageID, out var lastStageData))
+            currentChapter = lastStageData.Chapter;
+
+            switch (lastSessionClearedStageType)
             {
-                currentChapter = lastStageData.Chapter;
-
-                if (lastStageData.Type == 1)
-                {
+                case 0:
+                    StageInit.instance.OnMainBtn();
+                    break;
+                case 1:
                     StageInit.instance.OnTowerBtn();
-                }
-
-                else if (lastStageData.Type == 2)
-                {
+                    break;
+                case 2:
                     StageInit.instance.OnGoldBtn();
-                }
+                    break;
             }
         }
-
+        else
+        {
+            StageInit.instance.OnMainBtn();
+        }
 
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
-
-        UpdateStageUI();
     }
 
     public void ChangeChapter(int delta)
@@ -225,10 +230,8 @@ public class StageManager : MonoBehaviour
 
     public void ClearStage(int id) // 클리어 스테이지 플레이어에 추가. 배틀 끝나고 불러오기.
     {
-        Debug.Log("???");
         int ap = StageDataManager.Instance.GetStageData(id).ActionPoint;
         PlayerDataManager.Instance.UseActionPoint(ap);
-
 
         var stageData = StageDataManager.Instance.GetStageData(id);
 
@@ -249,6 +252,11 @@ public class StageManager : MonoBehaviour
                 QuestEvent.OnLooting?.Invoke();
                 break;
         }
+
+        lastSessionClearedStageID = id;
+        lastSessionClearedStageType = stageData.Type;
+        Debug.Log($"{lastSessionClearedStageID}");
+        Debug.Log($"{lastSessionClearedStageType}");
 
         PlayerDataManager.Instance.ClearStage(id);
         PlayerDataManager.Instance.Save();

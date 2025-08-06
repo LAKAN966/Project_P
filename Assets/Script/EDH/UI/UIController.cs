@@ -111,9 +111,27 @@ public class UIController : MonoBehaviour
     {
         Stage.SetActive(true);
         Main.SetActive(false);
-        StageManager.instance.Init();
+        
         SFXManager.Instance.PlaySFX(0); // 버튼
         TutorialManager.Instance.StartTuto(3);
+
+        switch (StageManager.instance.lastSessionClearedStageType)
+        {
+            case 0:
+                StageInit.instance.OnMainBtn();
+                break;
+            case 1:
+                StageInit.instance.OnTowerBtn();
+                break;
+            case 2:
+                StageInit.instance.OnGoldBtn();
+                break;
+            default:
+                StageInit.instance.OnMainBtn();
+                break;
+        }
+
+        StageManager.instance.Init();
     }
     public void OpenGottcha()
     {
@@ -151,6 +169,12 @@ public class UIController : MonoBehaviour
             DeckBuild.SetActive(false);
             return;
         }
+
+        StageManager.instance.lastSessionClearedStageID = -1;
+        StageManager.instance.lastSessionClearedStageType = 0;
+
+        Debug.Log($"{StageManager.instance.lastSessionClearedStageID}");
+        Debug.Log($"{StageManager.instance.lastSessionClearedStageType}");
 
         Main.SetActive(true);
         Stage.SetActive(false);
@@ -197,6 +221,7 @@ public class UIController : MonoBehaviour
     }
     public void CloseStageTab()
     {
+        
         Stage.SetActive(false);
         Main.SetActive(true);
         SFXManager.Instance.PlaySFX(0); // 버튼

@@ -161,6 +161,8 @@ public class PlayerDataManager
                 player.towerData.lastClearFloor[raceID] = floor;
             }
         }
+
+        player.lastClearedStageID = stageID;
     }
 
     public int RefreshActionPoint()

@@ -16,6 +16,7 @@ public class Player
     public List<DeckData> preset = new List<DeckData>();
     public int currentPresetIndex;
     public List<int> clearedStageIDs = new();
+    public int lastClearedStageID;
 
     public int actionPoint = 100;
     public int maxActionPoint = 100;
