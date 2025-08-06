@@ -227,14 +227,14 @@ MonoBehaviour:
     triggerEventName: Gottcha
     effectID: 6
     dialogUp: 1
-    highlightTarget: UnitGotchaBotton
+    highlightTarget: Gottcha
   - npcName: "\uB179\uC2A4"
     dialogue: "\uC5EC\uAE30\uC11C  \uBCD1\uC0AC\uB4E4\uC744 \uBAA8\uC9D1\uD560 \uC218
       \uC788\uB2E4."
     triggerEventName: 
     effectID: 0
     dialogUp: 0
-    highlightTarget: UnitGotchaBotton
+    highlightTarget: Gottcha
   - npcName: "\uB179\uC2A4"
     dialogue: "\uBAA8\uC9D1\uC5D0\uB294 \uC77C\uBC18\uBAA8\uC9D1, \uC5B8\uB370\uB4DC,
       \uD06C\uB864\uB7EC 3\uAC00\uC9C0\uC758 \uBAA8\uC9D1 \uBC29\uC2DD\uC774 \uC788\uB2E4"
@@ -386,7 +386,7 @@ MonoBehaviour:
     triggerEventName: UnitManage
     effectID: 6
     dialogUp: 1
-    highlightTarget: UnitManagementButton
+    highlightTarget: UnitManage
   - npcName: "\uB179\uC2A4"
     dialogue: "\uC5EC\uAE30\uAC00 \uB124\uB188\uC774 \uBF51\uC740 \uBCD1\uC0AC\uB4E4\uC744
       \uD3B8\uC131\uD560 \uC218 \uC788\uB294 \uACF3\uC774\uB2E4"
