@@ -47,6 +47,18 @@ public class StageManager : MonoBehaviour
 
     public void Init()
     {
+        var clearedStageIDs = PlayerDataManager.Instance.player.clearedStageIDs;
+        var allStageData = StageDataManager.Instance.GetAllStageData();
+
+        if (clearedStageIDs != null && clearedStageIDs.Count > 0)
+        {
+            int lastClearedStageID = clearedStageIDs.Max();
+            if (allStageData.TryGetValue(lastClearedStageID, out var lastStageData))
+            {
+                currentChapter = lastStageData.Chapter;
+            }
+        }
+
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
 
