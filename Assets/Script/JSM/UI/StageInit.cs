@@ -16,6 +16,12 @@ public class StageInit : MonoBehaviour
     public GameObject towerinfoPanel;
     public GameObject towerPanel;
 
+    public static StageInit instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public void OnDisable()
     {
         OnMainBtn();

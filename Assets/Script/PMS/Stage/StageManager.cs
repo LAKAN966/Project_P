@@ -48,7 +48,10 @@ public class StageManager : MonoBehaviour
     public void Init()
     {
         var clearedStageIDs = PlayerDataManager.Instance.player.clearedStageIDs;
-        var allStageData = StageDataManager.Instance.GetAllStageData();
+        var allStageData = new Dictionary<int, StageData>();
+        foreach (var kv in StageDataManager.Instance.GetAllStageData()) allStageData[kv.Key] = kv.Value;
+        foreach (var kv in StageDataManager.Instance.GetAllTowerStageData()) allStageData[kv.Key] = kv.Value;
+        foreach (var kv in StageDataManager.Instance.GetAllGoldStageData()) allStageData[kv.Key] = kv.Value;
 
         if (clearedStageIDs != null && clearedStageIDs.Count > 0)
         {
@@ -56,8 +59,19 @@ public class StageManager : MonoBehaviour
             if (allStageData.TryGetValue(lastClearedStageID, out var lastStageData))
             {
                 currentChapter = lastStageData.Chapter;
+
+                if (lastStageData.Type == 1)
+                {
+                    StageInit.instance.OnTowerBtn();
+                }
+
+                else if (lastStageData.Type == 2)
+                {
+                    StageInit.instance.OnGoldBtn();
+                }
             }
         }
+
 
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
