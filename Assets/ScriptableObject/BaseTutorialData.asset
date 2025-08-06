@@ -31,7 +31,7 @@ MonoBehaviour:
     triggerEventName: 
     effectID: 1
     dialogUp: 0
-    highlightTarget: image_HQ1
+    highlightTarget: BuildCostUI
   - npcName: "\uB179\uC2A4"
     dialogue: "\uC7AC\uD654\uB97C \uD655\uC778\uD588\uB2E4\uBA74 \uAE30\uC9C0 \uAC74\uC124\uC744
       \uD574\uBCF4\uACA0\uB514."
@@ -51,7 +51,7 @@ MonoBehaviour:
     triggerEventName: 
     effectID: 1
     dialogUp: 0
-    highlightTarget: image_HQ3
+    highlightTarget: BuildMenuUI
   - npcName: "\uB179\uC2A4"
     dialogue: "\uD544\uD130\uB97C \uD1B5\uD574  \uD2B9\uC815 \uC885\uC871\uC758 \uAC74\uC124\uBB3C\uB9CC
       \uD45C\uC2DC\uD560 \uC218\uB3C4 \uC788\uB2E4"
@@ -83,14 +83,14 @@ MonoBehaviour:
     triggerEventName: TouchSpell
     effectID: 6
     dialogUp: 1
-    highlightTarget: image_HQ4 (1)
+    highlightTarget: GospelTutorial
   - npcName: "\uB179\uC2A4"
     dialogue: "\uBB34\uC2A8\uD6A8\uACFC\uAC00 \uC788\uB294\uC9C0 \uBBF8\uB9AC \uD655\uC778\uD574
       \uBCFC \uC218 \uC788\uB2E4"
     triggerEventName: 
     effectID: 1
     dialogUp: 0
-    highlightTarget: image_HQ9
+    highlightTarget: GospelConfirmBG
   - npcName: "\uB179\uC2A4"
     dialogue: "\uBCF8\uC778\uC5D0\uAC8C \uD544\uC694\uD55C \uB2A5\uB825\uCE58\uB97C
       \uBBF8\uB9AC \uD655\uC778\uD6C4 \uC9C4\uD589\uD558\uB3C4\uB85D"
@@ -122,7 +122,7 @@ MonoBehaviour:
     triggerEventName: BuildSlot
     effectID: 6
     dialogUp: 1
-    highlightTarget: image_HQ13 (1)
+    highlightTarget: HQTuto
   - npcName: "\uB179\uC2A4"
     dialogue: "\uB124\uB188\uC774 \uC120\uD0DD\uD55C \uAD50\uB9AC\uB85C \uBCD1\uC0AC\uB4E4\uC744
       \uAC15\uD654\uD560\uC218 \uC788\uB2E4."
@@ -155,7 +155,7 @@ MonoBehaviour:
     triggerEventName: 
     effectID: 1
     dialogUp: 0
-    highlightTarget: image_HQ13
+    highlightTarget: LevelUpConfirmPanel
   - npcName: "\uB179\uC2A4"
     dialogue: "\uC77C\uC815\uAE30\uC9C0\uB808\uBCA8\uC5D0 \uB3C4\uB2EC\uD558\uBA74
       \uC0C8\uB85C\uC6B4 \uAD50\uB9AC\uB97C \uC120\uD0DD \uD560\uC218 \uC788\uB2E4"
