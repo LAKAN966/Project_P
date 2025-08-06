@@ -1759,6 +1759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 185618142}
   - component: {fileID: 185618143}
+  - component: {fileID: 185618144}
   m_Layer: 5
   m_Name: UIMainLoad
   m_TagString: Untagged
@@ -1832,6 +1833,23 @@ MonoBehaviour:
   Closestage: {fileID: 5686197328101428863}
   bookMarkSet: {fileID: 1319848261}
   frameSetting: {fileID: 8023058480423312615}
+--- !u!114 &185618144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185618141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8da92ea386f860044a377ce81c5dcb07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainMixer: {fileID: 24100000, guid: 413dc3f4a8314db438372b30fcb2f3eb, type: 2}
+  BGMslider: {fileID: 1243777405737307723}
+  SFXslider: {fileID: 6422870324255183483}
+  BGMAmountTXT: {fileID: 6943366949519087614}
+  SFXAmountText: {fileID: 7306272019233273628}
 --- !u!1 &214715214
 GameObject:
   m_ObjectHideFlags: 0
@@ -16089,7 +16107,6 @@ GameObject:
   - component: {fileID: 1938392144}
   - component: {fileID: 1938392143}
   - component: {fileID: 1938392142}
-  - component: {fileID: 1938392145}
   m_Layer: 0
   m_Name: SoundManger
   m_TagString: Untagged
@@ -16232,23 +16249,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1938392145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1938392141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8da92ea386f860044a377ce81c5dcb07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainMixer: {fileID: 24100000, guid: 413dc3f4a8314db438372b30fcb2f3eb, type: 2}
-  BGMslider: {fileID: 1243777405737307723}
-  SFXslider: {fileID: 6422870324255183483}
-  BGMAmountTXT: {fileID: 6943366949519087614}
-  SFXAmountText: {fileID: 7306272019233273628}
 --- !u!1 &1949724517
 GameObject:
   m_ObjectHideFlags: 0
