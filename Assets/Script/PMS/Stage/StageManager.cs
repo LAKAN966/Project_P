@@ -225,6 +225,7 @@ public class StageManager : MonoBehaviour
         }
 
         PlayerDataManager.Instance.ClearStage(id);
+        PlayerDataManager.Instance.Save();
     }
 
     public void AddReward(int id) // 스테이지 클리어 보상
