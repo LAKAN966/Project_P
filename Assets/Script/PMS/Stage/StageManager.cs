@@ -20,6 +20,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private GameObject uiStage;
     [SerializeField] private GameObject pannel;
 
+    public bool stageCheat = false;
+
     public Action<int> SetStageInfo;
 
     private int currentChapter = 1;
@@ -318,6 +320,7 @@ public class StageManager : MonoBehaviour
 
     private bool CanEnterStage(int stageID)
     {
+        if (stageCheat) return true;
         var stageDic = StageDataManager.Instance.GetAllStageData();
 
         if (!stageDic.TryGetValue(stageID, out var stageData))
