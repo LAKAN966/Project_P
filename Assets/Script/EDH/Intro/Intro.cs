@@ -7,9 +7,29 @@ using UnityEngine.SceneManagement;
 public class Intro : MonoBehaviour
 {
     public Button EnterGameButton;
+    private bool isLoading = false;
+
     void Start()
     {
-        EnterGameButton.onClick.AddListener(EnterGame);
+        EnterGameButton.onClick.AddListener(OnClickEnter);
+    }
+
+    private void OnClickEnter()
+    {
+        if (isLoading) return;
+        StartCoroutine(WaitForPlayerDataAndEnter());
+    }
+
+    private IEnumerator WaitForPlayerDataAndEnter()
+    {
+        isLoading = true;
+
+        while (!PlayerDataManager.Instance.IsLoaded)
+        {
+            yield return null;
+        }
+
+        EnterGame();
     }
 
     public void EnterGame()
