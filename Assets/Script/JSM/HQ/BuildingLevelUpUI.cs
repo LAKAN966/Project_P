@@ -47,6 +47,7 @@ public class BuildingLevelUpUI : MonoBehaviour
              || PlayerDataManager.Instance.player.tribute < BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).costList[buildSlotUI.Level - 1])
             {
                 HQResourceUI.Instance.ShowLackPanel();
+                SFXManager.Instance.PlaySFX(6);
                 levelUpPanel.SetActive(false);
                 return;
             }
@@ -55,10 +56,12 @@ public class BuildingLevelUpUI : MonoBehaviour
             PlayerDataManager.Instance.UseTribute(BuildManager.Instance.GetBuildingData(buildSlotUI.buildingID).costList[buildSlotUI.Level - 1]);
             HQResourceUI.Instance.UpdateUI();
             buildSlotUI.LevelUp();
-            if(buildSlotUI.Level == 5)
+            SFXManager.Instance.PlaySFX(4);
+            if (buildSlotUI.Level == 5)
             {
                 this.GetComponent<Button>().onClick.RemoveAllListeners();
                 this.GetComponentInChildren<TextMeshProUGUI>().text = "MAX";
+                SFXManager.Instance.PlaySFX(14);
             }
             levelUpPanel.SetActive(false);
         });

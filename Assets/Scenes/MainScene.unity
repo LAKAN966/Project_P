@@ -1670,8 +1670,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
   - {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
   - {fileID: 8300000, guid: 130a177e727814a2ea78a886ab72213d, type: 3}
+  - {fileID: 8300000, guid: 657578e4be6b64dbf9b09deada272e55, type: 3}
   audioSourcePrefab: {fileID: 4217809417204071436, guid: a54cba2477a4f0948ac7a41dc3dd49fe, type: 3}
-  poolSize: 20
+  poolSize: 30
 --- !u!4 &177943362
 Transform:
   m_ObjectHideFlags: 0
@@ -29017,7 +29018,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8477642676229161503}
   m_HandleRect: {fileID: 1149027143789346169}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
