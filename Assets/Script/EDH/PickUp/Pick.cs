@@ -61,9 +61,9 @@ public class Pick : MonoBehaviour
     public void PickOneTime()
     {
         SFXManager.Instance.PlaySFX(0);
-        SoundManager.Instance.PlayBGM(10);
         if (PickUp(1))
         {
+            SoundManager.Instance.PlayBGM(10);
             RePickOne.gameObject.SetActive(true);
             RePickTen.gameObject.SetActive(false);
             BtnList.SetActive(false);
@@ -76,9 +76,9 @@ public class Pick : MonoBehaviour
     public void PickTenTimes()
     {
         SFXManager.Instance.PlaySFX(0);
-        SoundManager.Instance.PlayBGM(10);
         if (PickUp(10))
         {
+            SoundManager.Instance.PlayBGM(10);
             RePickOne.gameObject.SetActive(false);
             RePickTen.gameObject.SetActive(true);
             BtnList.SetActive(false);

@@ -207,6 +207,7 @@ public class PickSlotSpawner : MonoBehaviour
         // 3. Reveal 애니메이션
         for (int i = 0; i < spawnedCards.Count; i++)
         {
+            //SFXManager.Instance.PlaySFX(5);// 모여서 퍼짐
             GameObject card = spawnedCards[i];
             card.GetComponent<UnitCardSlot>().Reveal();
 
