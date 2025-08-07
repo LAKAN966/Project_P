@@ -149,7 +149,7 @@ public class UITowerInfo : MonoBehaviour
         TextMeshProUGUI text = warningPopup.GetComponentInChildren<TextMeshProUGUI>();
         text.text = $"{RaceManager.GetNameByID(raceID)} 유닛만\n출전 가능합니다.";
         warningPopup.SetActive(true);
-
+        SFXManager.Instance.PlaySFX(6);
     }
 
     private void OpenGimmickInfo()
