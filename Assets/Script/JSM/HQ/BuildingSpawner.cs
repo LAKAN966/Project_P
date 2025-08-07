@@ -37,5 +37,25 @@ public class BuildingSpawner : MonoBehaviour
                 buildSlotUI.Build(PlayerDataManager.Instance.player.buildingsList[i].buildingData, PlayerDataManager.Instance.player.buildingsList[i].level);
             }
         }
+
+        BackHandlerEntry entry;
+        entry = new BackHandlerEntry(
+           priority: 20,
+           isActive: () => buildListUI.activeInHierarchy,
+           onBack: () => buildListUI.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 20,
+           isActive: () => buildGospelUI.activeInHierarchy,
+           onBack: () => buildGospelUI.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 20,
+           isActive: () => levelUpPanel.activeInHierarchy,
+           onBack: () => levelUpPanel.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
     }
 }

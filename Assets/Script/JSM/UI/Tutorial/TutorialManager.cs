@@ -67,6 +67,7 @@ public class TutorialManager : MonoBehaviour
         isTutoring = true;
         tutorialData = tutorialDataList[i];
         tutoNum = i;
+        BackHandlerManager.Instance.SetBackEnabled(false);
 
         if (i == 0)
         {
@@ -398,6 +399,7 @@ public class TutorialManager : MonoBehaviour
                 UIController.Instance.OpenStage();
                 break;
         }
+        BackHandlerManager.Instance.SetBackEnabled(true);
     }
 
 

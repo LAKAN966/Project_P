@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,10 +17,30 @@ public class StageInit : MonoBehaviour
     public GameObject towerinfoPanel;
     public GameObject towerPanel;
 
+    private BackHandlerEntry entry;
+
     public static StageInit instance;
     private void Awake()
     {
         instance = this;
+        entry = new BackHandlerEntry(
+           priority: 20,
+           isActive: () => infoPanel.activeInHierarchy,
+           onBack: () => infoPanel.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 20,
+           isActive: () => goldinfoPanel.activeInHierarchy,
+           onBack: () => goldinfoPanel.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 20,
+           isActive: () => towerinfoPanel.activeInHierarchy,
+           onBack: () => towerinfoPanel.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
     }
 
     public void OnDisable()
