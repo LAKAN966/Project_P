@@ -34,7 +34,7 @@ public class Intro : MonoBehaviour
         float timeout = 10f;
         float timer = 0f;
 
-        while (!PlayerDataManager.Instance.IsLoaded)
+        while (!FirebaseInitializer.IsInitialized)
         {
             if (timer > timeout)
             {

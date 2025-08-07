@@ -6,30 +6,16 @@ public class PlayerDataLoader : MonoBehaviour
 {
     private async void Start()
     {
-        await WaitForFirebaseInitialization();
-
-        await PlayerDataManager.Instance.Load();
-    }
-
-    private async Task WaitForFirebaseInitialization()
-    {
-        DependencyStatus status = DependencyStatus.UnavailableOther;
-
-        while (FirebaseApp.DefaultInstance == null || status != DependencyStatus.Available)
+        if (FirebaseInitializer.IsInitialized)
         {
-            var task = FirebaseApp.CheckAndFixDependenciesAsync();
-            status = await task;
-
-            if (status == DependencyStatus.Available)
+            await PlayerDataManager.Instance.Load();
+        }
+        else
+        {
+            FirebaseInitializer.OnFirebaseInitialized += async () =>
             {
-                Debug.Log("Firebase is initialized and ready.");
-                return;
-            }
-            else
-            {
-                Debug.LogWarning($"Firebase dependencies not ready yet: {status}. Retrying...");
-                await Task.Delay(500);
-            }
+                await PlayerDataManager.Instance.Load();
+            };
         }
     }
 }
