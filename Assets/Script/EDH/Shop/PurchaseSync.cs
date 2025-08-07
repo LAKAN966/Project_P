@@ -116,7 +116,7 @@ public class PurchaseSync : MonoBehaviour
                 Amount = AttemptLeft;
                 InputAmount.text = Amount.ToString();
             }
-            if (PlayerDataManager.Instance.player.gold > int.Parse(InputAmount.text) * Cost)
+            if (PlayerDataManager.Instance.player.gold >= int.Parse(InputAmount.text) * Cost)
             {
                 PlayerDataManager.Instance.UseGold(Cost * Amount);
                 ItemsP.Invoke(Amount);
