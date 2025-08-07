@@ -58,41 +58,48 @@ public class PlayerDataManager
     {
         player.gold += amount;
         PlayerCurrencyEvent.OnGoldChange?.Invoke(player.gold);
+        Save();
     }
 
     public void AddTicket(int amount)
     {
         player.ticket += amount;
         PlayerCurrencyEvent.OnTicketChange?.Invoke(player.ticket);
+        Save();
     }
 
     public void AddBluePrint(int amount)
     {
         player.bluePrint += amount;
         PlayerCurrencyEvent.OnBluePrintChange?.Invoke(player.bluePrint);
+        Save();
     }
 
     public void AddActionPoint(int amount)
     {
         player.actionPoint += amount;
         PlayerCurrencyEvent.OnActionPointChange?.Invoke(player.actionPoint);
+        Save();
     }
 
     public void AddTribute(int amount)
     {
         player.tribute += amount;
         PlayerCurrencyEvent.OnTributeChange?.Invoke(player.tribute);
+        Save();
     }
 
     public void AddCerti(int amount)
     {
         player.certi += amount;
         PlayerCurrencyEvent.OnCertiChange?.Invoke(player.certi);
+        Save();
     }
     public void AddSpecT(int amount)
     {
         player.specTicket += amount;
         PlayerCurrencyEvent.OnSpecTicketChange?.Invoke(player.specTicket);
+        Save();
     }
 
     public bool AddUnit(int id)
@@ -102,7 +109,7 @@ public class PlayerDataManager
             //Debug.Log("이미 동일한 유닛이 존재합니다."+id);
             return false;
         }
-
+        Save();
         player.myUnitIDs.Add(id);
         return true;
     }
@@ -154,6 +161,8 @@ public class PlayerDataManager
                 player.towerData.lastClearFloor[raceID] = floor;
             }
         }
+
+        player.lastClearedStageID = stageID;
     }
 
     public int RefreshActionPoint()

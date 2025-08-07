@@ -81,6 +81,7 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         UIDeckBuildManager.instance.SetMyUnitIcons();
         UIDeckBuildManager.instance.SetDeckSlots();
         UIUnitInfo.instance.ShowInfo(unitData);
+        PlayerDataManager.Instance.Save();
         
     }
 
@@ -108,6 +109,7 @@ public class UIDeckSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             UIDeckBuildManager.instance.SetMyUnitIcons();
             UIDeckBuildManager.instance.SetDeckSlots();
             UIUnitInfo.instance.ShowInfo(null);
+            PlayerDataManager.Instance.Save();
 
         }
         lastClickTime = Time.time;

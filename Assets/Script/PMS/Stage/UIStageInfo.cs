@@ -101,8 +101,8 @@ public class UIStageInfo : MonoBehaviour
     }
     public void OnClickToDeck()
     {
-        UIDeckBuildManager.instance.deckPanel.SetActive(true);
         UIDeckBuildManager.instance.Init();
+        UIDeckBuildManager.instance.deckPanel.SetActive(true);
     }
 
     public void OnClickEnter()

@@ -19,6 +19,7 @@ public class UITowerInfo : MonoBehaviour
     [SerializeField] private Button gimmickBtn;
 
     [SerializeField] private GameObject warningPopup;
+    [SerializeField] private GameObject gimmickInfo;
 
     private List<int> firstRewardIDs;
     private List<int> firstRewardAmounts;
@@ -159,7 +160,7 @@ public class UITowerInfo : MonoBehaviour
         {
             var gimmickData = GimmickDataManager.Instance.GetGimmick(id);
             if (gimmickData != null)
-                gimmickNames.Add(gimmickData.Name);
+                gimmickNames.Add(gimmickData.Desc);
         }
 
         UIGimmickInfo.Instance.Open(gimmickNames);
