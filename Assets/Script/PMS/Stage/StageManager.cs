@@ -87,7 +87,7 @@ public class StageManager : MonoBehaviour
     public void ChangeChapter(int delta)
     {
         currentChapter += delta;
-
+        SFXManager.Instance.PlaySFX(5);
         var stageDataDic = StageDataManager.Instance.GetAllStageData();
         int minChapter = stageDataDic.Values.Min(x => x.Chapter);
         if (minChapter <= 0)

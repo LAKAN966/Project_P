@@ -35,6 +35,7 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
             ShoppingManager.Instance.ShowNowCertificate();
             PurchaseCertiUnitBox.SetActive(false);
             SFXManager.Instance.PlaySFX(0);
+            SFXManager.Instance.PlaySFX(7);
         }
         else 
         {
