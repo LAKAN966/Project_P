@@ -11204,7 +11204,7 @@ MonoBehaviour:
   stageInfo: {fileID: 1712884235145045237}
   uiStage: {fileID: 2186561246076904980}
   pannel: {fileID: 430610401}
-  stageCheat: 1
+  stageCheat: 0
   lastSessionClearedStageID: -1
   lastSessionClearedStageType: 0
 --- !u!1 &1266097821
