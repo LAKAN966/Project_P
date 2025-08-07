@@ -1671,6 +1671,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
   - {fileID: 8300000, guid: 130a177e727814a2ea78a886ab72213d, type: 3}
   - {fileID: 8300000, guid: 657578e4be6b64dbf9b09deada272e55, type: 3}
+  - {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+  - {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
   audioSourcePrefab: {fileID: 4217809417204071436, guid: a54cba2477a4f0948ac7a41dc3dd49fe, type: 3}
   poolSize: 30
 --- !u!4 &177943362

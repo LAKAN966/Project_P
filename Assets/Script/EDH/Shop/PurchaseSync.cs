@@ -65,7 +65,7 @@ public class PurchaseSync : MonoBehaviour
         if (amount > 1)
             SubtractButton.interactable = true;
         UpdateTotal();
-        SFXManager.Instance.PlaySFX(0);
+        SFXManager.Instance.PlaySFX(7);
     }
     public void Subttract()
     {
@@ -78,7 +78,7 @@ public class PurchaseSync : MonoBehaviour
         }
         else { Debug.Log("s"); }
         UpdateTotal();
-        SFXManager.Instance.PlaySFX(0);
+        SFXManager.Instance.PlaySFX(7);
     }
     public void PurchaseItem()
     {

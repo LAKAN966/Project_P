@@ -45,7 +45,7 @@ public class ItemSlot : MonoBehaviour
         //리펙터링 필요
         UIController.Instance.PurchaseUIBox.SetActive(true);
         ItemSlotSet();
-        SFXManager.Instance.PlaySFX(0);
+        SFXManager.Instance.PlaySFX(15);
     }
 
     private static Dictionary<int, Item> GetItems(Item item)

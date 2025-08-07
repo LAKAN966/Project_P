@@ -34,6 +34,7 @@ public class BuildSlotUI : MonoBehaviour
             goseplspawner.level = Level;
             goseplspawner.toShow = false;
             buildGospelUI.SetActive(true);
+            SFXManager.Instance.PlaySFX(15);
         }
         else
         {
