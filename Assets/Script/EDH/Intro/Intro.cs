@@ -31,7 +31,7 @@ public class Intro : MonoBehaviour
     {
         isLoading = true;
 
-        float timeout = 10f;
+        float timeout = 30f;
         float timer = 0f;
 
         while (!FirebaseInitializer.IsInitialized)
