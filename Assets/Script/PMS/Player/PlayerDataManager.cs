@@ -27,6 +27,7 @@ public class PlayerDataManager
 
     private Player Player = new Player();
     public Player player => Player;
+    public bool IsLoaded { get; private set; } = false;
 
     public async void Save() // 플레이어 데이터 저장
     {
@@ -52,6 +53,7 @@ public class PlayerDataManager
             Player.AddUnit(1002);
             Save();
         }
+        IsLoaded = true;
     }
 
     public void AddGold(int amount)
