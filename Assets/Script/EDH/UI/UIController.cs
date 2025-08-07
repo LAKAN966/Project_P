@@ -53,6 +53,7 @@ public class UIController : MonoBehaviour
     public TMP_Text mainStageGoldAmount;
     public TMP_Text gdStageGoldAmount;
     public TMP_Text towerStageGoldAmount;
+    public GameObject QuitGamePanel;
 
     //열기버튼
     public Button UnitManagementButton;  // 덱빌딩
@@ -84,6 +85,57 @@ public class UIController : MonoBehaviour
         SoundManager.Instance.PlayBGM(0);
         TutorialManager.Instance.OnEventTriggered("battleOver");
         UnitDataManager.Instance.LoadUnitData();
+        entry = new BackHandlerEntry(
+           priority: 30,
+           isActive: () => Stage.activeInHierarchy && DeckBuild.activeInHierarchy,
+           onBack: () =>
+           {
+               OnExitBtn();
+           }
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 10,
+           isActive: () => Stage.activeInHierarchy,
+           onBack: OnExitBtn
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 10,
+           isActive: () => DeckBuild.activeInHierarchy,
+           onBack: OnExitBtn
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 10,
+           isActive: () => Shop.activeInHierarchy,
+           onBack: OnExitBtn
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 10,
+           isActive: () => Gotta.activeInHierarchy,
+           onBack: OnExitBtn
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 10,
+           isActive: () => HQ.activeInHierarchy,
+           onBack: OnExitBtn
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 5,
+           isActive: () => Main.activeInHierarchy && !QuitGamePanel.activeInHierarchy,
+           onBack: () => QuitGamePanel.SetActive(true)
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 5,
+           isActive: () => QuitGamePanel.activeInHierarchy,
+           onBack: () => QuitGamePanel.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
     }
 
     public void SetButton()
@@ -108,12 +160,6 @@ public class UIController : MonoBehaviour
         UIDeckBuildManager.instance.Init();
         SoundManager.Instance.PlayBGM(3);
         SFXManager.Instance.PlaySFX(0); // 버튼
-        entry = new BackHandlerEntry(
-           priority: 10,
-           isActive: () => DeckBuild.activeInHierarchy,
-           onBack: OnExitBtn
-       );
-        BackHandlerManager.Instance.Register(entry);
     }
     public void OpenStage()
     {
@@ -140,12 +186,6 @@ public class UIController : MonoBehaviour
         }
 
         StageManager.instance.Init();
-        entry = new BackHandlerEntry(
-           priority: 10,
-           isActive: () => Stage.activeInHierarchy,
-           onBack: OnExitBtn
-       );
-        BackHandlerManager.Instance.Register(entry);
     }
     public void OpenGottcha()
     {
@@ -153,12 +193,6 @@ public class UIController : MonoBehaviour
         Main.SetActive(false);
         SoundManager.Instance.PlayBGM(2);
         SFXManager.Instance.PlaySFX(0); // 버튼
-        entry = new BackHandlerEntry(
-           priority: 10,
-           isActive: () => Gotta.activeInHierarchy,
-           onBack: OnExitBtn
-       );
-        BackHandlerManager.Instance.Register(entry);
     }
     public void OpenSacredPlace()
     {
@@ -167,12 +201,6 @@ public class UIController : MonoBehaviour
         SoundManager.Instance.PlayBGM(4);
         SFXManager.Instance.PlaySFX(0); // 버튼
         TutorialManager.Instance.StartTuto(2);
-        entry = new BackHandlerEntry(
-           priority: 10,
-           isActive: () => HQ.activeInHierarchy,
-           onBack: OnExitBtn
-       );
-        BackHandlerManager.Instance.Register(entry);
     }
     public void OpenShop()
     {
@@ -186,12 +214,6 @@ public class UIController : MonoBehaviour
         SoundManager.Instance.PlayBGM(5);
         SFXManager.Instance.PlaySFX(0); // 버튼
         TutorialManager.Instance.StartTuto(1);
-        entry = new BackHandlerEntry(
-           priority: 10,
-           isActive: () => Shop.activeInHierarchy,
-           onBack: OnExitBtn
-       );
-        BackHandlerManager.Instance.Register(entry);
     }
     public void OnExitBtn()
     {

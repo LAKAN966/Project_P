@@ -35,7 +35,6 @@ public class BackHandlerManager : MonoBehaviour
 
     public void Register(BackHandlerEntry entry)
     {
-        Debug.Log("레지스터!!!!"+entry.ToString());
         if (!entries.Contains(entry))
             entries.Add(entry);
     }

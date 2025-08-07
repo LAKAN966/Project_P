@@ -11,6 +11,17 @@ public class GospelConfirmUI : MonoBehaviour
     public Button confirmBtn;
     public Button cancleBtn;
     public Button showCancleBtn;
+
+    public void Start()
+    {
+        BackHandlerEntry entry;
+        entry = new BackHandlerEntry(
+           priority: 30,
+           isActive: () => gameObject.activeInHierarchy,
+           onBack: () => gameObject.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
+    }
     public void OnOpen(GospelData data, bool show=false)
     {
         nameText.text = data.name;
