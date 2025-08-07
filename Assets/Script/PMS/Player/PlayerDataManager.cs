@@ -28,6 +28,7 @@ public class PlayerDataManager
     private Player Player = new Player();
     public Player player => Player;
     public bool IsLoaded { get; private set; } = false;
+    public bool LoadFailed { get; private set; } = false;
 
     public async void Save() // 플레이어 데이터 저장
     {
@@ -44,6 +45,7 @@ public class PlayerDataManager
         if(load != null)
         {
             Player = load;
+            IsLoaded = true;
             Debug.Log("불러오기 성공");
         }
         else
@@ -52,8 +54,10 @@ public class PlayerDataManager
             Player.AddUnit(1001);
             Player.AddUnit(1002);
             Save();
+
+            IsLoaded = true;
+            LoadFailed = true;
         }
-        IsLoaded = true;
     }
 
     public void AddGold(int amount)
