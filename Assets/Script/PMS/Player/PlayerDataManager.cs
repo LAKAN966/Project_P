@@ -50,7 +50,7 @@ public class PlayerDataManager
         }
         else
         {
-            Player = new Player();
+            Player = Player.CreateDefaultPlayer();
             Player.AddUnit(1001);
             Player.AddUnit(1002);
             Save();

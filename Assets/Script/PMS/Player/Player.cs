@@ -37,23 +37,18 @@ public class Player
     public PlayerTowerData towerData = new();
 
 
-    public Player()
+    public static Player CreateDefaultPlayer()
     {
-        for(int i = 0; i<3; i++)
+        var player = new Player();
+        for (int i = 0; i < 3; i++)
         {
-            preset.Add(new DeckData());
+            player.preset.Add(new DeckData());
         }
 
-        currentPresetIndex = 0;
+        player.currentPresetIndex = 0;
+        player.currentDeck = DeckManager.Instance.CloneDeck(player.preset[0]);
 
-        currentDeck = DeckManager.Instance.CloneDeck(preset[0]);
-        if (tutorialDone.Count == 0)
-        {
-            for (int i = 0; i <= 3; i++)
-            {
-                tutorialDone[i] = false;
-            }
-        }
+        return player;
     }
 
     public void AddUnit(int unitID)
