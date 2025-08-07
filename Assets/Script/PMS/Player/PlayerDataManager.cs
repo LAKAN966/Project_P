@@ -56,7 +56,7 @@ public class PlayerDataManager
             Save();
 
             IsLoaded = true;
-            LoadFailed = true;
+            LoadFailed = false;
         }
     }
 

@@ -45,6 +45,14 @@ public class Player
             player.preset.Add(new DeckData());
         }
 
+        player.tutorialDone = new Dictionary<int, bool>()
+        {
+            { 0, false },
+            { 1, false },
+            { 2, false },
+            { 3, false }
+        };
+
         player.currentPresetIndex = 0;
         player.currentDeck = DeckManager.Instance.CloneDeck(player.preset[0]);
 
