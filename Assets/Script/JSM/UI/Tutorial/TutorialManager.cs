@@ -67,7 +67,6 @@ public class TutorialManager : MonoBehaviour
         isTutoring = true;
         tutorialData = tutorialDataList[i];
         tutoNum = i;
-        BackHandlerManager.Instance.SetBackEnabled(false);
 
         if (i == 0)
         {
@@ -136,6 +135,7 @@ public class TutorialManager : MonoBehaviour
     public void StartTutorial()
     {
         Debug.Log("튜토리얼 시작!");
+        BackHandlerManager.Instance.SetBackEnabled(false);
         currentStepIndex = 0;
         hasPlayedNpcIntro = false;
 
