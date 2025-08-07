@@ -3056,6 +3056,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 390422594}
   m_CullTransparentMesh: 1
+--- !u!1 &402950910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 402950912}
+  - component: {fileID: 402950911}
+  m_Layer: 0
+  m_Name: BackButtonRouter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &402950911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402950910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25e039853bc5a047a0a1c161b8937c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &402950912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402950910}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &407084839
 GameObject:
   m_ObjectHideFlags: 0
@@ -10429,6 +10473,8 @@ MonoBehaviour:
   stageInfo: {fileID: 1712884235145045237}
   uiStage: {fileID: 2186561246076904980}
   pannel: {fileID: 430610401}
+  lastSessionClearedStageID: -1
+  lastSessionClearedStageType: 0
 --- !u!1 &1266097821
 GameObject:
   m_ObjectHideFlags: 0
@@ -68500,10 +68546,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc37726769eca4428a15af53a1e873a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PurchaseButton: {fileID: 0}
+  PurchaseButton: {fileID: 864612879}
   NotEnoughBoxText: {fileID: 8595309785592346999}
   NotEnoughBox: {fileID: 4408721190052596404}
-  PurchaseCertiUnitBox: {fileID: 0}
+  PurchaseCertiUnitBox: {fileID: 1511573073}
   cSlot: {fileID: 760071108794456954, guid: fde0e4a7cc2f146468b868400796223a, type: 3}
   Info:
     ID: 0
@@ -70101,3 +70147,4 @@ SceneRoots:
   - {fileID: 1086831626}
   - {fileID: 177943362}
   - {fileID: 1120382041}
+  - {fileID: 402950912}

@@ -239,6 +239,7 @@ public class PickSlotSpawner : MonoBehaviour
             DOVirtual.DelayedCall(lastFlipDelay + 1f, () => { 
                 BtnList.SetActive(true);
                 TutorialManager.Instance.OnEventTriggered("GotchaGotcha");
+                BackHandlerManager.Instance.SetBackEnabled(true);
             });
         });
     }
