@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class CertiPurchaseBoxSet : MonoBehaviour
 {
@@ -35,11 +36,19 @@ public class CertiPurchaseBoxSet : MonoBehaviour
     [Header("스킬")]
     [SerializeField] private GameObject skillBox;
 
+    private BackHandlerEntry entry;
+
     private void Start()
     {
         PurchaseItemIcon.onClick.AddListener(DescriptionSet);
         SFXManager.Instance.PlaySFX(0);
         CancelButton.onClick.AddListener(TabClose);
+        entry = new BackHandlerEntry(
+           priority: 20,
+           isActive: () => gameObject.activeInHierarchy,
+           onBack: TabClose
+       );
+        BackHandlerManager.Instance.Register(entry);
     }
 
     // Update is called once per frame

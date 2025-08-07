@@ -20,9 +20,32 @@ public class BuildingSlotSpanwer : MonoBehaviour
     public TMP_Text goldText;
     public TMP_Text blueprintText;
     public GameObject buildGospelUI;
+    public GameObject GospelConfirmUI;
 
     private readonly List<BuildSelectButton> allButtons = new();
 
+    private void Start()
+    {
+        BackHandlerEntry entry;
+        entry = new BackHandlerEntry(
+           priority: 30,
+           isActive: () => confirmPanel.activeInHierarchy,
+           onBack: () => confirmPanel.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 40,
+           isActive: () => buildGospelUI.activeInHierarchy && confirmPanel.activeInHierarchy,
+           onBack: () => buildGospelUI.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
+        entry = new BackHandlerEntry(
+           priority: 50,
+           isActive: () => buildGospelUI.activeInHierarchy && confirmPanel.activeInHierarchy && GospelConfirmUI.activeInHierarchy,
+           onBack: () => GospelConfirmUI.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
+    }
     private void OnEnable()
     {
         SetBuildingSlots();

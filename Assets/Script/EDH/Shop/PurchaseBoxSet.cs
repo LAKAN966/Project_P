@@ -1,7 +1,7 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class PurchaseBoxSet : MonoBehaviour
 {
@@ -15,9 +15,17 @@ public class PurchaseBoxSet : MonoBehaviour
     public Image itemIcon;
     public Item _Item;
 
+    private BackHandlerEntry entry;
+
     private void Start()
     {
         CancelButton.onClick.AddListener(TabClose);
+        entry = new BackHandlerEntry(
+           priority: 20,
+           isActive: () => gameObject.activeInHierarchy,
+           onBack: TabClose
+       );
+        BackHandlerManager.Instance.Register(entry);
     }
 
     public void TabClose()

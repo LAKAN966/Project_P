@@ -11,10 +11,18 @@ public class UIGimmickInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gimmickText;
     [SerializeField] private GameObject backGround;
 
+    private BackHandlerEntry entry;
+
     private void Awake()
     {
         Instance = this;
         root.SetActive(false);
+        entry = new BackHandlerEntry(
+           priority: 30,
+           isActive: () => gameObject.activeInHierarchy,
+           onBack: () => gameObject.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
     }
 
     public void Open(List<string> gimmickNames)

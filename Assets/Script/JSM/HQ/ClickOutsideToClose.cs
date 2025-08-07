@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class ClickOutsideToClose : MonoBehaviour, IPointerClickHandler
 {

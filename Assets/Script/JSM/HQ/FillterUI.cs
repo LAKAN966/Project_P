@@ -5,6 +5,7 @@ using System.Linq;
 
 public class FillterUI : MonoBehaviour
 {
+    public GameObject fillter;
     public GameObject fillterBtn;       // FillterBtn 프리팹
     public Transform parent;            // 버튼 부모
     public BuildingSlotSpanwer spawner; // 슬롯 스크립트 참조
@@ -29,6 +30,14 @@ public class FillterUI : MonoBehaviour
 
             btn.toggle.onValueChanged.AddListener(_ => OnFilterChanged());
         }
+
+        BackHandlerEntry entry;
+        entry = new BackHandlerEntry(
+           priority: 30,
+           isActive: () => fillter.activeInHierarchy,
+           onBack: () => fillter.SetActive(false)
+       );
+        BackHandlerManager.Instance.Register(entry);
     }
 
     private void OnFilterChanged()

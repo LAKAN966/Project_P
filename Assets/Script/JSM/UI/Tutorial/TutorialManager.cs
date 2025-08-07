@@ -135,6 +135,7 @@ public class TutorialManager : MonoBehaviour
     public void StartTutorial()
     {
         Debug.Log("튜토리얼 시작!");
+        BackHandlerManager.Instance.SetBackEnabled(false);
         currentStepIndex = 0;
         hasPlayedNpcIntro = false;
 
@@ -398,6 +399,7 @@ public class TutorialManager : MonoBehaviour
                 UIController.Instance.OpenStage();
                 break;
         }
+        BackHandlerManager.Instance.SetBackEnabled(true);
     }
 
 

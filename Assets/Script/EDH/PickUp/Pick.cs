@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using static UnityEngine.EventSystems.EventTrigger;
 using Button = UnityEngine.UI.Button;
 
 public class Pick : MonoBehaviour
@@ -27,6 +28,7 @@ public class Pick : MonoBehaviour
     public GotchaInit gotchaInit;
     public PickSlotSpawner pickSlotSpawner;
 
+    private BackHandlerEntry entry;
 
 
     private void Awake()
@@ -59,6 +61,7 @@ public class Pick : MonoBehaviour
             PickTenPage.SetActive(true);
             pickSlotSpawner.SpawnCard(1);
             ShowTicketAmountText.text = NumberFormatter.FormatNumber(gotchaInit.state == -1 ? PlayerDataManager.Instance.player.ticket : PlayerDataManager.Instance.player.specTicket);
+            
         }
     }
 
@@ -93,6 +96,13 @@ public class Pick : MonoBehaviour
 
             ShowTicketAmountText.text = NumberFormatter.FormatNumber(ticket);
             PityCount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.certi);
+            BackHandlerManager.Instance.SetBackEnabled(false);
+            entry = new BackHandlerEntry(
+               priority: 100,
+               isActive: () => PickTenPage.activeInHierarchy,
+               onBack: () => PickTenPage.SetActive(false)
+            );
+            BackHandlerManager.Instance.Register(entry);
             return true;
         }
         else
