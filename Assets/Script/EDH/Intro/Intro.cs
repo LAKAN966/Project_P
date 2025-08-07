@@ -66,7 +66,7 @@ public class Intro : MonoBehaviour
             return;
         }
         SceneManager.LoadScene("MainScene");
-        SFXManager.Instance.PlaySFX(0);
+        //SFXManager.Instance.PlaySFX(0);
     }
 
     private void ShowError(string msg)
