@@ -28,6 +28,7 @@ public class UIPresetManager : MonoBehaviour
 
         if (success)
         {
+            SFXManager.Instance.PlaySFX(5);
             UIDeckBuildManager.instance.SetDeckSlots();
             UIDeckBuildManager.instance.SetMyUnitIcons();
 
