@@ -209,6 +209,11 @@ public class StageManager : MonoBehaviour
         }
 
         int stageAP = StageDataManager.Instance.GetStageData(selectedStageID).ActionPoint;
+        if (PlayerDataManager.Instance.player.actionPoint < stageAP)
+        {
+            PopUp("행동력이 부족합니다.");
+            return;
+        }
 
         SceneManager.sceneLoaded += OnBattleSceneLoaded;//씬 로드 후에 실행되게 설정
         SceneManager.LoadScene("BattleScene");
