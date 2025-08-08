@@ -6,7 +6,8 @@ public class WalletLevelUp : MonoBehaviour
 {
     public Button levelUpButton;
     public TMP_Text levelText;
-    public TMP_Text costText;
+    public TextMeshProUGUI costText;
+    public GameObject img;
 
     void Start()
     {
@@ -25,6 +26,11 @@ public class WalletLevelUp : MonoBehaviour
         {
             BattleResourceManager.Instance.LevelUp();
             UpdateUI();
+        }
+        if(BattleResourceManager.Instance.walletLevel == 8)
+        {
+            img.SetActive(false);
+            costText.alignment = TextAlignmentOptions.Center;
         }
     }
 

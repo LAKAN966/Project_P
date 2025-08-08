@@ -82,6 +82,8 @@ public class GoldStage : MonoBehaviour
         int selectedStageID = goldStageData[currentGoldStage].ID;
         if (selectedStageID == -1) return;
 
+        if (PlayerDataManager.Instance.player.goldDungeonData.entryCounts <= 0) return;
+
         if (!PlayerCheckCurrentDeck.HasUnitsInCurrentDeck())
         {
             //Debug.Log("덱에 유닛이 없습니다.");

@@ -11784,6 +11784,7 @@ MonoBehaviour:
   levelUpButton: {fileID: 6620260892239576379}
   levelText: {fileID: 3417996548638917070}
   costText: {fileID: 1119192633816639593}
+  img: {fileID: 1211560964}
 --- !u!224 &8324999165684720955
 RectTransform:
   m_ObjectHideFlags: 0
