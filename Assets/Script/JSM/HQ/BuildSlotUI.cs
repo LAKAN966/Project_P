@@ -22,8 +22,6 @@ public class BuildSlotUI : MonoBehaviour
     public float minWidth = 300f;
 
     public int Level = 0;
-
-    public GameObject EffectPrefab;
     public void Select()
     {
         BuildManager.Instance.SelectSlot(this);
@@ -142,10 +140,5 @@ public class BuildSlotUI : MonoBehaviour
             OnEffect();
         }
         PlayerDataManager.Instance.player.buildingsList[slotID].level = Level;
-    }
-    void OnEffect()
-    {
-        GameObject obj = Instantiate(EffectPrefab, transform.position, Quaternion.identity);
-        Destroy(obj, 1f);
     }
 }

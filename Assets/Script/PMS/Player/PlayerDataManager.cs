@@ -51,15 +51,22 @@ public class PlayerDataManager
         else
         {
             Player = Player.CreateDefaultPlayer();
-            Player.AddUnit(1001);
-            Player.AddUnit(1002);
-            var allItems = new List<Item>(ItemListLoader.Instance.GetAllList().Values);
-            ResetDailyPurchase(allItems);
-            Save();
-
             IsLoaded = true;
-            LoadFailed = false;
+            LoadFailed = (load == null);
         }
+
+        if (!Player.myUnitIDs.Contains(1001))
+        {
+            Player.AddUnit(1001);
+        }
+        if (!Player.myUnitIDs.Contains(1002))
+        {
+            Player.AddUnit(1002);
+        }
+
+        var allItems = new List<Item>(ItemListLoader.Instance.GetAllList().Values);
+        ResetDailyPurchase(allItems);
+
     }
 
     public void AddGold(int amount)

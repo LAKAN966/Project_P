@@ -15,6 +15,8 @@ public class Player : SaveTime
     public List<int> myUnitIDs = new();
     public DeckData currentDeck = new();
     public List<DeckData> preset = new List<DeckData>();
+        
+
     public int currentPresetIndex;
     public List<int> clearedStageIDs = new();
     public int lastClearedStageID;
@@ -61,6 +63,13 @@ public class Player : SaveTime
         //    { 2, false },
         //    { 3, false }
         //};
+
+        player.preset = new List<DeckData>()
+    {
+        new DeckData(),
+        new DeckData(),
+        new DeckData()
+    };
 
         player.currentPresetIndex = 0;
         player.currentDeck = DeckManager.Instance.CloneDeck(player.preset[0]);

@@ -32,6 +32,7 @@ public class WalletLevelUp : MonoBehaviour
             img.SetActive(false);
             costText.alignment = TextAlignmentOptions.Center;
         }
+        SFXManager.Instance.PlaySFX(17);
     }
 
     void UpdateUI()

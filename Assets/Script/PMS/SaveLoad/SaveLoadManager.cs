@@ -66,44 +66,36 @@ public static class SaveLoadManager
             }
         }
 
+        bool remoteOk = true;
         try
         {
-            var data = await FirebaseDatabase.DefaultInstance.GetReference($"users/{UserID}/{key}").GetValueAsync();
+            var data = await FirebaseDatabase.DefaultInstance
+                .GetReference($"users/{UserID}/{key}").GetValueAsync();
 
-            if(data.Exists && data.Value != null)
+            if (data.Exists && data.Value != null)
             {
                 string json = data.Value.ToString();
                 remoteData = JsonConvert.DeserializeObject<T>(json);
             }
-            
         }
-        catch(Exception exception)
+        catch (Exception exception)
         {
-            Debug.LogError($"불러오기 실패 {key}. {exception.Message}");
-            return defaultValue;
+            remoteOk = false;
+            Debug.LogError($"리모트 불러오기 실패 {key}: {exception.Message}");
         }
 
-        if (localData == null && remoteData == null)
-            return defaultValue;
-
-        if (localData != null && remoteData == null)
+        if (localData != null && remoteData != null)
+        {
+            if (localData.lastSaveTime >= remoteData.lastSaveTime)
+                return localData;
+            else
+                return remoteData;
+        }
+        else if (localData != null)
             return localData;
-
-        if (localData == null && remoteData != null)
-        {
-            Save(key, remoteData);
+        else if (remoteData != null)
             return remoteData;
-        }
 
-        if (localData.lastSaveTime >= remoteData.lastSaveTime)
-        {
-            Save(key, localData);
-            return localData;
-        }
-        else
-        {
-            Save(key, remoteData);
-            return remoteData;
-        }
+        return defaultValue;
     }
 }

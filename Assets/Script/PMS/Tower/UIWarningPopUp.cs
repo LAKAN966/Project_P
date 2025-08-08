@@ -12,6 +12,7 @@ public class UIWarningPopUp : MonoBehaviour
             StopCoroutine(hideCoroutine);
 
         hideCoroutine = StartCoroutine(HideRoutine());
+        SFXManager.Instance.PlaySFX(6);
     }
 
     private IEnumerator HideRoutine()

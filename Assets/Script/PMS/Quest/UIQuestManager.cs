@@ -33,7 +33,7 @@ public class UIQuestManager : MonoBehaviour
 
     public void Init()
     {
-        dailyTabBtn.onClick.AddListener(() => ShowQuests(QuestType.Daily));
+        dailyTabBtn.onClick.AddListener(() =>  ShowQuests(QuestType.Daily));
         weeklyTabBtn.onClick.AddListener(() => ShowQuests(QuestType.Weekly));
         closeBtn.onClick.AddListener(() => ClosePanel());
         getAllBtn.onClick.AddListener(GetAllRewards);
@@ -42,7 +42,7 @@ public class UIQuestManager : MonoBehaviour
 
     public void OpenPanel()
     {
-        QuestEvent.OnLogin?.Invoke();
+        
         questPanel.SetActive(true);
         ShowQuests(QuestType.Daily);
         SFXManager.Instance.PlaySFX(0);
@@ -69,6 +69,7 @@ public class UIQuestManager : MonoBehaviour
             UIQuestSlot slot = Instantiate(questSlotPrefab, contentParent);
             slot.SetData(quest, progress);
             spawnedSlots.Add(slot);
+            SFXManager.Instance.PlaySFX(0);
         }
     }
 
@@ -87,6 +88,7 @@ public class UIQuestManager : MonoBehaviour
         {
             slot.TryGetReward();
         }
+        SFXManager.Instance.PlaySFX(0);
     }
 }
 

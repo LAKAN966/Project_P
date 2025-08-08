@@ -114,6 +114,7 @@ public class GoldStageInfo : MonoBehaviour
     {
         UIDeckBuildManager.instance.deckPanel.SetActive(true);
         UIDeckBuildManager.instance.Init();
+        SFXManager.Instance.PlaySFX(0);
     }
 
     private void OnClickEnter()
