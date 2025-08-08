@@ -50,7 +50,7 @@ public class StageManager : MonoBehaviour
 
     public void Init()
     {
-        UpdateStageUI();
+        
 
         var clearedStageIDs = PlayerDataManager.Instance.player.clearedStageIDs;
         var allStageData = new Dictionary<int, StageData>();
@@ -80,6 +80,7 @@ public class StageManager : MonoBehaviour
         {
             StageInit.instance.OnMainBtn();
         }
+        UpdateStageUI();
 
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
