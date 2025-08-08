@@ -39,6 +39,7 @@ public class BuildSlotUI : MonoBehaviour
         {
             buildListUI.SetActive(true);
         }
+        SFXManager.Instance.PlaySFX(15);
     }
 
     public void Build(BuildingData building, int level)

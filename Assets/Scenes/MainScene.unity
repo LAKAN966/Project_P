@@ -1671,6 +1671,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
   - {fileID: 8300000, guid: 130a177e727814a2ea78a886ab72213d, type: 3}
   - {fileID: 8300000, guid: 657578e4be6b64dbf9b09deada272e55, type: 3}
+  - {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+  - {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
   audioSourcePrefab: {fileID: 4217809417204071436, guid: a54cba2477a4f0948ac7a41dc3dd49fe, type: 3}
   poolSize: 30
 --- !u!4 &177943362
@@ -27127,31 +27129,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6027639409761468541}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5452700578121842594}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6469267531663866058}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!224 &1557753498371707574
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28718,6 +28696,7 @@ GameObject:
   - component: {fileID: 6014409954384888224}
   - component: {fileID: 2237801872641025692}
   - component: {fileID: 6655341950334616556}
+  - component: {fileID: 6655341950334616557}
   m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
@@ -28906,7 +28885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1916655023802293508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35518,7 +35497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3056317874342532988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40807,6 +40786,7 @@ GameObject:
   - component: {fileID: 7184773666285397728}
   - component: {fileID: 6027639409761468541}
   - component: {fileID: 1545758075559706592}
+  - component: {fileID: 7184773666285397729}
   m_Layer: 5
   m_Name: GosCloseBtn
   m_TagString: Untagged
@@ -41443,6 +41423,7 @@ GameObject:
   - component: {fileID: 914496281148112383}
   - component: {fileID: 3327264730250015003}
   - component: {fileID: 7706504665074450946}
+  - component: {fileID: 7706504665074450947}
   m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
@@ -51959,7 +51940,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5819735222189559643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56729,6 +56710,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pressScale: 0.9
   returnTime: 0.005
+--- !u!114 &6655341950334616557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847431001982075521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e958af99d46514088a423e9a0d46a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Openbtn: {fileID: 2237801872641025692}
+  Closebtn: {fileID: 2158009683313343033}
+  SettingPanel: {fileID: 1703504253602650090}
 --- !u!222 &6659061431442404473
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -59441,6 +59437,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3877777913494330022}
   m_CullTransparentMesh: 1
+--- !u!114 &7184773666285397729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877777913494330022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 090c57a0666b208458741945d91dff40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Closebutton: {fileID: 1545758075559706592}
+  BuildMenu: {fileID: 5452700578121842594}
+  BuildConfirm: {fileID: 6469267531663866058}
 --- !u!1 &7185250698345800382
 GameObject:
   m_ObjectHideFlags: 0
@@ -62275,31 +62286,22 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3327264730250015003}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3052138461620105322}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1535953566531117710}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &7706504665074450947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006842154284838135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 090c57a0666b208458741945d91dff40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Closebutton: {fileID: 7706504665074450946}
+  BuildMenu: {fileID: 3052138461620105322}
+  BuildConfirm: {fileID: 1535953566531117710}
 --- !u!222 &7717110430036695534
 CanvasRenderer:
   m_ObjectHideFlags: 0

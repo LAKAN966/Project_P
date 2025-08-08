@@ -126,6 +126,7 @@ public class TowerManager
         {
             //Debug.Log("덱에 유닛이 없습니다.");
             StageManager.instance.PopUp("덱에 유닛이 없습니다.\n유닛을 편성해주세요.");
+            SFXManager.Instance.PlaySFX(6);
             return;
         }
         //bool entered = EnterTower(raceID);

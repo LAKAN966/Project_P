@@ -218,6 +218,7 @@ public class UIDeckBuildManager : MonoBehaviour
                     break;
                 case UnitFilterType.Crawler:
                     if (stats.RaceID != 1) continue;
+
                     break;
                 case UnitFilterType.All:
                     break;
@@ -318,7 +319,7 @@ public class UIDeckBuildManager : MonoBehaviour
         {
             currentFilter = selected;
         }
-
+        SFXManager.Instance.PlaySFX(0);
         UpdateFilterUI();
         SetMyUnitIcons();
     }

@@ -34,6 +34,7 @@ public class HQResourceUI : MonoBehaviour
     }
     public void ShowLackPanel(float duration = 3f)
     {
+        SFXManager.Instance.PlaySFX(6);
         if (targetPanel == null)
         {
             Debug.LogWarning("패널이 지정되지 않았습니다.");

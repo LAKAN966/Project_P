@@ -220,6 +220,7 @@ public class UIController : MonoBehaviour
         //Debug.Log(Stage.activeSelf + " " + DeckBuild.activeSelf);
         if (Stage.activeSelf && DeckBuild.activeSelf)
         {
+            SFXManager.Instance.PlaySFX(0);
             DeckBuild.SetActive(false);
             return;
         }
@@ -295,21 +296,21 @@ public class UIController : MonoBehaviour
 
         IEnumerator HideNotEnoughBox()
         {
-            yield return new WaitForSeconds(1f); // 3초 대기
+            yield return new WaitForSeconds(1f); // 1초 대기
             UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
-    public void SpecTicketNotEnoungh() // 티켓 부족 알림
-    {
-        UIController.Instance.NotEnoughBox.SetActive(true);
-        SFXManager.Instance.PlaySFX(6);
-        NotEnoughBoxText.text = "특수모집티켓이 부족합니다.";
-        StartCoroutine(HideNotEnoughBox());
+    //public void SpecTicketNotEnoungh() // 티켓 부족 알림
+    //{
+    //    UIController.Instance.NotEnoughBox.SetActive(true);
+    //    SFXManager.Instance.PlaySFX(6);
+    //    NotEnoughBoxText.text = "특수모집티켓이 부족합니다.";
+    //    StartCoroutine(HideNotEnoughBox());
 
-        IEnumerator HideNotEnoughBox()
-        {
-            yield return new WaitForSeconds(1f); // 3초 대기
-            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
-        }
-    }
+    //    IEnumerator HideNotEnoughBox()
+    //    {
+    //        yield return new WaitForSeconds(1f); // 3초 대기
+    //        UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
+    //    }
+    //}
 }

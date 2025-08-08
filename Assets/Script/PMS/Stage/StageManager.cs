@@ -182,6 +182,7 @@ public class StageManager : MonoBehaviour
         if (!CanEnterStage(stageID))
         {
             PopUp("이전 스테이지를 클리어해야 합니다.");
+            SFXManager.Instance.PlaySFX(6);
             return;
         }
         selectedStageID = stageID;
@@ -205,6 +206,7 @@ public class StageManager : MonoBehaviour
         {
             //Debug.Log("덱에 유닛이 없습니다.");
             PopUp("덱에 유닛이 없습니다.\n유닛을 편성해주세요.");
+            SFXManager.Instance.PlaySFX(6);
             return;
         }
 
@@ -212,6 +214,7 @@ public class StageManager : MonoBehaviour
         if (PlayerDataManager.Instance.player.actionPoint < stageAP)
         {
             PopUp("행동력이 부족합니다.");
+            SFXManager.Instance.PlaySFX(6);
             return;
         }
 

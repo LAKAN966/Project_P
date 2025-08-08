@@ -53,6 +53,8 @@ public class BuildSelectButton : MonoBehaviour
         blueprintText.text = $"{NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.bluePrint)} / {NumberFormatter.FormatNumber(building.blueprint)}";
         blueprintText.color = PlayerDataManager.Instance.player.bluePrint < building.blueprint ? Color.red : Color.black;
 
+        SFXManager.Instance.PlaySFX(15);
+
         confirmButton.onClick.RemoveAllListeners();
         confirmButton.onClick.AddListener(() =>
         {
@@ -67,6 +69,7 @@ public class BuildSelectButton : MonoBehaviour
             PlayerDataManager.Instance.UseBluePrint(building.blueprint);
             HQResourceUI.Instance.UpdateUI();
             BuildManager.Instance.BuildSelected(buildingIndex);
+            SFXManager.Instance.PlaySFX(15);
             buildConfirmPanel.SetActive(false);
             buildListUI.SetActive(false);
         });
