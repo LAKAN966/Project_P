@@ -24,6 +24,7 @@ public class StageNode : MonoBehaviour
     public void OnClickNode()
     {
         StageManager.instance.SelectStage(stageID);
+        SFXManager.Instance.PlaySFX(0);
     }
 
     public void SetClear(bool isClear)
