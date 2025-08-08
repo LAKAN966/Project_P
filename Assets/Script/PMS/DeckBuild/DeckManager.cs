@@ -65,6 +65,7 @@ public class DeckManager
         }
 
         PlayerData.preset[index] = CloneDeck(PlayerData.currentDeck);
+        PlayerDataManager.Instance.Save();
     }
 
     public DeckData CloneDeck(DeckData source)
