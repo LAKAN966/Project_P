@@ -28895,7 +28895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1916655023802293508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58867,7 +58867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71392c702f765440a20f65e6d1a5065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pannel: {fileID: 8607172713660532038}
+  Pannel: {fileID: 5008006957701177523}
   CloseButton: {fileID: 4410445504222878281}
 --- !u!1 &7078581379995900166
 GameObject:
