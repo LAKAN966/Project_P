@@ -52,6 +52,7 @@ public class StageInit : MonoBehaviour
         towerPanel.SetActive(false);
         goldinfoPanel.SetActive(false);
         towerinfoPanel.SetActive(false);
+        SFXManager.Instance.PlaySFX(0);
     }
     public void OnGoldBtn()
     {
@@ -61,6 +62,7 @@ public class StageInit : MonoBehaviour
         towerPanel.SetActive(false);
         goldinfoPanel.SetActive(false);
         towerinfoPanel.SetActive(false);
+        SFXManager.Instance.PlaySFX(0);
     }
     public void OnTowerBtn()
     {
@@ -71,6 +73,7 @@ public class StageInit : MonoBehaviour
         UITowerManager.instance.Init();
         goldinfoPanel.SetActive(false);
         towerinfoPanel.SetActive(false);
+        SFXManager.Instance.PlaySFX(0);
     }
 
 }

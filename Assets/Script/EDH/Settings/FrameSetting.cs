@@ -26,7 +26,7 @@ public class FrameSetting : MonoBehaviour
         Application.targetFrameRate = 30;
         Debug.Log("현재 프레임" + Application.targetFrameRate);
         SpriteRendererTwo.color = Color.white;
-        
+
         setframeNumber = 30;
         PlayerPrefs.SetInt("Frame",setframeNumber);
     }
