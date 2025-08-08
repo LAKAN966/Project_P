@@ -103,10 +103,12 @@ public class UIStageInfo : MonoBehaviour
     {
         UIDeckBuildManager.instance.deckPanel.SetActive(true);
         UIDeckBuildManager.instance.Init();
+        SFXManager.Instance.PlaySFX(0);
     }
 
     public void OnClickEnter()
     {
         StageManager.instance.OnClickEnterBattle();
+        SFXManager.Instance.PlaySFX(0);
     }
 }
