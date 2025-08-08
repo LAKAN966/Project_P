@@ -113,6 +113,7 @@ public class GoldStageInfo : MonoBehaviour
     private void OnclickOpenDeck()
     {
         UIDeckBuildManager.instance.deckPanel.SetActive(true);
+        UIDeckBuildManager.instance.Init();
     }
 
     private void OnClickEnter()

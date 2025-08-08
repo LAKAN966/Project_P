@@ -60,14 +60,15 @@ public class StageManager : MonoBehaviour
 
         if (lastSessionClearedStageID != -1 && allStageData.TryGetValue(lastSessionClearedStageID, out var lastStageData))
         {
-            currentChapter = lastStageData.Chapter;
 
             switch (lastSessionClearedStageType)
             {
                 case 0:
+                    currentChapter = lastStageData.Chapter;
                     StageInit.instance.OnMainBtn();
                     break;
                 case 1:
+                    currentChapter = lastStageData.Chapter;
                     StageInit.instance.OnTowerBtn();
                     break;
                 case 2:
