@@ -55,10 +55,9 @@ public class PlayerDataManager
             Player.AddUnit(1002);
             var allItems = new List<Item>(ItemListLoader.Instance.GetAllList().Values);
             ResetDailyPurchase(allItems);
-            Save();
 
             IsLoaded = true;
-            LoadFailed = false;
+            LoadFailed = (load == null);
         }
     }
 

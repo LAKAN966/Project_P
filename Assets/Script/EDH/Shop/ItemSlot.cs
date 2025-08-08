@@ -68,16 +68,19 @@ public class ItemSlot : MonoBehaviour
         UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>()._Item = _Item;
         UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>().SetitemIcon(ItemIcon.sprite);
         _purchaseSync.PurchAct = (count) => 
-        { 
-            Debug.Log(count + "구매");
-            int left = PlayerDataManager.Instance.player.itemPurchaseLeft.ContainsKey(_Item.ID)
-           ? PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID]
-           : _Item.DailyBuy;
+        {
+            if (!PlayerDataManager.Instance.player.itemPurchaseLeft.ContainsKey(_Item.ID))
+            {
+                PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] = _Item.DailyBuy;
+            }
 
-            TotalAtempt.text = NumberFormatter.FormatNumber(left);
-            //int TotalCount = int.Parse(TotalAtempt.text);
-            //TotalCount = TotalCount - count; 
-            //TotalAtempt.text = TotalCount.ToString();
+            PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] -= count;
+            if (PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] < 0)
+                PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] = 0;
+
+            TotalAtempt.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID]);
+
+            PlayerDataManager.Instance.Save();
         }; 
     }
 }

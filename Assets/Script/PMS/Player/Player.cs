@@ -14,7 +14,13 @@ public class Player : SaveTime
 
     public List<int> myUnitIDs = new();
     public DeckData currentDeck = new();
-    public List<DeckData> preset = new List<DeckData>();
+    public List<DeckData> preset = new List<DeckData>()
+        {
+    new DeckData(),
+    new DeckData(),
+    new DeckData()
+};
+
     public int currentPresetIndex;
     public List<int> clearedStageIDs = new();
     public int lastClearedStageID;
