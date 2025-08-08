@@ -78,6 +78,7 @@ public class UnitSpawner : MonoBehaviour
                 Debug.LogWarning($"{(data.isEnemy ? "적" : "아군")} 영웅 유닛 풀 부족!");
                 return;
             }
+            SFXManager.Instance.PlaySFX(9);
         }
         else
         {
@@ -88,6 +89,7 @@ public class UnitSpawner : MonoBehaviour
                 Debug.LogWarning($"{(data.isEnemy ? "적군" : "아군")} 유닛 풀 부족!");
                 return;
             }
+            SFXManager.Instance.PlaySFX(8);
         }
         BattleResourceManager.Instance.Spend(stats.Cost);
         CoolTimeManager.Instance.SetCooldown(data.unitID, stats.SpawnInterval);
