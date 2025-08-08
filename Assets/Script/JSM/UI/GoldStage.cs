@@ -55,6 +55,7 @@ public class GoldStage : MonoBehaviour
             OnChangeLevel();
             goldInfo.GetComponent<GoldStageInfo>().SetGoldInfo(goldStageData[currentGoldStage].ID);
         }
+        SFXManager.Instance.PlaySFX(5);
     }
 
     private void OnClickRight()
@@ -66,6 +67,8 @@ public class GoldStage : MonoBehaviour
             OnChangeLevel();
             goldInfo.GetComponent<GoldStageInfo>().SetGoldInfo(goldStageData[currentGoldStage].ID);
         }
+        SFXManager.Instance.PlaySFX(5);
+
     }
 
     private void UpdateStageText()
@@ -76,6 +79,7 @@ public class GoldStage : MonoBehaviour
     {
         goldInfo.SetActive(true);
         goldInfo.GetComponent<GoldStageInfo>().SetGoldInfo(goldStageData[currentGoldStage].ID);
+        SFXManager.Instance.PlaySFX(0);
     }
     private void OnClickEnterBattle()
     {
@@ -90,7 +94,6 @@ public class GoldStage : MonoBehaviour
             StageManager.instance.PopUp("덱에 유닛이 없습니다.\n유닛을 편성해주세요.");
             return;
         }
-
         SceneManager.sceneLoaded += OnBattleSceneLoaded;//씬 로드 후에 실행되게 설정
         SceneManager.LoadScene("BattleScene");
         Debug.Log($"{selectedStageID} 입장");

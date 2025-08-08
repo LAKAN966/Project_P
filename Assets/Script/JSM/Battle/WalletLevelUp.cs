@@ -32,6 +32,7 @@ public class WalletLevelUp : MonoBehaviour
             img.SetActive(false);
             costText.alignment = TextAlignmentOptions.Center;
         }
+        SFXManager.Instance.PlaySFX(17);
     }
 
     void UpdateUI()
@@ -41,6 +42,5 @@ public class WalletLevelUp : MonoBehaviour
         levelText.text = $"Lv.{mgr.walletLevel}";
         costText.text = mgr.CanLevelUp() ? $"{mgr.GetLevelUpCost()}" : "MAX";
         levelUpButton.interactable = mgr.CanLevelUp() && mgr.currentResource >= mgr.GetLevelUpCost();
-        SFXManager.Instance.PlaySFX(17);
     }
 }

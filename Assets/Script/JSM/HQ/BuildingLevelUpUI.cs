@@ -61,8 +61,8 @@ public class BuildingLevelUpUI : MonoBehaviour
             {
                 this.GetComponent<Button>().onClick.RemoveAllListeners();
                 this.GetComponentInChildren<TextMeshProUGUI>().text = "MAX";
-                SFXManager.Instance.PlaySFX(14);
             }
+                SFXManager.Instance.PlaySFX(14);
             levelUpPanel.SetActive(false);
         });
     }
