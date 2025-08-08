@@ -31,7 +31,7 @@ public class PurchaseSync : MonoBehaviour
     public GameObject NotEnoughBox;    // 재화 부족 경고
     public PurchaseBoxSet purchaseBoxSet;
 
-    private int AttemptLeft;            //남은 구매 수량
+    private int AttemptLeft => GetAttemptLeft();            //남은 구매 수량
 
     public Action<int> PurchAct { get; set; }
 
@@ -82,8 +82,8 @@ public class PurchaseSync : MonoBehaviour
     }
     public void PurchaseItem()
     {
-        AttemptLeft = _Item.DailyBuy;
-        int Attempt = AttemptLeft;
+        //AttemptLeft = _Item.DailyBuy;
+        //int Attempt = AttemptLeft;
 
 
         int Cost = _Item.Cost;
@@ -104,46 +104,98 @@ public class PurchaseSync : MonoBehaviour
     }
     public void PurchaseLogic(int amount, int cost, Action<int> ItemsP)
     {
-        AttemptLeft = _Item.DailyBuy;
+        //AttemptLeft = _Item.DailyBuy;
         int Attempt = AttemptLeft;
 
-        int Cost = _Item.Cost;
-        int Amount = int.Parse(InputAmount.text);
-        if (AttemptLeft > 0)
+        if (Attempt <= 0)
         {
-            if (int.Parse(InputAmount.text) > _Item.DailyBuy)
-            {
-                Amount = AttemptLeft;
-                InputAmount.text = Amount.ToString();
-            }
-            if (PlayerDataManager.Instance.player.gold >= int.Parse(InputAmount.text) * Cost)
-            {
-                PlayerDataManager.Instance.UseGold(Cost * Amount);
-                ItemsP.Invoke(Amount);
-                AttemptLeft -= Amount;
-                InputAmount.text = "1";
-                PurchAct.Invoke(Amount);
-                _Item.DailyBuy = AttemptLeft;
-            }
-            else
-            {
-                UIController.Instance.GoldNotEnoungh();
-            }
+            UIController.Instance.AtemptNotEnoungh();
+            return;
+        }
+
+        if (amount > Attempt)
+        {
+            amount = Attempt;
+            InputAmount.text = amount.ToString();
+        }
+        int totalCost = cost * amount;
+
+        if (PlayerDataManager.Instance.player.gold >= totalCost)
+        {
+            PlayerDataManager.Instance.UseGold(totalCost);
+            ItemsP.Invoke(amount);
+
+            PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] = Attempt - amount;
+            PlayerDataManager.Instance.Save();
+
+            InputAmount.text = "1";
+            PurchAct?.Invoke(amount);
         }
         else
         {
-            UIController.Instance.AtemptNotEnoungh();
+            UIController.Instance.GoldNotEnoungh();
         }
+
+        //int Cost = _Item.Cost;
+        //int Amount = int.Parse(InputAmount.text);
+        //if (AttemptLeft > 0)
+        //{
+        //    if (int.Parse(InputAmount.text) > _Item.DailyBuy)
+        //    {
+        //        Amount = AttemptLeft;
+        //        InputAmount.text = Amount.ToString();
+        //    }
+        //    if (PlayerDataManager.Instance.player.gold >= int.Parse(InputAmount.text) * Cost)
+        //    {
+        //        PlayerDataManager.Instance.UseGold(Cost * Amount);
+        //        ItemsP.Invoke(Amount);
+        //        AttemptLeft -= Amount;
+        //        InputAmount.text = "1";
+        //        PurchAct.Invoke(Amount);
+        //        _Item.DailyBuy = AttemptLeft;
+        //    }
+        //    else
+        //    {
+        //        UIController.Instance.GoldNotEnoungh();
+        //    }
+        //}
+        //else
+        //{
+        //    UIController.Instance.AtemptNotEnoungh();
+        //}
     }
     public void Init(Item item, ItemSlot slot)
     {
-        Debug.Log("c");
+        //Debug.Log("c");
         _Item = item;
         iSlot = slot;
+
+        if (PlayerDataManager.Instance.player.itemPurchaseLeft.TryGetValue(_Item.ID, out int left))
+            _Item.DailyBuy = left;
+        else
+            _Item.DailyBuy = _Item.DailyBuy;
+
         UpdateTotal();
     }
     public void UpdateTotal()
     {
         totalCost.text = NumberFormatter.FormatNumber((int.Parse(InputAmount.text)*_Item.Cost));
     }
+
+    private int GetAttemptLeft()
+    {
+        var player = PlayerDataManager.Instance.player;
+        if (player.itemPurchaseLeft.TryGetValue(_Item.ID, out int left))
+        {
+            return left;
+        }
+        else
+        {
+            player.itemPurchaseLeft[_Item.ID] = _Item.DailyBuy;
+            PlayerDataManager.Instance.Save();
+            return _Item.DailyBuy;
+        }
+    }
+
+
 }

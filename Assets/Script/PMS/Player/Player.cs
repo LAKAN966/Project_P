@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,8 @@ public class Player : SaveTime
     public PlayerTowerData towerData = new();
     public long lastSaveTime { get; set; }
 
+    public Dictionary<int, int> itemPurchaseLeft = new Dictionary<int, int>();
+    public long lastPurchaseResetTime;
 
     public static Player CreateDefaultPlayer()
     {
@@ -72,9 +75,8 @@ public class Player : SaveTime
             myUnitIDs.Add(unitID);
         }
     }
+    
 }
-
-
 
 public class PlayerQuestData
 {

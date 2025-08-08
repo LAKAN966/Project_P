@@ -33,7 +33,17 @@ public class ItemSlot : MonoBehaviour
 
         ItemNameText.text = item.Name;
         ItemCost.text = NumberFormatter.FormatNumber(_Item.Cost);
-        TotalAtempt.text = NumberFormatter.FormatNumber(_Item.DailyBuy);
+        //TotalAtempt.text = NumberFormatter.FormatNumber(_Item.DailyBuy);
+
+        if (PlayerDataManager.Instance.player.itemPurchaseLeft.TryGetValue(_Item.ID, out int left))
+        {
+            TotalAtempt.text = NumberFormatter.FormatNumber(left);
+            _Item.DailyBuy = left;
+        }
+        else
+        {
+            TotalAtempt.text = NumberFormatter.FormatNumber(_Item.DailyBuy);
+        }
 
         itemSlot.onClick.RemoveAllListeners();
 
@@ -60,9 +70,15 @@ public class ItemSlot : MonoBehaviour
         _purchaseSync.PurchAct = (count) => 
         { 
             Debug.Log(count + "구매");
-            int TotalCount = int.Parse(TotalAtempt.text);
-            TotalCount = TotalCount - count; 
-            TotalAtempt.text = TotalCount.ToString();
+            if (PlayerDataManager.Instance.player.itemPurchaseLeft.TryGetValue(_Item.ID, out int left))
+            {
+                left -= count;
+                PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] = left;
+                TotalAtempt.text = NumberFormatter.FormatNumber(left);
+            }
+            //int TotalCount = int.Parse(TotalAtempt.text);
+            //TotalCount = TotalCount - count; 
+            //TotalAtempt.text = TotalCount.ToString();
         }; 
     }
 }
