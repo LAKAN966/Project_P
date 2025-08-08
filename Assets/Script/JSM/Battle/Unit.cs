@@ -233,7 +233,7 @@ public class Unit : MonoBehaviour
         {
             return;
         }
-
+        SFXManager.Instance.PlaySFX(1);
         Vector3 pos = transform.position + new Vector3(0, 1f, 0);
         GameObject obj = Instantiate(effectParticle, pos, Quaternion.Euler(90,0,0));
         Destroy(obj, 1f);

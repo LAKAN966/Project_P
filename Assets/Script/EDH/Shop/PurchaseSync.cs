@@ -85,19 +85,31 @@ public class PurchaseSync : MonoBehaviour
         //AttemptLeft = _Item.DailyBuy;
         //int Attempt = AttemptLeft;
 
+        if (!int.TryParse(InputAmount.text, out int amount))
+        {
+            amount = 1;
+        }
+
+        // 최대 구매 횟수 제한 적용
+        if (amount > AttemptLeft)
+        {
+            amount = AttemptLeft;
+            InputAmount.text = amount.ToString();
+        }
+
 
         int Cost = _Item.Cost;
-        int Amount = int.Parse(InputAmount.text);
+        //int Amount = int.Parse(InputAmount.text);
        
 
         if ((ItemID)_Item.ID == ItemID.NormalRecruit)
-            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTicket);
+            PurchaseLogic(amount, Cost, PlayerDataManager.Instance.AddTicket);
         else if ((ItemID)_Item.ID == ItemID.BuildTool)
-            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTribute);
+            PurchaseLogic(amount, Cost, PlayerDataManager.Instance.AddTribute);
         else if ((ItemID)_Item.ID == ItemID.Blueprint)
-            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddBluePrint);
+            PurchaseLogic(amount, Cost, PlayerDataManager.Instance.AddBluePrint);
         else if ((ItemID)_Item.ID == ItemID.SpecialRecruit)
-            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddSpecT);
+            PurchaseLogic(amount, Cost, PlayerDataManager.Instance.AddSpecT);
         ShoppingManager.Instance.ShowNowGold();
         purchaseBoxSet.TabClose();
         SFXManager.Instance.PlaySFX(0);
@@ -125,7 +137,10 @@ public class PurchaseSync : MonoBehaviour
             PlayerDataManager.Instance.UseGold(totalCost);
             ItemsP.Invoke(amount);
 
-            PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] = Attempt - amount;
+            int remaining = Attempt - amount;
+            if (remaining < 0) remaining = 0;
+
+            PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] = remaining;
             PlayerDataManager.Instance.Save();
 
             InputAmount.text = "1";
@@ -174,12 +189,16 @@ public class PurchaseSync : MonoBehaviour
             _Item.DailyBuy = left;
         else
             _Item.DailyBuy = _Item.DailyBuy;
-
+        
+        InputAmount.text = "1";
         UpdateTotal();
     }
     public void UpdateTotal()
     {
-        totalCost.text = NumberFormatter.FormatNumber((int.Parse(InputAmount.text)*_Item.Cost));
+        if (int.TryParse(InputAmount.text, out int amount))
+            totalCost.text = NumberFormatter.FormatNumber(amount * _Item.Cost);
+        else
+            totalCost.text = NumberFormatter.FormatNumber(_Item.Cost);
     }
 
     private int GetAttemptLeft()
