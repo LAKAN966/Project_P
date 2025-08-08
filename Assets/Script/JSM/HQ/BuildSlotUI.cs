@@ -115,7 +115,7 @@ public class BuildSlotUI : MonoBehaviour
             if (!levelText.gameObject.activeSelf)
                 levelText.gameObject.SetActive(true);
 
-            levelText.text = $"Lv.{Level}";
+            levelText.text = Level==5?"Max":$"Lv.{Level}";
         }
         if(levelUpBtn != null)
         {
@@ -123,6 +123,11 @@ public class BuildSlotUI : MonoBehaviour
                 levelUpBtn.gameObject.SetActive(true);
             levelUpBtn.GetComponent<BuildingLevelUpUI>().levelUpPanel = levelUpPanel;
             levelUpBtn.GetComponent<BuildingLevelUpUI>().buildSlotUI = this;
+            if (Level == 5) 
+            { 
+                levelUpBtn.onClick.RemoveAllListeners();
+                levelUpBtn.GetComponentInChildren<TextMeshProUGUI>().text = "MAX";
+            }
         }
     }
     public void LevelUp()
@@ -133,7 +138,7 @@ public class BuildSlotUI : MonoBehaviour
             if (!levelText.gameObject.activeSelf)
                 levelText.gameObject.SetActive(true);
 
-            levelText.text = $"Lv.{Level}";
+            levelText.text = Level == 5 ? "Max" : $"Lv.{Level}";
             OnEffect();
         }
         PlayerDataManager.Instance.player.buildingsList[slotID].level = Level;
