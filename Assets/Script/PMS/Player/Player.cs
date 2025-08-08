@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player
+public class Player : SaveTime
 {
     public int gold = 10000;
     public int ticket = 10;
@@ -40,6 +40,7 @@ public class Player
     //public int pickPoint = 0;
 
     public PlayerTowerData towerData = new();
+    public long lastSaveTime { get; set; }
 
 
     public static Player CreateDefaultPlayer()
