@@ -49,4 +49,12 @@ public class FillterUI : MonoBehaviour
 
         spawner.FilterByIDs(selectedIDs);
     }
+    private void OnEnable()
+    {
+        SFXManager.Instance.PlaySFX(0);
+    }
+    private void OnDisable()
+    {
+        SFXManager.Instance.PlaySFX(0);
+    }
 }
