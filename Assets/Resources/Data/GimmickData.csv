@@ -1,0 +1,9 @@
+﻿GimmickID,GimmickName,EffectValue,GimmickDesc
+101,TimeLimit,200,시간제한 200초
+102,UnitResummonCooldownUp,1,소환 쿨타임 1초 증가
+103,UnitSummonCostUp,2,소환 통솔력 2 증가
+104,LeaderUnitSummonBan,,리더 유닛 금지
+202,UnitResummonCooldownUp,1.5,소환 쿨타임 1.5초 증가
+203,UnitSummonCostUp,3,소환 통솔력 3 증가
+302,UnitResummonCooldownUp,2.5,소환 쿨타임 2.5초 증가
+303,UnitSummonCostUp,5,소환 통솔력 10 증가
