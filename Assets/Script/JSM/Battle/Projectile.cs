@@ -25,6 +25,7 @@ public class Projectile : MonoBehaviour
     // 아크 파라미터(Quadratic Bezier: P0->P1->P2)
     private Vector3 _p0, _p1, _p2;
     private bool _hasArc = false;
+    public bool isEnemy;
 
     private float _fxLength; // 실사용 길이(초)
     private Coroutine _arcCo;
@@ -51,6 +52,12 @@ public class Projectile : MonoBehaviour
 
     void OnEnable()
     {
+        if (isEnemy)
+        {
+            var s = transform.localScale;
+            s.x = -s.x;
+            transform.localScale = s;
+        }
         // 애니메이션/이펙트 길이 확정
         _fxLength = CalcFxLength();
 

@@ -48,8 +48,7 @@ public class SpawnButton : MonoBehaviour
         }
         stats = BuffManager.ApplyBuff(UnitDataManager.Instance.GetStats(unitID));
         stats = UnitSpawner.Instance.SetGimmick(stats);
-        if(isHero)
-            stats = SkillManager.Instance.OnStartBuff(stats);
+        stats = SkillManager.Instance.OnStartBuff(stats);
         if (stats == null)
         {
             Debug.LogWarning("Stats not found for unitID: " + unitID);

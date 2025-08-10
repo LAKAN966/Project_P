@@ -277,6 +277,7 @@ public class Unit : MonoBehaviour
             float targetX = (target != null) ? target.position.x : spawnPos.x + (isEnemy ? -stats.AttackRange : stats.AttackRange);
             float apexY = projectileApexY;
             projCfgOnInstance?.InitArc(spawnPos, targetX, apexY);
+            projCfgOnInstance.isEnemy = isEnemy?true:false;
 
             fxLen = projCfgOnInstance?.FxLength ?? projCfgOnPrefab?.FxLength ?? 0f;
             fx.transform.SetParent(transform, true);
