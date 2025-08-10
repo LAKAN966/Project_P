@@ -69,7 +69,8 @@ public class UnitDataManager
                 isEnemy = bool.Parse(tokens[19].Trim()),
                 warrant = int.Parse(tokens[20].Trim()),
                 shopPrice = int.Parse(tokens[21].Trim()),
-                tagId = new List<int>()
+                tagId = new List<int>(),
+                projectile = tokens[23].Trim(),
             };
 
 

@@ -25,5 +25,5 @@ public class UnitStats
     public int warrant;         //증명서 수
     public int shopPrice;       //상점 가격
     public List<int> tagId;     //태그id 리스트
-
+    public string projectile;   //투사체
 }

@@ -33,6 +33,10 @@ public class Unit : MonoBehaviour
 
     public GameObject effectParticle;
 
+    [SerializeField] private Transform projectileSpawnPoint; // 없으면 transform.position 사용
+    private GameObject projectilePrefab; // Resources/Projectiles/{stats.projectile} 캐시
+
+
     private void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -59,11 +63,39 @@ public class Unit : MonoBehaviour
         triggeredHitbackZones.Clear();
         SetState(UnitState.Moving);
         gameObject.SetActive(true);
-        spriteRoot.localScale = new Vector3(stats.Size*1.5f, stats.Size*1.5f, 0);
+        spriteRoot.localScale = new Vector3(stats.Size * 1.5f, stats.Size * 1.5f, 0);
 
         SetLayerRecursively(gameObject, LayerMask.NameToLayer(isEnemy ? "Enemy" : "Ally"));
         LoadModel();
+
+        LoadProjectilePrefab(); // << 추가
     }
+    private void LoadProjectilePrefab()
+    {
+        projectilePrefab = null;
+        if (stats == null) return;
+
+        // 이름 정리
+        string projName = (stats.projectile ?? string.Empty).Trim();
+
+        // 비었거나 "-"면 투사체 없음
+        if (string.IsNullOrEmpty(projName) || projName == "-")
+            return;
+
+        string path = $"Projectiles/{projName}";
+        projectilePrefab = Resources.Load<GameObject>(path);
+        if (projectilePrefab == null)
+            Debug.LogWarning($"Projectile prefab not found at Resources/{path}");
+
+        // 스폰 포인트 없으면 모델 하위에서 찾아보기(선택)
+        if (projectileSpawnPoint == null && spriteRoot != null)
+        {
+            var t = spriteRoot.Find("ProjectileSocket");
+            if (t != null) projectileSpawnPoint = t;
+        }
+    }
+
+
     public virtual void OnSpawned()
     {
     }
@@ -160,54 +192,83 @@ public class Unit : MonoBehaviour
     private IEnumerator AttackRoutine()
     {
         isAttacking = true;
+
+        // 공격 애니 길이
         float attackAnimLength = spumController.GetAnimationLength(PlayerState.ATTACK);
-        yield return new WaitForSeconds(Mathf.Max(stats.PreDelay - attackAnimLength, 0));
+
+        // 공격 상태로 진입(애니 시작)
         SetState(UnitState.Fighting);
 
-        yield return new WaitForSeconds(attackAnimLength);
+        // 리소스에서 읽은 투사체 설정(없으면 null)
+        Projectile projCfgOnPrefab = projectilePrefab != null ? projectilePrefab.GetComponent<Projectile>() : null;
 
-        // 공통: 위치, 범위, 레이어
+        // PreDelay: 애니가 이미 재생 중인 상태에서 추가 리드타임
+        if (stats.PreDelay > 0f) yield return new WaitForSeconds(stats.PreDelay);
+
+        // 투사체 소환 시점(공격 애니 내 비율 기반). 프리팹 없으면 애니 중간으로.
+        float spawnWait = projCfgOnPrefab != null ? projCfgOnPrefab.SpawnTimeInAttack(attackAnimLength)
+                                                  : 0.5f * attackAnimLength;
+        if (spawnWait > 0f) yield return new WaitForSeconds(spawnWait);
+
+        // 투사체 스폰(비주얼용)
+        GameObject fx = null;
+        Projectile projCfgOnInstance = null;
+        if (projectilePrefab != null)
+        {
+            Vector3 pos = projectileSpawnPoint != null ? projectileSpawnPoint.position : transform.position;
+            fx = Instantiate(projectilePrefab, pos, Quaternion.identity);
+            projCfgOnInstance = fx.GetComponent<Projectile>();
+        }
+
+        // 데미지 정산 시점(투사체 애니 내 비율 기반). 프리팹/인스턴스 정보가 없으면 0.25초 기본값.
+        float damageWait =
+            (projCfgOnInstance != null ? projCfgOnInstance.DamageTimeInFx()
+             : projCfgOnPrefab != null ? projCfgOnPrefab.DamageTimeInFx()
+             : 0.25f);
+
+        if (damageWait > 0f) yield return new WaitForSeconds(damageWait);
+
+        // 타겟이 사라졌을 수도 있으니, '그 시점'의 범위 판정으로 데미지
+        DoDamage();
+
+        // 보이는 것들 끝까지(공격 애니 남은 구간 vs 투사체 남은 구간)
+        float remainingAttack = Mathf.Max(attackAnimLength - spawnWait, 0f);
+        float fxLen = projCfgOnInstance?.FxLength ?? projCfgOnPrefab?.FxLength ?? 0.5f;
+        float remainingFx = Mathf.Max(fxLen - damageWait, 0f);
+        float tail = Mathf.Max(remainingAttack, remainingFx);
+        if (tail > 0f) yield return new WaitForSeconds(tail);
+
+        // PostDelay
+        if (stats.PostDelay > 0f) yield return new WaitForSeconds(stats.PostDelay);
+
+        SetState(UnitState.Moving);
+        isAttacking = false;
+    }
+
+    private void DoDamage()
+    {
         Vector2 center = transform.position;
         float radius = stats.AttackRange;
         int enemyLayer = LayerMask.NameToLayer(isEnemy ? "Ally" : "Enemy");
         int mask = 1 << enemyLayer;
 
-        // 공통: 범위 내 모든 대상 감지
         Collider2D[] hits = Physics2D.OverlapCircleAll(center, radius, mask);
 
         if (stats.IsAOE)
         {
-            // AOE: 모든 대상에게 데미지
-            foreach (var hit in hits)
-            {
-                ApplyDamage(hit);
-            }
+            foreach (var h in hits) ApplyDamage(h);
         }
         else
         {
-            // 단일 대상: 가장 가까운 대상 하나만
             Collider2D closest = null;
             float minDist = float.MaxValue;
-
-            foreach (var hit in hits)
+            foreach (var h in hits)
             {
-                float dist = Vector2.Distance(center, hit.transform.position);
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    closest = hit;
-                }
+                float d = Vector2.Distance(center, h.transform.position);
+                if (d < minDist) { minDist = d; closest = h; }
             }
-
-            if (closest != null)
-            {
-                ApplyDamage(closest);
-            }
+            if (closest != null) ApplyDamage(closest);
         }
-
-        yield return new WaitForSeconds(stats.PostDelay);
-        SetState(UnitState.Moving);
-        isAttacking = false;
     }
 
     private void ApplyDamage(Collider2D hit)
