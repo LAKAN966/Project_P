@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     public float timeLimit=60;
     public float m_Time;
     public bool m_Running=false;
+    private bool tickling = false;
 
     public void Start()
     {
@@ -23,6 +24,7 @@ public class Timer : MonoBehaviour
 
         if (remainingTime >= 60f)
         {
+            if (!tickling) { tickling = true; SFXManager.Instance.PlaySFX(3); }
             int minutes = Mathf.FloorToInt(remainingTime / 60f);
             float seconds = remainingTime % 60f;
             timer.text = $"{minutes:00}:{seconds:00}";
