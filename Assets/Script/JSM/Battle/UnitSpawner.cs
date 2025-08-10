@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitSpawner : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class UnitSpawner : MonoBehaviour
     public Vector2 enemySpawnPosition;
 
     public static UnitSpawner Instance;
+    public Image LeaderImg;
+
+    public bool doubleCrawler = false;
 
 
     [System.Serializable]
@@ -28,6 +32,7 @@ public class UnitSpawner : MonoBehaviour
     }
 
     public List<ButtonSetting> buttonSettings = new();
+    public GameObject maxSpawn;
 
     private void Awake()
     {
@@ -50,6 +55,7 @@ public class UnitSpawner : MonoBehaviour
             buttonSettings[6].unitID = leaderDeck.ID;
             SkillManager.Instance.SetSkillID(UnitDataManager.Instance.GetStats(buttonSettings[6].unitID).SkillID[0], UnitDataManager.Instance.GetStats(buttonSettings[6].unitID).SkillID[1]);
         }
+        LeaderImg.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderDeck.ModelName}");
         Debug.Log("덱 세팅!");
     }
     private void TrySpawn(SpawnButton data)
@@ -75,6 +81,7 @@ public class UnitSpawner : MonoBehaviour
             var hero = heroPool.GetUnit(stats, spawnPos);
             if (hero == null)
             {
+                maxSpawn.SetActive(true);
                 Debug.LogWarning($"{(data.isEnemy ? "적" : "아군")} 영웅 유닛 풀 부족!");
                 return;
             }
@@ -86,8 +93,19 @@ public class UnitSpawner : MonoBehaviour
             var unit = pool.GetUnit(stats, spawnPos);
             if (unit == null)
             {
+                maxSpawn.SetActive(true);
                 Debug.LogWarning($"{(data.isEnemy ? "적군" : "아군")} 유닛 풀 부족!");
                 return;
+            }
+            if(doubleCrawler&&unit.stats.RaceID == 1) 
+            {
+                unit = pool.GetUnit(stats, spawnPos);
+                if (unit == null)
+                {
+                    maxSpawn.SetActive(true);
+                    Debug.LogWarning($"{(data.isEnemy ? "적군" : "아군")} 유닛 풀 부족!");
+                    return;
+                }
             }
             SFXManager.Instance.PlaySFX(8);
         }
@@ -115,6 +133,23 @@ public class UnitSpawner : MonoBehaviour
         if (unit == null)
         {
             Debug.LogWarning("[UnitSpawner] 적군 유닛 풀 부족!");
+            return false;
+        }
+        return true;
+    }
+    public bool SpawnAlly(int unitID)
+    {
+        var stats = UnitDataManager.Instance.GetStats(unitID);
+        if (stats == null)
+        {
+            Debug.LogWarning($"[UnitSpawner] 알 수 없는 유닛 ID: {unitID}");
+            return false;
+        }
+
+        var unit = allyPool.GetUnit(stats, allySpawnPosition);
+        if (unit == null)
+        {
+            Debug.LogWarning("[UnitSpawner] 아군 유닛 풀 부족!");
             return false;
         }
         return true;
