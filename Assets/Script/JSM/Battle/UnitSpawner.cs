@@ -144,8 +144,8 @@ public class UnitSpawner : MonoBehaviour
             button.isHero = setting.isHero;
 
             button.button.onClick.RemoveAllListeners();
-            button.button.onClick.AddListener(() => TrySpawn(button));
             button.GetComponent<SpawnButton>().InitializeUI();
+            button.button.onClick.AddListener(() => TrySpawn(button));
         }
         yield break;
     }

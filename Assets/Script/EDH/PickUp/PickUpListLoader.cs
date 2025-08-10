@@ -53,6 +53,7 @@ public class PickUpListLoader : Singleton<PickUpListLoader>
                 IsEnemy = bool.Parse(tokens[19]),  // 적 여부
                 warrant = int.Parse(tokens[20]),   //증명서 가격
                 duplication = int.Parse(tokens[21]), //중복재화
+                projectile = tokens[23].Trim(),
             };
 
             PickListsDict[pickinfo.ID] = pickinfo;

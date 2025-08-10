@@ -129,10 +129,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fromRight:
-  - {fileID: 5353940663326533774}
   - {fileID: 8388055587540203808}
   fromLeft: []
-  groupOffsetX: 200
+  groupOffsetX: 80
   groupDuration: 0.5
   groupEase: 6
   soloTarget: {fileID: 3551490515065092096}
@@ -142,8 +141,8 @@ MonoBehaviour:
   useLossyScale: 0
   blackout: {fileID: 5976716800197950765}
   blackoutDelay: 0
-  blackoutDuration: 3
-  autoPlay: 1
+  blackoutDuration: 0.6
+  autoPlay: 0
 --- !u!1 &7429930448783103297
 GameObject:
   m_ObjectHideFlags: 0

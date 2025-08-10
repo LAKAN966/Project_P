@@ -279,8 +279,10 @@ MonoBehaviour:
   mover: {fileID: 8309652025508380157}
   targetY: 0
   moveDuration: 1
-  preDelay: 2
+  preDelay: 0.6
+  useLossyScale: 0
   zoomTarget: {fileID: 1379598589463897011}
   zoomScale: 1.15
-  zoomDuration: 2
+  zoomDuration: 0.9
   zoomReturn: 0
+  autoPlay: 0

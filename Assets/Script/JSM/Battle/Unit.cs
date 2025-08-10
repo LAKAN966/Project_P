@@ -35,7 +35,37 @@ public class Unit : MonoBehaviour
 
     [SerializeField] private Transform projectileSpawnPoint; // 없으면 transform.position 사용
     private GameObject projectilePrefab; // Resources/Projectiles/{stats.projectile} 캐시
+    [SerializeField] private float projectileApexY = 2.0f; // "특정 y값" (월드 Y)
+    private float attackDamagePoint; // 공격 애니 안에서 데미지 들어갈 지점(0=시작,1=끝)
 
+    // Unit 클래스 내부
+    private readonly List<Projectile> _ownedProjectiles = new();
+
+    public void RegisterProjectile(Projectile p)
+    {
+        if (p == null) return;
+        if (!_ownedProjectiles.Contains(p))
+            _ownedProjectiles.Add(p);
+    }
+
+    public void UnregisterProjectile(Projectile p)
+    {
+        if (p == null) return;
+        _ownedProjectiles.Remove(p);
+    }
+
+    private void ClearProjectilesImmediate()
+    {
+        for (int i = _ownedProjectiles.Count - 1; i >= 0; i--)
+        {
+            var p = _ownedProjectiles[i];
+            if (p) Destroy(p.gameObject);
+        }
+        _ownedProjectiles.Clear();
+    }
+
+    private void OnDisable() => ClearProjectilesImmediate();
+    private void OnDestroy() => ClearProjectilesImmediate();
 
     private void Start()
     {
@@ -69,6 +99,22 @@ public class Unit : MonoBehaviour
         LoadModel();
 
         LoadProjectilePrefab(); // << 추가
+
+        switch (stats.AttackType)
+        {
+            case 0:
+                attackDamagePoint = 0.5f;
+                break;
+            case 1:
+                attackDamagePoint = 0.5f;
+                break;
+            case 2:
+                attackDamagePoint = 0.8f;
+                break;
+            case 4:
+                attackDamagePoint = 0.5f;
+                break;
+        }
     }
     private void LoadProjectilePrefab()
     {
@@ -77,15 +123,17 @@ public class Unit : MonoBehaviour
 
         // 이름 정리
         string projName = (stats.projectile ?? string.Empty).Trim();
-
+        Debug.Log(stats.Name+" : "+ stats.projectile+"+");
         // 비었거나 "-"면 투사체 없음
         if (string.IsNullOrEmpty(projName) || projName == "-")
             return;
-
+        
         string path = $"Projectiles/{projName}";
         projectilePrefab = Resources.Load<GameObject>(path);
         if (projectilePrefab == null)
             Debug.LogWarning($"Projectile prefab not found at Resources/{path}");
+        else
+            Debug.Log("프리팹 찾음");
 
         // 스폰 포인트 없으면 모델 하위에서 찾아보기(선택)
         if (projectileSpawnPoint == null && spriteRoot != null)
@@ -193,57 +241,77 @@ public class Unit : MonoBehaviour
     {
         isAttacking = true;
 
-        // 공격 애니 길이
         float attackAnimLength = spumController.GetAnimationLength(PlayerState.ATTACK);
 
-        // 공격 상태로 진입(애니 시작)
+        // 프리팹에서 투사체 정보 읽기
+        Projectile projCfgOnPrefab = projectilePrefab ? projectilePrefab.GetComponent<Projectile>() : null;
+
+        // 소환 시점: 공격 애니 기준
+        float spawnWait = projCfgOnPrefab
+            ? projCfgOnPrefab.SpawnTimeInAttack(attackAnimLength)
+            : 0.5f * attackAnimLength; // 없으면 절반 지점
+
+        // 공격 모션 대기시간: PreDelay 안에 포함
+        float attackMotionLeadTime = spawnWait;
+
+        // (PreDelay - 공격모션 대기) 대기
+        float firstWait = stats.PreDelay - attackMotionLeadTime;
+        if (firstWait > 0f) yield return new WaitForSeconds(firstWait);
+
+        // 공격 모션 시작
         SetState(UnitState.Fighting);
 
-        // 리소스에서 읽은 투사체 설정(없으면 null)
-        Projectile projCfgOnPrefab = projectilePrefab != null ? projectilePrefab.GetComponent<Projectile>() : null;
+        // (공격모션 대기 - 투사체 소환) 대기
+        if (attackMotionLeadTime > 0f) yield return new WaitForSeconds(attackMotionLeadTime);
 
-        // PreDelay: 애니가 이미 재생 중인 상태에서 추가 리드타임
-        if (stats.PreDelay > 0f) yield return new WaitForSeconds(stats.PreDelay);
-
-        // 투사체 소환 시점(공격 애니 내 비율 기반). 프리팹 없으면 애니 중간으로.
-        float spawnWait = projCfgOnPrefab != null ? projCfgOnPrefab.SpawnTimeInAttack(attackAnimLength)
-                                                  : 0.5f * attackAnimLength;
-        if (spawnWait > 0f) yield return new WaitForSeconds(spawnWait);
-
-        // 투사체 스폰(비주얼용)
+        // 투사체 소환
         GameObject fx = null;
         Projectile projCfgOnInstance = null;
-        if (projectilePrefab != null)
+        float fxLen = 0f;
+        if (projectilePrefab)
         {
-            Vector3 pos = projectileSpawnPoint != null ? projectileSpawnPoint.position : transform.position;
-            fx = Instantiate(projectilePrefab, pos, Quaternion.identity);
+            Vector3 spawnPos = projectileSpawnPoint ? projectileSpawnPoint.position : transform.position;
+            fx = Instantiate(projectilePrefab, spawnPos, Quaternion.identity);
             projCfgOnInstance = fx.GetComponent<Projectile>();
+
+            float targetX = (target != null) ? target.position.x : spawnPos.x + (isEnemy ? -stats.AttackRange : stats.AttackRange);
+            float apexY = projectileApexY;
+            projCfgOnInstance?.InitArc(spawnPos, targetX, apexY);
+
+            fxLen = projCfgOnInstance?.FxLength ?? projCfgOnPrefab?.FxLength ?? 0f;
+            fx.transform.SetParent(transform, true);
+
+            projCfgOnInstance = fx.GetComponent<Projectile>();
+            projCfgOnInstance?.SetOwner(this);
+            RegisterProjectile(projCfgOnInstance);
         }
 
-        // 데미지 정산 시점(투사체 애니 내 비율 기반). 프리팹/인스턴스 정보가 없으면 0.25초 기본값.
-        float damageWait =
-            (projCfgOnInstance != null ? projCfgOnInstance.DamageTimeInFx()
-             : projCfgOnPrefab != null ? projCfgOnPrefab.DamageTimeInFx()
-             : 0.25f);
+        // 데미지 시점: 투사체 애니 길이에 비례
+        if (projCfgOnInstance != null)
+        {
+            float dmgWait = projCfgOnInstance.DamageTimeInFx();
+            if (dmgWait > 0f) yield return new WaitForSeconds(dmgWait);
+        }
 
-        if (damageWait > 0f) yield return new WaitForSeconds(damageWait);
-
-        // 타겟이 사라졌을 수도 있으니, '그 시점'의 범위 판정으로 데미지
+        // 데미지 처리
         DoDamage();
 
-        // 보이는 것들 끝까지(공격 애니 남은 구간 vs 투사체 남은 구간)
-        float remainingAttack = Mathf.Max(attackAnimLength - spawnWait, 0f);
-        float fxLen = projCfgOnInstance?.FxLength ?? projCfgOnPrefab?.FxLength ?? 0.5f;
-        float remainingFx = Mathf.Max(fxLen - damageWait, 0f);
-        float tail = Mathf.Max(remainingAttack, remainingFx);
-        if (tail > 0f) yield return new WaitForSeconds(tail);
+        // FX 나머지 시간 대기
+        if (fxLen > 0f)
+        {
+            float remain = fxLen - projCfgOnInstance.DamageTimeInFx();
+            if (remain > 0f) yield return new WaitForSeconds(remain);
+        }
 
-        // PostDelay
+        // PostDelay 대기
         if (stats.PostDelay > 0f) yield return new WaitForSeconds(stats.PostDelay);
 
         SetState(UnitState.Moving);
         isAttacking = false;
     }
+
+
+
 
     private void DoDamage()
     {
@@ -400,6 +468,9 @@ public class Unit : MonoBehaviour
         if (state == newState && currentAnimState != PlayerState.OTHER) return;
         state = newState;
         UpdateAnimation();
+
+        if (newState == UnitState.Hitback || newState == UnitState.Dead)
+            ClearProjectilesImmediate();
     }
 
     private void UpdateAnimation()

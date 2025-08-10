@@ -21370,6 +21370,7 @@ MonoBehaviour:
     warrant: 0
     shopPrice: 0
     tagId: 
+    projectile: 
   leaderMark: {fileID: 0}
   raceIcon: {fileID: 1653122761}
   undeadSprite: {fileID: 21300000, guid: 2bedb257933e15646baffff4c26612d1, type: 3}
@@ -23449,17 +23450,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3266295430386666770, guid: 023f8c940f6eb9e4885d12777c9d7987, type: 3}
-      propertyPath: useLossyScale
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8742589121084929003, guid: 023f8c940f6eb9e4885d12777c9d7987, type: 3}
       propertyPath: m_Name
       value: Prod0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8742589121084929003, guid: 023f8c940f6eb9e4885d12777c9d7987, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24786,10 +24779,6 @@ PrefabInstance:
     - target: {fileID: 2503001081005713036, guid: ce9160994af798c4c97bf6a8a50d87df, type: 3}
       propertyPath: m_Name
       value: Prod3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2503001081005713036, guid: ce9160994af798c4c97bf6a8a50d87df, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7614877219953608801, guid: ce9160994af798c4c97bf6a8a50d87df, type: 3}
       propertyPath: m_Pivot.x
@@ -31748,6 +31737,7 @@ MonoBehaviour:
     warrant: 0
     shopPrice: 0
     tagId: 
+    projectile: 
   leaderMark: {fileID: 0}
   raceIcon: {fileID: 775748426}
   undeadSprite: {fileID: 21300000, guid: 2bedb257933e15646baffff4c26612d1, type: 3}
@@ -37824,6 +37814,7 @@ MonoBehaviour:
     warrant: 0
     shopPrice: 0
     tagId: 
+    projectile: 
   leaderMark: {fileID: 0}
   raceIcon: {fileID: 703073152}
   undeadSprite: {fileID: 21300000, guid: 2bedb257933e15646baffff4c26612d1, type: 3}
@@ -41094,6 +41085,7 @@ MonoBehaviour:
     warrant: 0
     shopPrice: 0
     tagId: 
+    projectile: 
   leaderMark: {fileID: 0}
   raceIcon: {fileID: 362958383}
   undeadSprite: {fileID: 21300000, guid: 2bedb257933e15646baffff4c26612d1, type: 3}
@@ -42474,6 +42466,7 @@ MonoBehaviour:
     warrant: 0
     shopPrice: 0
     tagId: 
+    projectile: 
   leaderMark: {fileID: 0}
   raceIcon: {fileID: 1381057820}
   undeadSprite: {fileID: 21300000, guid: 2bedb257933e15646baffff4c26612d1, type: 3}
@@ -53392,6 +53385,7 @@ MonoBehaviour:
     warrant: 0
     shopPrice: 0
     tagId: 
+    projectile: 
   leaderMark: {fileID: 0}
   raceIcon: {fileID: 1900673498}
   undeadSprite: {fileID: 21300000, guid: 2bedb257933e15646baffff4c26612d1, type: 3}
@@ -54262,10 +54256,6 @@ PrefabInstance:
     - target: {fileID: 2559596344856455250, guid: 7dd9df50941fd8d4b90c97a3f6e67dac, type: 3}
       propertyPath: m_Name
       value: Prod2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2559596344856455250, guid: 7dd9df50941fd8d4b90c97a3f6e67dac, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5458291642805008573, guid: 7dd9df50941fd8d4b90c97a3f6e67dac, type: 3}
       propertyPath: m_Pivot.x
@@ -60622,6 +60612,7 @@ MonoBehaviour:
     warrant: 0
     shopPrice: 0
     tagId: 
+    projectile: 
   leaderMark: {fileID: 0}
   raceIcon: {fileID: 1352169809}
   undeadSprite: {fileID: 21300000, guid: 2bedb257933e15646baffff4c26612d1, type: 3}
@@ -62834,10 +62825,6 @@ PrefabInstance:
     - target: {fileID: 8848862756043820479, guid: 2edcaddcfd9b5724a96f7b106c004f61, type: 3}
       propertyPath: m_Name
       value: Prod1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8848862756043820479, guid: 2edcaddcfd9b5724a96f7b106c004f61, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

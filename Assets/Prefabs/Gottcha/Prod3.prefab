@@ -56,12 +56,12 @@ MonoBehaviour:
   - {fileID: 3568327808359017833}
   targetsDefault:
   - {fileID: 1609052175690715368}
-  startScale: 0.8
-  startAlpha: 0.314
-  duration: 2
+  startScale: 0.7
+  startAlpha: 0.5
+  duration: 0.5
   stagger: 0.05
-  ease: 2
-  autoPlay: 1
+  ease: 27
+  autoPlay: 0
 --- !u!1 &3274521641427587649
 GameObject:
   m_ObjectHideFlags: 0
