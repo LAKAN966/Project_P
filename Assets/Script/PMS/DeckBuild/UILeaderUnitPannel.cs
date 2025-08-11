@@ -33,6 +33,8 @@ public class UILeaderUnitPannel : MonoBehaviour
     [SerializeField] private Button closeBtn;
     [SerializeField] private Button selectBtn;
 
+    [SerializeField] private GameObject blocker;
+
     private List<int> cachedUnitOrder = new();
     private LeaderUnit selectedIcon;
 
@@ -193,6 +195,7 @@ public class UILeaderUnitPannel : MonoBehaviour
     {
         ClearInfo();
         this.gameObject.SetActive(false);
+        blocker.gameObject.SetActive(false);
     }
 
     public void SelectBtn()

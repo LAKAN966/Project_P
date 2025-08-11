@@ -32,8 +32,13 @@ public class CertiPurChaseSync : Singleton<CertiPurChaseSync>
             PlayerDataManager.Instance.UseCerti(Cost);
             PlayerDataManager.Instance.AddUnit(Info.ID);
             Debug.Log(PlayerDataManager.Instance.AddUnit(Info.ID) + "이 유닛을 구매");
+
+            if (cSlot != null)
+            {
+                cSlot.RefreshUI();
+            }
             ShoppingManager.Instance.ShowNowCertificate();
-            PurchaseCertiUnitBox.SetActive(false);
+                        PurchaseCertiUnitBox.SetActive(false);
             SFXManager.Instance.PlaySFX(0);
             SFXManager.Instance.PlaySFX(7);
         }
