@@ -248,7 +248,7 @@ public class UIDeckBuildManager : MonoBehaviour
 
     public void CacheUnitListOrder()
     {
-        var allUnits = PlayerDataManager.Instance.GetAllUnit();
+        var allUnits = PlayerDataManager.Instance.GetAllNormalUnit();
         cachedUnitOrder = allUnits
             .OrderByDescending(unit => unit.IsHero)
             .ThenBy(unit => unit.ID)
