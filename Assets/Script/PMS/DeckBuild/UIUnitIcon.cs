@@ -25,6 +25,8 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     //[SerializeField] private Image tagIcon2;
 
     private bool isDropped = false;
+    private float lastClickTime = 0f;
+    private const float doubleClickThreshold = 0.3f;
 
     private void Awake()
     {
@@ -173,10 +175,41 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         canvasGroup.alpha = 0.5f;
         this.enabled = false;
     }
-
     public void OnPointerClick(PointerEventData eventData)
     {
-        UIDeckBuildManager.instance.SelectedUnitIcon(this);
+        float timeSinceLastClick = Time.unscaledTime - lastClickTime;
+
+        if (timeSinceLastClick <= doubleClickThreshold)
+        {
+            AddUnitToDeck();
+        }
+        else
+        {
+            UIDeckBuildManager.instance.SelectedUnitIcon(this);
+        }
+
+        lastClickTime = Time.unscaledTime;
+    }
+
+    private void AddUnitToDeck()
+    {
+        if (myStats == null)
+        {
+            return;
+        }
+
+        bool success = DeckManager.Instance.TryAddUnitToDeck(myStats.ID);
+
+        if (success)
+        {
+            UIDeckBuildManager.instance.SetMyUnitIcons();
+            UIDeckBuildManager.instance.SetDeckSlots();
+            PlayerDataManager.Instance.Save();
+        }
+        else
+        {
+            Debug.LogWarning($"{myStats.Name} 유닛을 덱에 추가하지 못했습니다.");
+        }
     }
 
     public void UpdateInteractable(bool disabled)

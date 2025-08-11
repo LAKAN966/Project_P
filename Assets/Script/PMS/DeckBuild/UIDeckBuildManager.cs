@@ -163,22 +163,25 @@ public class UIDeckBuildManager : MonoBehaviour
 
                 else
                 {
-                    //UIUnitInfo.instance.ShowleaderInfo(null);
+                    ClearLeaderSlot();
                 }
             }
 
             else
             {
-                leaderSlot.unitData = null;
-                leaderSlot.unitImage.sprite = null;
-                leaderSlot.unitImage.color = new Color(1, 1, 1, 0);
-
-                leaderSlot.raceIcon.sprite = null;
-                leaderSlot.raceIcon.color = new Color(1, 1, 1, 0);
-
-                // UIUnitInfo.instance.ShowleaderInfo(null);
+                ClearLeaderSlot();
             }
         }
+    }
+    
+    void ClearLeaderSlot()
+    {
+        leaderSlot.unitData = null;
+        leaderSlot.unitImage.sprite = null;
+        leaderSlot.unitImage.color = new Color(1, 1, 1, 0);
+
+        leaderSlot.raceIcon.sprite = null;
+        leaderSlot.raceIcon.color = new Color(1, 1, 1, 0);
     }
 
     public void SetMyUnitIcons()

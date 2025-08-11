@@ -55,23 +55,6 @@ public class PlayerDataManager
             LoadFailed = (load == null);
         }
 
-        //if (!Player.myUnitIDs.Contains(1001))
-        //{
-        //    Player.AddUnit(1001);
-        //}
-        //if (!Player.myUnitIDs.Contains(1002))
-        //{
-        //    Player.AddUnit(1002);
-        //}
-        //if (!Player.myUnitIDs.Contains(3001))
-        //{
-        //    Player.AddUnit(3001);
-        //}
-       
-        //Player.preset[0].SetLeaderUnit(3001);
-        //Player.preset[0].AddNormalUnit(1001);
-        //Player.preset[0].AddNormalUnit(1002);
-
         var allItems = new List<Item>(ItemListLoader.Instance.GetAllList().Values);
         await DailyReset(allItems);
 
