@@ -17,7 +17,8 @@ public class UnitSpawner : MonoBehaviour
     public Vector2 enemySpawnPosition;
 
     public static UnitSpawner Instance;
-    public Image LeaderImg;
+    public Image allyLeaderImg;
+    public Image enemyLeaderImg;
 
     public bool doubleCrawler = false;
 
@@ -55,7 +56,7 @@ public class UnitSpawner : MonoBehaviour
             buttonSettings[6].unitID = leaderDeck.ID;
             SkillManager.Instance.SetSkillID(UnitDataManager.Instance.GetStats(buttonSettings[6].unitID).SkillID[0], UnitDataManager.Instance.GetStats(buttonSettings[6].unitID).SkillID[1]);
         }
-        LeaderImg.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderDeck.ModelName}");
+        allyLeaderImg.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderDeck.ModelName}")??null;
         Debug.Log("덱 세팅!");
     }
     private void TrySpawn(SpawnButton data)
@@ -168,6 +169,7 @@ public class UnitSpawner : MonoBehaviour
         {
             Debug.LogWarning("[UnitSpawner] 적군 영웅 유닛 풀 부족!");
         }
+        enemyLeaderImg.sprite = Resources.Load<Sprite>($"SPUMImg/{UnitDataManager.Instance.GetStats(WaveManager.Instance.currentStage.EnemyHeroID).ModelName}") ?? null;
     }
     public IEnumerator SetButton()
     {

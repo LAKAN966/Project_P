@@ -63,21 +63,22 @@ public class BattleManager : MonoBehaviour {
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (WaveManager.Instance.stageType == 2)
+        if (isWin)
         {
-            PlayerDataManager.Instance.player.goldDungeonData.lastClearStage = Mathf.Max(PlayerDataManager.Instance.player.goldDungeonData.lastClearStage, WaveManager.Instance.stageID);
-        }
-        if (WaveManager.Instance.stageType != 2 || PlayerDataManager.Instance.player.goldDungeonData.entryCounts > 0)
-        {
-            StageManager.instance.AddReward(WaveManager.Instance.stageID);
-        }
-        if (WaveManager.Instance.stageType == 2 && PlayerDataManager.Instance.player.goldDungeonData.entryCounts > 0)
-        {
-            PlayerDataManager.Instance.player.goldDungeonData.entryCounts -= 1;
-        }
-
-        if(isWin)
+            if (WaveManager.Instance.stageType == 2)
+            {
+                PlayerDataManager.Instance.player.goldDungeonData.lastClearStage = Mathf.Max(PlayerDataManager.Instance.player.goldDungeonData.lastClearStage, WaveManager.Instance.stageID);
+            }
+            if (WaveManager.Instance.stageType != 2 || PlayerDataManager.Instance.player.goldDungeonData.entryCounts > 0)
+            {
+                StageManager.instance.AddReward(WaveManager.Instance.stageID);
+            }
+            if (WaveManager.Instance.stageType == 2 && PlayerDataManager.Instance.player.goldDungeonData.entryCounts > 0)
+            {
+                PlayerDataManager.Instance.player.goldDungeonData.entryCounts -= 1;
+            }
             StageManager.instance.ClearStage(WaveManager.Instance.stageID);
+        }
         if(!TutorialManager.Instance.isTutoring)
             UIController.Instance.OpenStage();
         SceneManager.sceneLoaded -= OnSceneLoaded;
