@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3092180930678979429}
   - component: {fileID: 7735654656178571364}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MagicCircle_Img (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 5a4da1f1b7297a447ba26c389f947ec7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8960061764077556724}
   - component: {fileID: 3896359114106831898}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MagicFire_Img (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: f47d064b3cc01c94cb18a43b37d1e327, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6600082601073914436}
   - component: {fileID: 5943339249701812796}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MagicCircle_Img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 5a4da1f1b7297a447ba26c389f947ec7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5717898433388290611}
   - component: {fileID: 5846416405993433344}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MagicFire_Img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: f47d064b3cc01c94cb18a43b37d1e327, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -418,6 +418,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   rotateToTangent: 1
+  isEnemy: 0
 --- !u!95 &6105215509768684739
 Animator:
   serializedVersion: 5
@@ -449,7 +450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4423979041203806709}
   - component: {fileID: 4457076475942643362}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MagicCircle_Img (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +512,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 5a4da1f1b7297a447ba26c389f947ec7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -533,7 +534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6130974992536810446}
   - component: {fileID: 8527124448315380398}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MagicFire_Img (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +596,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: f47d064b3cc01c94cb18a43b37d1e327, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -52,12 +52,6 @@ public class Projectile : MonoBehaviour
 
     void OnEnable()
     {
-        if (isEnemy)
-        {
-            var s = transform.localScale;
-            s.x = -s.x;
-            transform.localScale = s;
-        }
         // 애니메이션/이펙트 길이 확정
         _fxLength = CalcFxLength();
 
@@ -88,6 +82,12 @@ public class Projectile : MonoBehaviour
     // 요구사항: x는 '적의 x'로 이동, y는 start.y에서 apexY까지 올라갔다가 다시 start.y로 복귀
     public void InitArc(Vector3 startWorld, float targetX, float apexY)
     {
+        if (isEnemy && _anim)
+        {
+            var s = transform.localScale;
+            s.x = -s.x;
+            transform.localScale = s;
+        }
         _p0 = startWorld;
         _p2 = new Vector3(targetX, startWorld.y, startWorld.z);
         float midX = (_p0.x + _p2.x) * 0.5f;

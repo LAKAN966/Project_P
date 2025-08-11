@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2802948836608087739}
   - component: {fileID: 6020806026082699642}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: R_Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -21
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: d494893c0ce7246049ae92e6001fc453, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8599210521953230317}
   - component: {fileID: 2745445286404435700}
   - component: {fileID: -4230494583919192113}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shuriken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,3 +182,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   rotateToTangent: 1
+  isEnemy: 0

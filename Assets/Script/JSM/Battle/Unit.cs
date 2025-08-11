@@ -273,11 +273,11 @@ public class Unit : MonoBehaviour
             Vector3 spawnPos = projectileSpawnPoint ? projectileSpawnPoint.position : transform.position;
             fx = Instantiate(projectilePrefab, spawnPos, Quaternion.identity);
             projCfgOnInstance = fx.GetComponent<Projectile>();
+            projCfgOnInstance.isEnemy = isEnemy ? true : false;
 
             float targetX = (target != null) ? target.position.x : spawnPos.x + (isEnemy ? -stats.AttackRange : stats.AttackRange);
             float apexY = projectileApexY;
             projCfgOnInstance?.InitArc(spawnPos, targetX, apexY);
-            projCfgOnInstance.isEnemy = isEnemy?true:false;
 
             fxLen = projCfgOnInstance?.FxLength ?? projCfgOnPrefab?.FxLength ?? 0f;
             fx.transform.SetParent(transform, true);
