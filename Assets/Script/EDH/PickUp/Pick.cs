@@ -17,6 +17,7 @@ public class Pick : MonoBehaviour
 
     public Button PickOnce; //  1회 버튼
     public Button PickTen;  // 10회 버튼
+    public Button Exitbutton;// 뽑기 그만두는 버튼
 
     public Button RePickOne; //다시  1회 뽑기 버튼
     public Button RePickTen; //다시 10회 뽑기 버튼
@@ -37,6 +38,7 @@ public class Pick : MonoBehaviour
         PickTen.onClick.AddListener(PickTenTimes);      // 10회 뽑기
         RePickOne.onClick.AddListener(() => PickOneTime());      //  1회 다시 뽑기
         RePickTen.onClick.AddListener(() => PickTenTimes());     // 10회 다시 뽑기
+        Exitbutton.onClick.AddListener(ExitPickPage);
 
         Debug.Log(PlayerDataManager.Instance.player.ticket.ToString() + "티켓 보유수");
     }
@@ -48,6 +50,12 @@ public class Pick : MonoBehaviour
 
         //외부에서 데이터 가져와야함. 플레이어에서 데이터 가져와야함.(완료)
     }
+    public void ExitPickPage()
+    {
+        PickTenPage.SetActive(false);
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlayBGM(2);
+    }
 
 
     public void PickOneTime()
@@ -55,13 +63,13 @@ public class Pick : MonoBehaviour
         SFXManager.Instance.PlaySFX(0);
         if (PickUp(1))
         {
+            SoundManager.Instance.PlayBGM(10);
             RePickOne.gameObject.SetActive(true);
             RePickTen.gameObject.SetActive(false);
             BtnList.SetActive(false);
             PickTenPage.SetActive(true);
             pickSlotSpawner.SpawnCard(1);
             ShowTicketAmountText.text = NumberFormatter.FormatNumber(gotchaInit.state == -1 ? PlayerDataManager.Instance.player.ticket : PlayerDataManager.Instance.player.specTicket);
-            
         }
     }
 
@@ -70,6 +78,7 @@ public class Pick : MonoBehaviour
         SFXManager.Instance.PlaySFX(0);
         if (PickUp(10))
         {
+            SoundManager.Instance.PlayBGM(10);
             RePickOne.gameObject.SetActive(false);
             RePickTen.gameObject.SetActive(true);
             BtnList.SetActive(false);

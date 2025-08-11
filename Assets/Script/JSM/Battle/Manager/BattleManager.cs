@@ -45,12 +45,14 @@ public class BattleManager : MonoBehaviour {
             gameoverUI.GetComponent<GameOverPanel>().Win();
             enemyPool.SetActive(false);
             enemyHeroPool.SetActive(false);
+            SFXManager.Instance.PlaySFX(10);
         }
         else
         {//패배
             gameoverUI.GetComponent<GameOverPanel>().Lose();
             allyPool.SetActive(false);
             allyHeroPool.SetActive(false);
+            SFXManager.Instance.PlaySFX(11);
         }
         timer.m_Running = false;
     }

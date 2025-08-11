@@ -110,6 +110,7 @@ public class UnitCardSlot : MonoBehaviour
     public void Flip()
     {
         Sequence flip = DOTween.Sequence();
+        SFXManager.Instance.PlaySFX(12);
         flip.Append(transform.DORotate(new Vector3(0, 90, 0), 0.2f).SetEase(Ease.InQuad))
             .AppendCallback(() =>
             {

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class FirebaseInitializer : MonoBehaviour
 {
-    public static Func<bool> OnFirebaseInitialized { get; internal set; }
-
+    public static bool IsInitialized { get; private set; } = false;
+    public static event Action OnFirebaseInitialized;
 
     void Start()
     {
@@ -15,8 +15,11 @@ public class FirebaseInitializer : MonoBehaviour
             var dependencyStatus = task.Result;
             if (dependencyStatus == DependencyStatus.Available)
             {
-                Debug.Log("Firebase is initialized!");
                 FirebaseApp app = FirebaseApp.DefaultInstance;
+                IsInitialized = true;
+                Debug.Log("Firebase is initialized!");
+
+                OnFirebaseInitialized?.Invoke();
             }
             else
             {

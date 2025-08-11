@@ -69,10 +69,11 @@ public class UnitDataManager
                 isEnemy = bool.Parse(tokens[19].Trim()),
                 warrant = int.Parse(tokens[20].Trim()),
                 shopPrice = int.Parse(tokens[21].Trim()),
-                tagId = new List<int>()
+                tagId = new List<int>(),
+                projectile = tokens[23].Trim(),
             };
 
-
+            Debug.Log(stat.projectile);
             if (!string.IsNullOrWhiteSpace(tokens[18]))
             {
                 string[] tagParts = tokens[18].Split(';');
@@ -94,7 +95,6 @@ public class UnitDataManager
             }
 
             unitStatsDict[stat.ID] = stat;
-            Debug.Log(stat.tagId[0]);
         }
 
         Debug.Log($"유닛 데이터 로딩 완료: {unitStatsDict.Count}개");

@@ -50,14 +50,23 @@ public class PlayerDataManager
         }
         else
         {
-            Player = new Player();
-            Player.AddUnit(1001);
-            Player.AddUnit(1002);
-            Save();
-
+            Player = Player.CreateDefaultPlayer();
             IsLoaded = true;
-            LoadFailed = true;
+            LoadFailed = (load == null);
         }
+
+        if (!Player.myUnitIDs.Contains(1001))
+        {
+            Player.AddUnit(1001);
+        }
+        if (!Player.myUnitIDs.Contains(1002))
+        {
+            Player.AddUnit(1002);
+        }
+
+        var allItems = new List<Item>(ItemListLoader.Instance.GetAllList().Values);
+        ResetDailyPurchase(allItems);
+
     }
 
     public void AddGold(int amount)
@@ -397,4 +406,31 @@ public class PlayerDataManager
         Debug.Log($"{quest.RewardType} {quest.RewardValue} 획득");
         return true;
     }
+
+    public void ResetDailyPurchase(List<Item> allItems)
+    {
+        DateTime now = DateTime.UtcNow.Date;
+        DateTime lastReset = DateTimeOffset.FromUnixTimeSeconds(player.lastPurchaseResetTime).UtcDateTime.Date;
+
+        if (now > lastReset)
+        {
+            player.itemPurchaseLeft.Clear();
+            foreach (var item in allItems)
+            {
+                player.itemPurchaseLeft[item.ID] = item.DailyBuy;
+            }
+            player.lastPurchaseResetTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            Save();
+        }
+        else if (player.itemPurchaseLeft == null || player.itemPurchaseLeft.Count == 0)
+        {
+            player.itemPurchaseLeft = new Dictionary<int, int>();
+            foreach (var item in allItems)
+            {
+                player.itemPurchaseLeft[item.ID] = item.DailyBuy;
+            }
+            Save();
+        }
+    }
+
 }

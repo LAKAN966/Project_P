@@ -31,7 +31,7 @@ public class PurchaseSync : MonoBehaviour
     public GameObject NotEnoughBox;    // 재화 부족 경고
     public PurchaseBoxSet purchaseBoxSet;
 
-    private int AttemptLeft;            //남은 구매 수량
+    private int AttemptLeft => GetAttemptLeft();            //남은 구매 수량
 
     public Action<int> PurchAct { get; set; }
 
@@ -65,7 +65,7 @@ public class PurchaseSync : MonoBehaviour
         if (amount > 1)
             SubtractButton.interactable = true;
         UpdateTotal();
-        SFXManager.Instance.PlaySFX(0);
+        SFXManager.Instance.PlaySFX(7);
     }
     public void Subttract()
     {
@@ -78,72 +78,143 @@ public class PurchaseSync : MonoBehaviour
         }
         else { Debug.Log("s"); }
         UpdateTotal();
-        SFXManager.Instance.PlaySFX(0);
+        SFXManager.Instance.PlaySFX(7);
     }
     public void PurchaseItem()
     {
-        AttemptLeft = _Item.DailyBuy;
-        int Attempt = AttemptLeft;
+        //AttemptLeft = _Item.DailyBuy;
+        //int Attempt = AttemptLeft;
+
+        if (!int.TryParse(InputAmount.text, out int amount))
+        {
+            amount = 1;
+        }
+
+        // 최대 구매 횟수 제한 적용
+        if (amount > AttemptLeft)
+        {
+            amount = AttemptLeft;
+            InputAmount.text = amount.ToString();
+        }
 
 
         int Cost = _Item.Cost;
-        int Amount = int.Parse(InputAmount.text);
+        //int Amount = int.Parse(InputAmount.text);
        
 
         if ((ItemID)_Item.ID == ItemID.NormalRecruit)
-            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTicket);
+            PurchaseLogic(amount, Cost, PlayerDataManager.Instance.AddTicket);
         else if ((ItemID)_Item.ID == ItemID.BuildTool)
-            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddTribute);
+            PurchaseLogic(amount, Cost, PlayerDataManager.Instance.AddTribute);
         else if ((ItemID)_Item.ID == ItemID.Blueprint)
-            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddBluePrint);
+            PurchaseLogic(amount, Cost, PlayerDataManager.Instance.AddBluePrint);
         else if ((ItemID)_Item.ID == ItemID.SpecialRecruit)
-            PurchaseLogic(Amount, Cost, PlayerDataManager.Instance.AddSpecT);
+            PurchaseLogic(amount, Cost, PlayerDataManager.Instance.AddSpecT);
         ShoppingManager.Instance.ShowNowGold();
         purchaseBoxSet.TabClose();
         SFXManager.Instance.PlaySFX(0);
     }
     public void PurchaseLogic(int amount, int cost, Action<int> ItemsP)
     {
-        AttemptLeft = _Item.DailyBuy;
+        //AttemptLeft = _Item.DailyBuy;
         int Attempt = AttemptLeft;
 
-        int Cost = _Item.Cost;
-        int Amount = int.Parse(InputAmount.text);
-        if (AttemptLeft > 0)
+        if (Attempt <= 0)
         {
-            if (int.Parse(InputAmount.text) > _Item.DailyBuy)
-            {
-                Amount = AttemptLeft;
-                InputAmount.text = Amount.ToString();
-            }
-            if (PlayerDataManager.Instance.player.gold > int.Parse(InputAmount.text) * Cost)
-            {
-                PlayerDataManager.Instance.UseGold(Cost * Amount);
-                ItemsP.Invoke(Amount);
-                AttemptLeft -= Amount;
-                InputAmount.text = "1";
-                PurchAct.Invoke(Amount);
-                _Item.DailyBuy = AttemptLeft;
-            }
-            else
-            {
-                UIController.Instance.GoldNotEnoungh();
-            }
+            UIController.Instance.AtemptNotEnoungh();
+            return;
+        }
+
+        if (amount > Attempt)
+        {
+            amount = Attempt;
+            InputAmount.text = amount.ToString();
+        }
+        int totalCost = cost * amount;
+
+        if (PlayerDataManager.Instance.player.gold >= totalCost)
+        {
+            PlayerDataManager.Instance.UseGold(totalCost);
+            ItemsP.Invoke(amount);
+
+            int remaining = Attempt - amount;
+            if (remaining < 0) remaining = 0;
+
+            PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] = remaining;
+            PlayerDataManager.Instance.Save();
+
+            InputAmount.text = "1";
+            PurchAct?.Invoke(amount);
         }
         else
         {
-            UIController.Instance.AtemptNotEnoungh();
+            UIController.Instance.GoldNotEnoungh();
         }
+
+        //int Cost = _Item.Cost;
+        //int Amount = int.Parse(InputAmount.text);
+        //if (AttemptLeft > 0)
+        //{
+        //    if (int.Parse(InputAmount.text) > _Item.DailyBuy)
+        //    {
+        //        Amount = AttemptLeft;
+        //        InputAmount.text = Amount.ToString();
+        //    }
+        //    if (PlayerDataManager.Instance.player.gold >= int.Parse(InputAmount.text) * Cost)
+        //    {
+        //        PlayerDataManager.Instance.UseGold(Cost * Amount);
+        //        ItemsP.Invoke(Amount);
+        //        AttemptLeft -= Amount;
+        //        InputAmount.text = "1";
+        //        PurchAct.Invoke(Amount);
+        //        _Item.DailyBuy = AttemptLeft;
+        //    }
+        //    else
+        //    {
+        //        UIController.Instance.GoldNotEnoungh();
+        //    }
+        //}
+        //else
+        //{
+        //    UIController.Instance.AtemptNotEnoungh();
+        //}
     }
     public void Init(Item item, ItemSlot slot)
     {
-        Debug.Log("c");
+        //Debug.Log("c");
         _Item = item;
         iSlot = slot;
+
+        if (PlayerDataManager.Instance.player.itemPurchaseLeft.TryGetValue(_Item.ID, out int left))
+            _Item.DailyBuy = left;
+        else
+            _Item.DailyBuy = _Item.DailyBuy;
+        
+        InputAmount.text = "1";
         UpdateTotal();
     }
     public void UpdateTotal()
     {
-        totalCost.text = NumberFormatter.FormatNumber((int.Parse(InputAmount.text)*_Item.Cost));
+        if (int.TryParse(InputAmount.text, out int amount))
+            totalCost.text = NumberFormatter.FormatNumber(amount * _Item.Cost);
+        else
+            totalCost.text = NumberFormatter.FormatNumber(_Item.Cost);
     }
+
+    private int GetAttemptLeft()
+    {
+        var player = PlayerDataManager.Instance.player;
+        if (player.itemPurchaseLeft.TryGetValue(_Item.ID, out int left))
+        {
+            return left;
+        }
+        else
+        {
+            player.itemPurchaseLeft[_Item.ID] = _Item.DailyBuy;
+            PlayerDataManager.Instance.Save();
+            return _Item.DailyBuy;
+        }
+    }
+
+
 }

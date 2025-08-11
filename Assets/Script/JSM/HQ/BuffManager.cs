@@ -92,7 +92,8 @@ public static class BuffManager
             ModelName = baseStats.ModelName,
             AttackType = baseStats.AttackType,
             Size = baseStats.Size * buff.Size,
-            SkillID = baseStats.SkillID
+            SkillID = baseStats.SkillID,
+            projectile = baseStats.projectile,
         };
     }
     private static void ApplyBuff(ref UnitStats total, UnitStats add)//합연산

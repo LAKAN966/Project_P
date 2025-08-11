@@ -220,6 +220,7 @@ public class UIController : MonoBehaviour
         //Debug.Log(Stage.activeSelf + " " + DeckBuild.activeSelf);
         if (Stage.activeSelf && DeckBuild.activeSelf)
         {
+            SFXManager.Instance.PlaySFX(0);
             DeckBuild.SetActive(false);
             return;
         }
@@ -247,39 +248,7 @@ public class UIController : MonoBehaviour
         gdStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.gold);
         towerStageGoldAmount.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.tribute);
     }
-
-    public void CloseGottaTab()
-    {
-        Gotta.SetActive(false);
-        Main.SetActive(true);
-        SFXManager.Instance.PlaySFX(0); // 버튼
-    }
-    public void CloseShopTab()
-    {
-        Shop.SetActive(false);
-        Main.SetActive(true);
-        CertiDescriptionBox.SetActive(false);
-        SFXManager.Instance.PlaySFX(0); // 버튼
-    }
-    public void CloseUnitTab()
-    {
-        DeckBuild.SetActive(false);
-        Main.SetActive(true);
-        SFXManager.Instance.PlaySFX(0); // 버튼
-    }
-    public void CloseHQTab()
-    {
-        HQ.SetActive(false);
-        Main.SetActive(true);
-        SFXManager.Instance.PlaySFX(0); // 버튼
-    }
-    public void CloseStageTab()
-    {
-        
-        Stage.SetActive(false);
-        Main.SetActive(true);
-        SFXManager.Instance.PlaySFX(0); // 버튼
-    }
+ 
     public void AtemptNotEnoungh() //구매 가능 횟수 부족 알림
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
@@ -295,6 +264,7 @@ public class UIController : MonoBehaviour
     public void GoldNotEnoungh() // 골드 부족 알림
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
+        SFXManager.Instance.PlaySFX (6);
         NotEnoughBoxText.text = "골드가 부족합니다.";
         StartCoroutine(HideNotEnoughBox());
 
@@ -307,6 +277,7 @@ public class UIController : MonoBehaviour
     public void CertiNotEnoungh() // 증명서 부족 알림
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
+        SFXManager.Instance.PlaySFX(6);
         NotEnoughBoxText.text = "증명서가 부족합니다.";
         StartCoroutine(HideNotEnoughBox());
 
@@ -319,25 +290,27 @@ public class UIController : MonoBehaviour
     public void TicketNotEnoungh() // 티켓 부족 알림
     {
         UIController.Instance.NotEnoughBox.SetActive(true);
+        SFXManager.Instance.PlaySFX(6);
         NotEnoughBoxText.text = "티켓이 부족합니다.";
         StartCoroutine(HideNotEnoughBox());
 
         IEnumerator HideNotEnoughBox()
         {
-            yield return new WaitForSeconds(1f); // 3초 대기
+            yield return new WaitForSeconds(1f); // 1초 대기
             UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
         }
     }
-    public void SpecTicketNotEnoungh() // 티켓 부족 알림
-    {
-        UIController.Instance.NotEnoughBox.SetActive(true);
-        NotEnoughBoxText.text = "특수모집티켓이 부족합니다.";
-        StartCoroutine(HideNotEnoughBox());
+    //public void SpecTicketNotEnoungh() // 티켓 부족 알림
+    //{
+    //    UIController.Instance.NotEnoughBox.SetActive(true);
+    //    SFXManager.Instance.PlaySFX(6);
+    //    NotEnoughBoxText.text = "특수모집티켓이 부족합니다.";
+    //    StartCoroutine(HideNotEnoughBox());
 
-        IEnumerator HideNotEnoughBox()
-        {
-            yield return new WaitForSeconds(1f); // 3초 대기
-            UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
-        }
-    }
+    //    IEnumerator HideNotEnoughBox()
+    //    {
+    //        yield return new WaitForSeconds(1f); // 3초 대기
+    //        UIController.Instance.NotEnoughBox.SetActive(false);       // 경고창 비활성화
+    //    }
+    //}
 }

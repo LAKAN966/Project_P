@@ -12,10 +12,13 @@ public class Intro : MonoBehaviour
 
     [SerializeField] private GameObject errorPopup;
     [SerializeField] private TextMeshProUGUI errorText;
+    [SerializeField] private Button retryBtn;
 
     void Start()
     {
         EnterGameButton.onClick.AddListener(OnClickEnter);
+        retryBtn.onClick.AddListener(OnClickRetry);
+        errorPopup.SetActive(false);
     }
 
     private void OnClickEnter()
@@ -28,10 +31,10 @@ public class Intro : MonoBehaviour
     {
         isLoading = true;
 
-        float timeout = 10f;
+        float timeout = 30f;
         float timer = 0f;
 
-        while (!PlayerDataManager.Instance.IsLoaded)
+        while (!FirebaseInitializer.IsInitialized)
         {
             if (timer > timeout)
             {
@@ -55,17 +58,28 @@ public class Intro : MonoBehaviour
 
     public void EnterGame()
     {
+        isLoading = false;
+
         if (!PlayerDataManager.Instance.player.tutorialDone[0])
         {
             TutorialManager.Instance.StartTuto(0);
             return;
         }
         SceneManager.LoadScene("MainScene");
-        SFXManager.Instance.PlaySFX(0);
     }
+
     private void ShowError(string msg)
     {
         errorText.text = msg;
         errorPopup.SetActive(true);
+    }
+
+    private void OnClickRetry()
+    {
+        errorPopup.SetActive(false);
+        if (!isLoading)
+        {
+            StartCoroutine(WaitForPlayerDataAndEnter());
+        }
     }
 }

@@ -61,6 +61,9 @@ public class GoldStageInfo : MonoBehaviour
             }
         }
 
+        if (PlayerDataManager.Instance.player.goldDungeonData.entryCounts <= 0)
+            enterBtn.enabled = false;
+
         firstRewardIDs = stage.firstRewardItemIDs;
         firstRewardAmounts = stage.firstRewardAmounts;
 
@@ -110,6 +113,8 @@ public class GoldStageInfo : MonoBehaviour
     private void OnclickOpenDeck()
     {
         UIDeckBuildManager.instance.deckPanel.SetActive(true);
+        UIDeckBuildManager.instance.Init();
+        SFXManager.Instance.PlaySFX(0);
     }
 
     private void OnClickEnter()

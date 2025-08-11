@@ -130,6 +130,7 @@ public class UITowerInfo : MonoBehaviour
     private void OnClickEnter()
     {
         TowerManager.Instance.EnterBattle(currentStageID, MisMatchRace);
+        SFXManager.Instance.PlaySFX(0);
     }
 
     private void OnclickOpenDeck()
@@ -139,6 +140,7 @@ public class UITowerInfo : MonoBehaviour
         UIDeckBuildManager.instance.deckPanel.SetActive(true);
         //UIDeckBuildManager.instance.SetRaceFilter(stageID.RaceID);
         UIDeckBuildManager.instance.Init();
+        SFXManager.Instance.PlaySFX(0);
     }
 
     private void MisMatchRace()
@@ -149,7 +151,7 @@ public class UITowerInfo : MonoBehaviour
         TextMeshProUGUI text = warningPopup.GetComponentInChildren<TextMeshProUGUI>();
         text.text = $"{RaceManager.GetNameByID(raceID)} 유닛만\n출전 가능합니다.";
         warningPopup.SetActive(true);
-
+        SFXManager.Instance.PlaySFX(6);
     }
 
     private void OpenGimmickInfo()
@@ -166,5 +168,6 @@ public class UITowerInfo : MonoBehaviour
         }
 
         UIGimmickInfo.Instance.Open(gimmickNames);
+        SFXManager.Instance.PlaySFX(0);
     }
 }

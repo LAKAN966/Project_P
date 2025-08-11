@@ -58,7 +58,14 @@ public class DeckManager
     public void SaveCurrentDeckToPreset()
     {
         int index = PlayerData.currentPresetIndex;
+
+        while (PlayerData.preset.Count <= index)
+        {
+            PlayerData.preset.Add(new DeckData());
+        }
+
         PlayerData.preset[index] = CloneDeck(PlayerData.currentDeck);
+        PlayerDataManager.Instance.Save();
     }
 
     public DeckData CloneDeck(DeckData source)

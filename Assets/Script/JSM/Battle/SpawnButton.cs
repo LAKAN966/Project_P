@@ -19,18 +19,26 @@ public class SpawnButton : MonoBehaviour
 
     public void Update()
     {
-        if (!initialized) return;
-        if (unitID == 0) return;
+        if (!initialized || unitID == 0 || stats == null) return;
 
         float remaining = CoolTimeManager.Instance.GetRemainingCooldown(unitID);
         float total = GetCooldown();
-        if(unitID == 0)
+
+        // 🔹 자원 부족한 경우 → fillAmount를 1로 덮음
+        bool isAffordable = BattleResourceManager.Instance.currentResource >= stats.Cost;
+
+        if (!isAffordable)
         {
-            cooldownOverlay.fillAmount = 1;
+            cooldownOverlay.fillAmount = 1f;
+            button.interactable = false;
+            return;
         }
+
+        // 🔹 자원 충분한 경우 → 쿨다운 기준으로 fillAmount 설정
         cooldownOverlay.fillAmount = total > 0 ? remaining / total : 0f;
         button.interactable = remaining <= 0f;
     }
+
 
     public void InitializeUI()
     {
@@ -40,8 +48,7 @@ public class SpawnButton : MonoBehaviour
         }
         stats = BuffManager.ApplyBuff(UnitDataManager.Instance.GetStats(unitID));
         stats = UnitSpawner.Instance.SetGimmick(stats);
-        if(isHero)
-            stats = SkillManager.Instance.OnStartBuff(stats);
+        stats = SkillManager.Instance.OnStartBuff(stats);
         if (stats == null)
         {
             Debug.LogWarning("Stats not found for unitID: " + unitID);

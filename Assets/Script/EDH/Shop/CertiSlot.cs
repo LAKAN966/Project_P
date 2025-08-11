@@ -18,9 +18,6 @@ public class CertiSlot : MonoBehaviour
         UnitIcon.sprite = Resources.Load<Sprite>($"SPUMImg/{stats.ModelName}");
 
         _Info = pickInfo;
-        //_Info.Name = pickInfo.Name;
-        //_Info.ID = pickInfo.ID;
-        //_Info.warrant = pickInfo.warrant;
         CertiCost.text = _Info.warrant.ToString();
         certiName.text = _Info.Name;
         certiSlot.onClick.RemoveAllListeners();
@@ -49,7 +46,7 @@ public class CertiSlot : MonoBehaviour
 
                 UIController.Instance.PurchaseCertiUnitBox.SetActive(true);
                 CertiSlotSet();
-                SFXManager.Instance.PlaySFX(0);
+                SFXManager.Instance.PlaySFX(15);
             });
         }
     }

@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player
+public class Player : SaveTime
 {
     public int gold = 10000;
     public int ticket = 10;
@@ -14,6 +15,8 @@ public class Player
     public List<int> myUnitIDs = new();
     public DeckData currentDeck = new();
     public List<DeckData> preset = new List<DeckData>();
+        
+
     public int currentPresetIndex;
     public List<int> clearedStageIDs = new();
     public int lastClearedStageID;
@@ -31,29 +34,47 @@ public class Player
     public List<BuildingState> buildingsList = new();
     public Dictionary<int, HashSet<int>> selectedGospelIDsByBuildID = new();
     public Dictionary<int, UnitStats> buildingBuffs = new();
-    public Dictionary<int, bool> tutorialDone = new Dictionary<int, bool>();
+    public Dictionary<int, bool> tutorialDone = new Dictionary<int, bool>() {
+            { 0, false },
+            { 1, false },
+            { 2, false },
+            { 3, false }
+        };
     //public int pickPoint = 0;
 
     public PlayerTowerData towerData = new();
+    public long lastSaveTime { get; set; }
 
+    public Dictionary<int, int> itemPurchaseLeft = new Dictionary<int, int>();
+    public long lastPurchaseResetTime;
 
-    public Player()
+    public static Player CreateDefaultPlayer()
     {
-        for(int i = 0; i<3; i++)
+        var player = new Player();
+        for (int i = 0; i < 3; i++)
         {
-            preset.Add(new DeckData());
+            player.preset.Add(new DeckData());
         }
 
-        currentPresetIndex = 0;
+        //player.tutorialDone = new Dictionary<int, bool>()
+        //{
+        //    { 0, false },
+        //    { 1, false },
+        //    { 2, false },
+        //    { 3, false }
+        //};
 
-        currentDeck = DeckManager.Instance.CloneDeck(preset[0]);
-        if (tutorialDone.Count == 0)
-        {
-            for (int i = 0; i <= 3; i++)
-            {
-                tutorialDone[i] = false;
-            }
-        }
+        player.preset = new List<DeckData>()
+    {
+        new DeckData(),
+        new DeckData(),
+        new DeckData()
+    };
+
+        player.currentPresetIndex = 0;
+        player.currentDeck = DeckManager.Instance.CloneDeck(player.preset[0]);
+
+        return player;
     }
 
     public void AddUnit(int unitID)
@@ -63,9 +84,8 @@ public class Player
             myUnitIDs.Add(unitID);
         }
     }
+    
 }
-
-
 
 public class PlayerQuestData
 {

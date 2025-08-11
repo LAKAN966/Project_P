@@ -33,7 +33,17 @@ public class ItemSlot : MonoBehaviour
 
         ItemNameText.text = item.Name;
         ItemCost.text = NumberFormatter.FormatNumber(_Item.Cost);
-        TotalAtempt.text = NumberFormatter.FormatNumber(_Item.DailyBuy);
+        //TotalAtempt.text = NumberFormatter.FormatNumber(_Item.DailyBuy);
+
+        if (PlayerDataManager.Instance.player.itemPurchaseLeft.TryGetValue(_Item.ID, out int left))
+        {
+            TotalAtempt.text = NumberFormatter.FormatNumber(left);
+            _Item.DailyBuy = left;
+        }
+        else
+        {
+            TotalAtempt.text = NumberFormatter.FormatNumber(_Item.DailyBuy);
+        }
 
         itemSlot.onClick.RemoveAllListeners();
 
@@ -45,7 +55,7 @@ public class ItemSlot : MonoBehaviour
         //리펙터링 필요
         UIController.Instance.PurchaseUIBox.SetActive(true);
         ItemSlotSet();
-        SFXManager.Instance.PlaySFX(0);
+        SFXManager.Instance.PlaySFX(15);
     }
 
     private static Dictionary<int, Item> GetItems(Item item)
@@ -58,11 +68,19 @@ public class ItemSlot : MonoBehaviour
         UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>()._Item = _Item;
         UIController.Instance.PurchaseUIBox.GetComponent<PurchaseBoxSet>().SetitemIcon(ItemIcon.sprite);
         _purchaseSync.PurchAct = (count) => 
-        { 
-            Debug.Log(count + "구매");
-            int TotalCount = int.Parse(TotalAtempt.text);
-            TotalCount = TotalCount - count; 
-            TotalAtempt.text = TotalCount.ToString();
+        {
+            if (!PlayerDataManager.Instance.player.itemPurchaseLeft.ContainsKey(_Item.ID))
+            {
+                PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] = _Item.DailyBuy;
+            }
+
+            PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] -= count;
+            if (PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] < 0)
+                PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID] = 0;
+
+            TotalAtempt.text = NumberFormatter.FormatNumber(PlayerDataManager.Instance.player.itemPurchaseLeft[_Item.ID]);
+
+            PlayerDataManager.Instance.Save();
         }; 
     }
 }

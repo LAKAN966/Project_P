@@ -60,6 +60,6 @@ public class UITowerSlot : MonoBehaviour
         }
 
         UITowerManager.instance.SelectTower(stage.ID);
-
+        SFXManager.Instance.PlaySFX(15);
     }
 }

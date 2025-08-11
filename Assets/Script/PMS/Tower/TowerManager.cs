@@ -126,6 +126,7 @@ public class TowerManager
         {
             //Debug.Log("덱에 유닛이 없습니다.");
             StageManager.instance.PopUp("덱에 유닛이 없습니다.\n유닛을 편성해주세요.");
+            SFXManager.Instance.PlaySFX(6);
             return;
         }
         //bool entered = EnterTower(raceID);
@@ -171,10 +172,12 @@ public class TowerManager
         {
             data.entryCounts[key] = maxEntryCounts;
         }
-
-        data.lastResetTime = DateTime.UtcNow.AddHours(9); 
+        DateTime now = DateTime.UtcNow.AddHours(9);
+        DateTime todayReset = new DateTime(now.Year, now.Month, now.Day, 4, 0, 0);
+        data.lastResetTime = todayReset;
         Debug.Log("타워 입장 횟수 초기화 완료");
     }
+
     private bool NeedsReset()
     {
         DateTime now = DateTime.UtcNow.AddHours(9); 
@@ -185,7 +188,4 @@ public class TowerManager
 
         return data.lastResetTime < todayReset;
     }
-
-
-
 }

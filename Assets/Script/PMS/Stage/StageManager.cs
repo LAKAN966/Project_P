@@ -20,6 +20,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private GameObject uiStage;
     [SerializeField] private GameObject pannel;
 
+    public bool stageCheat = false;
+
     public Action<int> SetStageInfo;
 
     private int currentChapter = 1;
@@ -48,7 +50,7 @@ public class StageManager : MonoBehaviour
 
     public void Init()
     {
-        UpdateStageUI();
+        
 
         var clearedStageIDs = PlayerDataManager.Instance.player.clearedStageIDs;
         var allStageData = new Dictionary<int, StageData>();
@@ -58,14 +60,15 @@ public class StageManager : MonoBehaviour
 
         if (lastSessionClearedStageID != -1 && allStageData.TryGetValue(lastSessionClearedStageID, out var lastStageData))
         {
-            currentChapter = lastStageData.Chapter;
 
             switch (lastSessionClearedStageType)
             {
                 case 0:
+                    currentChapter = lastStageData.Chapter;
                     StageInit.instance.OnMainBtn();
                     break;
                 case 1:
+                    currentChapter = lastStageData.Chapter;
                     StageInit.instance.OnTowerBtn();
                     break;
                 case 2:
@@ -77,6 +80,7 @@ public class StageManager : MonoBehaviour
         {
             StageInit.instance.OnMainBtn();
         }
+        UpdateStageUI();
 
         prevBtn.onClick.AddListener(() => ChangeChapter(-1));
         nextBtn.onClick.AddListener(() => ChangeChapter(1));
@@ -85,7 +89,7 @@ public class StageManager : MonoBehaviour
     public void ChangeChapter(int delta)
     {
         currentChapter += delta;
-
+        SFXManager.Instance.PlaySFX(5);
         var stageDataDic = StageDataManager.Instance.GetAllStageData();
         int minChapter = stageDataDic.Values.Min(x => x.Chapter);
         if (minChapter <= 0)
@@ -180,6 +184,7 @@ public class StageManager : MonoBehaviour
         if (!CanEnterStage(stageID))
         {
             PopUp("이전 스테이지를 클리어해야 합니다.");
+            SFXManager.Instance.PlaySFX(6);
             return;
         }
         selectedStageID = stageID;
@@ -203,6 +208,7 @@ public class StageManager : MonoBehaviour
         {
             //Debug.Log("덱에 유닛이 없습니다.");
             PopUp("덱에 유닛이 없습니다.\n유닛을 편성해주세요.");
+            SFXManager.Instance.PlaySFX(6);
             return;
         }
 
@@ -210,6 +216,7 @@ public class StageManager : MonoBehaviour
         if (PlayerDataManager.Instance.player.actionPoint < stageAP)
         {
             PopUp("행동력이 부족합니다.");
+            SFXManager.Instance.PlaySFX(6);
             return;
         }
 
@@ -318,6 +325,7 @@ public class StageManager : MonoBehaviour
 
     private bool CanEnterStage(int stageID)
     {
+        if (stageCheat) return true;
         var stageDic = StageDataManager.Instance.GetAllStageData();
 
         if (!stageDic.TryGetValue(stageID, out var stageData))

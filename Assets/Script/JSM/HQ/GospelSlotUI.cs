@@ -42,6 +42,9 @@ public class GospelSlotUI : MonoBehaviour
         {
             confirmUI.gameObject.SetActive(true);
             confirmUI.OnOpen(gospelData, state != GospelState.Available);
+
+            SFXManager.Instance.PlaySFX(15);
+
             confirmUI.confirmBtn.onClick.AddListener(ConfirmBuild);
             confirmUI.cancleBtn.onClick.AddListener(CancleBuild);
         }
@@ -97,5 +100,7 @@ public class GospelSlotUI : MonoBehaviour
         confirmUI.confirmBtn.onClick.RemoveListener(ConfirmBuild);
         confirmUI.cancleBtn.onClick.RemoveListener(CancleBuild);
         confirmUI.gameObject.SetActive(false);
+
+        SFXManager.Instance.PlaySFX(0);
     }
 }
