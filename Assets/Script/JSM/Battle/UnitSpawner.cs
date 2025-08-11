@@ -56,7 +56,8 @@ public class UnitSpawner : MonoBehaviour
             buttonSettings[6].unitID = leaderDeck.ID;
             SkillManager.Instance.SetSkillID(UnitDataManager.Instance.GetStats(buttonSettings[6].unitID).SkillID[0], UnitDataManager.Instance.GetStats(buttonSettings[6].unitID).SkillID[1]);
         }
-        allyLeaderImg.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderDeck.ModelName}")??null;
+        if(leaderDeck!=null)
+            allyLeaderImg.sprite = Resources.Load<Sprite>($"SPUMImg/{leaderDeck.ModelName}")??null;
         Debug.Log("덱 세팅!");
     }
     private void TrySpawn(SpawnButton data)
