@@ -46,14 +46,14 @@ public static class SaveLoadManager
         }
     }
     
-    public static async Task<T> Load<T>(string key, T defaultValue = default) where T : SaveTime
+    public static async Task<T> Load<T>(string key, T defaultValue = default, bool ignoreLocal = false) where T : SaveTime
     {
 
         T localData = default;
         T remoteData = default;
 
         string localPath = GetLocalPath(key);
-        if (File.Exists(localPath))
+        if (!ignoreLocal && File.Exists(localPath))
         {
             try
             {
@@ -77,24 +77,34 @@ public static class SaveLoadManager
                 string json = data.Value.ToString();
                 remoteData = JsonConvert.DeserializeObject<T>(json);
             }
+            else
+            {
+                remoteData = default;
+            }
         }
         catch (Exception exception)
         {
             remoteOk = false;
             Debug.LogError($"리모트 불러오기 실패 {key}: {exception.Message}");
         }
-
-        if (localData != null && remoteData != null)
+        if (remoteData != null && !remoteData.Equals(default))
         {
-            if (localData.lastSaveTime >= remoteData.lastSaveTime)
-                return localData;
+            if (localData != null && !localData.Equals(default))
+            {
+                return localData.lastSaveTime >= remoteData.lastSaveTime ? localData : remoteData;
+            }
             else
+            {
                 return remoteData;
+            }
         }
-        else if (localData != null)
-            return localData;
-        else if (remoteData != null)
-            return remoteData;
+        else
+        {
+            if (localData != null && !localData.Equals(default))
+            {
+                return localData;
+            }
+        }
 
         return defaultValue;
     }

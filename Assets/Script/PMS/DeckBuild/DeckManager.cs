@@ -144,9 +144,9 @@ public class DeckManager
         return CurrentDeck.deckList.Select(unit => unit.myUnitID).ToList();
     }
 
-    public int? GetLeaderUnit() // 현재 덱에 있는 리더 유닛 아이디 가지고 오기. UI 참조 용.
+    public int GetLeaderUnit() // 현재 덱에 있는 리더 유닛 아이디 가지고 오기. UI 참조 용.
     {
-        return CurrentDeck.leaderUnit?.myUnitID;
+        return CurrentDeck.leaderUnit?.myUnitID ?? -1;
     }
 
     public bool TrySetLeaderUnit(int myUnitID)

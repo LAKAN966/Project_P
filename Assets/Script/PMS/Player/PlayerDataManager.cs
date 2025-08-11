@@ -41,8 +41,8 @@ public class PlayerDataManager
     }
     public async Task Load() // 플레이어 데이터 불러오기
     {
-        Player load = await SaveLoadManager.Load<Player>("playerJson", null);
-        if(load != null)
+        Player load = await SaveLoadManager.Load<Player>("playerJson", null, ignoreLocal: true);
+        if (load != null)
         {
             Player = load;
             IsLoaded = true;
@@ -55,14 +55,22 @@ public class PlayerDataManager
             LoadFailed = (load == null);
         }
 
-        if (!Player.myUnitIDs.Contains(1001))
-        {
-            Player.AddUnit(1001);
-        }
-        if (!Player.myUnitIDs.Contains(1002))
-        {
-            Player.AddUnit(1002);
-        }
+        //if (!Player.myUnitIDs.Contains(1001))
+        //{
+        //    Player.AddUnit(1001);
+        //}
+        //if (!Player.myUnitIDs.Contains(1002))
+        //{
+        //    Player.AddUnit(1002);
+        //}
+        //if (!Player.myUnitIDs.Contains(3001))
+        //{
+        //    Player.AddUnit(3001);
+        //}
+       
+        //Player.preset[0].SetLeaderUnit(3001);
+        //Player.preset[0].AddNormalUnit(1001);
+        //Player.preset[0].AddNormalUnit(1002);
 
         var allItems = new List<Item>(ItemListLoader.Instance.GetAllList().Values);
         await DailyReset(allItems);
