@@ -42,7 +42,7 @@ public class UIQuestManager : MonoBehaviour
 
     public void OpenPanel()
     {
-        
+        QuestEvent.OnLogin?.Invoke();
         questPanel.SetActive(true);
         ShowQuests(QuestType.Daily);
         SFXManager.Instance.PlaySFX(0);

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,7 +47,7 @@ public class TowerManager
     }
     public bool CanEnterTower(int raceID)
     {
-        ResetEntryCounts();
+        //ResetEntryCounts();
 
         if (!data.entryCounts.ContainsKey(raceID))
         {
@@ -57,7 +58,7 @@ public class TowerManager
 
     public void DecreaseEntryCount(int raceID)
     {
-        ResetEntryCounts();
+        //ResetEntryCounts();
 
         if (!data.entryCounts.ContainsKey(raceID))
         {
@@ -82,7 +83,7 @@ public class TowerManager
 
     public int GetEnterCount(int raceID)
     {
-        ResetEntryCounts();
+        //ResetEntryCounts();
 
         if (!data.entryCounts.ContainsKey(raceID))
         {
@@ -164,28 +165,34 @@ public class TowerManager
         }
     }
 
-    private void ResetEntryCounts()
-    {
-        if (!NeedsReset()) return;
+    //private void ResetEntryCounts()
+    //{
+    //    if (!ResetTowerEntry()) return;
 
-        foreach (var key in data.entryCounts.Keys.ToList())
+    //    foreach (var key in data.entryCounts.Keys.ToList())
+    //    {
+    //        data.entryCounts[key] = maxEntryCounts;
+    //    }
+    //    DateTime now = DateTime.UtcNow.AddHours(9);
+    //    DateTime todayReset = new DateTime(now.Year, now.Month, now.Day, 12, 0, 0);
+    //    data.lastResetTime = todayReset;
+    //    Debug.Log("타워 입장 횟수 초기화 완료");
+    //}
+
+    public async Task ResetTowerEntry(DateTime todayMidnightKst)
+    {
+        var data = PlayerDataManager.Instance.player.towerData;
+        DateTime lastResetKst = DateTimeOffset.FromUnixTimeSeconds(data.lastResetTime).UtcDateTime.AddHours(9);
+
+        if (lastResetKst < todayMidnightKst)
         {
-            data.entryCounts[key] = maxEntryCounts;
+            foreach (var key in data.entryCounts.Keys.ToList())
+            {
+                data.entryCounts[key] = maxEntryCounts;
+            }
+            data.lastResetTime = new DateTimeOffset(todayMidnightKst).ToUnixTimeSeconds();
+            PlayerDataManager.Instance.Save();
+            Debug.Log("서버 시간 기준 타워 입장 횟수 초기화 완료");
         }
-        DateTime now = DateTime.UtcNow.AddHours(9);
-        DateTime todayReset = new DateTime(now.Year, now.Month, now.Day, 4, 0, 0);
-        data.lastResetTime = todayReset;
-        Debug.Log("타워 입장 횟수 초기화 완료");
-    }
-
-    private bool NeedsReset()
-    {
-        DateTime now = DateTime.UtcNow.AddHours(9); 
-        DateTime todayReset = new DateTime(now.Year, now.Month, now.Day, 4, 0, 0);
-
-        if (now < todayReset)
-            todayReset = todayReset.AddDays(-1);
-
-        return data.lastResetTime < todayReset;
     }
 }

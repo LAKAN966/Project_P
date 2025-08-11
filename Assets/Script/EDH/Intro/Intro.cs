@@ -60,6 +60,7 @@ public class Intro : MonoBehaviour
     {
         isLoading = false;
 
+        
         if (!PlayerDataManager.Instance.player.tutorialDone[0])
         {
             TutorialManager.Instance.StartTuto(0);

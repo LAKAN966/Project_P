@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Firebase.Database;
 using UnityEngine;
 
@@ -21,58 +22,69 @@ public class QuestManager
     }
 
     public bool isInit = false;
-    public void Init()
+    public async void Init()
     {
-        if (isInit)
+        if (isInit) return;
+        isInit = true;
+
+        try
         {
-            return;
+            DateTime serverUtc = await ServerTime.GetServerTime();
+            await CheckReset(serverUtc);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("퀘스트 초기화 중 서버 시간 불러오기 실패: " + e.Message);
         }
 
-        isInit = true;
-        GetServerTimeAndCheckReset();
         InitializePlayerQuest();
         RegistEvent();
     }
 
-    void GetServerTimeAndCheckReset()
-    {
-        var dbtime = FirebaseDatabase.DefaultInstance.GetReference("serverTime");
-        dbtime.SetValueAsync(ServerValue.Timestamp).ContinueWith(setTask =>
-        {
-            dbtime.GetValueAsync().ContinueWith(getTask =>
-            {
-                if (getTask.IsCompletedSuccessfully)
-                {
-                    long time = (long)getTask.Result.Value;
-                    DateTime serverTime = DateTimeOffset.FromUnixTimeMilliseconds(time).UtcDateTime;
-                    CheckQuestReset(serverTime);
-                }
-                else
-                {
-                    Debug.Log("서버 시간 불러오기 실패.");
-                }
-            });
-        });
-    }
+    //void GetServerTimeAndCheckReset()
+    //{
+    //    var dbtime = FirebaseDatabase.DefaultInstance.GetReference("serverTime");
+    //    dbtime.SetValueAsync(ServerValue.Timestamp).ContinueWith(setTask =>
+    //    {
+    //        dbtime.GetValueAsync().ContinueWith(getTask =>
+    //        {
+    //            if (getTask.IsCompletedSuccessfully)
+    //            {
+    //                long time = (long)getTask.Result.Value;
+    //                DateTime serverTime = DateTimeOffset.FromUnixTimeMilliseconds(time).UtcDateTime;
+    //                CheckQuestReset(serverTime);
+    //            }
+    //            else
+    //            {
+    //                Debug.Log("서버 시간 불러오기 실패.");
+    //            }
+    //        });
+    //    });
+    //}
 
-    void CheckQuestReset(DateTime serverTime)
+    public async Task CheckReset(DateTime serverUtc)
     {
         var player = PlayerDataManager.Instance.player;
+        DateTime serverKst = ServerTime.ConvertUtcToKst(serverUtc);
+        DateTime todayMidnightKst = ServerTime.GetLastMidnightKst(serverKst);
 
-        DateTime daily = DateTimeOffset.FromUnixTimeMilliseconds(player.lastDailyQuestTime).UtcDateTime;
-        if(serverTime.Date > daily.Date)
+        DateTime lastDailyResetKst = DateTimeOffset.FromUnixTimeSeconds(player.lastDailyQuestTime).UtcDateTime.AddHours(9);
+        if (lastDailyResetKst < todayMidnightKst)
         {
             ResetDailyQuests();
-            player.lastDailyQuestTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            player.lastDailyQuestTime = new DateTimeOffset(todayMidnightKst).ToUnixTimeSeconds();
+            PlayerDataManager.Instance.Save();
+            Debug.Log("서버 시간 기준 일일 퀘스트 초기화 완료");
         }
 
-        DateTime weekly = DateTimeOffset.FromUnixTimeMilliseconds(player.lastWeeklyQuestTime).UtcDateTime;
-        if(serverTime.DayOfWeek == DayOfWeek.Monday && GetWeekNumber(serverTime) != GetWeekNumber(weekly))
+        DateTime lastWeeklyResetKst = DateTimeOffset.FromUnixTimeSeconds(player.lastWeeklyQuestTime).UtcDateTime.AddHours(9);
+        if (serverKst.DayOfWeek == DayOfWeek.Monday && GetWeekNumber(serverKst) != GetWeekNumber(lastWeeklyResetKst))
         {
             ResetWeeklyQuests();
-            player.lastWeeklyQuestTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            player.lastWeeklyQuestTime = new DateTimeOffset(todayMidnightKst).ToUnixTimeSeconds();
+            PlayerDataManager.Instance.Save();
+            Debug.Log("서버 시간 기준 주간 퀘스트 초기화 완료");
         }
-
     }
 
     int GetWeekNumber(DateTime serverTime)

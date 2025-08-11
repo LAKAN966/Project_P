@@ -71,38 +71,27 @@ public class UILeaderUnitPannel : MonoBehaviour
         }
 
         List<int> sortedUnitID = cachedUnitOrder;
+        int leaderUnitID = DeckManager.Instance.GetLeaderUnit();
 
         foreach (int unitID in sortedUnitID)
         {
             var stats = UnitDataManager.Instance.GetStats(unitID);
             if (stats == null) continue;
 
-            //if (raceFilter.HasValue && stats.RaceID != raceFilter.Value) continue; // 종족 필터. 미궁의 탑을 위함.
-
-            //switch (currentFilter)
-            //{
-            //    case UnitFilterType.Undead:
-            //        if (stats.RaceID != 0) continue;
-            //        break;
-            //    case UnitFilterType.Crawler:
-            //        if (stats.RaceID != 1) continue;
-
-            //        break;
-            //    case UnitFilterType.All:
-            //        break;
-            //}
-
-
             GameObject iconGO = Instantiate(leaderPrefab, parent);
             var unitIcon = iconGO.GetComponent<LeaderUnit>();
             unitIcon.Setup(stats);
 
-            bool shouldDisable = DeckManager.Instance.CheckInDeck(stats.ID);
+            bool isInDeck = DeckManager.Instance.CheckInDeck(stats.ID);
 
-            if (shouldDisable)
+            if (isInDeck && stats.ID != leaderUnitID)
             {
                 unitIcon.SetDisabled();
             }
+            //else
+            //{
+            //    unitIcon.SetEnabled(); // 비활성화 상태 해제(없으면 추가)
+            //}
         }
     }
     public void ShowInfo(UnitStats stats)
@@ -227,7 +216,5 @@ public class UILeaderUnitPannel : MonoBehaviour
         UIDeckBuildManager.instance.SetDeckSlots();
         SetMyUnitIcons();
         PlayerDataManager.Instance.Save();
-
-
     }
 }
