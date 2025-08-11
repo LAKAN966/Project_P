@@ -73,6 +73,8 @@ public class TutorialManager : MonoBehaviour
             var tutorialDeck = new DeckData();
             tutorialDeck.AddNormalUnit(1001);
             tutorialDeck.AddNormalUnit(1002);
+            tutorialDeck.SetLeaderUnit(3001);
+
             var clonedDeck = DeckManager.Instance.CloneDeck(tutorialDeck);
 
             PlayerDataManager.Instance.player.currentDeck = clonedDeck;
