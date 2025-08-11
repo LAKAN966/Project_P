@@ -57,4 +57,26 @@ public class CertiSlot : MonoBehaviour
         UIController.Instance.PurchaseCertiUnitBox.GetComponent<CertiPurchaseBoxSet>().SetUnitIcon(UnitIcon.sprite);
         UIController.Instance.PurchaseCertiUnitBox.GetComponent<CertiPurchaseBoxSet>().ShowInfo(_Info);
     }
+
+    public void RefreshUI()
+    {
+        bool isOwned = PlayerDataManager.Instance.HasUnit(_Info.ID);
+
+        if (isOwned)
+        {
+            hasMark.SetActive(true);
+            certiSlot.interactable = false;
+            var color = UnitIcon.color;
+            color.a = 0.4f;
+            UnitIcon.color = color;
+        }
+        else
+        {
+            hasMark.SetActive(false);
+            certiSlot.interactable = true;
+            var color = UnitIcon.color;
+            color.a = 1f;
+            UnitIcon.color = color;
+        }
+    }
 }
