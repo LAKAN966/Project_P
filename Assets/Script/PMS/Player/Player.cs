@@ -55,14 +55,20 @@ public class Player : SaveTime
         {
             player.preset.Add(new DeckData());
         }
+        
+        if (!player.myUnitIDs.Contains(1001))
+            player.myUnitIDs.Add(1001);
 
-        //player.tutorialDone = new Dictionary<int, bool>()
-        //{
-        //    { 0, false },
-        //    { 1, false },
-        //    { 2, false },
-        //    { 3, false }
-        //};
+        if (!player.myUnitIDs.Contains(1002))
+            player.myUnitIDs.Add(1002);
+
+        if (!player.myUnitIDs.Contains(3001))
+            player.myUnitIDs.Add(3001);
+
+        player.preset[0].SetLeaderUnit(3001);
+
+        player.preset[0].AddNormalUnit(1001);
+        player.preset[0].AddNormalUnit(1002);
 
         player.preset = new List<DeckData>()
     {
