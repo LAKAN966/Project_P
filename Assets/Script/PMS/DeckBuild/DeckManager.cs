@@ -22,7 +22,7 @@ public class DeckManager
     private Player PlayerData => PlayerDataManager.Instance.player;
     private DeckData CurrentDeck => PlayerData.currentDeck;
 
-    public DeckData currentDeck = new DeckData();
+    //public DeckData currentDeck = new DeckData();
     private List<DeckData> presets = new();
 
 
@@ -147,6 +147,11 @@ public class DeckManager
     public int? GetLeaderUnit() // 현재 덱에 있는 리더 유닛 아이디 가지고 오기. UI 참조 용.
     {
         return CurrentDeck.leaderUnit?.myUnitID;
+    }
+
+    public bool TrySetLeaderUnit(int myUnitID)
+    {
+        return CurrentDeck.SetLeaderUnit(myUnitID);
     }
 
 }
