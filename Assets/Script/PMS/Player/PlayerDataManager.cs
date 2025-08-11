@@ -65,8 +65,7 @@ public class PlayerDataManager
         }
 
         var allItems = new List<Item>(ItemListLoader.Instance.GetAllList().Values);
-        ResetDailyPurchase(allItems);
-        ResetGoldDungeonEntry();
+        await DailyReset(allItems);
 
     }
 
@@ -407,49 +406,52 @@ public class PlayerDataManager
         Debug.Log($"{quest.RewardType} {quest.RewardValue} 획득");
         return true;
     }
-
-    public void ResetDailyPurchase(List<Item> allItems)
+    public async Task DailyReset(List<Item> allItems)
     {
-        TimeZoneInfo kst = TimeZoneInfo.FindSystemTimeZoneById("Asia/Seoul");
+        try
+        {
+            DateTime serverUtc = await ServerTime.GetServerTime();
+            DateTime serverKst = ServerTime.ConvertUtcToKst(serverUtc);
+            DateTime todayMidnightKst = ServerTime.GetLastMidnightKst(serverKst);
 
-        DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, kst).Date;
-        DateTime lastReset = TimeZoneInfo.ConvertTimeFromUtc(DateTimeOffset.FromUnixTimeSeconds(player.lastPurchaseResetTime).UtcDateTime, kst).Date;
+            ResetDailyPurchase(allItems, todayMidnightKst);
+            await ResetGoldDungeonEntry(todayMidnightKst);
+            await QuestManager.Instance.CheckReset(serverUtc);
+            await TowerManager.Instance.ResetTowerEntry(todayMidnightKst);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"서버 시간 기반 초기화 실패: {e.Message}");
+        }
+    }
 
-        if (now > lastReset)
+    private void ResetDailyPurchase(List<Item> allItems, DateTime todayMidnightKst)
+    {
+        DateTime lastResetKst = DateTimeOffset.FromUnixTimeSeconds(player.lastPurchaseResetTime).UtcDateTime.AddHours(9);
+        if (lastResetKst < todayMidnightKst)
         {
             player.itemPurchaseLeft.Clear();
             foreach (var item in allItems)
             {
                 player.itemPurchaseLeft[item.ID] = item.DailyBuy;
             }
-            player.lastPurchaseResetTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            player.lastPurchaseResetTime = new DateTimeOffset(todayMidnightKst).ToUnixTimeSeconds();
             Save();
-        }
-        else if (player.itemPurchaseLeft == null || player.itemPurchaseLeft.Count == 0)
-        {
-            player.itemPurchaseLeft = new Dictionary<int, int>();
-            foreach (var item in allItems)
-            {
-                player.itemPurchaseLeft[item.ID] = item.DailyBuy;
-            }
-            Save();
+            Debug.Log("서버 시간 기준 상점 구매 초기화 완료");
         }
     }
 
-    public void ResetGoldDungeonEntry()
+    private async Task ResetGoldDungeonEntry(DateTime todayMidnightKst)
     {
-        TimeZoneInfo kst = TimeZoneInfo.FindSystemTimeZoneById("Asia/Seoul");
+        var goldDungeon = player.goldDungeonData;
+        DateTime lastResetKst = DateTimeOffset.FromUnixTimeSeconds(goldDungeon.lastResetTime).UtcDateTime.AddHours(9);
 
-        DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, kst).Date;
-        DateTime lastReset = TimeZoneInfo.ConvertTimeFromUtc(
-            DateTimeOffset.FromUnixTimeSeconds(player.goldDungeonData.lastResetTime).UtcDateTime, kst
-        ).Date;
-
-        if (now > lastReset)
+        if (lastResetKst < todayMidnightKst)
         {
-            player.goldDungeonData.entryCounts = 3;
-            player.goldDungeonData.lastResetTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            goldDungeon.entryCounts = 3;
+            goldDungeon.lastResetTime = new DateTimeOffset(todayMidnightKst).ToUnixTimeSeconds();
             Save();
+            Debug.Log("서버 시간 기준 골드던전 입장횟수 초기화 완료");
         }
     }
 
