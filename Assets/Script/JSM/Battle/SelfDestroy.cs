@@ -1,22 +1,37 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class SelfDestroy : MonoBehaviour
 {
-    [SerializeField] private float delay = 1f; // 1초 안에 비활성화
+    [SerializeField, Min(0f)] private float delay = 1f; // Time.timeScale에 영향 없이 대기
+    private Coroutine co;
 
     void OnEnable()
     {
-        CancelInvoke(nameof(DisableMe));
-        Invoke(nameof(DisableMe), delay);
+        if (co != null) StopCoroutine(co);
+
+        if (delay <= 0f)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        co = StartCoroutine(DisableAfterDelayUnscaled());
     }
 
     void OnDisable()
     {
-        CancelInvoke(nameof(DisableMe));
+        if (co != null)
+        {
+            StopCoroutine(co);
+            co = null;
+        }
     }
 
-    private void DisableMe()
+    private System.Collections.IEnumerator DisableAfterDelayUnscaled()
     {
-        gameObject.SetActive(false);
+        yield return new WaitForSecondsRealtime(delay); // ← unscaled 시간
+        if (gameObject.activeSelf) gameObject.SetActive(false);
+        co = null;
     }
 }

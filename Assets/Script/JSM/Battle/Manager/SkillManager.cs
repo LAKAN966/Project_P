@@ -7,7 +7,8 @@ public class SkillManager : MonoBehaviour
     public static SkillManager Instance { get; private set; }
 
     public GameObject skillPanel;
-    public GameObject ActivateSkill;
+    public GameObject allyActivateSkill;
+    public GameObject enemyActivateSkill;
 
     [Header("스킬 ID")]
     public int passiveSkillID = 0;
@@ -83,7 +84,14 @@ public class SkillManager : MonoBehaviour
                 Debug.LogWarning($"정의되지 않은 스킬 ID: {skillID}");
                 break;
         }
-        ActivateSkill.SetActive(true);
+        if (!isEnemy)
+        {
+            allyActivateSkill.SetActive(true);
+        }
+        else
+        {
+            enemyActivateSkill.SetActive(true);
+        }
     }
     public UnitStats OnStartBuff(UnitStats stat)
     {
