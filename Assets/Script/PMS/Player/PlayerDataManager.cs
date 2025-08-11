@@ -66,6 +66,7 @@ public class PlayerDataManager
 
         var allItems = new List<Item>(ItemListLoader.Instance.GetAllList().Values);
         ResetDailyPurchase(allItems);
+        ResetGoldDungeonEntry();
 
     }
 
@@ -409,8 +410,10 @@ public class PlayerDataManager
 
     public void ResetDailyPurchase(List<Item> allItems)
     {
-        DateTime now = DateTime.UtcNow.Date;
-        DateTime lastReset = DateTimeOffset.FromUnixTimeSeconds(player.lastPurchaseResetTime).UtcDateTime.Date;
+        TimeZoneInfo kst = TimeZoneInfo.FindSystemTimeZoneById("Asia/Seoul");
+
+        DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, kst).Date;
+        DateTime lastReset = TimeZoneInfo.ConvertTimeFromUtc(DateTimeOffset.FromUnixTimeSeconds(player.lastPurchaseResetTime).UtcDateTime, kst).Date;
 
         if (now > lastReset)
         {
@@ -429,6 +432,23 @@ public class PlayerDataManager
             {
                 player.itemPurchaseLeft[item.ID] = item.DailyBuy;
             }
+            Save();
+        }
+    }
+
+    public void ResetGoldDungeonEntry()
+    {
+        TimeZoneInfo kst = TimeZoneInfo.FindSystemTimeZoneById("Asia/Seoul");
+
+        DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, kst).Date;
+        DateTime lastReset = TimeZoneInfo.ConvertTimeFromUtc(
+            DateTimeOffset.FromUnixTimeSeconds(player.goldDungeonData.lastResetTime).UtcDateTime, kst
+        ).Date;
+
+        if (now > lastReset)
+        {
+            player.goldDungeonData.entryCounts = 3;
+            player.goldDungeonData.lastResetTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             Save();
         }
     }

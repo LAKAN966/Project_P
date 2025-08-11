@@ -59,8 +59,13 @@ public class QuestManager
     {
         var player = PlayerDataManager.Instance.player;
 
-        DateTime daily = DateTimeOffset.FromUnixTimeMilliseconds(player.lastDailyQuestTime).UtcDateTime;
-        if(serverTime.Date > daily.Date)
+        TimeZoneInfo kst = TimeZoneInfo.FindSystemTimeZoneById("Asia/Seoul");
+
+        DateTime serverTimeKst = TimeZoneInfo.ConvertTimeFromUtc(serverTime, kst).Date;
+        DateTime lastDailyUtc = DateTimeOffset.FromUnixTimeMilliseconds(player.lastDailyQuestTime).UtcDateTime;
+        DateTime lastDailyKst = TimeZoneInfo.ConvertTimeFromUtc(lastDailyUtc, kst).Date;
+
+        if (serverTimeKst > lastDailyKst)
         {
             ResetDailyQuests();
             player.lastDailyQuestTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
