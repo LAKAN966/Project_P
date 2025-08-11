@@ -89,7 +89,7 @@ MonoBehaviour:
     dialogUp: 0
     highlightTarget: ToBack
   - npcName: "\uB179\uC2A4"
-    dialogue: "\uC774\uBC88\uC5D4 \uACE8\uB4DC \uB358\uC804\uC774\uB2E4"
+    dialogue: "\uC774\uBC88\uC5D4 \uC57D\uD0C8\uC774\uB2E4"
     triggerEventName: GoldDungeonBtn
     effectID: 6
     dialogUp: 1
