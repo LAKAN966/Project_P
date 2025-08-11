@@ -15,7 +15,7 @@ public class Player : SaveTime
     public List<int> myUnitIDs = new();
     public DeckData currentDeck = new();
     public List<DeckData> preset = new List<DeckData>();
-        
+
 
     public int currentPresetIndex;
     public List<int> clearedStageIDs = new();
@@ -51,11 +51,18 @@ public class Player : SaveTime
     public static Player CreateDefaultPlayer()
     {
         var player = new Player();
-        for (int i = 0; i < 3; i++)
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    player.preset.Add(new DeckData());
+        //}
+
+        player.preset = new List<DeckData>()
         {
-            player.preset.Add(new DeckData());
-        }
-        
+            new DeckData(),
+            new DeckData(),
+            new DeckData()
+        };
+
         if (!player.myUnitIDs.Contains(1001))
             player.myUnitIDs.Add(1001);
 
@@ -70,13 +77,6 @@ public class Player : SaveTime
         player.preset[0].AddNormalUnit(1001);
         player.preset[0].AddNormalUnit(1002);
 
-        player.preset = new List<DeckData>()
-    {
-        new DeckData(),
-        new DeckData(),
-        new DeckData()
-    };
-
         player.currentPresetIndex = 0;
         player.currentDeck = DeckManager.Instance.CloneDeck(player.preset[0]);
 
@@ -90,7 +90,7 @@ public class Player : SaveTime
             myUnitIDs.Add(unitID);
         }
     }
-    
+
 }
 
 public class PlayerQuestData
