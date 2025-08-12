@@ -102,7 +102,7 @@ MonoBehaviour:
     dialogUp: 0
     highlightTarget: Image
   - npcName: "\uB179\uC2A4"
-    dialogue: "\uACE8\uB4DC \uB358\uC804\uC5D0 \uB300\uD55C \uC124\uBA85\uC774 \uB418\uC5B4\uC788\uC73C\uB2C8
+    dialogue: "\uC57D\uD0C8\uC5D0 \uB300\uD55C \uC124\uBA85\uC774 \uB418\uC5B4\uC788\uC73C\uB2C8
       \uAD81\uAE08\uD558\uBA74 \uBCF4\uB3C4\uB85D"
     triggerEventName: 
     effectID: 1
