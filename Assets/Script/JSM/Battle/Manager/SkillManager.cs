@@ -113,15 +113,15 @@ public class SkillManager : MonoBehaviour
                 if (stat.RaceID == passiveSkillData.TargetRaceID)
                 {
                     stat.MoveSpeed = stat.MoveSpeed * ((passiveSkillData.EffectValue[0]+100) / 100);
-                    stat.PostDelay = stat.PostDelay * (100 - (passiveSkillData.EffectValue[1]) / 100);
-                    stat.PreDelay = stat.PreDelay * (100 - (passiveSkillData.EffectValue[1]) / 100);
+                    stat.PostDelay = stat.PostDelay * (100 - passiveSkillData.EffectValue[1]) / 100f;
+                    stat.PreDelay = stat.PreDelay * (100 - passiveSkillData.EffectValue[1]) / 100f;
                 }
                 break;
             case 9:
                 if (stat.RaceID == passiveSkillData.TargetRaceID)
                 {
-                    stat.MaxHP = stat.MaxHP * (100-passiveSkillData.EffectValue[1]) / 100;
-                    stat.Damage = stat.Damage * (100-passiveSkillData.EffectValue[2]) / 100;
+                    stat.MaxHP = stat.MaxHP * (100-passiveSkillData.EffectValue[1]) / 100f;
+                    stat.Damage = stat.Damage * (100-passiveSkillData.EffectValue[2]) / 100f;
                     stat.SpawnInterval = stat.SpawnInterval * (100 + passiveSkillData.EffectValue[2]) / 100;
                     UnitSpawner.Instance.doubleCrawler = true;
                 }

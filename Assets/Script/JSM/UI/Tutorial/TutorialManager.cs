@@ -388,7 +388,8 @@ public class TutorialManager : MonoBehaviour
         {
             SceneManager.LoadScene("MainScene");
         }
-        UIController.Instance.OnExitBtn();
+        else
+            UIController.Instance.OnExitBtn();
         switch (tutoNum)
         {
             case 1:
