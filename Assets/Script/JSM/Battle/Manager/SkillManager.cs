@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class SkillManager : MonoBehaviour
     public GameObject skillPanel;
     public GameObject allyActivateSkill;
     public GameObject enemyActivateSkill;
+    public GameObject skillPanelBtn;
 
     [Header("스킬 ID")]
     public int passiveSkillID = 0;
@@ -242,9 +244,11 @@ public class SkillManager : MonoBehaviour
 
     private void SetSkillPanel()
     {
-        skillPanel.SetActive(passiveSkillData != null);
+        skillPanelBtn.SetActive(passiveSkillData != null);
         var skillcs = skillPanel.GetComponent<SkillPanel>();
-        skillcs.skillName.text = passiveSkillData.Name;
-        skillcs.skillDescription.text = passiveSkillData.Description;
+        skillcs.skillNameP.text = passiveSkillData.Name;
+        skillcs.skillDescriptionP.text = passiveSkillData.Description;
+        skillcs.skillNameA.text = activeSkillData.Name;
+        skillcs.skillDescriptionA.text = activeSkillData.Description;
     }
 }
