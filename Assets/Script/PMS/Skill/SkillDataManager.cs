@@ -28,7 +28,6 @@ public class SkillDataManager : MonoBehaviour
     {
         LoadSkillData();
     }
-
     private void LoadSkillData()
     {
         try
@@ -39,7 +38,7 @@ public class SkillDataManager : MonoBehaviour
                 throw new FileNotFoundException("HeroSkillData를 찾을 수 없습니다.");
             }
 
-            string[] lines = csvFile.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = csvFile.text.Split(new[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 1; i < lines.Length; i++)
             {
                 if (string.IsNullOrWhiteSpace(lines[i])) continue;
