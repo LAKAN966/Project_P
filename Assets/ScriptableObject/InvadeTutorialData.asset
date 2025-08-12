@@ -130,7 +130,7 @@ MonoBehaviour:
     dialogUp: 0
     highlightTarget: 
   - npcName: "\uB179\uC2A4"
-    dialogue: "\uB9C8\uC9C0\uB9C9\uC73C\uB85C \uBBF8\uAD81\uC758 \uD0D1\uC774\uB2E4."
+    dialogue: "\uB9C8\uC9C0\uB9C9\uC73C\uB85C \uBBF8\uAD81\uC758 \uD0D1\uC774\uB2E4"
     triggerEventName: TowerBtn
     effectID: 6
     dialogUp: 1
