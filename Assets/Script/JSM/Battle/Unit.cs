@@ -253,10 +253,10 @@ public class Unit : MonoBehaviour
 
         // 공격 모션 대기시간: PreDelay 안에 포함
         float attackMotionLeadTime = spawnWait;
-
+        Debug.Log(stats.PreDelay);
         // (PreDelay - 공격모션 대기) 대기
-        float firstWait = stats.PreDelay - attackMotionLeadTime;
-        if (firstWait > 0f) yield return new WaitForSeconds(firstWait);
+        float firstWait = Mathf.Max(0.05f, stats.PreDelay - attackMotionLeadTime);
+        yield return new WaitForSeconds(firstWait);
 
         // 공격 모션 시작
         SetState(UnitState.Fighting);
@@ -305,7 +305,8 @@ public class Unit : MonoBehaviour
         }
 
         // PostDelay 대기
-        if (stats.PostDelay > 0f) yield return new WaitForSeconds(stats.PostDelay);
+        float postWait = Mathf.Max(0.05f, stats.PostDelay);
+        if (postWait > 0f) yield return new WaitForSeconds(postWait);
 
         SetState(UnitState.Moving);
         isAttacking = false;

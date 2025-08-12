@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class SkillManager : MonoBehaviour
     public GameObject skillPanel;
     public GameObject allyActivateSkill;
     public GameObject enemyActivateSkill;
+    public GameObject skillPanelBtn;
 
     [Header("스킬 ID")]
     public int passiveSkillID = 0;
@@ -113,15 +115,15 @@ public class SkillManager : MonoBehaviour
                 if (stat.RaceID == passiveSkillData.TargetRaceID)
                 {
                     stat.MoveSpeed = stat.MoveSpeed * ((passiveSkillData.EffectValue[0]+100) / 100);
-                    stat.PostDelay = stat.PostDelay * (100 - (passiveSkillData.EffectValue[1]) / 100);
-                    stat.PreDelay = stat.PreDelay * (100 - (passiveSkillData.EffectValue[1]) / 100);
+                    stat.PostDelay = stat.PostDelay * (100 - passiveSkillData.EffectValue[1]) / 100f;
+                    stat.PreDelay = stat.PreDelay * (100 - passiveSkillData.EffectValue[1]) / 100f;
                 }
                 break;
             case 9:
                 if (stat.RaceID == passiveSkillData.TargetRaceID)
                 {
-                    stat.MaxHP = stat.MaxHP * (100-passiveSkillData.EffectValue[1]) / 100;
-                    stat.Damage = stat.Damage * (100-passiveSkillData.EffectValue[2]) / 100;
+                    stat.MaxHP = stat.MaxHP * (100-passiveSkillData.EffectValue[1]) / 100f;
+                    stat.Damage = stat.Damage * (100-passiveSkillData.EffectValue[2]) / 100f;
                     stat.SpawnInterval = stat.SpawnInterval * (100 + passiveSkillData.EffectValue[2]) / 100;
                     UnitSpawner.Instance.doubleCrawler = true;
                 }
@@ -242,9 +244,11 @@ public class SkillManager : MonoBehaviour
 
     private void SetSkillPanel()
     {
-        skillPanel.SetActive(passiveSkillData != null);
+        skillPanelBtn.SetActive(passiveSkillData != null);
         var skillcs = skillPanel.GetComponent<SkillPanel>();
-        skillcs.skillName.text = passiveSkillData.Name;
-        skillcs.skillDescription.text = passiveSkillData.Description;
+        skillcs.skillNameP.text = passiveSkillData.Name;
+        skillcs.skillDescriptionP.text = passiveSkillData.Description;
+        skillcs.skillNameA.text = activeSkillData.Name;
+        skillcs.skillDescriptionA.text = activeSkillData.Description;
     }
 }
