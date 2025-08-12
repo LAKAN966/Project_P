@@ -204,6 +204,7 @@ public class UIUnitIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         {
             UIDeckBuildManager.instance.SetMyUnitIcons();
             UIDeckBuildManager.instance.SetDeckSlots();
+            DeckManager.Instance.SaveCurrentDeckToPreset();
             PlayerDataManager.Instance.Save();
         }
         else
