@@ -38,12 +38,17 @@ public class SkillDataManager : MonoBehaviour
                 throw new FileNotFoundException("HeroSkillData를 찾을 수 없습니다.");
             }
 
-            string[] lines = csvFile.text.Split(new[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 1; i < lines.Length; i++)
-            {
-                if (string.IsNullOrWhiteSpace(lines[i])) continue;
+            // Windows/Mac/Unix 개행 모두 \n 으로 통일
+            string csvText = csvFile.text.Replace("\r\n", "\n").Replace("\r", "\n");
 
-                List<string> tokens = ParseCSVLine(lines[i]);
+            // CSV 한 줄씩 읽되, 따옴표 안의 줄바꿈은 무시
+            List<string> rows = SplitCsvIntoRows(csvText);
+
+            for (int i = 1; i < rows.Count; i++) // 첫 줄은 헤더
+            {
+                if (string.IsNullOrWhiteSpace(rows[i])) continue;
+
+                List<string> tokens = ParseCSVLine(rows[i]);
 
                 SkillData skill = new SkillData()
                 {
@@ -63,8 +68,44 @@ public class SkillDataManager : MonoBehaviour
         {
             Debug.LogError(ex.Message);
         }
-
     }
+
+    /// <summary>
+    /// CSV 텍스트를 줄 단위로 나누되, "" 안의 줄바꿈은 그대로 둠
+    /// </summary>
+    private static List<string> SplitCsvIntoRows(string csvText)
+    {
+        List<string> rows = new();
+        bool inQuotes = false;
+        string currentRow = "";
+
+        foreach (char c in csvText)
+        {
+            if (c == '"')
+            {
+                inQuotes = !inQuotes;
+                currentRow += c;
+            }
+            else if (c == '\n' && !inQuotes)
+            {
+                rows.Add(currentRow);
+                currentRow = "";
+            }
+            else
+            {
+                currentRow += c;
+            }
+        }
+
+        if (!string.IsNullOrEmpty(currentRow))
+            rows.Add(currentRow);
+
+        return rows;
+    }
+
+    /// <summary>
+    /// CSV 한 줄을 필드 단위로 파싱 (따옴표 포함, 줄바꿈 포함 가능)
+    /// </summary>
     private static List<string> ParseCSVLine(string line)
     {
         var matches = Regex.Matches(line, @"(?<field>[^,""]+|""([^""]|"""")*"")(?=,|$)");
