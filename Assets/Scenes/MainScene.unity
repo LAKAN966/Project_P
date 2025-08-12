@@ -58131,7 +58131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillInfoPanel: {fileID: 6179263435090572417}
   skillName: {fileID: 4259857877690160243}
-  skillDescription: {fileID: 0}
+  skillDescription: {fileID: 394373865}
   blocker: {fileID: 2843649603781176335}
 --- !u!114 &5877695302143635666
 MonoBehaviour:
