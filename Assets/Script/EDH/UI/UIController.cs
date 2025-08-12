@@ -218,7 +218,8 @@ public class UIController : MonoBehaviour
     public void OnExitBtn()
     {
         //Debug.Log(Stage.activeSelf + " " + DeckBuild.activeSelf);
-        if (Stage.activeSelf && DeckBuild.activeSelf)
+        
+        if (Stage != null && DeckBuild != null && Stage.activeSelf && DeckBuild.activeSelf)
         {
             SFXManager.Instance.PlaySFX(0);
             DeckBuild.SetActive(false);
